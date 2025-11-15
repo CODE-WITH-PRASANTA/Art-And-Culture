@@ -4,7 +4,8 @@ import Home from "./Pages/Home/Home";
 
 import Contact from "./Pages/Contact/Contact";
 import Footer from "./Components/Footer/Footer";
-import Shop from "./Pages/Shop/Shop";
+import ShopSec from "./Pages/ShopSec/ShopSec";
+
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/Shop" element={<ShopSec />} />
         </Routes>
       </main>
 
