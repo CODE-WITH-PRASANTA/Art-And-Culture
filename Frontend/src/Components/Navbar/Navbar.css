@@ -1,130 +1,156 @@
-/* ===============================
-   GLOBAL navbar-container WRAPPER
-=============================== */
+:root {
+  --brand-primary: #7A2E1B;
+  --brand-primary-dark: #5E2215;
+  --brand-light-bg: #F8F3EB;
+  --brand-border: #D8C9B9;
+  --brand-soft: #FAF6F1;
+  --max-width: 1350px;
+}
+
+/* hide the hamburger in the desktop/right-bar only (keep mobile hamburger) */
+.navbar-right-bar--desktop .topbar-hamburger {
+  display: none;
+}
+
+/* ========== container & reset ========== */
 .navbar-container {
-  max-width: 1350px;
+  max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* ===============================
-   MAIN NAVBAR WRAPPER
-=============================== */
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+a { text-decoration: none; color: inherit; }
+
+/* ========== header ========== */
 .navbar-header {
   background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 2000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--brand-border);
 }
 
-/* ===============================
-   TOP NAVBAR
-=============================== */
+/* ========== TOP NAV ========== */
+/* Default (mobile-first): stacked layout: top row (logo + icons) then search */
 .navbar-top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* top row contains logo left and mobile icons right */
+.navbar-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 90px;
-  border-bottom: 1px solid #e8e8e8; /* NEW added border */
+  gap: 12px;
+  width: 100%;
 }
 
-/* Logo */
 .navbar-logo img {
-  height: 70px;
+  height: 56px;
   border-radius: 12px;
   object-fit: contain;
-  transition: 0.25s ease;
+  background: var(--brand-soft);
+  padding: 4px;
+  box-shadow: 0 2px 10px rgba(122,46,27,0.18);
 }
 
-/* ===============================
-   SEARCH BAR
-=============================== */
-.navbar-search {
-  flex: 1;
+/* right bar - base styles used for both mobile and desktop copies */
+.navbar-right-bar {
   display: flex;
-  max-width: 600px;
-  margin: 0 30px;
-  background: #fafafa;
+  align-items: center;
+  gap: 10px;
+}
+
+/* hamburger */
+.topbar-hamburger {
+  background: var(--brand-soft);
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--brand-border);
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--brand-primary);
+}
+
+/* search (base styling) */
+.navbar-search {
+  display: flex;
+  width: 100%;
+  max-width: 900px; /* base */
+  margin: 0 auto;
+  background: var(--brand-soft);
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #dedede;
+  border: 1px solid var(--brand-border);
   transition: 0.3s ease;
 }
 
 .navbar-search input {
   flex: 1;
-  padding: 14px 18px;
+  padding: 12px 14px;
   border: none;
   outline: none;
   font-size: 15px;
   background: transparent;
-  color: #444;
+  color: var(--brand-primary);
 }
 
 .navbar-search button {
-  width: 60px;
+  width: 56px;
   border: none;
   background: transparent;
   cursor: pointer;
+  font-size: 18px;
 }
 
-.navbar-search button svg {
-  font-size: 22px;
-  color: #555;
-}
+.navbar-search button svg { color: var(--brand-primary); }
 
-/* Focused version */
 .navbar-search:focus-within {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(122,46,27,0.12);
   background: #fff;
-  border-color: #c5c5c5;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
 }
 
-/* ===============================
-   RIGHT SIDE ICONS
-=============================== */
-.navbar-icons {
-  display: flex;
-  gap: 12px;
-}
-
-.navbar-icons a {
-  font-size: 26px;
-  background: #f4f4f4;
-  padding: 10px 12px;
-  border-radius: 12px;
-  color: #444;
+/* icon links */
+.icon-link {
+  font-size: 22px;
+  background: var(--brand-soft);
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--brand-primary);
   transition: 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--brand-border);
 }
 
-.navbar-icons a:hover {
-  background: #e9e9e9;
-  transform: translateY(-2px);
-}
+.icon-link:hover { background:#f6ebe3; transform: translateY(-2px); }
 
-.navbar-divider {
-  height: 1px;
-  border: none;
-  margin: 0;
-}
-/* ===============================
-   BOTTOM NAVBAR
-=============================== */
+/* divider */
+.navbar-divider { height: 1px; border: none; margin: 0; }
+
+/* ========== BOTTOM NAV ========== */
 .navbar-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 58px;
+  padding: 0 20px;
 }
 
-/* CATEGORY BUTTON */
+/* category button */
 .navbar-category-btn {
-  background: #f4f4f4;
-  color: #222;
+  background: var(--brand-soft);
+  color: var(--brand-primary);
   padding: 10px 20px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--brand-border);
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
@@ -135,272 +161,538 @@
   transition: 0.25s ease;
 }
 
-.navbar-category-btn:hover {
-  background: #eaeaea;
-  border-color: #cfcfcf;
-}
+.navbar-category-btn:hover { background:#f2e4d9; }
 
-/* LINKS */
-.navbar-links {
-  display: flex;
-  gap: 22px;
-}
+/* links */
+.navbar-links { display: flex; gap: 22px; }
 
 .navbar-links a {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #333;
+  color: var(--brand-primary);
   font-size: 15px;
   padding: 8px 6px;
   transition: 0.25s ease;
-}
-
-.navbar-links a:hover {
-  color: #000;
-  background: #f3f3f3;
   border-radius: 8px;
 }
 
-/* QUOTE BUTTON */
+.navbar-links a:hover { background: var(--brand-soft); color: var(--brand-primary-dark); }
+
+/* quote button */
 .navbar-quote-btn {
-  background: #222;
+  background: var(--brand-primary);
   color: #fff;
   padding: 10px 20px;
   border-radius: 12px;
   font-weight: 600;
-  transition: 0.25s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.navbar-quote-btn:hover {
-  background: #000;
-}
-
-/* ===============================
-   CATEGORY DROPDOWN – PREMIUM UI
-=============================== */
+/* category dropdown */
 .navbar-category-dropdown {
   position: absolute;
-  top: 160px; /* better alignment */
+  top: 160px;
   left: 130px;
   width: 250px;
-
-  background: #ffffff;
+  background: var(--brand-light-bg);
   border-radius: 14px;
   padding: 10px 0 14px 0;
-
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.10);
-
-  border: 1px dashed #d6d6d6;  /* soft dashed border */
+  box-shadow: 0 14px 40px rgba(122,46,27,0.12);
+  border: 1px dashed var(--brand-border);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-15px) scale(0.98);
   transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
-/* When dropdown is open */
-.navbar-category-dropdown.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0) scale(1);
+.navbar-category-dropdown.show { 
+  opacity:1; 
+  pointer-events:auto; 
+  transform: translateY(0) scale(1); 
 }
 
-/* List navbar-container */
-.navbar-category-dropdown ul {
-  margin: 0;
-  padding: 0 6px;
-  list-style: none;
+.navbar-category-dropdown ul { 
+  margin:0; 
+  padding:0 6px; 
+  list-style:none; 
 }
 
-/* Remove animation from default state */
-.navbar-category-dropdown li {
-  opacity: 0;
-  transform: translateY(-15px);
+.navbar-category-dropdown li { 
+  opacity:0; 
+  transform:translateY(-15px); 
 }
 
-/* Apply animation ONLY when dropdown is opened */
-.navbar-category-dropdown.show li {
-  animation: dropdownVertical 0.35s ease forwards;
+.navbar-category-dropdown.show li { 
+  animation: dropdownVertical 0.35s ease forwards; 
 }
 
-/* Animation delay after adding .show */
-.navbar-category-dropdown.show li:nth-child(1) { animation-delay: 0.05s; }
-.navbar-category-dropdown.show li:nth-child(2) { animation-delay: 0.15s; }
-.navbar-category-dropdown.show li:nth-child(3) { animation-delay: 0.20s; }
-.navbar-category-dropdown.show li:nth-child(4) { animation-delay: 0.25s; }
-.navbar-category-dropdown.show li:nth-child(5) { animation-delay: 0.30s; }
-.navbar-category-dropdown.show li:nth-child(6) { animation-delay: 0.35s; }
-
-/* Keyframes for vertical drop */
-@keyframes dropdownVertical {
-  0% {
-    opacity: 0;
-    transform: translateY(-15px); /* start above */
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0); /* land in place */
-  }
+.navbar-category-dropdown li a { 
+  display:block; 
+  padding:12px 18px; 
+  font-size:15px; 
+  color:var(--brand-primary); 
+  border-radius:10px; 
+  background:var(--brand-soft); 
+  border:1px solid var(--brand-border); 
+  margin:6px; 
 }
 
-
-/* Dropdown item link styling with border */
-.navbar-category-dropdown li a {
-  display: block;
-  padding: 12px 18px;
-  font-size: 15px;
-  color: #333;
-
-  border-radius: 10px;
-  background: #fafafa;
-
-  /* NEW: clean professional matching border */
-  border: 1px solid #e2e2e2;
-
-  /* Spacing between items */
-  margin: 6px 6px;
-
-  transition: 0.25s ease;
+@keyframes dropdownVertical { 
+  0%{opacity:0; transform:translateY(-15px);} 
+  100%{opacity:1; transform:translateY(0);} 
 }
 
-/* Hover effect */
-.navbar-category-dropdown li a:hover {
-  background: #efefef;
-  padding-left: 24px;  /* smooth slide */
-  color: #111;
-
-  /* Border becomes darker on hover */
-  border-color: #cccccc;
+/* ========== ENHANCED MOBILE DRAWER ========== */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 2100;
 }
 
-
-/* ============================================
-   BRAND THEME (MATCHING GANESH LOGO COLORS)
-=============================================== */
-
-:root {
-  --brand-primary: #7A2E1B;
-  --brand-primary-dark: #5E2215;
-  --brand-light-bg: #F8F3EB;
-  --brand-border: #D8C9B9;
-  --brand-soft: #FAF6F1;
+.mobile-drawer.open {
+  display: flex;
 }
 
-/* --------------------------------------------
-   NAVBAR WRAPPER BACKGROUND UPDATE
---------------------------------------------- */
-.navbar-header {
-  border-bottom: 1px solid var(--brand-border);
+/* Elegant slide-in animation for drawer inner */
+.mobile-drawer .drawer-inner {
+  width: 320px;
+  background: linear-gradient(135deg, #ffffff 0%, var(--brand-soft) 100%);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    2px 0 24px rgba(122, 46, 27, 0.12),
+    8px 0 40px rgba(122, 46, 27, 0.08);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 2110;
+  position: relative;
+  overflow-y: auto;
+  border-right: 1px solid var(--brand-border);
 }
 
-/* --------------------------------------------
-   LOGO style upgrade (subtle shadow)
---------------------------------------------- */
-.navbar-logo img {
+.mobile-drawer.open .drawer-inner {
+  transform: translateX(0);
+}
+
+/* Enhanced scrim with fade animation */
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  z-index: 2105;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.mobile-drawer.open .drawer-scrim {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Enhanced drawer top section */
+.drawer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--brand-border);
+}
+
+.drawer-logo img {
+  height: 60px;
+  border-radius: 12px;
+  object-fit: contain;
   background: var(--brand-soft);
-  padding: 4px;
-  border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(122, 46, 27, 0.18);
+  padding: 6px;
+  box-shadow: 0 4px 16px rgba(122, 46, 27, 0.15);
+  transition: transform 0.3s ease;
 }
 
-/* --------------------------------------------
-   SEARCH BAR - premium matching theme
---------------------------------------------- */
-.navbar-search {
-  background: var(--brand-soft);
-  border: 1px solid var(--brand-border);
+.drawer-logo img:hover {
+  transform: scale(1.05);
 }
 
-.navbar-search input {
-  color: var(--brand-primary);
-}
-
-.navbar-search button svg {
-  color: var(--brand-primary);
-}
-
-.navbar-search:focus-within {
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 0 2px rgba(122,46,27,0.28);
-  background: #fff;
-}
-
-/* --------------------------------------------
-   RIGHT SIDE ICONS - modern premium
---------------------------------------------- */
-.navbar-icons a {
+.drawer-close {
   background: var(--brand-soft);
   border: 1px solid var(--brand-border);
-  color: var(--brand-primary);
-}
-
-.navbar-icons a:hover {
-  background: #f6ebe3;
-  border-color: var(--brand-primary);
-  transform: translateY(-4px);
-}
-
-/* --------------------------------------------
-   CATEGORY BUTTON
---------------------------------------------- */
-.navbar-category-btn {
-  background: var(--brand-soft);
-  color: var(--brand-primary);
-  border-color: var(--brand-border);
-}
-
-.navbar-category-btn:hover {
-  background: #f2e4d9;
-  border-color: var(--brand-primary);
-}
-
-/* --------------------------------------------
-   NAV LINKS
---------------------------------------------- */
-.navbar-links a {
-  color: var(--brand-primary);
-}
-
-.navbar-links a:hover {
-  background: var(--brand-soft);
-  color: var(--brand-primary-dark);
   border-radius: 10px;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--brand-primary);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* --------------------------------------------
-   QUOTE BUTTON
---------------------------------------------- */
-.navbar-quote-btn {
+.drawer-close:hover {
   background: var(--brand-primary);
-  box-shadow: 0 4px 10px rgba(122,46,27,0.35);
+  color: white;
+  transform: rotate(90deg);
 }
 
-.navbar-quote-btn:hover {
-  background: var(--brand-primary-dark);
+/* Enhanced search in drawer */
+.drawer-search form {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
 }
 
-/* --------------------------------------------
-   DROPDOWN MAIN BOX
---------------------------------------------- */
-.navbar-category-dropdown {
-  background: var(--brand-light-bg);
-  border: 1px dashed var(--brand-border);
-  box-shadow: 0 14px 40px rgba(122,46,27,0.15);
-}
-
-/* --------------------------------------------
-   DROPDOWN ITEMS
---------------------------------------------- */
-.navbar-category-dropdown li a {
-  background: var(--brand-soft);
+.drawer-search input {
+  flex: 1;
+  padding: 12px 16px;
   border: 1px solid var(--brand-border);
+  border-radius: 12px;
+  background: white;
+  font-size: 15px;
+  transition: all 0.3s ease;
   color: var(--brand-primary);
 }
 
-.navbar-category-dropdown li a:hover {
-  background: #f3e6dc;
+.drawer-search input:focus {
   border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(122, 46, 27, 0.1);
+  outline: none;
+}
+
+.drawer-search button {
+  border: none;
+  background: var(--brand-primary);
+  color: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-search button:hover {
+  background: var(--brand-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ========== TABBED INTERFACE ========== */
+.drawer-tabs {
+  display: flex;
+  background: var(--brand-soft);
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid var(--brand-border);
+  margin-bottom: 16px;
+}
+
+.drawer-tab {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--brand-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-tab.active {
+  background: var(--brand-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(122, 46, 27, 0.2);
+}
+
+.drawer-tab:not(.active):hover {
+  background: rgba(122, 46, 27, 0.1);
+  transform: translateY(-1px);
+}
+
+.drawer-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.drawer-tab-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+}
+
+.drawer-tab-pane.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+/* Enhanced drawer links with elegant animations */
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawer-links a {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--brand-primary);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.drawer-links a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--brand-soft) 0%, transparent 100%);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.drawer-links a:hover::before {
+  width: 100%;
+}
+
+.drawer-links a:hover {
+  transform: translateX(8px);
   color: var(--brand-primary-dark);
-  padding-left: 28px;
+}
+
+/* Enhanced quote button in drawer */
+.drawer-links .drawer-quote {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%) !important;
+  color: white !important;
+  font-weight: 600;
+  margin-top: 16px;
+  justify-content: center;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(122, 46, 27, 0.2);
+}
+
+.drawer-links .drawer-quote:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(122, 46, 27, 0.3);
+}
+
+.drawer-links .drawer-quote::before {
+  display: none;
+}
+
+/* Enhanced footer icons */
+.drawer-footer {
+  margin-top: auto;
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--brand-border);
+  justify-content: center;
+}
+
+.drawer-footer a {
+  background: var(--brand-soft);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--brand-border);
+  color: var(--brand-primary);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-footer a:hover {
+  background: var(--brand-primary);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Staggered animation for drawer links when opening */
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInRight 0.4s ease forwards;
+}
+
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(1) { animation-delay: 0.1s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(2) { animation-delay: 0.15s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(3) { animation-delay: 0.2s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(4) { animation-delay: 0.25s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(5) { animation-delay: 0.3s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(6) { animation-delay: 0.35s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links a:nth-child(7) { animation-delay: 0.4s; }
+.mobile-drawer.open .drawer-tab-pane.active .drawer-links .drawer-quote { animation-delay: 0.45s; }
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth scroll for drawer */
+.mobile-drawer .drawer-inner {
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-border) transparent;
+}
+
+.mobile-drawer .drawer-inner::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-drawer .drawer-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-drawer .drawer-inner::-webkit-scrollbar-thumb {
+  background: var(--brand-border);
+  border-radius: 2px;
+}
+
+/* ========== RESPONSIVE RULES ========== */
+
+/* Tablet adjustments */
+@media (max-width: 992px) {
+  .navbar-search { max-width: 600px; margin: 0 14px; }
+  .navbar-links { display: none; }
+  .navbar-category-btn { display: none; }
+  .navbar-quote-btn { display: none; }
+
+  /* Show the mobile right-bar (in the top row), hide desktop right-bar */
+  .navbar-right-bar--desktop { display: none; }
+  .navbar-right-bar--mobile { display: flex; }
+}
+
+/* DESKTOP / LAPTOP: center search, logo left, icons right (wider search) */
+@media (min-width: 992px) {
+  /* Use a 3-column grid so the search can be perfectly centered.
+     center column uses a minmax to expand nicely on larger screens. */
+  .navbar-top {
+    display: grid;
+    grid-template-columns: 1fr minmax(560px, 920px) 1fr;
+    align-items: center;
+    padding: 14px 0;
+    gap: 20px;
+  }
+
+  /* LEFT column: logo-only cell (keeps logo left) */
+  .navbar-top-row {
+    grid-column: 1 / 2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  /* center: search — expanded and elegant on laptop/desktop */
+  .navbar-search {
+    grid-column: 2 / 3;
+    max-width: 920px;    /* larger, elegant width */
+    width: 100%;
+    margin: 0 auto;
+    flex: none;
+    border-radius: 18px;
+  }
+  .navbar-search input {
+    padding: 14px 18px;  /* more generous padding on desktop */
+    font-size: 16px;
+  }
+  .navbar-search button {
+    width: 64px;         /* slightly larger click target */
+    font-size: 20px;
+  }
+
+  /* right: desktop icons */
+  .navbar-right-bar--desktop {
+    grid-column: 3 / 4;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    align-items: center;
+  }
+
+  /* hide the mobile version of right-bar (it exists in the top-row markup) */
+  .navbar-right-bar--mobile { display: none; }
+
+  /* small tweak: keep search input left-aligned for usability */
+  .navbar-search input { text-align: left; }
+
+  /* override older left-margin rules */
+  .navbar-top-row + .navbar-search { margin-left: 0 !important; }
+}
+
+/* Mobile: small screens nitro adjustments */
+@media (max-width: 576px) {
+  .navbar-top { padding: 8px 12px; gap: 6px; }
+  .navbar-top-row { align-items: center; }
+  .navbar-logo img { height: 48px; }
+
+  /* compact icons spacing for very small screens */
+  .navbar-right-bar { gap: 8px; }
+
+  /* search full width under top row */
+  .navbar-search {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  .navbar-search input { padding: 10px 12px; font-size: 15px; }
+  .navbar-search button { width: 48px; }
+
+  /* hide bottom nav area on very small screens for compactness */
+  .navbar-bottom, .navbar-links, .navbar-category-btn, .navbar-quote-btn { display: none; }
+
+  /* hide divider */
+  .navbar-divider { display: none; }
+
+  /* Mobile drawer adjustments for small screens */
+  .mobile-drawer .drawer-inner {
+    width: 280px;
+    padding: 20px 16px;
+  }
+  
+  .drawer-links a {
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .drawer-tab {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
+
+/* accessibility focus */
+button:focus, a:focus, input:focus { 
+  outline: 3px solid rgba(122,46,27,0.16); 
+  outline-offset: 2px; 
 }
