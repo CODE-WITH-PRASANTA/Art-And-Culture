@@ -1,0 +1,276 @@
+/* Page background */
+.terms-page {
+  font-family: "Inter", sans-serif;
+  background: #ffffff;
+  padding-bottom: 60px;
+}
+
+/* Top Blue Section */
+.terms-header {
+  background: #7A2E1B;
+  padding: 80px 20px 100px 20px;
+  text-align: center;
+  color: white;
+}
+
+.terms-header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.terms-header p {
+  font-size: 16px;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* White Box Content */
+.terms-box {
+  width: 80%;
+  max-width: 1100px;
+  background: white;
+  margin: -60px auto 0 auto;
+  padding: 60px 50px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Headings */
+.section-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Bullet Item Layout */
+.terms-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 18px;
+  line-height: 29px;
+}
+
+/* Blue icon */
+.icon {
+  font-size: 15px;
+  color: #7A2E1B;
+  margin-top: 7px;
+}
+
+/* Text */
+.terms-item p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+/* Sub list styling EXACT like screenshot */
+.sub-list {
+  margin-left: 48px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.sub-list li {
+  font-size: 16px;
+  color: #555;
+  line-height: 30px;
+  list-style-type: circle;
+}
+/* Pink Warning Box */
+.warning-box {
+  background: #ffe1e6;
+  color: #c74a5a;
+  padding: 20px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* Buttons Row */
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+/* Decline Button */
+.decline-btn {
+  background: none;
+  border: none;
+  color: #d9534f;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 18px;
+}
+
+/* Accept Button */
+.accept-btn {
+  background: #7A2E1B;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 12px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Hover effects */
+.decline-btn:hover {
+  opacity: 0.7;
+}
+
+.accept-btn:hover {
+  background: #18b187;
+}
+
+/* Sub bullet styling */
+.sub-list {
+  margin-left: 48px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.sub-list li {
+  font-size: 16px;
+  color: #555;
+  line-height: 28px;
+  list-style-type: circle;
+}
+/* ============= RESPONSIVE DESIGN ============= */
+
+/* Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+  .terms-box {
+    width: 90%;
+    padding: 50px 35px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .terms-item p {
+    font-size: 15px;
+    line-height: 26px;
+  }
+
+  .sub-list li {
+    font-size: 15px;
+    line-height: 26px;
+  }
+
+  .warning-box {
+    font-size: 15px;
+    padding: 18px 20px;
+  }
+
+  .button-row {
+    justify-content: center; /* Center buttons on tablet */
+  }
+}
+
+/* Large Mobile Phones (max-width: 768px) */
+@media (max-width: 768px) {
+  .terms-header h1 {
+    font-size: 32px;
+  }
+
+  .terms-header {
+    padding: 60px 20px 80px;
+  }
+
+  .terms-box {
+    padding: 45px 25px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .terms-item {
+    gap: 12px;
+  }
+
+  .icon {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .terms-item p,
+  .sub-list li {
+    font-size: 14px;
+  }
+
+  .sub-list {
+    margin-left: 32px;
+  }
+
+  .warning-box {
+    font-size: 14px;
+    padding: 16px 18px;
+  }
+
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .accept-btn,
+  .decline-btn {
+    width: 160px;
+    text-align: center;
+  }
+}
+
+/* Small Mobile Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .terms-header h1 {
+    font-size: 26px;
+  }
+
+  .terms-header p {
+    font-size: 14px;
+  }
+
+  .terms-box {
+    padding: 35px 20px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .terms-item {
+    align-items: flex-start;
+  }
+
+  .terms-item p,
+  .sub-list li {
+    font-size: 13px;
+    line-height: 24px;
+  }
+
+  .sub-list {
+    margin-left: 25px;
+  }
+
+  .warning-box {
+    font-size: 13px;
+    padding: 14px 14px;
+  }
+
+  .accept-btn,
+  .decline-btn {
+    width: 150px;
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}

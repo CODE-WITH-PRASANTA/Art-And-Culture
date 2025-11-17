@@ -114,10 +114,7 @@
   font-size: 14px;
 }
 
-/* -------------------------------------------------------
-   ⭐ CORRECT WOO-COMMERCE STYLE HOVER (UNDER THE IMAGE)
--------------------------------------------------------- */
-
+/* WooCommerce Hover */
 .card-hover-box {
   text-align: center;
   opacity: 0;
@@ -128,14 +125,12 @@
   margin-top: 10px;
 }
 
-/* Show on hover */
 .product-card:hover .card-hover-box {
   opacity: 1;
   height: auto;
   transform: translateY(0);
 }
 
-/* Add to cart button */
 .add-to-cart-btn {
   background: transparent;
   border: 1px solid #444;
@@ -152,14 +147,12 @@
   color: #fff;
 }
 
-/* Wishlist + Compare buttons container */
 .hover-links {
   display: flex;
   justify-content: center;
   gap: 12px;
 }
 
-/* Wishlist + Compare buttons */
 .wishlist-btn,
 .compare-btn {
   background: transparent;
@@ -172,7 +165,6 @@
   color: #444;
 }
 
-/* Hover effect for both */
 .wishlist-btn:hover,
 .compare-btn:hover {
   background: #333;
@@ -180,16 +172,13 @@
   border-color: #333;
 }
 
-/* ❤️ Wishlist Active State */
 .wishlist-btn.active {
   border-color: red;
   color: red !important;
   font-weight: bold;
 }
-/* -----------------------------------------
-   ⭐ PAGINATION STYLING (BOTTOM PAGE NUMBERS)
------------------------------------------- */
 
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -199,7 +188,6 @@
   padding-bottom: 20px;
 }
 
-/* Page numbers and arrows */
 .page-number,
 .page-btn {
   width: 40px;
@@ -215,22 +203,176 @@
   align-items: center;
 }
 
-/* Hover effect */
 .page-number:hover,
 .page-btn:hover:not(:disabled) {
   background: #eee;
 }
 
-/* Active page (dark background like screenshot) */
 .page-number.active {
-  background: #442233;   /* deep plum color from screenshot */
+  background: #442233;
   color: #fff;
   border-color: #442233;
   font-weight: bold;
 }
 
-/* Disable previous/next when needed */
 .page-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+/* ============================
+   RESPONSIVE DESIGN
+   ============================ */
+
+/* Large Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .shop-container {
+    padding: 25px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .sort-dropdown {
+    width: 180px;
+  }
+}
+
+/* Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .shop-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .sort-wrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sort-dropdown {
+    width: 55%;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .product-img {
+    height: 200px;
+  }
+
+  .product-name {
+    font-size: 16px;
+  }
+}
+
+/* Mobile (max-width: 576px) — EXACT LIKE YOUR IMAGE */
+@media (max-width: 576px) {
+
+  .shop-container {
+    padding: 15px;
+  }
+
+  .breadcrumbs {
+    font-size: 14px;
+  }
+
+  .shop-title {
+    font-size: 30px;
+    margin-bottom: 5px;
+  }
+
+  .shop-topbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sort-wrapper {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+  }
+
+  /* SORT BY RESPONSIVE — MATCH SCREENSHOT */
+  .sort-dropdown {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  /* PRODUCT GRID: EXACT 2 COLUMNS LIKE SCREENSHOT */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .product-card {
+    padding: 8px;
+  }
+
+  .product-img {
+    height: 160px;
+  }
+
+  .product-name {
+    font-size: 14px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+
+  .add-to-cart-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .wishlist-btn,
+  .compare-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .page-number,
+  .page-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
+/* Small Phones (max-width: 400px) */
+@media (max-width: 400px) {
+
+  .shop-title {
+    font-size: 26px;
+  }
+
+  .sort-dropdown {
+    width: 100%;
+    padding: 7px 10px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .product-img {
+    height: 140px;
+  }
+
+  .product-name {
+    font-size: 13px;
+  }
+
+  .add-to-cart-btn {
+    font-size: 12px;
+  }
 }
