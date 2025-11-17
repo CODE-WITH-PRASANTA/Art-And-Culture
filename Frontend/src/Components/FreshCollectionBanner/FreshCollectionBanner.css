@@ -1,0 +1,105 @@
+/* =========================================================
+   FRESH COLLECTION BANNER — RESPONSIVE
+   ========================================================= */
+.freshcollectionbanner {
+  display: flex;
+  width: 100%;
+  min-height: 380px;
+  font-family: Arial, sans-serif;
+  flex-wrap: wrap; /* allows stacking on small screens */
+}
+
+/* ============================
+   LEFT SECTION
+   ============================ */
+.freshcollectionbanner-left {
+  flex: 1 1 300px;
+  background-color: #d4a657; /* change as needed */
+  color: white;
+  padding: 60px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.freshcollectionbanner-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.freshcollectionbanner-breadcrumb-icon {
+  font-size: 14px;
+}
+
+.freshcollectionbanner-title {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 10px;
+}
+
+/* ============================
+   RIGHT SECTION (IMAGE)
+   ============================ */
+.freshcollectionbanner-right {
+  flex: 1 1 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 380px;   
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET 1024px
+   ========================================================= */
+@media (max-width: 1024px) {
+  .freshcollectionbanner-title {
+    font-size: 32px;
+  }
+
+  .freshcollectionbanner-left {
+    padding: 45px 50px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET 768px
+   ========================================================= */
+@media (max-width: 768px) {
+  .freshcollectionbanner {
+    flex-direction: column;
+    min-height: unset;
+  }
+
+  .freshcollectionbanner-left,
+  .freshcollectionbanner-right {
+    flex: 1 1 100%;
+    padding: 25px 20px;
+    min-height: 220px;
+  }
+
+  .freshcollectionbanner-title {
+    font-size: 26px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE 480px
+   ========================================================= */
+@media (max-width: 480px) {
+  .freshcollectionbanner-left,
+  .freshcollectionbanner-right {
+    padding: 18px;
+    min-height: 180px;
+  }
+
+  .freshcollectionbanner-title {
+    font-size: 22px;
+  }
+}
