@@ -151,8 +151,8 @@ const Footer = () => {
               <p>&copy; 2025 <strong>Art & Culture</strong>. All rights reserved.</p>
             </div>
             <div className="footer-links">
-              <Link to="/privacy">Privacy Policy</Link>
-              <Link to="/terms">Terms of Service</Link>
+              <Link to="/privacypolicy">Privacy Policy</Link>
+              <Link to="/termandcondition">Terms of Service</Link>
               <Link to="/shipping">Shipping Info</Link>
               <Link to="/returns">Returns</Link>
             </div>
