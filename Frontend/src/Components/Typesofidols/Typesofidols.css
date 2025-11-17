@@ -51,13 +51,13 @@
 
 .section-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   max-width: 700px;
 }
 
 .section-title {
   font-size: 3.5rem;
-  font-weight: 800;
+  font-weight: 800 !important;
   background: linear-gradient(135deg, var(--text) 0%, var(--raw-color) 33%, var(--semi-color) 66%, var(--finished-color) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
