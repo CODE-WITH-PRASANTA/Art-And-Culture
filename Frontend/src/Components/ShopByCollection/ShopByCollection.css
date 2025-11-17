@@ -1,0 +1,234 @@
+/* Fully responsive ShopByCollection CSS
+   Desktop (>=1024px): grid layout
+   Tablet & Mobile (<1024px): horizontal scroller with snap
+*/
+
+/* Variables scoped under the root class */
+.shopbycollection-root{
+  --bg: #e8d9bf;
+  --panel: #e8d9bf;
+  --card-bg: #ffffff;
+  --muted: #6f675f;
+  --title: #0b0b0b;
+  --accent: #c79f4a;
+  --shadow-sm: 0 10px 28px rgba(16,16,16,0.08);
+  --shadow-lg: 0 22px 60px rgba(16,16,16,0.12);
+  --radius: 14px;
+  --gap: 28px;
+  --font-stack: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --desktop-break: 1024px;
+}
+
+/* Section */
+.shopbycollection-section {
+  width: 100%;
+  background: var(--panel);
+  padding: clamp(18px, 3.2vw, 56px) clamp(12px, 3vw, 44px) clamp(18px, 5vw, 64px);
+  box-sizing: border-box;
+  font-family: var(--font-stack);
+  color: #111;
+}
+
+/* inner layout (heading + cards) */
+.shopbycollection-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  column-gap: clamp(20px, 3.2vw, 64px);
+  align-items: start;
+}
+
+/* heading */
+.shopbycollection-heading-wrap {
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  align-self: center;
+}
+.shopbycollection-heading {
+  margin: 0;
+  font-size: clamp(22px, 3.6vw, 52px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.6px;
+  color: var(--title);
+}
+.shopbycollection-sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------- Layout mode switching ----------
+   Desktop (>=1024px): use grid with auto-fit tiles.
+   Mobile (<1024px): use horizontal scroller (flex) with snap.
+*/
+
+/* Default to mobile/scroller behavior; media query will switch to grid on desktop */
+.shopbycollection-cards {
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 6px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+}
+
+/* Card: item in scroller / grid */
+.shopbycollection-card {
+  --w: clamp(120px, 22vw, 190px);
+  width: var(--w);
+  flex: 0 0 var(--w); /* ensures fixed width in scroller */
+  height: calc(var(--w) * 1.25);
+  perspective: 1100px;
+  transform-style: preserve-3d;
+  position: relative;
+  cursor: pointer;
+  border-radius: calc(var(--radius) + 2px);
+  transform-origin: center;
+  transition: transform 320ms cubic-bezier(.2,.9,.2,1);
+  outline: none;
+  animation: shopbycollection-card-in 480ms var(--delay, 0ms) cubic-bezier(.2,.9,.2,1) both;
+  display: block;
+  scroll-snap-align: center;
+  flex-shrink: 0;
+}
+
+/* focus */
+.shopbycollection-card:focus {
+  box-shadow: 0 18px 42px rgba(11,11,11,0.09), 0 0 0 6px rgba(199,159,75,0.08);
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* faces */
+.shopbycollection-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: inherit;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.shopbycollection-card-front { background: linear-gradient(180deg,#fff,#fbf8f6); transform: rotateY(0deg); }
+.shopbycollection-card-back { background: linear-gradient(180deg,#fff,#fbf8f6); transform: rotateY(180deg); box-shadow: var(--shadow-lg); padding: 12px; display:flex; align-items:center; justify-content:center; text-align:center; }
+
+/* image wrapper */
+.shopbycollection-img-wrap{ position:relative; width: 100%; height: 100%; border-radius: inherit; overflow: hidden; box-shadow: var(--shadow-sm); display:block; background: linear-gradient(180deg,#fff,#fbf8f6); }
+.shopbycollection-image{ width:100%; height:100%; object-fit: cover; object-position:center; display:block; transition: transform 720ms cubic-bezier(.2,.9,.2,1), filter 420ms ease; }
+
+/* badge & hover icon */
+.shopbycollection-badge{ position:absolute; top:8px; left:8px; background: linear-gradient(90deg, rgba(255,255,255,0.96), rgba(246,234,208,0.98)); color:#6a4a1b; padding:5px 8px; border-radius:8px; font-weight:700; font-size:12px; z-index:3; pointer-events:none; box-shadow: 0 6px 18px rgba(16,16,16,0.06); }
+.shopbycollection-hover-icon{ position:absolute; right:8px; bottom:8px; background: rgba(255,255,255,0.92); border-radius:999px; padding:6px; display:inline-grid; place-items:center; box-shadow: 0 6px 18px rgba(0,0,0,0.06); transform: translateY(8px); opacity:0; transition: transform 320ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease; }
+
+/* front meta & title */
+.shopbycollection-front-meta{ position:absolute; left:12px; right:12px; bottom:12px; z-index:4; text-align:center; color:#fff; transform: translateY(10px); opacity:0; transition: transform 380ms cubic-bezier(.2,.9,.2,1), opacity 320ms ease; pointer-events:none; }
+.shopbycollection-title{ font-size: clamp(11px, 1.6vw, 14px); font-weight:700; letter-spacing:0.5px; text-transform: uppercase; color:#fff; text-shadow: 0 8px 22px rgba(0,0,0,0.45); }
+
+/* back content */
+.shopbycollection-back-inner{ text-align:center; padding:6px; }
+.shopbycollection-back-title{ margin:0 0 8px; font-size:14px; font-weight:800; }
+.shopbycollection-back-desc{ margin:0 0 12px; color:var(--muted); font-size:13px; line-height:1.35; }
+.shopbycollection-btn{ background: linear-gradient(90deg,var(--accent), #b8842f); color:#fff; border:none; padding:8px 12px; border-radius:999px; font-weight:700; cursor:pointer; box-shadow: 0 10px 26px rgba(176,126,40,0.14); transition: transform 200ms ease, box-shadow 200ms ease; }
+.shopbycollection-btn:hover{ transform: translateY(-3px); box-shadow: 0 18px 40px rgba(176,126,40,0.18); }
+
+/* hover behaviors for pointer devices (desktop & fine pointer) */
+@media (hover: hover) and (pointer: fine) {
+  .shopbycollection-card:hover { transform: translateY(-12px) scale(1.03); z-index:5; }
+  .shopbycollection-card:hover .shopbycollection-image { transform: scale(1.07) translateY(-6px); filter: saturate(1.04) brightness(.99); }
+  .shopbycollection-card:hover .shopbycollection-front-meta { transform: translateY(0); opacity:1; }
+  .shopbycollection-card:hover .shopbycollection-hover-icon { transform: translateY(0); opacity:1; }
+
+  /* flip front/back on hover */
+  .shopbycollection-card:hover .shopbycollection-card-front { transform: rotateY(-180deg); transition: transform 560ms cubic-bezier(.18,.9,.2,1); }
+  .shopbycollection-card:hover .shopbycollection-card-back { transform: rotateY(0deg); transition: transform 560ms cubic-bezier(.18,.9,.2,1); }
+}
+
+/* touch flip (class toggled by JS) */
+.shopbycollection-card.is-flipped .shopbycollection-card-front { transform: rotateY(-180deg); }
+.shopbycollection-card.is-flipped .shopbycollection-card-back { transform: rotateY(0deg); }
+
+/* default back rotation */
+.shopbycollection-card-face.shopbycollection-card-back { transform: rotateY(180deg); }
+
+/* entry */
+@keyframes shopbycollection-card-in { from { opacity:0; transform: translateY(18px) scale(.996);} to { opacity:1; transform: translateY(0) scale(1);} }
+
+/* ---------------------------------------------------
+   SWITCH TO GRID on Desktop (>= 1024px)
+   - grid auto-fit tiles
+   - disable horizontal scrolling
+   - cards become grid children (not flex items)
+   --------------------------------------------------- */
+/* Desktop: show all cards in one single row (no wrapping) */
+@media (min-width: 1024px) {
+  .shopbycollection-inner {
+    grid-template-columns: 320px 1fr;
+    column-gap: clamp(24px, 3vw, 64px);
+  }
+
+  /* force a single row: flex container, no-wrap */
+  .shopbycollection-cards {
+    display: flex;
+    flex-wrap: nowrap;               /* keep all items on one line */
+    gap: var(--gap);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 6px 0;
+    overflow: visible;               /* no scrolling on desktop */
+    scroll-snap-type: none;
+  }
+
+  /* Calculate width so 6 cards fit in one row inside the cards area.
+     Adjust 6 -> number of items if you change the collections array. */
+  .shopbycollection-card {
+    /* card width = (available width - total gaps) / 6 */
+    width: calc((100% - (5 * var(--gap))) / 6);
+    flex: 0 0 auto;                  /* fixed basis to keep exact width */
+    height: auto;
+    aspect-ratio: 4/5;               /* maintain nice proportion */
+    --w: unset;
+  }
+
+  /* Slightly larger cards on very wide screens */
+  @media (min-width: 1400px) {
+    .shopbycollection-card {
+      width: calc((100% - (5 * var(--gap))) / 6);
+    }
+  }
+}
+
+
+/* small screens tweaks */
+@media (max-width: 700px) {
+  .shopbycollection-inner { grid-template-columns: 1fr; row-gap: 18px; justify-items: center; }
+  .shopbycollection-heading-wrap { text-align: center; }
+  .shopbycollection-cards { gap: 12px; padding: 8px 6px 12px; }
+  .shopbycollection-card { --w: clamp(100px, 26vw, 140px); }
+  .shopbycollection-front-meta { bottom: 8px; left: 8px; right: 8px; }
+}
+
+/* tiny phones */
+@media (max-width: 420px) {
+  .shopbycollection-card { --w: clamp(84px, 28vw, 120px); }
+  .shopbycollection-badge { top:6px; left:6px; padding:4px 6px; font-size:11px; }
+  .shopbycollection-title { font-size: 11.5px; }
+  .shopbycollection-sub { font-size: 13px; }
+  .shopbycollection-section { padding: 14px 12px 22px; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .shopbycollection-card, .shopbycollection-image, .shopbycollection-card-face { animation: none !important; transition: none !important; transform: none !important; }
+}
+
+/* Hide default scrollbar for webkit while still allowing scroll */
+.shopbycollection-cards::-webkit-scrollbar { height: 10px; }
+.shopbycollection-cards::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 999px; }

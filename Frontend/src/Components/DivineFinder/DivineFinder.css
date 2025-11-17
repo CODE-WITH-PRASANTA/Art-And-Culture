@@ -1,0 +1,332 @@
+/* =========================
+   VARIABLES
+========================= */
+:root{
+  --text: #ffffff;
+  --dark-text: #111217;
+  --muted-bg: #f8f3ee;
+  --card-bg: #ffffff;
+  --gold: #c6a15a;
+  --gold-dark: #a8843b;
+  --glass: rgba(255,255,255,0.66);
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.df-hero-section {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.df-hero-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 430px;
+  overflow: hidden;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+}
+
+/* subtle overlay gradient for depth */
+.df-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.74) saturate(1.02);
+  transform-origin: center;
+  transition: transform 10s linear;
+}
+
+/* very gentle parallax-like slow zoom on the hero */
+.df-hero-image-wrap:hover .df-hero-image {
+  transform: scale(1.02);
+}
+
+.df-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.28));
+}
+
+.df-hero-label {
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(255,255,255,0.92), rgba(255,250,230,0.94));
+  color: var(--dark-text);
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+.df-hero-title {
+  max-width: 1000px;
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 1.08;
+  color: #fff;
+  text-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  margin: 0;
+}
+
+/* =========================
+   FINDER CARD SECTION
+========================= */
+.df-finder-wrapper {
+  display: flex;
+  justify-content: center;
+  background: var(--muted-bg);
+  padding: 40px 20px 70px;
+}
+
+.df-card {
+  width: 100%;
+  max-width: 1260px;
+  background: linear-gradient(180deg, var(--card-bg), #fbfaf9);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  box-shadow: 0 20px 50px rgba(16, 18, 20, 0.08);
+  border: 1px solid rgba(12,12,12,0.03);
+}
+
+/* LEFT SIDE */
+.df-card-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 0 0 210px;
+}
+
+.df-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(180deg, #fff8ee, #f2e6d1);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--gold);
+  box-shadow: 0 10px 30px rgba(150, 110, 60, 0.12);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.df-icon svg {
+  display: block;
+}
+
+.df-icon:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(150, 110, 60, 0.18);
+}
+
+.df-card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--dark-text);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* FORM */
+.df-form {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.df-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.df-select {
+  position: relative;
+}
+
+/* input styling refined */
+.df-input {
+  width: 100%;
+  padding: 16px 46px 16px 18px;
+  border-radius: 12px;
+  border: 1px solid #efebea;
+  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  font-size: 15px;
+  color: #333;
+  box-shadow: 0 8px 26px rgba(20, 20, 20, 0.04);
+  transition: box-shadow 0.18s ease, transform 0.12s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+/* placeholder tone */
+.df-input::placeholder {
+  color: #bdb3b3;
+}
+
+/* focus ring for accessibility */
+.df-input:focus {
+  outline: none;
+  border-color: var(--gold-dark);
+  box-shadow: 0 8px 28px rgba(198,161,90,0.14);
+  transform: translateY(-1px);
+}
+
+/* chevron button alignment */
+.df-chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a6b49;
+  transition: transform 0.14s ease;
+}
+
+/* small rotation when open (applied via state toggles in component) */
+.df-select .df-chevron[aria-pressed="true"] {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* CTA BUTTON */
+.df-actions {
+  flex: 0 0 240px;
+}
+
+.df-cta {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  box-shadow: 0 10px 26px rgba(150, 110, 60, 0.22);
+}
+
+.df-cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 42px rgba(150, 110, 60, 0.32);
+}
+
+.df-cta:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+.df-cta-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transform: translateX(2px);
+}
+
+/* =========================
+   CUSTOM DROPDOWN
+========================= */
+.df-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #f0eded;
+  box-shadow: 0 20px 40px rgba(18, 20, 24, 0.06);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 60;
+  padding: 6px 6px;
+  animation: fadeInUp 0.18s cubic-bezier(.2,.9,.2,1);
+}
+
+/* improved list item visuals */
+.df-dropdown li {
+  padding: 12px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  color: #222;
+  transition: background 0.14s ease, transform 0.08s ease;
+  border-radius: 8px;
+  margin: 4px;
+  list-style: none;
+}
+
+/* hover and active */
+.df-dropdown li:hover {
+  background: linear-gradient(90deg, #fff9f0, #fffefc);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16,18,20,0.04);
+}
+
+/* selected state */
+.df-dropdown li.selected {
+  background: linear-gradient(90deg, rgba(198,161,90,0.12), rgba(198,161,90,0.06));
+  border: 1px solid rgba(198,161,90,0.12);
+  color: var(--dark-text);
+  font-weight: 700;
+}
+
+/* animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .df-hero-title { font-size: 36px; }
+  .df-card { padding: 22px; }
+  .df-icon { width: 54px; height: 54px; }
+}
+
+@media (max-width: 768px) {
+  .df-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .df-form {
+    flex-direction: column;
+  }
+
+  .df-actions {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .df-hero-title { font-size: 26px; padding: 0 20px; }
+  .df-card-left { flex: 0 0 auto; gap: 10px; }
+  .df-card { padding: 18px; border-radius: 12px; }
+}
