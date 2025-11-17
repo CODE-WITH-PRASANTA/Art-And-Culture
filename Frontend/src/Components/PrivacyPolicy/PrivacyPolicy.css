@@ -1,0 +1,69 @@
+/* Page background */
+.policy-page {
+  font-family: "Inter", sans-serif;
+  background: #ffffff;
+  padding-bottom: 60px;
+}
+
+/* Top Blue Section */
+.policy-header {
+  background: #7A2E1B;
+  padding: 80px 20px 110px 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.policy-header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.policy-header p {
+  font-size: 16px;
+  margin-top: 12px;
+  opacity: 0.95;
+}
+
+/* Floating White Box */
+.policy-box {
+  width: 80%;
+  max-width: 1100px;
+  background: #fff;
+  margin: -60px auto 0 auto;
+  padding: 60px 50px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 25px rgba(0,0,0,0.12);
+}
+
+/* Section Title */
+.section-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 22px;
+  margin-top: 25px;
+  color: #222;
+}
+
+/* Icon + Text Row */
+.policy-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  line-height: 29px;
+}
+
+/* Blue icon */
+.icon {
+  font-size: 15px;
+  color: #3c8dff;
+  margin-top: 6px;
+}
+
+/* Text paragraph */
+.policy-item p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
