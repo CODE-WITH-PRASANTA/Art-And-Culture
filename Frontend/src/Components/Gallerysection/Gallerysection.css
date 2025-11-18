@@ -1,0 +1,228 @@
+/* Gallerysection.css
+   Layout C - custom grid so:
+   - img1 (tall-left) spans two rows
+   - img2 & img3 stacked in column 2 (each half height)
+   - img4 (tall-right) spans two rows
+   - img5 & img6 stacked in column 3 (each half height)
+   Hover: zoom + pink overlay + pink glow
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Poppins:wght@300;400;600&display=swap");
+
+:root{
+  --galux-bg: #ffffff;
+  --galux-title: #0f1724;
+  --galux-muted: #6b7280;
+  --galux-pink: #7a2e1b;
+  --galux-shadow: rgba(20,20,20,0.08);
+}
+
+/* Root + header */
+.galux-root {
+  background: var(--galux-bg);
+  padding: 40px 20px 80px;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial;
+  color: var(--galux-title);
+}
+
+.galux-inner { max-width: 1250px; margin: 0 auto; }
+
+.galux-header { text-align: center; margin-bottom: 24px; }
+.galux-dots { display:inline-flex; gap:8px; justify-content:center; margin-bottom:12px; }
+.galux-dot { width:12px; height:12px; border-radius:50%; display:inline-block; }
+.galux-dot--yellow{ background:#ffd32a; }
+.galux-dot--purple{ background:#5b2b7f; }
+.galux-dot--red{ background:#d93b62; }
+
+.galux-title {
+  font-family: "Baloo 2", cursive;
+  font-size: 44px;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1;
+}
+.galux-sub { color: var(--galux-muted); margin: 8px 0 18px; font-size: 15px; }
+
+/* ---------- GRID (desktop) ---------- */
+/* 4 columns: left tall, col2 stacked, col3 stacked, right tall */
+.galux-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr 0.9fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 28px;
+  align-items: start;
+  /* named template areas */
+  grid-template-areas:
+    "tall-left col2-top col3-top tall-right"
+    "tall-left col2-bottom col3-bottom tall-right";
+}
+
+/* Card base */
+.galux-card {
+  display: block;
+  border-radius: 20px;
+  position: relative;
+  overflow: visible;
+  outline: none;
+}
+
+/* media wrapper */
+.galux-media {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* base square, variants override */
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f6f6f7;
+  box-shadow: 0 10px 30px var(--galux-shadow);
+}
+
+/* image */
+.galux-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1), filter 300ms ease;
+  transform-origin: center;
+}
+
+/* overlay and outline */
+.galux-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(236,64,122,0.06), rgba(236,64,122,0.04));
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+.galux-card::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 24px;
+  pointer-events: none;
+  box-shadow: 0 0 0 0 rgba(236,64,122,0);
+  opacity: 0;
+  transition: box-shadow 320ms ease, opacity 320ms ease;
+}
+
+/* hover/focus */
+.galux-card:hover .galux-img,
+.galux-card:focus .galux-img,
+.galux-card:focus-visible .galux-img {
+  transform: scale(1.06) translateY(-6px);
+  filter: brightness(1.03) contrast(1.02);
+}
+.galux-card:hover .galux-overlay,
+.galux-card:focus .galux-overlay { opacity: 1; }
+.galux-card:hover::after,
+.galux-card:focus::after {
+  opacity: 1;
+  box-shadow:
+    0 0 0 4px rgba(236,64,122,0.14),
+    0 20px 40px rgba(236,64,122,0.12);
+}
+
+/* ---------- AREA ASSIGNMENTS ---------- */
+.galux-area--tall-left { grid-area: tall-left; }
+.galux-area--col2-top { grid-area: col2-top; }
+.galux-area--col2-bottom { grid-area: col2-bottom; }
+.galux-area--col3-top { grid-area: col3-top; }
+.galux-area--col3-bottom { grid-area: col3-bottom; }
+.galux-area--tall-right { grid-area: tall-right; }
+
+/* ---------- ASPECTS: ensure the stacked items combined match tall-left height ---------- */
+/* Tall columns occupy both rows visually: set their media to be taller */
+.galux-area--tall-left .galux-media,
+.galux-area--tall-right .galux-media {
+  padding-bottom: 220%;   /* tall: ~2.2x height vs width */
+  border-radius: 22px;
+}
+
+/* Each stacked half - make each half about half the tall height.
+   Since tall uses 220% padding-bottom, half should be about 110% each.
+*/
+.galux-area--col2-top .galux-media,
+.galux-area--col2-bottom .galux-media,
+.galux-area--col3-top .galux-media,
+.galux-area--col3-bottom .galux-media {
+  padding-bottom: 110%;
+  border-radius: 18px;
+}
+
+/* slight variation for visual rhythm */
+.galux-area--col2-top .galux-media { border-radius: 20px 20px 12px 12px; }
+.galux-area--col2-bottom .galux-media { border-radius: 12px 12px 20px 20px; }
+.galux-area--col3-top .galux-media { border-radius: 20px 20px 12px 12px; }
+.galux-area--col3-bottom .galux-media { border-radius: 12px 12px 20px 20px; }
+
+/* ---------- Responsive layouts ---------- */
+
+/* narrower desktop: 3 columns mapping, keep stacked behavior */
+@media (max-width: 1200px) {
+  .galux-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "tall-left col2-top tall-right"
+      "tall-left col2-bottom tall-right"
+      "col3-top col3-top col3-bottom";
+    gap: 20px;
+  }
+
+  /* adjust sizes */
+  .galux-area--tall-left .galux-media,
+  .galux-area--tall-right .galux-media { padding-bottom: 200%; }
+  .galux-area--col3-top .galux-media,
+  .galux-area--col3-bottom .galux-media { padding-bottom: 100%; }
+}
+
+/* tablet: 2 columns stacked (left column contains tall-left then col2 stack), right column contains tall-right then col3 stack */
+@media (max-width: 880px) {
+  .galux-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "tall-left tall-right"
+      "col2-top col3-top"
+      "col2-bottom col3-bottom";
+    gap: 16px;
+  }
+
+  .galux-area--tall-left .galux-media,
+  .galux-area--tall-right .galux-media { padding-bottom: 160%; }
+  .galux-area--col2-top .galux-media,
+  .galux-area--col2-bottom .galux-media,
+  .galux-area--col3-top .galux-media,
+  .galux-area--col3-bottom .galux-media { padding-bottom: 100%; }
+}
+
+/* mobile: single column stacked in desired order */
+@media (max-width: 520px) {
+  .galux-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tall-left"
+      "col2-top"
+      "col2-bottom"
+      "col3-top"
+      "col3-bottom"
+      "tall-right";
+    gap: 12px;
+  }
+
+  .galux-media { padding-bottom: 86%; border-radius: 14px; }
+  .galux-card::after { inset: -6px; border-radius: 16px; }
+  .galux-title { font-size: 28px; }
+}
+
+/* accessibility focus */
+.galux-card:focus-visible { outline: 4px solid rgba(236,64,122,0.12); outline-offset: 8px; }
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .galux-img, .galux-card, .galux-overlay { transition: none !important; transform: none !important; animation: none !important; }
+}

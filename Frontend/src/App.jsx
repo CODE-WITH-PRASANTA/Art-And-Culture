@@ -10,6 +10,7 @@ import FestiveFilter from "./Pages/FestiveFilter/FestiveFilter";
 import ShopSec from "./Pages/ShopSec/ShopSec";
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import Termandcondition from './Components/Termandcondition/Termandcondition'
+import About from "./Pages/About/About";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<ShopSec />} />
+          <Route path="/about" element={<About />} />
+          
           <Route path="/contact" element={<Contact />} />
           <Route path="/fresh/collection" element={< FreshCollection/>} />
           <Route path="/all/idol" element={<AllIdols />} />

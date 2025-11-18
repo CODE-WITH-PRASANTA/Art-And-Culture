@@ -1,0 +1,193 @@
+/* TestimonialCarousel.css
+   Unique prefix tsl-
+   Fonts: Baloo 2 (heading) + Poppins (body)
+   Accent colors updated as requested:
+     pink -> #7a2e1b
+     purple -> #57aadb
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Poppins:wght@300;400;600&display=swap");
+
+:root{
+  --tsl-pink: #7a2e1b;   /* user requested pink replacement */
+  --tsl-purple: #57aadb; /* user requested purple replacement */
+  --tsl-bg: #ffffff;
+  --tsl-text: #0f1724;
+  --tsl-muted: #8b8f95;
+  --tsl-bubble-bg: var(--tsl-purple);
+  --tsl-cta-bg: var(--tsl-pink);
+  --tsl-bubble-radius: 26px;
+}
+
+/* ROOT */
+.tsl-root {
+  background: var(--tsl-bg);
+  padding: 56px 24px;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial;
+  color: var(--tsl-text);
+}
+
+/* inner container */
+.tsl-inner {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+/* TOP ROW: heading + arrows */
+.tsl-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.tsl-top-left { display:flex; flex-direction:column; gap:8px; }
+.tsl-small {
+  color: var(--tsl-cta-bg);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+  font-size: 13px;
+}
+.tsl-heading {
+  font-family: "Baloo 2", cursive;
+  font-size: 56px;
+  margin: 0;
+  font-weight: 800;
+}
+
+/* arrows */
+.tsl-top-right { display:flex; gap: 12px; align-items:center; }
+.tsl-arrow {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--tsl-cta-bg);
+  color: white;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .18s ease, background .18s ease;
+}
+.tsl-arrow:hover { transform: translateY(-3px); }
+.tsl-arrow:active { transform: translateY(0); }
+.tsl-arrow:focus { outline: 3px solid rgba(122,46,27,0.18); outline-offset: 6px; }
+
+/* Track: holds two cards horizontally (desktop) */
+.tsl-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+/* Card bubble (speech bubble with tail) */
+.tsl-card {
+  display:block;
+  outline:none;
+}
+.tsl-bubble {
+  background: var(--tsl-bubble-bg);
+  color: white;
+  padding: 38px 36px 46px;
+  border-radius: var(--tsl-bubble-radius);
+  position: relative;
+  min-height: 240px;
+  box-sizing: border-box;
+  transition: transform 320ms cubic-bezier(.2,.9,.3,1), box-shadow 320ms;
+  overflow: visible;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* speech-tail - left bottom */
+.tsl-bubble::after {
+  content: "";
+  position: absolute;
+  left: 36px;
+  bottom: -22px;
+  width: 36px;
+  height: 22px;
+  background: var(--tsl-bubble-bg);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  border-bottom-left-radius: 2px;
+}
+
+/* Hover/Focus effect on bubble for interactive feel */
+.tsl-card:hover .tsl-bubble,
+.tsl-card:focus .tsl-bubble {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 46px rgba(0,0,0,0.18);
+}
+
+/* Quote text */
+.tsl-quote {
+  margin: 0 0 28px 0;
+  color: rgba(255,255,255,0.95);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Footer with avatar + name + stars */
+.tsl-footer {
+  display:flex;
+  align-items:center;
+  gap: 16px;
+}
+
+/* round avatar with quote mark */
+.tsl-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--tsl-cta-bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: white;
+  font-size: 34px;
+  flex-shrink: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* inside avatar a stylized quote mark */
+.tsl-quote-mark {
+  font-family: "Baloo 2", cursive;
+  font-size: 34px;
+  line-height: 1;
+}
+
+/* meta */
+.tsl-meta { display:flex; flex-direction:column; gap:8px; }
+.tsl-name { font-family: "Baloo 2", cursive; font-size: 22px; color: white; font-weight: 700; }
+.tsl-stars { color: #ffd54a; font-size: 18px; margin-top: 2px; }
+
+/* tiny star style */
+.tsl-star { font-size: 18px; margin-right: 6px; }
+
+/* responsive: show one card per row on small screens */
+@media (max-width: 880px) {
+  .tsl-track { grid-template-columns: 1fr; }
+  .tsl-heading { font-size: 42px; }
+  .tsl-bubble { padding: 30px 22px 36px; }
+  .tsl-avatar { width: 64px; height: 64px; font-size: 30px; }
+}
+
+/* small phones */
+@media (max-width: 520px) {
+  .tsl-inner { padding: 0 12px; }
+  .tsl-heading { font-size: 34px; }
+  .tsl-arrow { width: 48px; height: 48px; font-size: 22px; }
+  .tsl-bubble { padding: 24px 18px 28px; }
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .tsl-card, .tsl-bubble, .tsl-img { transition: none !important; }
+}
