@@ -8,8 +8,15 @@ import FreshCollection from "./Pages/FreshCollection/FreshCollection";
 import AllIdols from "./Pages/AllIdols/AllIdols";
 import FestiveFilter from "./Pages/FestiveFilter/FestiveFilter";
 import ShopSec from "./Pages/ShopSec/ShopSec";
+<<<<<<< HEAD
+import Blog from "./Pages/Blog/Blog";
+import BlogDetailsSection from "./Components/BlogDetailsSection/BlogDetailsSection";
+import BestSelling from "./Pages/BestSelling/BestSelling";
+
+=======
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import Termandcondition from './Components/Termandcondition/Termandcondition'
+>>>>>>> 4089b08a3e8b7b7f311abdbe73373f3553877385
 
 function App() {
   return (
@@ -23,12 +30,26 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<ShopSec />} />
           <Route path="/contact" element={<Contact />} />
+<<<<<<< HEAD
+          <Route path="/shop" element={<ShopSec />} />
+          <Route path="/fresh/collection" element={< FreshCollection/>} />
+          <Route path="/all/idol" element={<AllIdols />} />
+          <Route path="/festive/filter" element={<FestiveFilter />} />
+          <Route path="/blog" element={<Blog/>} />
+          <Route path="/blog/details" element={<BlogDetailsSection/>} />
+          <Route path="best-sellers" element={<BestSelling/>} />
+
+
+
+
+=======
           <Route path="/fresh/collection" element={< FreshCollection/>} />
           <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
           <Route path="/termandcondition" element={<Termandcondition/>} />
           
+>>>>>>> 4089b08a3e8b7b7f311abdbe73373f3553877385
         </Routes>
       </main>
 

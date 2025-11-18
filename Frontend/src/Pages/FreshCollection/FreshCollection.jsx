@@ -8,10 +8,12 @@ import ProductShowcase from '../../Components/ProductShowcase/ProductShowcase'
 import ShopByFestivalsSlider from '../../Components/ShopByFestivalsSlider/ShopByFestivalsSlider'
 import ShopByPurpose from '../../Components/ShopByPurpose/ShopByPurpose'
 import PromiseSection from '../../Components/PromiseSection/PromiseSection'
+import FreshCollectionBanner from '../../Components/FreshCollectionBanner/FreshCollectionBanner'
 
 const FreshCollection = () => {
   return (
     <>
+    <FreshCollectionBanner/>
     <ShopByGodSlider/>
     <DivineFinder/>
     <GodCollectionSection/>
