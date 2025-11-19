@@ -1,140 +1,186 @@
-// Trendingproducts.jsx
-import React, { useState } from 'react';
-import "./Trendingproducts.css";
-import product1 from "../../assets/01.webp";
-import product2 from "../../assets/02.webp";
-import product3 from "../../assets/03.webp";
-import product4 from "../../assets/05.webp";
-import product5 from "../../assets/06.webp";
-import product6 from "../../assets/07.webp";
-import product7 from "../../assets/08.webp";
-import product8 from "../../assets/01.webp";
-import product9 from "../../assets/10.webp";
-import product10 from "../../assets/11.webp";
-import product11 from "../../assets/12.webp";
-import product12 from "../../assets/13.webp";
-import product13 from "../../assets/14.webp";
-import product14 from "../../assets/15.webp";
-import product15 from "../../assets/16.webp";
-import product16 from "../../assets/04.webp";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
+import "./TrendingProducts.css";
+import img from '../../assets/01.webp';
+/* ------------------ PRODUCT ARRAYS ------------------ */
+const popular = [
+  { id: 1, title: "Silver plated Kamdhenu Cow with Calf Idol", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 5, reviews: 67, price: 1299, was: 1999, badge: "-35%" },
+  { id: 2, title: "Kamdhenu Cow with Calf Idol - Gold & Silver Plated", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 5, reviews: 358, price: 1449, was: 1999, badge: "-27%" },
+  { id: 3, title: "Lord Krishna's Divine Hands - Gold Plated", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 5, reviews: 16, price: 1499, was: 1899, badge: "-21%" },
+  { id: 4, title: "Dagdusheth Halwai Ganpati Murti - Gold Plated", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 5, reviews: 17, price: 2149, was: 2999, badge: "-28%" },
+];
 
-const Trendingproducts = () => {
-  const [sortType, setSortType] = useState("default");
-  const [wishlistState, setWishlistState] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
+const onSale = [
+  { id: 11, title: "Festive Silver Thali Set", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 4.8, reviews: 42, price: 899, was: 1299, badge: "-30%" },
+  { id: 12, title: "Brass Diya Pair - Engraved", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 4.9, reviews: 88, price: 499, was: 799, badge: "-38%" },
+  { id: 13, title: "Lucky Elephant - Gold Finish", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 5, reviews: 25, price: 1199, was: 1599, badge: "-25%" },
+  { id: 14, title: "Mini Ganesha Idol - Rose Gold", thumb: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg", rating: 4.9, reviews: 19, price: 1299, was: 1799, badge: "-28%" },
+];
 
-  const productsPerPage = 16;
-
-  const toggleWishlist = (id) => {
-    setWishlistState((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  const products = [
-    { id: 1, name: "Aliquam id quam elementum arcu", price: 144, img: product1, popularity: 5, rating: 4.8, date: "2023-05-10" },
-    { id: 2, name: "Cras viverra rhoncu", price: 77, img: product2, popularity: 2, rating: 4.1, date: "2023-07-10" },
-    { id: 3, name: "Cras viverra rhoncus metu", price: 77, img: product3, popularity: 3, rating: 4.5, date: "2023-09-20" },
-    { id: 4, name: "Delllus molestie id mi sit amet", price: 426, oldPrice: 742, sale: true, img: product4, popularity: 10, rating: 5.0, date: "2024-01-01" },
-
-    { id: 5, name: "Golden Buddha Statue", price: 215, img: product5, popularity: 7, rating: 4.6, date: "2023-03-18" },
-    { id: 6, name: "Handcrafted Shiva Idol", price: 350, img: product6, popularity: 6, rating: 4.7, date: "2023-04-05" },
-    { id: 7, name: "Traditional Krishna Murti", price: 199, img: product7, popularity: 8, rating: 4.9, date: "2023-08-14" },
-    { id: 8, name: "Brass Ram Darbar", price: 299, img: product8, popularity: 4, rating: 4.3, date: "2023-02-22" },
-
-    { id: 9, name: "Vintage Ganesha Sculpture", price: 159, img: product9, popularity: 9, rating: 4.8, date: "2024-02-01" },
-    { id: 10, name: "Meditating Monk Statue", price: 89, img: product10, popularity: 3, rating: 4.2, date: "2024-01-15" },
-    { id: 11, name: "Temple Art Idol", price: 269, img: product11, popularity: 6, rating: 4.4, date: "2023-11-11" },
-    { id: 12, name: "Lord Vishnu Sculpture", price: 340, img: product12, popularity: 8, rating: 5.0, date: "2024-02-10" },
-
-    { id: 13, name: "Divine Saraswati Idol", price: 310, img: product13, popularity: 7, rating: 4.7, date: "2024-03-05" },
-    { id: 14, name: "Lakshmi Sitting Statue", price: 225, img: product14, popularity: 9, rating: 4.9, date: "2023-12-12" },
-    { id: 15, name: "Shiva Parvati Murti", price: 385, img: product15, popularity: 6, rating: 4.6, date: "2023-10-25" },
-    { id: 16, name: "Radha Krishna Idol", price: 270, img: product16, popularity: 10, rating: 5.0, date: "2024-04-01" },
-  ];
-
-  // SORTING LOGIC
-  const sortedProducts = [...products].sort((a, b) => {
-    switch (sortType) {
-      case "low-high": return a.price - b.price;
-      case "high-low": return b.price - a.price;
-      case "popularity": return b.popularity - a.popularity;
-      case "rating": return b.rating - a.rating;
-      case "latest": return new Date(b.date) - new Date(a.date);
-      default: return 0;
-    }
-  });
-
-  // PAGINATION LOGIC
-  const indexOfLast = currentPage * productsPerPage;
-  const indexOfFirst = indexOfLast - productsPerPage;
-  const currentProducts = sortedProducts.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
-
+/* ------------------ STARS COMPONENT ------------------ */
+function Stars({ value = 5 }) {
+  const rounded = Math.round(value);
   return (
-    <section className="trending-section">
-      {/* Adjusted heading: centered, larger, subtle underline */}
-       <div className="section-header">
-        <h2 className="section-title">Trending Products</h2>
-        
-      </div>
-
-      <div className="product-grid">
-        {currentProducts.map((item) => (
-          <div className="product-card" key={item.id}>
-
-            {item.sale && <span className="sale-badge">Sale</span>}
-
-            <img src={item.img} alt={item.name} className="product-img" />
-
-            {/* HOVER SECTION */}
-            <div className="card-hover-box">
-              <button className="add-to-cart-btn">Add to cart</button>
-
-              <div className="hover-links">
-
-                {/* ❤️ Wishlist */}
-                <button
-                  className={`wishlist-btn ${wishlistState[item.id] ? "active" : ""}`}
-                  onClick={() => toggleWishlist(item.id)}
-                >
-                  {wishlistState[item.id] ? "❤️ Wishlist" : "♡ Wishlist"}
-                </button>
-
-                {/* ⇄ Compare */}
-                <button className="compare-btn">⇄ Compare</button>
-
-              </div>
-            </div>
-
-            <h3 className="product-name">{item.name}</h3>
-
-            <div className="price-box">
-              {item.oldPrice && <span className="old-price">{item.oldPrice} ₹</span>}
-              <span className="price">{item.price} ₹</span>
-            </div>
-
-          </div>
-        ))}
-      </div>
-
-      {/* simple pagination controls (if needed) */}
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1}>
-            Prev
-          </button>
-          <span className="page-indicator">{currentPage} / {totalPages}</span>
-          <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>
-            Next
-          </button>
-        </div>
-      )}
-    </section>
+    <span className="tp-stars" aria-hidden="true">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg
+          key={i}
+          className={`tp-star ${i < rounded ? "on" : "off"}`}
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill={i < rounded ? "currentColor" : "none"}
+          stroke="currentColor"
+          strokeWidth="1.2"
+        >
+          <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.402 8.172L12 18.896l-7.336 3.872 1.402-8.172L.132 9.21l8.2-1.192z" />
+        </svg>
+      ))}
+    </span>
   );
 }
 
-export default Trendingproducts;
+/* ------------------ ENHANCED PRODUCT CARD ------------------ */
+function ProductCard({ p }) {
+  const discounted = p.was && p.was > p.price;
+  const [isLiked, setIsLiked] = useState(false);
 
+  return (
+    <article className="tp-product-card" tabIndex={0} aria-labelledby={`title-${p.id}`}>
+      <div className="tp-card-inner">
+        <div className="tp-thumb-wrap">
+          {p.badge && <div className="tp-badge">{p.badge}</div>}
 
+          {/* Enhanced hover overlay */}
+          <div className="tp-thumb-overlay">
+            <div className="tp-overlay-actions">
+              <button 
+                className={`tp-icon-btn ${isLiked ? 'liked' : ''}`}
+                onClick={() => setIsLiked(!isLiked)}
+                aria-label={isLiked ? "Remove from favorites" : "Add to favorites"}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill={isLiked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
+                  <path d="M20.8 6.6c-1.7-2.2-4.6-2.6-6.3-1.2l-.5.4-.5-.4c-1.7-1.4-4.6-1-6.3 1.2-2.1 2.7-1.1 6.9 2.2 9.8L12 20.2l6.7-3.8c3.3-2.9 4.3-7.1 2.1-9.8z"/>
+                </svg>
+              </button>
+
+              <button className="tp-icon-btn" aria-label="Quick view">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+
+            <div className="tp-select-options">
+              <button className="tp-select-btn">
+                <span>SELECT OPTIONS</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <img src={p.thumb} alt={p.title} className="tp-thumb" />
+        </div>
+
+        {/* Enhanced product info */}
+        <div className="tp-product-info">
+          <div className="tp-category-tag">Religious Decor</div>
+          
+          <h3 id={`title-${p.id}`} className="tp-title">{p.title}</h3>
+
+          <div className="tp-rating-row">
+            <Stars value={p.rating} />
+            <span className="tp-rating-value">{Number(p.rating).toFixed(1)}</span>
+            <span className="tp-reviews">({p.reviews})</span>
+          </div>
+
+          <div className="tp-price-section">
+            <div className="tp-price-row">
+              <div className="tp-price">₹{p.price.toLocaleString()}</div>
+              {discounted && <div className="tp-was">₹{p.was.toLocaleString()}</div>}
+            </div>
+            <div className="tp-shipping-tag">Free Shipping</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/* ------------------ MAIN COMPONENT ------------------ */
+export default function TrendingProducts() {
+  const [active, setActive] = useState("popular");
+  const tabsRef = useRef({ popular: null, sale: null });
+  const containerRef = useRef(null);
+  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+
+  const measureUnderline = () => {
+    const activeTabEl = tabsRef.current[active];
+    const rootRect = containerRef.current?.getBoundingClientRect();
+    if (!activeTabEl || !rootRect) return;
+    const rect = activeTabEl.getBoundingClientRect();
+    const left = rect.left - rootRect.left + (rect.width * 0.06);
+    const width = rect.width * 0.88;
+    setUnderlineStyle({ left, width });
+  };
+
+  useLayoutEffect(() => {
+    measureUnderline();
+    const ro = new ResizeObserver(() => measureUnderline());
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener("resize", measureUnderline);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measureUnderline);
+    };
+  }, [active]);
+
+  useEffect(() => {
+    const t = setTimeout(measureUnderline, 120);
+    return () => clearTimeout(t);
+  }, []);
+
+  const activeData = active === "popular" ? popular : onSale;
+
+  return (
+    <section className="tp-root">
+      <div className="tp-tabs">
+        <div className="tp-tab-list" ref={containerRef}>
+          <button
+            ref={(el) => (tabsRef.current.popular = el)}
+            aria-selected={active === "popular"}
+            className={`tp-tab ${active === "popular" ? "active" : ""}`}
+            onClick={() => setActive("popular")}
+          >
+            Popular Gifts
+          </button>
+
+          <button
+            ref={(el) => (tabsRef.current.sale = el)}
+            aria-selected={active === "sale"}
+            className={`tp-tab ${active === "sale" ? "active" : ""}`}
+            onClick={() => setActive("sale")}
+          >
+            On Sale
+          </button>
+
+          <div
+            className="tp-tab-underline"
+            style={{
+              transform: `translateX(${underlineStyle.left}px)`,
+              width: underlineStyle.width
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="tp-products-row">
+        {activeData.map((p) => (
+          <ProductCard key={p.id} p={p} />
+        ))}
+      </div>
+    </section>
+  );
+}

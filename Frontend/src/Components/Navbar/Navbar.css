@@ -696,3 +696,233 @@ button:focus, a:focus, input:focus {
   outline: 3px solid rgba(122,46,27,0.16); 
   outline-offset: 2px; 
 }
+
+
+
+/* Wrapper: aligns icon + button */
+.quote-box-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hamburger Icon Button */
+.quote-box-icon-btn {
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.25s ease;
+  color: #7A2E1B;
+}
+
+.quote-box-icon-btn:hover {
+  background: #f2f2f2;
+  border-color: #c8c8c8;
+}
+
+
+/* ------------------------
+   Quote / Info Slide Panel
+   ------------------------ */
+
+.quote-info-panel {
+  position: fixed;
+  top: 0;
+  right: -460px;               /* hidden off-screen */
+  width: 420px;
+  max-width: 92%;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.18);
+  transition: right 0.44s cubic-bezier(.2,.9,.2,1);
+  z-index: 999999 !important;     /* SUPER HIGH */
+  display: block;
+  border-left: 1px solid rgba(0,0,0,0.04);
+  overflow: hidden;
+  /* border-top-left-radius: 10px; */
+  /* border-bottom-left-radius: 10px; */
+}
+
+.quote-info-panel.open {
+  right: 0;
+  z-index: 999999 !important;
+}
+
+.quote-info-inner {
+  padding: 34px;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 3;
+}
+
+/* Close button (circle) */
+.quote-info-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  z-index: 1000000 !important;     /* above panel & overlay */
+}
+
+/* Logo area */
+.quote-info-logo img {
+  width: 100px;
+  display: block;
+  margin-bottom: 14px;
+}
+
+/* Description */
+.quote-info-desc {
+  color: #414141;
+  line-height: 1.55;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+/* Section title with accent bar */
+.quote-info-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 18px 0 10px;
+  color: #111;
+  position: relative;
+}
+
+.quote-info-title::after {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 4px;
+  background: #7A2E1B;
+  margin-top: 8px;
+  border-radius: 3px;
+}
+
+/* Contact list */
+.quote-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 10px;
+}
+
+.quote-info-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.quote-info-icon {
+  min-width: 46px;
+  min-height: 46px;
+  border-radius: 50%;
+  background: #7A2E1B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff; 
+  font-size: 18px;
+  box-shadow: 0 6px 18px rgba(255,214,0,0.08);
+}
+.quote-info-icon svg {
+  transform: scaleX(-1);
+}
+
+
+.quote-info-list .muted {
+  color: #777;
+  font-size: 12px;
+  margin: 0 0 4px 0;
+}
+
+.quote-info-list p {
+  margin: 0;
+  font-size: 14px;
+  color: #222;
+}
+
+/* News list */
+.quote-news-list {
+  margin-top: 12px;
+}
+
+.quote-news-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.quote-news-item img {
+  width: 74px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.quote-news-date {
+  display: inline-block;
+  color: #7A2E1B;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.quote-news-text {
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+  color: #111;
+}
+
+/* Overlay (full-screen scrim) */
+.quote-info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.52);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+  z-index: 999998 !important;     /* below panel, above page */
+}
+
+.quote-info-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .quote-info-panel {
+    width: 92%;
+    right: -100%;
+    border-radius: 0;
+  }
+  .quote-info-panel.open {
+    right: 0;
+  }
+  .quote-info-inner {
+    padding: 20px;
+  }
+  .quote-info-logo img { width: 120px; }
+}

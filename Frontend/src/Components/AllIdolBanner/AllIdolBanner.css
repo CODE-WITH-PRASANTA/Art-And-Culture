@@ -1,0 +1,107 @@
+/* =========================================================
+   ALL IDOL BANNER — RESPONSIVE (MATCHING FESTIVE-BANNER STYLE)
+   ========================================================= */
+
+.allidolBanner {
+  display: flex;
+  width: 100%;
+  min-height: 380px;
+  font-family: Arial, sans-serif;
+  flex-wrap: wrap; /* allows stacking on small screens */
+}
+
+/* ============================
+   LEFT SECTION
+   ============================ */
+.allidolBanner-left {
+  flex: 1 1 300px;
+  background-color: #d4a657;
+  color: white;
+  padding: 60px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.allidolBanner-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.allidolBanner-breadcrumb-icon {
+  font-size: 14px;
+}
+
+.allidolBanner-title {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 10px;
+}
+
+/* ============================
+   RIGHT SECTION (IMAGE)
+   ============================ */
+.allidolBanner-right {
+  flex: 1 1 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 380px;   /* match left section */
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET 1024px
+   ========================================================= */
+@media (max-width: 1024px) {
+  .allidolBanner-title {
+    font-size: 32px;
+  }
+
+  .allidolBanner-left {
+    padding: 45px 50px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET 768px
+   (Same structure as your FESTIVE BANNER)
+   ========================================================= */
+@media (max-width: 768px) {
+  .allidolBanner {
+    flex-direction: column;
+    min-height: unset;
+  }
+
+  .allidolBanner-left,
+  .allidolBanner-right {
+    flex: 1 1 100%;
+    padding: 25px 20px;
+    min-height: 220px;
+  }
+
+  .allidolBanner-title {
+    font-size: 26px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE 480px
+   ========================================================= */
+@media (max-width: 480px) {
+  .allidolBanner-left,
+  .allidolBanner-right {
+    padding: 18px;
+    min-height: 180px;
+  }
+
+  .allidolBanner-title {
+    font-size: 22px;
+  }
+}
