@@ -1,0 +1,219 @@
+/* =========================================================================
+   OrderCompleted.css
+   - Separate CSS file for OrderCompleted.jsx
+   - Fully responsive (4K -> 320px) using max-width media queries only
+   - Visual design preserved: colors, shadows, spacing, fonts, transitions
+   ========================================================================= */
+
+/* -------------------------
+   Variables
+   ------------------------- */
+:root{
+  --page-bg: #fbf6f6;
+  --card-bg: #ffffff;
+  --accent-1: #4f8bff;    /* primary gradient start */
+  --accent-2: #77aefc;    /* primary gradient end */
+  --pink-bg: #ffeef1;     /* secondary button bg */
+  --pink-text: #d94a66;   /* secondary button text */
+  --muted: #858b93;       /* subtitle text */
+  --title: #0f1720;
+  --card-border: rgba(12,18,30,0.06);
+  --radius: 8px;
+  --shadow: 0 8px 28px rgba(12,18,30,0.06);
+  --btn-shadow: 0 6px 18px rgba(12,18,30,0.06);
+  --fast: 180ms cubic-bezier(.2,.9,.2,1);
+  --max-card-width: 880px;
+}
+
+/* -------------------------
+   Reset & base
+   ------------------------- */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; margin:0; background:var(--page-bg); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:var(--title); }
+img { display:block; max-width:100%; height:auto; }
+button { font: inherit; border: none; background: transparent; cursor: pointer; }
+
+/* -------------------------
+   Root container - centers the card
+   ------------------------- */
+.oc-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start; /* keep top spacing like design */
+  justify-content: center;
+  padding: 28px 16px;
+}
+
+/* -------------------------
+   Card
+   ------------------------- */
+.oc-card{
+  width: min(var(--max-card-width), 96%);
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  padding: 56px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Illustration */
+.oc-illustration{
+  width: 320px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.oc-illustration img{
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Title / copy */
+.oc-title{
+  margin: 8px 0 12px;
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--title);
+}
+
+.oc-sub{
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+/* Order id */
+.oc-order-id{
+  margin-top: 12px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  color: #9aa0a6;
+  font-weight: 700;
+}
+.oc-order-id .oc-order-id-value{
+  color: #6b7280;
+}
+
+/* CTA row */
+.oc-cta-row{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+/* Buttons (shared) */
+.oc-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: var(--btn-shadow);
+  transition: transform var(--fast), box-shadow var(--fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Primary */
+.oc-btn-primary{
+  color: #fff;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border: 1px solid transparent;
+}
+.oc-btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(79,139,255,0.18); }
+.oc-btn-primary:active{ transform: translateY(0); }
+
+/* Secondary */
+.oc-btn-secondary{
+  color: var(--pink-text);
+  background: var(--pink-bg);
+  border: 1px solid rgba(217,74,102,0.06);
+}
+.oc-btn-secondary:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(217,74,102,0.06); }
+.oc-btn-secondary:active{ transform: translateY(0); }
+
+/* Button icon sizing - inherit color for stroke */
+.oc-icon{
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  color: currentColor;
+}
+.oc-btn-text { display: inline-block; }
+
+/* Accessibility focus */
+.oc-btn:focus,
+button:focus,
+a:focus{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(79,139,255,0.14);
+  border-radius: 8px;
+}
+
+/* -------------------------
+   Responsive rules (max-width only)
+   4K / large screens handled by wide container; layout scales via width/mins
+   ------------------------- */
+
+/* Very large screens: add more internal padding and keep card centered */
+@media (max-width: 1600px) {
+  .oc-card { padding: 64px 64px 48px; }
+}
+
+/* Desktop / large tablet tweaks */
+@media (max-width: 1200px) {
+  .oc-card { padding: 64px 56px 48px; width: min(var(--max-card-width), 92%); }
+  .oc-illustration { width: 360px; }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .oc-card { padding: 48px 40px; width: 86%; }
+  .oc-illustration { width: 320px; margin-bottom: 20px; }
+  .oc-title { font-size: 21px; }
+  .oc-sub { font-size: 15px; }
+}
+
+/* Mobile large: 768px and below */
+@media (max-width: 768px) {
+  .oc-root { align-items: flex-start; padding: 24px 14px; }
+  .oc-card { padding: 36px 28px; width: 94%; }
+  .oc-illustration { width: 280px; margin-bottom: 18px; }
+  .oc-title { font-size: 20px; }
+  .oc-sub { font-size: 14px; max-width: 100%; }
+  .oc-order-id { font-size: 13px; }
+  .oc-cta-row { gap: 12px; }
+}
+
+/* Small mobile: 420px and below (single-column tight) */
+@media (max-width: 420px) {
+  .oc-root { padding: 18px 12px; }
+  .oc-card { padding: 24px 18px; border-radius: 6px; width: 100%; }
+  .oc-illustration { width: 220px; margin-bottom: 14px; }
+  .oc-title { font-size: 18px; }
+  .oc-sub { font-size: 13px; line-height: 1.5; }
+  .oc-order-id { font-size: 13px; }
+  .oc-btn { padding: 10px 14px; font-size: 14px; }
+  .oc-cta-row { gap: 10px; justify-content: center; }
+}
+
+/* Ensure no horizontal overflow anywhere */
+html,body { overflow-x: hidden; }
+
+/* End of file */

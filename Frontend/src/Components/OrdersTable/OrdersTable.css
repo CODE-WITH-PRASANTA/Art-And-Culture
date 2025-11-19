@@ -1,0 +1,173 @@
+/* =========================================================
+   ORDERS TABLE — EXACT SCREENSHOT DESIGN
+   ========================================================= */
+
+.orderstable-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Wrapper (scroll only on tablet/mobile) */
+.orderstable-wrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Table Base */
+.orderstable-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+/* Header */
+.orderstable-header th {
+  padding: 22px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #091431;
+  border-bottom: 1px solid #eeeeee;
+  white-space: nowrap;
+}
+
+/* Row */
+.orderstable-row td {
+  padding: 24px 16px;
+  font-size: 15px;
+  color: #1d1d1d;
+  border-bottom: 1px solid #eeeeee;
+  white-space: nowrap;
+}
+
+/* Product column layout */
+.orderstable-product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Product image */
+.orderstable-thumb {
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  background: #f3f6ff;
+  object-fit: cover;
+}
+
+/* Product text */
+.orderstable-primary {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+}
+
+.orderstable-secondary {
+  font-size: 13px;
+  color: #868686;
+  margin-top: 2px;
+}
+
+/* Status badges EXACT like screenshot */
+.orderstable-status {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.orderstable-status.delivered {
+  background: #d6f5e8;
+  color: #0c8c53;
+}
+
+.orderstable-status.shipping {
+  background: #e7d9ff;
+  color: #6b30d9;
+}
+
+.orderstable-status.failed {
+  background: #ffd6d6;
+  color: #c91818;
+}
+
+.orderstable-status.pending {
+  background: #ffeac2;
+  color: #c78100;
+}
+
+/* Invoice button (purple) */
+.orderstable-invoice-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  background: #6a63fc;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
+  transition: 0.2s;
+}
+
+.orderstable-invoice-btn:hover {
+  background: #554df5;
+}
+
+/* Continue Shopping (bottom-right) */
+.orderstable-footer {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.orderstable-shop-btn {
+  padding: 14px 28px;
+  background: #479cff;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.orderstable-shop-btn:hover {
+  background: #1b7cf5;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE — Horizontal scroll on tablet/mobile
+   ========================================================= */
+
+/* Apply scroll under 1024px */
+@media (max-width: 1024px) {
+  .orderstable-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .orderstable-table {
+    min-width: 1100px; /* forces scroll */
+  }
+}
+
+/* Mobile improvements */
+@media (max-width: 480px) {
+  .orderstable-thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .orderstable-shop-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
