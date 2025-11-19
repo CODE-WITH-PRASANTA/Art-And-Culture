@@ -45,8 +45,8 @@ function App() {
           <Route path="/best-sellers" element={<BestSelling/>} />
           
 
-          <Route path="/Login" element={<Login/>} />
-          <Route path="/Signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Signup/>} />
 
 
 
