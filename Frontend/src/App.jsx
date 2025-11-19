@@ -17,6 +17,8 @@ import BestSelling from "./Pages/BestSelling/BestSelling";
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import Termandcondition from './Components/Termandcondition/Termandcondition'
 import About from "./Pages/About/About";
+import Login from "./Components/Login/Login";
+import Signup from "./Components/Signup/Signup";
 
 
 function App() {
@@ -40,9 +42,11 @@ function App() {
           <Route path="/festive/filter" element={<FestiveFilter />} />
           <Route path="/blog" element={<Blog/>} />
           <Route path="/blog/details" element={<BlogDetailsSection/>} />
-          <Route path="best-sellers" element={<BestSelling/>} />
+          <Route path="/best-sellers" element={<BestSelling/>} />
+          
 
-
+          <Route path="/Login" element={<Login/>} />
+          <Route path="/Signup" element={<Signup/>} />
 
 
 
