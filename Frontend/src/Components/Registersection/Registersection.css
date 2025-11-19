@@ -1,0 +1,146 @@
+/* Google fonts: Baloo 2 (title) & Poppins (body) */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800;900&family=Poppins:wght@300;400;600;700&display=swap");
+
+:root{
+  --bg: #eef6f9;
+  --title: #0f1724;
+  --muted: #6b7280;
+  --accent: #7a2e1b; 
+  --cta-shadow: rgba(227,27,85,0.18);
+}
+
+/* Hero root */
+.hp-hero {
+  background: var(--bg);
+  padding: 56px 40px;
+  box-sizing: border-box;
+  width: 100%;
+  color: var(--title);
+  font-family: "Poppins", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial;
+}
+
+/* Constrain content and align horizontally */
+.hp-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+/* Left column containing label and big title */
+.hp-left {
+  flex: 1 1 70%;
+  min-width: 0;
+}
+
+/* small uppercase label */
+.hp-sub {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* large rounded title */
+.hp-title {
+  margin: 0;
+  font-family: "Baloo 2", system-ui, cursive;
+  font-weight: 800;
+  font-size: 96px;            /* desktop size */
+  line-height: 0.95;
+  letter-spacing: -1px;
+  color: var(--title);
+}
+
+/* Right column contains CTA pill */
+.hp-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CTA pill */
+.hp-cta {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--accent), #7a2e1b  );
+  color: #fff;
+  padding: 18px 44px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 12px 34px var(--cta-shadow);
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms ease;
+}
+
+/* hover/focus effects */
+.hp-cta:hover,
+.hp-cta:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px rgba(227,27,85,0.22);
+  outline: none;
+}
+
+/* keyboard focus visible */
+.hp-cta:focus-visible {
+  outline: 3px solid rgba(227,27,85,0.14);
+  outline-offset: 4px;
+}
+
+/* ---------------- Responsive ---------------- */
+
+/* Large tablets / small desktops */
+@media (max-width: 1200px) {
+  .hp-title { font-size: 72px; }
+  .hp-cta { padding: 16px 38px; font-size: 17px; }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .hp-inner { gap: 18px; padding: 0 8px; }
+  .hp-title { font-size: 56px; }
+  .hp-sub { font-size: 13px; letter-spacing: 1.6px; }
+  .hp-cta { padding: 14px 34px; font-size: 16px; }
+}
+
+/* Mobile: stack vertically, CTA below title and centered */
+@media (max-width: 560px) {
+  .hp-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 0 14px;
+  }
+
+  .hp-left {
+    width: 100%;
+  }
+
+  .hp-title {
+    font-size: 36px;
+    line-height: 1.05;
+  }
+
+  .hp-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hp-cta {
+    width: min(320px, 100%);
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

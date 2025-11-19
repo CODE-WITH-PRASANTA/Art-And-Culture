@@ -1,0 +1,252 @@
+/* timeline-history.css */
+/* Fully fixed version: perfect alignment, equal image row, improved spacing, full hover effects */
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Poppins:wght@300;400;600;700&display=swap");
+
+:root{
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --title: #0f1724;
+  --accent-purple: #4e431b;
+  --accent-pink: #7a2e1b;
+}
+
+/* SECTION ROOT */
+.th-root {
+  background: var(--bg);
+  padding: 110px 40px 90px;
+  font-family: "Poppins", sans-serif;
+  color: var(--title);
+}
+
+/* CONTAINER */
+.th-inner {
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+/* HEADINGS */
+.th-top {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.th-small {
+  color: #7a2e1b;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 3px;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.th-title {
+  font-family: "Baloo 2", cursive;
+  font-size: 64px;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+/* TIMELINE GRID */
+.th-timeline-wrapper {
+  margin-top: 20px;
+}
+
+.th-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 60px;
+  position: relative;
+}
+
+/* HORIZONTAL LINE */
+.th-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -25px;
+  height: 8px;
+  background: var(--accent-purple);
+  border-radius: 8px;
+}
+
+/* EACH COLUMN */
+.th-col {
+  position: relative;
+  padding-top: 40px;
+  z-index: 2;
+
+  /* FIXED: Ensures all images align perfectly */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* DOT ABOVE COLUMN */
+.th-col::before {
+  content: "";
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 34px;
+  background: var(--accent-purple);
+  border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(65,17,90,0.20);
+}
+
+/* TEXT STYLES */
+.th-year {
+  color: var(--accent-purple);
+  font-weight: 900;
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+
+.th-col-title {
+  font-weight: 800;
+  font-size: 26px;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.th-desc {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 330px;
+  margin-bottom: 0; /* FIX: no extra push */
+}
+
+/* IMAGE CARD */
+.th-image-wrap {
+  position: relative;
+  border-radius: 26px;
+  overflow: visible;
+  width: 100%;
+  height: 170px;     /* FIX: ALL images same height */
+  min-height: 170px;
+  margin-top: auto;  /* FIX: pushes image down so all align */
+}
+
+/* INNER IMAGE */
+.th-image-wrap img {
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(12,20,30,0.08);
+  transition: transform 420ms cubic-bezier(.2,.9,.3,1), filter 420ms, box-shadow 420ms;
+}
+
+/* HOVER OUTER + INNER RING */
+.th-image-wrap::before,
+.th-image-wrap::after {
+  content: "";
+  position: absolute;
+  border-radius: 26px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease, transform .35s ease, box-shadow .35s ease;
+}
+
+/* Outer glow */
+.th-image-wrap::before {
+  top: -8px; left: -8px; right: -8px; bottom: -8px;
+  box-shadow: 0 0 0 0 rgba(236,64,122,0);
+  transform: scale(0.98);
+}
+
+/* Inner stroke */
+.th-image-wrap::after {
+  top: 6px; left: 6px; right: 6px; bottom: 6px;
+  box-shadow: inset 0 0 0 0 rgba(236,64,122,0);
+}
+
+/* HOVER EFFECTS (desktop only) */
+@media (hover: hover) and (pointer: fine) {
+
+  .th-image-wrap:hover img,
+  .th-image-wrap:focus img {
+    transform: scale(1.06) translateY(-6px);
+    filter: brightness(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .th-image-wrap:hover::before,
+  .th-image-wrap:focus::before {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow:
+      0 0 0 4px rgba(236,64,122,0.25),
+      0 10px 40px rgba(236,64,122,0.15);
+  }
+
+  .th-image-wrap:hover::after,
+  .th-image-wrap:focus::after {
+    opacity: 1;
+    box-shadow: inset 0 0 0 2px rgba(122, 46, 27, 1);
+  }
+}
+
+/* RESPONSIVE */
+
+/* 1024px → 2 columns */
+@media (max-width: 1024px) {
+  .th-timeline { grid-template-columns: repeat(2, 1fr); }
+  .th-title { font-size: 52px; }
+  .th-image-wrap { height: 150px; min-height: 150px; }
+}
+
+/* 600px → 1 column */
+@media (max-width: 600px) {
+  .th-root { padding: 70px 20px; }
+
+  .th-title { font-size: 38px; }
+
+  .th-timeline {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .th-timeline::before { display: none; } /* no horizontal line */
+
+  .th-col {
+    padding-left: 70px;
+    padding-top: 8px;
+  }
+
+  .th-col::before {
+    top: 5px;
+    left: 30px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .th-col:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 34px;
+    bottom: -10px;
+    width: 5px;
+    background: var(--accent-purple);
+    border-radius: 3px;
+  }
+
+  .th-image-wrap {
+    height: 160px;
+    min-height: 160px;
+    border-radius: 18px;
+  }
+
+  .th-image-wrap img,
+  .th-image-wrap::before,
+  .th-image-wrap::after {
+    border-radius: 18px;
+  }
+}

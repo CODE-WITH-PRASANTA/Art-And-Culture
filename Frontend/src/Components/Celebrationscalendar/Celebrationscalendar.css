@@ -1,0 +1,519 @@
+/* CelebrationsCalendar.css - Updated with new color scheme */
+
+:root {
+  --cc-primary: #D4AF37;
+  --cc-primary-dark: #B8860B;
+  --cc-primary-light: #FFF8DC;
+  --cc-background: #F8F3EB;
+  --cc-background-light: #F8F3EB;
+  --cc-text-primary: #7A2E1B;
+  --cc-text-secondary: #7A2E1B;
+  --cc-text-muted: #8B4513;
+  --cc-border: #D4AF37;
+  --cc-bg-card: #FFFFFF;
+  --cc-shadow-sm: 0 1px 2px 0 rgba(122, 46, 27, 0.1);
+  --cc-shadow-md: 0 4px 6px -1px rgba(122, 46, 27, 0.15), 0 2px 4px -1px rgba(122, 46, 27, 0.1);
+  --cc-shadow-lg: 0 10px 15px -3px rgba(122, 46, 27, 0.2), 0 4px 6px -2px rgba(122, 46, 27, 0.1);
+  --cc-shadow-xl: 0 20px 25px -5px rgba(122, 46, 27, 0.3), 0 10px 10px -5px rgba(122, 46, 27, 0.2);
+  --cc-radius: 12px;
+  --cc-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.celebrations-calendar-showcase {
+  padding: 80px 24px;
+  background: var(--cc-background);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Pattern - Updated for light background */
+.celebrations-calendar-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(122, 46, 27, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.celebrations-calendar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+/* Left Column - Heading Section */
+.celebrations-calendar-heading-wrap {
+  text-align: left;
+  position: sticky;
+  top: 100px;
+}
+
+.celebrations-calendar-heading {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--cc-text-primary);
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  
+  background: linear-gradient(135deg, var(--cc-text-primary) 0%, #8B4513 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.celebrations-calendar-sub {
+  font-size: 1.25rem;
+  color: var(--cc-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* Right Column - Cards Container */
+.celebrations-calendar-cards-container {
+  width: 100%;
+}
+
+/* Advanced 6-Column Grid */
+.celebrations-calendar-cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+/* Card Container - Advanced Design */
+.celebrations-calendar-card {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: var(--cc-transition);
+  animation: ccCardSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: var(--card-delay);
+  border-radius: var(--cc-radius);
+  overflow: hidden;
+}
+
+.celebrations-calendar-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+  opacity: 0;
+  transition: var(--cc-transition);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.celebrations-calendar-card:hover::before {
+  opacity: 1;
+}
+
+.celebrations-calendar-card.is-flipped {
+  transform: rotateY(180deg) scale(1.02);
+}
+
+/* Card Faces */
+.celebrations-calendar-card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--cc-radius);
+  overflow: hidden;
+  box-shadow: var(--cc-shadow-md);
+  transition: var(--cc-transition);
+}
+
+/* Front Card - Advanced Design */
+.celebrations-calendar-card-front {
+  background: linear-gradient(135deg, var(--cc-bg-card) 0%, #faf8f5 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(122, 46, 27, 0.1);
+}
+
+.celebrations-calendar-card-front::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cc-primary), var(--cc-primary-dark));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  z-index: 3;
+}
+
+.celebrations-calendar-card:hover .celebrations-calendar-card-front::after {
+  transform: scaleX(1);
+}
+
+.celebrations-calendar-card:hover .celebrations-calendar-card-front {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--cc-shadow-xl);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+/* Image Section - Enhanced */
+.celebrations-calendar-img-wrap {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--cc-primary-light) 0%, transparent 100%);
+}
+
+.celebrations-calendar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--cc-transition);
+  filter: brightness(0.95);
+}
+
+.celebrations-calendar-card:hover .celebrations-calendar-image {
+  transform: scale(1.1);
+  filter: brightness(1.05);
+}
+
+/* Text Section - Enhanced */
+.celebrations-calendar-front-meta {
+  padding: 16px 12px;
+  background: var(--cc-bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.celebrations-calendar-front-meta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+}
+
+.celebrations-calendar-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--cc-text-primary);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0;
+  line-height: 1.3;
+  transition: var(--cc-transition);
+}
+
+.celebrations-calendar-card:hover .celebrations-calendar-title {
+  color: var(--cc-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Back Card - Enhanced for light background */
+.celebrations-calendar-card-back {
+  background: linear-gradient(135deg, var(--cc-bg-card) 0%, #faf8f5 100%);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 2px solid var(--cc-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.celebrations-calendar-card-back::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  transform: rotate(45deg);
+  transition: var(--cc-transition);
+}
+
+.celebrations-calendar-card:hover .celebrations-calendar-card-back::before {
+  transform: rotate(45deg) translate(20px, 20px);
+}
+
+.celebrations-calendar-back-inner {
+  text-align: center;
+  color: var(--cc-text-primary);
+  position: relative;
+  z-index: 2;
+}
+
+.celebrations-calendar-back-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--cc-text-primary);
+}
+
+.celebrations-calendar-back-desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+  color: var(--cc-text-secondary);
+  opacity: 0.8;
+}
+
+.celebrations-calendar-back-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.celebrations-calendar-btn {
+  background: var(--cc-primary);
+  color: #7A2E1B;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--cc-transition);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.celebrations-calendar-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.celebrations-calendar-btn:hover {
+  background: var(--cc-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+}
+
+.celebrations-calendar-btn:hover::before {
+  left: 100%;
+}
+
+/* Advanced Animations */
+@keyframes ccCardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ccFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.celebrations-calendar-card:hover {
+  animation: ccFloat 3s ease-in-out infinite;
+}
+
+/* Enhanced Focus States */
+.celebrations-calendar-card:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--cc-primary), 0 0 0 6px rgba(212, 175, 55, 0.3), var(--cc-shadow-lg);
+}
+
+.celebrations-calendar-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--cc-primary-light), 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* Advanced Responsive Design */
+@media (max-width: 1400px) {
+  .celebrations-calendar-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .celebrations-calendar-card {
+    height: 240px;
+  }
+  
+  .celebrations-calendar-img-wrap {
+    height: 150px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .celebrations-calendar-inner {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  
+  .celebrations-calendar-heading-wrap {
+    position: static;
+    text-align: center;
+  }
+  
+  .celebrations-calendar-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .celebrations-calendar-heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .celebrations-calendar-showcase {
+    padding: 60px 20px;
+  }
+  
+  .celebrations-calendar-heading {
+    font-size: 2.25rem;
+  }
+  
+  .celebrations-calendar-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  
+  .celebrations-calendar-card {
+    height: 220px;
+    max-width: none;
+  }
+  
+  .celebrations-calendar-img-wrap {
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .celebrations-calendar-showcase {
+    padding: 40px 16px;
+  }
+  
+  .celebrations-calendar-heading {
+    font-size: 2rem;
+  }
+  
+  .celebrations-calendar-sub {
+    font-size: 1.1rem;
+  }
+  
+  .celebrations-calendar-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .celebrations-calendar-card {
+    height: 200px;
+  }
+  
+  .celebrations-calendar-img-wrap {
+    height: 120px;
+  }
+  
+  .celebrations-calendar-back-inner {
+    padding: 16px;
+  }
+  
+  .celebrations-calendar-back-title {
+    font-size: 0.85rem;
+  }
+  
+  .celebrations-calendar-back-desc {
+    font-size: 0.7rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .celebrations-calendar-card {
+    transition: none;
+    animation: none;
+  }
+  
+  .celebrations-calendar-card.is-flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .celebrations-calendar-card:hover .celebrations-calendar-card-front {
+    transform: none;
+  }
+  
+  .celebrations-calendar-card:hover .celebrations-calendar-image {
+    transform: none;
+    filter: none;
+  }
+  
+  .celebrations-calendar-btn:hover {
+    transform: none;
+  }
+}
+
+/* Enhanced decorative elements */
+.celebrations-calendar-heading-wrap::before {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cc-primary), var(--cc-primary-dark));
+  margin-bottom: 24px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Grid Lines Effect */
+.celebrations-calendar-cards::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, var(--cc-primary) 0%, transparent 50%, var(--cc-primary) 100%);
+  border-image-slice: 1;
+  border-radius: calc(var(--cc-radius) + 4px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.celebrations-calendar-cards-container:hover .celebrations-calendar-cards::before {
+  opacity: 0.3;
+}

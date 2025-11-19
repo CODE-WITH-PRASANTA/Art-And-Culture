@@ -1,0 +1,232 @@
+/* Coresection.css
+   Fonts: Baloo 2 (title) + Poppins (body)
+   - purple background
+   - yellow arches under each image
+   - different clipped shapes for images with white double border
+   - title turns pink on hover/focus of card
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Poppins:wght@300;400;600;700&display=swap");
+
+:root{
+  --corev-bg: #57aadb;
+  --corev-muted: #e6e6e6;
+  --corev-title: #ffffff;
+  --corev-accent-yellow: #ffd32a;
+  --corev-accent-pink: #7a2e1b;
+}
+
+/* SECTION ROOT */
+.corev-root {
+  background: var(--corev-bg);
+  color: var(--corev-title);
+  padding: 64px 24px 96px;
+  font-family: "Poppins", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial;
+  box-sizing: border-box;
+}
+
+/* container */
+.corev-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* top heading row */
+.corev-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.corev-left .corev-small {
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.corev-title {
+  font-family: "Baloo 2", cursive;
+  font-size: 64px;
+  margin: 0;
+  line-height: 1;
+  color: var(--corev-title);
+}
+.corev-right .corev-paragraph {
+  color: rgba(255,255,255,0.87);
+  max-width: 520px;
+  margin: 12px 0 0 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* cards row */
+.corev-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 28px;
+  align-items: end;
+  margin-top: 36px;
+}
+
+/* card base */
+.corev-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  outline: none;
+  border-radius: 8px;
+  padding-top: 48px; /* space for arch */
+}
+
+/* yellow arch behind each shape (positioned with pseudo element) */
+.corev-card .corev-arch {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 110px;
+  border-radius: 50% 50% 0 0;
+  background: var(--corev-accent-yellow);
+  z-index: 0;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+/* main shape wrapper - sits above arch */
+.corev-shape {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  z-index: 2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom: 20px;
+}
+
+/* inner frame - white double border (drawn as pseudo box inside shape) */
+.corev-shape-frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,1),    /* outer thick white ring (first) */
+    0 0 0 10px rgba(0,0,0,0);         /* reserve space (works as separation) */
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* image itself - clipped to various polygons per shape */
+.corev-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  transition: transform 380ms cubic-bezier(.2,.9,.3,1), filter 320ms;
+  transform-origin: center;
+}
+
+/* small zoom on card / image hover and focus */
+.corev-card:hover .corev-img,
+.corev-card:focus .corev-img {
+  transform: scale(1.06) translateY(-4px);
+  filter: brightness(1.02);
+}
+
+/* card title & description */
+.corev-card-title {
+  margin: 6px 0 8px;
+  font-family: "Baloo 2", cursive;
+  font-size: 20px;
+  color: var(--corev-title);
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+/* change title color to pink on hover/focus of parent card */
+.corev-card:hover .corev-card-title,
+.corev-card:focus .corev-card-title,
+.corev-card:focus-within .corev-card-title {
+  color: var(--corev-accent-pink);
+  transform: translateY(-2px);
+}
+
+/* description */
+.corev-card-desc {
+  max-width: 250px;
+  color: rgba(255,255,255,0.9);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ================= SHAPE VARIANTS ================= */
+
+/* triangle */
+.corev-shape-triangle {
+  clip-path: polygon(50% 0%, 100% 86%, 0% 86%);
+  border-radius: 16px;
+}
+.corev-shape-triangle .corev-shape-frame { border-radius: 16px; }
+
+/* hexagon */
+.corev-shape-hex {
+  clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+  border-radius: 18px;
+}
+.corev-shape-hex .corev-shape-frame { border-radius: 18px; }
+
+/* diamond (rotated square) */
+.corev-shape-diamond {
+  transform: rotate(45deg);
+  width: 160px;
+  height: 160px;
+}
+.corev-shape-diamond .corev-img { transform: rotate(-45deg); /* keep image upright */ }
+.corev-shape-diamond .corev-shape-frame { border-radius: 14px; transform: rotate(-45deg); }
+
+/* alternate hex (slightly different angles) */
+.corev-shape-hex2 {
+  clip-path: polygon(50% 0%, 86% 25%, 86% 75%, 50% 100%, 14% 75%, 14% 25%);
+  border-radius: 20px;
+}
+.corev-shape-hex2 .corev-shape-frame { border-radius: 20px; }
+
+/* fix for rotated item alignment */
+.corev-shape-diamond { display:flex; align-items:center; justify-content:center; }
+
+/* ================= ACCESSIBILITY & FOCUS ================= */
+.corev-card:focus { box-shadow: 0 8px 30px rgba(0,0,0,0.18); border-radius:8px; }
+.corev-card:focus-visible { outline: 3px solid rgba(236,64,122,0.18); outline-offset: 6px; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1100px) {
+  .corev-top { grid-template-columns: 1fr; }
+  .corev-right .corev-paragraph { margin-top: 18px; }
+  .corev-cards { grid-template-columns: repeat(2, 1fr); gap: 36px; }
+  .corev-card { padding-top: 36px; }
+  .corev-card .corev-arch { width: 180px; height: 92px; top: 68px; }
+  .corev-shape { width: 150px; height:150px; }
+  .corev-img { border-radius: 12px; }
+}
+
+@media (max-width: 560px) {
+  .corev-inner { padding: 0 12px; }
+  .corev-title { font-size: 36px; }
+  .corev-cards { grid-template-columns: 1fr; gap: 28px; }
+  .corev-card .corev-arch { width: 140px; height: 74px; top: 64px; }
+  .corev-shape { width: 140px; height: 140px; }
+  .corev-title { font-size: 40px; }
+  .corev-right .corev-paragraph { max-width: 100%; font-size: 15px; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .corev-img { transition: none !important; transform: none !important; }
+  .thumb-rotator::before { animation: none !important; }
+}

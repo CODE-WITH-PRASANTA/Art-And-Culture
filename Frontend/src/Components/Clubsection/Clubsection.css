@@ -1,0 +1,350 @@
+/* available-clubs.css
+   Fonts: Baloo 2 (title) + Poppins (body)
+   - Rotating dashed circle around thumbnails
+   - Hover dashed circle becomes pink
+   - Exact spacing, centered title, left/right columns
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Poppins:wght@300;400;600;700&display=swap");
+
+:root{
+  --bg: #ffffff;
+  --title: #0f1724;
+  --muted: #6b7280;
+  --accent-pink: #7a2e1b;
+  --accent-yellow: #facc15;
+  --accent-purple: #7a2e1b;
+  --dot-size: 6px;
+}
+
+/* root */
+.ac-root {
+  background: var(--bg);
+  padding: 84px 28px 120px;
+  font-family: "Poppins", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial;
+  color: var(--title);
+  box-sizing: border-box;
+}
+
+/* container */
+.ac-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* header */
+.ac-header { text-align: center; margin-bottom: 48px; }
+.ac-dots { display:inline-flex; gap:8px; justify-content:center; margin-bottom:12px; }
+.ac-dots .dot { width:14px; height:14px; border-radius:50%; display:inline-block; }
+.ac-dots .yellow { background: var(--accent-yellow); }
+.ac-dots .purple { background: #ffdf39; }
+.ac-dots .red { background: #7a2e1b; }
+
+.ac-title {
+  font-family: "Baloo 2", cursive;
+  font-size: 56px;
+  margin: 0;
+  font-weight: 800;
+}
+.ac-sub { margin-top: 10px; color: var(--muted); }
+
+/* grid layout: left column, center, right column */
+.ac-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+/* columns */
+.ac-column { display:flex; flex-direction:column; gap: 40px; }
+
+/* club item */
+.club-item {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+/* thumbnail wrapper: contains rotating dashed circle (pseudo element via extra element) */
+.thumb-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  min-width: 84px;
+  min-height: 84px;
+  display: inline-block;
+  border-radius: 50%;
+  flex-shrink: 0;
+  outline: none;
+}
+
+/* the rotating dashed border - uses a separate element .thumb-rotator so we can animate */
+.thumb-rotator {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-sizing: border-box;
+  padding: 6px; /* leaves space for inner image */
+  display: block;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* draw dashed circle using conic-gradient trick for consistent colored dashes
+   fallback: dashed border if gradient is not desired
+*/
+.thumb-rotator::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgb(247, 243, 30) 0deg 20deg,
+    rgba(0,0,0,0) 20deg 26deg
+  );
+  /* mask to create dashed effect: use repeating-conic-gradient to get dots */
+  mask-image: radial-gradient(circle at center, transparent 58%, black 59%);
+  transform-origin: center;
+  animation: rotate-ttl 8s linear infinite;
+  transition: filter 220ms ease, opacity 220ms ease;
+  box-shadow: 0 6px 18px rgba(75,33,97,0.08);
+}
+
+/* inner circle stroke (thin dotted look) using border fallback for browsers where conic doesn't produce desired look */
+.thumb-rotator::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 3px dotted rgb(147, 81, 159);
+  filter: saturate(0.95);
+  z-index: 2;
+}
+
+/* actual thumb image */
+.thumb {
+  position: absolute;
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 3;
+  display:block;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* hover/focus: make dashed ring pink */
+.thumb-wrap:hover .thumb-rotator::before,
+.thumb-wrap:focus .thumb-rotator::before,
+.thumb-wrap:focus-visible .thumb-rotator::before {
+  filter: hue-rotate(-30deg) saturate(1.4);
+  opacity: 1;
+  /* change the conic gradient to pink segments */
+  background: conic-gradient(
+    var(--accent-pink) 0deg 20deg,
+    rgba(0,0,0,0) 20deg 26deg
+  );
+}
+
+.thumb-wrap:hover .thumb-rotator::after,
+.thumb-wrap:focus .thumb-rotator::after {
+  border-color: var(--accent-pink);
+}
+
+/* small animation to highlight on hover */
+.thumb-wrap:hover .thumb,
+.thumb-wrap:focus .thumb {
+  transform: translateY(-4px) scale(1.02);
+  transition: transform 240ms ease;
+}
+
+/* club content (title + bullets) */
+.club-content { display:flex; flex-direction:column; gap:10px; }
+.club-title {
+  margin: 0;
+  font-family: "Baloo 2", cursive;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--title);
+}
+.club-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+.club-bullets li {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding: 6px 0;
+}
+.bullet-dot {
+  display:inline-block;
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+  flex-shrink:0;
+}
+
+/* center area */
+.ac-center {
+  position: relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 24px;
+}
+
+/* decorative yellow blob behind the main image */
+.ac-blob {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background: #ffdf39;
+  border-radius: 36% 64% 50% 50% / 60% 50% 50% 40%;
+  z-index: 1;
+  filter: saturate(1.02);
+}
+
+/* central image */
+.ac-center-img {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  z-index: 2;
+}
+.ac-center-img img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* small decorative icon near bottom right of center (optional) */
+.ac-deco {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 110px;
+  height: 80px;
+  background: linear-gradient(90deg,#ff7a59,#ffb86b);
+  border-radius: 0 50% 50% 50%;
+  z-index: 0;
+  opacity: 0.95;
+}
+
+/* ---------- Animations ---------- */
+@keyframes rotate-ttl {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .ac-grid { grid-template-columns: 1fr 360px 1fr; gap: 18px; }
+  .ac-center-img { width: 300px; height:300px; }
+  .ac-blob { width:300px; height:300px; }
+}
+
+@media (max-width: 860px) {
+  /* stack: left column above center above right column */
+  .ac-grid { grid-template-columns: 1fr; gap: 22px; }
+  .ac-center { order: -1; } /* center goes on top */
+  .club-item { gap: 14px; }
+  .thumb-wrap { width:72px; height:72px; min-width:72px; min-height:72px; }
+  .thumb { inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); }
+  .ac-center-img { width: 260px; height: 260px; }
+  .ac-blob { width: 280px; height: 280px; left: 50%; transform: translateX(-50%); }
+}
+
+@media (max-width: 480px) {
+  .ac-root { padding: 40px 16px 80px; }
+  .ac-title { font-size: 36px; }
+  .thumb-wrap { width:64px; height:64px; min-width:64px; min-height:64px; }
+  .club-title { font-size: 20px; }
+  .ac-center-img { width: 220px; height: 220px; }
+  .ac-blob { width:220px; height:220px; }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .thumb-rotator::before { animation: none !important; }
+  .thumb, .thumb-wrap, .ac-center-img img { transition: none !important; transform: none !important; }
+}
+
+:root {
+  --red: #7a2e1b;
+  --icon-bg: #eef5fb;
+  --title: #0f1724;
+}
+
+.stats-root {
+  padding: 70px 30px 100px;
+  background: #ffffff;
+}
+
+.stats-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-icon {
+  width: 110px;
+  height: 110px;
+  background: var(--icon-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.stat-number {
+  font-family: "Baloo 2", cursive;
+  font-size: 74px;
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--title);
+}
+
+@media (max-width: 950px) {
+  .stats-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .stats-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .stat-number {
+    font-size: 60px;
+  }
+}

@@ -45,7 +45,7 @@
   user-select: none;
 
   /* colorful gradient fill for text */
-  background: linear-gradient(black);
+  background: linear-gradient(#7A2E1B);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
