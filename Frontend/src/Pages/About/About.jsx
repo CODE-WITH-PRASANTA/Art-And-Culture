@@ -1,6 +1,6 @@
 import React from 'react'
 import './About.css'
-import Aboutsection from '../../Components/Aboutsection/Aboutsection.jsx'
+
 import Childrensection from '../../Components/Childrensection/Childrensection.jsx'
 import Studentsection from '../../Components/Studentsection/Studentsection.jsx'
 import Teachersection from '../../Components/Teachersection/Teachersection.jsx'
@@ -15,7 +15,6 @@ import Instagramsection from '../../Components/Instagramsection/Instagramsection
 const About = () => {
   return (
     <div>
-      <Aboutsection/>
       <Childrensection/>
       <Studentsection/>
       <Teachersection/>
