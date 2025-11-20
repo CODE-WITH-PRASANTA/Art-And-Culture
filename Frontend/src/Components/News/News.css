@@ -1,6 +1,6 @@
 /* News.css - polished marquee with brand gradient background */
 
-/* Container: brand gradient blended with white (your #7A2E1B + white mix) */
+/* Container */
 .news-container {
   width: 100%;
   padding: 14px 0;
@@ -8,7 +8,6 @@
   position: relative;
   border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 
-  /* Elegant blend from brand brown -> warm neutrals -> white */
   background: linear-gradient(
     90deg,
     white
@@ -22,17 +21,17 @@
   position: relative;
 }
 
-/* The flex row with repeated content; animation shifts left by one item group */
+/* Flex row with content */
 .marquee-content {
   display: flex;
   align-items: center;
-  gap: 6rem;
+  gap: 3rem;
   white-space: nowrap;
-  /* animation duration can be adjusted */
-  animation: marquee 18s linear infinite;
+  /* 🔥 Faster marquee (was 18s) */
+  animation: marquee 10s linear infinite;
 }
 
-/* Each news item — position relative so its ::before glow can align */
+/* News text */
 .news-text {
   position: relative;
   display: inline-block;
@@ -44,15 +43,13 @@
   cursor: default;
   user-select: none;
 
-  /* colorful gradient fill for text */
-  background: linear-gradient(#7A2E1B);
+  background: linear-gradient(#7A2E1B, #4b1409);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  
 }
 
-/* Subtle blurred glow behind each text using the data-text attribute */
+/* Glow behind each text */
 .news-text::before {
   content: attr(data-text);
   position: absolute;
@@ -63,8 +60,6 @@
   pointer-events: none;
   z-index: -1;
 
-  /* same gradient, blurred for glow effect */
-  /* background: linear-gradient(90deg, #ff6b6b 0%, #ffd93d 25%, #6bcf7f 50%, #4d96ff 75%, #9d4edd 100%); */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -74,10 +69,24 @@
   transform: translateY(2px);
 }
 
-/* Pause animation on hover for readability */
-.marquee-content:hover { animation-play-state: paused; }
+/* ⭐ Icon between texts */
+.news-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  padding: 0 4px;
+  opacity: 0.9;
+  /* same brand color */
+  color: #7A2E1B;
+}
 
-/* Marquee animation — as content is repeated 3x, moving -33.33% will loop seamlessly */
+/* Pause animation on hover */
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* Marquee animation */
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-33.3333%); }
@@ -85,19 +94,50 @@
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .marquee-content { gap: 4.5rem; animation-duration: 16s; }
-  .news-text { font-size: 1rem; padding: 0 22px; }
-  .news-text::before { filter: blur(9px); opacity: 0.48; }
+  .marquee-content {
+    gap: 2.5rem;
+    animation-duration: 9s; /* slightly faster than desktop */
+  }
+  .news-text {
+    font-size: 1rem;
+    padding: 0 22px;
+  }
+  .news-text::before {
+    filter: blur(9px);
+    opacity: 0.48;
+  }
 }
 
 @media (max-width: 768px) {
-  .marquee-content { gap: 3rem; animation-duration: 14s; }
-  .news-text { font-size: 0.95rem; padding: 0 18px; }
-  .news-text::before { filter: blur(8px); opacity: 0.42; }
+  .marquee-content {
+    gap: 2rem;
+    animation-duration: 8s;
+  }
+  .news-text {
+    font-size: 0.95rem;
+    padding: 0 18px;
+  }
+  .news-text::before {
+    filter: blur(8px);
+    opacity: 0.42;
+  }
+  .news-icon {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 420px) {
-  .marquee-content { gap: 2rem; animation-duration: 12s; }
-  .news-text { font-size: 0.92rem; padding: 0 14px; letter-spacing: 0.6px; }
-  .news-text::before { filter: blur(7px); opacity: 0.38; }
+  .marquee-content {
+    gap: 1.4rem;
+    animation-duration: 7s;
+  }
+  .news-text {
+    font-size: 0.9rem;
+    padding: 0 14px;
+    letter-spacing: 0.6px;
+  }
+  .news-text::before {
+    filter: blur(7px);
+    opacity: 0.38;
+  }
 }

@@ -56,8 +56,6 @@ function App() {
           <Route path="/blog" element={<Blog/>} />
           <Route path="/blog/details" element={<BlogDetailsSection/>} />
           <Route path="/best-sellers" element={<BestSelling/>} />
-          
-
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Signup/>} />
 
