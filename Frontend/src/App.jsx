@@ -43,9 +43,6 @@ function App() {
           <Route path="best-sellers" element={<BestSelling/>} />
 
 
-
-
-
           <Route path="/fresh/collection" element={< FreshCollection/>} />
           <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
