@@ -1,10 +1,10 @@
-import React from "react";
-import "./Contactsection.css";
+import React from 'react'
+import './Contactsection.css'
 
-
-export default function AboutUs() {
+const Contactsection = () => {
   return (
-    <div className="about-container">
+    <div>
+       <div className="about-container">
       {/* Hero Section */}
       <section className="about-hero">
         <div className="about-left">
@@ -25,5 +25,9 @@ export default function AboutUs() {
         </div>
       </div>
     </div>
-  );
+
+    </div>
+  )
 }
+
+export default Contactsection

@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import { FaUserCircle, FaShoppingCart,FaEnvelope,FaPhone, FaBars, FaTimes } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import { MdCategory, MdLocalOffer } from "react-icons/md";
+import { MdCategory, MdLocalOffer , MdOutlineLocalFlorist } from "react-icons/md";
 import { FaHome, FaBlog, FaFire } from "react-icons/fa";
+
 
 import logo from "../../assets/Art and Culture Logo.webp";
 import image from "../../assets/01.webp";
@@ -258,7 +259,7 @@ const Navbar = () => {
             <Link to="/shop"><MdCategory /> Shop</Link>
             <Link to="/blog"><FaBlog /> Blog</Link>
             <Link to="/best-sellers"><FaFire /> Best Sellers</Link>
-            <Link to="/sale"><MdLocalOffer /> Sale</Link>
+            <Link to="/Pooja-essentials"><MdOutlineLocalFlorist /> Pooja Essentials</Link>
             <Link to="/about"><FaUserCircle /> About</Link>
             <Link to="/contact"><AiFillHeart /> Contact</Link>
           </nav>

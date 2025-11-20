@@ -12,11 +12,16 @@ import ShopSec from "./Pages/ShopSec/ShopSec";
 import Blog from "./Pages/Blog/Blog";
 import BlogDetailsSection from "./Components/BlogDetailsSection/BlogDetailsSection";
 import BestSelling from "./Pages/BestSelling/BestSelling";
-
-
-import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
-import Termandcondition from './Components/Termandcondition/Termandcondition'
+import PoojaEssentials from "./Pages/PoojaEssentials/PoojaEssentials";
+import HomeDecor from "./Pages/HomeDecor/HomeDecor";
+import TrackOrder from "./Pages/TrackOrder/TrackOrder";
+import Faq from "./Pages/Faq/Faq";
+import CheckOutSection from "./Components/CheckoutSection/CheckoutSection";
+import OrderConfirm from "./Pages/OrderConfirm/OrderConfirm";
+import OrdersTable from "./Components/OrdersTable/OrdersTable";
 import About from "./Pages/About/About";
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
+import Terms from "./Components/Termandcondition/Termandcondition";
 
 
 function App() {
@@ -33,25 +38,30 @@ function App() {
           <Route path="/about" element={<About />} />
           
           <Route path="/contact" element={<Contact />} />
-
-          <Route path="/shop" element={<ShopSec />} />
           <Route path="/fresh/collection" element={< FreshCollection/>} />
           <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
           <Route path="/blog" element={<Blog/>} />
           <Route path="/blog/details" element={<BlogDetailsSection/>} />
-          <Route path="best-sellers" element={<BestSelling/>} />
-
+          <Route path="/best-sellers" element={<BestSelling/>} />
 
           <Route path="/fresh/collection" element={< FreshCollection/>} />
           <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
-          <Route path="/termandcondition" element={<Termandcondition/>} />
-          
+          <Route path="/termandcondition" element={<Terms />} />
 
+
+          <Route path="/Pooja-essentials" element={<PoojaEssentials />} />
+          <Route path="/HomeDecor" element={<HomeDecor />} />
+          <Route path="/TrackOrder" element={<TrackOrder />} />
+          <Route path="/Faq" element={<Faq />} />
+          <Route path="/CheckOutSection" element={<CheckOutSection />} />
+          <Route path="/OrderConfirm" element={<OrderConfirm />} />
+          <Route path="/OrdersHistory" element={<OrdersTable />} />
+          
         </Routes>
-      </main>
+      </main> 
 
       {/* Footer visible on all pages */}
       <Footer />

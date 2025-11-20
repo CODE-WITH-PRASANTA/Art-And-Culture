@@ -192,8 +192,8 @@ a { text-decoration: none; color: inherit; }
 /* category dropdown */
 .navbar-category-dropdown {
   position: absolute;
-  top: 160px;
-  left: 130px;
+  top: 140px;
+  left: 180px;
   width: 250px;
   background: var(--brand-light-bg);
   border-radius: 14px;

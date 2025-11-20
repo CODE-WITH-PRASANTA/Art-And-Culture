@@ -1,0 +1,486 @@
+/* =========================
+   Premium Pooja — Full CSS (Responsive-enhanced)
+   ========================= */
+
+/* Theme tokens */
+:root{
+  --bg: #f6f1e7;
+  --panel: #ffffff;
+  --gold: #d4a762;
+  --muted: #6c5b3b;
+  --accent: rgba(212,167,98,0.12);
+  --radius: 14px;
+  --glass: rgba(255,255,255,0.6);
+
+  /* responsive sizing tokens */
+  --page-max: 1300px;
+  --side-max: 420px;
+  --gutter: 24px;
+}
+
+/* -------------------------
+   Layout root
+   ------------------------- */
+.pp-wrapper {
+  display: flex;
+  gap: var(--gutter);
+  align-items: flex-start;
+  justify-content: flex-end;
+  background: var(--bg);
+  padding: 36px 28px;
+  position: relative;
+  overflow: visible;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--muted);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Sanskrit animated border (top edge) */
+.sanskrit-border{
+  position: absolute;
+  top: 6px;
+  left: 6%;
+  right: 6%;
+  height: 28px;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+.sanskrit-track{
+  white-space: nowrap;
+  font-weight: 700;
+  color: rgba(116,84,40,0.85);
+  transform: translateX(100%);
+  animation: sansScroll 14s linear infinite;
+  font-size: 14px;
+  letter-spacing: 6px;
+  opacity: 0.95;
+}
+@keyframes sansScroll{
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-120%); }
+}
+
+/* Left decorative mandir panel */
+.pp-left-panel {
+  width: 30%;
+  max-width: 360px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 22px;
+  box-sizing: border-box;
+}
+.mandir-img{
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border: 1px solid rgba(212,167,98,0.15);
+  display: block;
+}
+.mandir-placeholder{
+  width: 100%;
+  height: 320px;
+  border-radius: 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--muted);
+  background: linear-gradient(180deg,#fff 0%, #f3eadb 100%);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* floating diya decorations */
+.floating-diya{
+  position: absolute;
+  font-size: 28px;
+  filter: drop-shadow(0 6px 12px rgba(212,167,98,0.12));
+  opacity: 0.95;
+  animation: floaty 4s ease-in-out infinite;
+  transform-origin: center;
+}
+.diya-1 { top: 10px; left: -6px; animation-delay: .2s; }
+.diya-2 { top: 220px; left: 20px; animation-delay: 1.1s; }
+@keyframes floaty{
+  0% { transform: translateY(0) rotate(-3deg); opacity:0.95; }
+  50% { transform: translateY(-10px) rotate(3deg); opacity:1; }
+  100% { transform: translateY(0) rotate(-3deg); opacity:0.95; }
+}
+
+/* Main right content */
+.pp-container {
+  width: 60%;
+  min-width: 340px;
+  margin-right: 10%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.98));
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.06);
+  position: relative;
+  border: 1px solid rgba(212,167,98,0.12);
+  box-sizing: border-box;
+  max-width: calc(var(--page-max));
+}
+
+/* Header & Tabs */
+.pp-header {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.pp-title {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px;
+  font-weight:700;
+  color:#5b4632;
+}
+.pp-gold-icon{
+  color: var(--gold);
+  font-size:20px;
+}
+.pp-sub {
+  color: #7a6651;
+  margin: 0;
+  font-size:14px;
+}
+
+.pp-tabs {
+  display:flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  background: transparent;
+  border: 1px solid rgba(116,84,40,0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b5438;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  transition: all .18s ease;
+  font-weight:600;
+}
+.tab-btn.active{
+  background: linear-gradient(90deg, rgba(212,167,98,0.12), rgba(212,167,98,0.06));
+  border-color: rgba(212,167,98,0.3);
+  box-shadow: 0 6px 18px rgba(212,167,98,0.06);
+  color: #5b4632;
+}
+
+/* shimmer divider */
+.pp-divider {
+  height: 2px;
+  margin: 18px 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, transparent, rgba(212,167,98,0.6), transparent);
+}
+.shimmer-gold::before{
+  content: "";
+  position: absolute;
+  left: -40%;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(212,167,98,0.35), transparent);
+  animation: shimmer 2.2s linear infinite;
+}
+@keyframes shimmer{ 0%{ left:-40%; } 100%{ left:120%; } }
+
+/* Panels */
+.pp-panel { display: none; }
+.pp-panel.show { display: block; animation: fadeIn .28s ease both; }
+@keyframes fadeIn{ from{ opacity:0; transform: translateY(6px)} to{ opacity:1; transform:none } }
+
+/* Price list + carousel layout */
+.pp-price-and-carousel {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 18px;
+  align-items: start;
+}
+
+/* Price list */
+.pp-price-list {
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#fcfaf6);
+  border: 1px solid rgba(212,167,98,0.08);
+}
+.price-head{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  padding: 10px 12px;
+  font-weight:700;
+  color:#6b5134;
+}
+.price-row{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  padding: 12px;
+  border-bottom: 1px dashed rgba(0,0,0,0.04);
+  align-items:center;
+}
+.price-row:last-child { border-bottom:none; }
+.prod-name { color:#5b4632; font-weight:600; }
+.prod-price { color:var(--gold); font-weight:700; }
+
+/* gold animated border utility */
+.gold-animated-border {
+  position: relative;
+  overflow: visible;
+}
+.gold-animated-border::after{
+  content:"";
+  position:absolute;
+  inset: -2px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, transparent, rgba(212,167,98,0.22), transparent);
+  filter: blur(6px);
+  opacity: 0.85;
+  pointer-events:none;
+  transform: scale(0.99);
+  animation: goldFlow 3.5s linear infinite;
+}
+@keyframes goldFlow{
+  0%{ background-position: 0% 50% }
+  50%{ background-position: 100% 50% }
+  100%{ background-position: 0% 50% }
+}
+
+/* Carousel */
+.carousel-viewport{
+  overflow: hidden;
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#fff,#f9f7f1);
+  border: 1px solid rgba(212,167,98,0.06);
+  padding: 12px;
+  box-sizing: border-box;
+}
+.carousel-track{
+  display:flex;
+  gap:16px;
+  transition: transform .35s cubic-bezier(.2,.9,.2,1);
+  will-change: transform;
+}
+.product-card{
+  min-width: 260px;
+  width: 260px;
+  border-radius: 12px;
+  padding: 16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  border:1px solid rgba(0,0,0,0.03);
+}
+.prod-image{ font-size:36px; }
+.card-title{ font-size:15px; color:#5b4632; text-align:center; }
+.card-price{ color:var(--gold); font-weight:700; }
+.btn-primary{
+  background: linear-gradient(90deg,#d4a762,#b78f40);
+  color:#fff;
+  border:none;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* carousel controls */
+.carousel-controls { display:flex; gap:8px; justify-content:flex-end; margin-bottom:8px; }
+.carousel-btn {
+  background: transparent;
+  border: 1px solid rgba(116,84,40,0.08);
+  padding:6px 8px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* FAQ */
+.pp-faq { padding-top:8px; }
+.faq-item { margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.03); padding-bottom:10px; }
+.faq-q{
+  width:100%;
+  background:transparent;
+  border:none;
+  text-align:left;
+  padding:10px 6px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:700;
+  color:#5b4632;
+  cursor:pointer;
+}
+.faq-a{
+  max-height:0;
+  overflow:hidden;
+  transition: all .35s ease;
+  opacity:0;
+}
+.faq-a.open{ max-height:400px; opacity:1; padding:8px 6px; color:#6b5134; }
+
+/* Features list */
+.features-list{ list-style:none; padding:0; margin:8px 0 0 0; display:flex; flex-direction:column; gap:10px; }
+.feature-item{ display:flex; gap:10px; align-items:center; color:#5b4632; font-weight:600; }
+.feat-icon{ color:var(--gold); }
+
+/* Responsive breakpoints - enhanced coverage for many screen sizes */
+
+/* Large desktops / 4k screens */
+@media (min-width: 1600px) {
+  .pp-wrapper { padding: 56px 48px; gap: 40px; }
+  .pp-container { width: 55%; min-width: 520px; margin-right: 8%; }
+  .pp-left-panel { width: 35%; max-width: 520px; }
+  .pp-price-and-carousel { grid-template-columns: 1fr 420px; gap: 28px; }
+  .product-card { width: 300px; min-width: 300px; padding: 20px; }
+}
+
+/* Desktop / large laptop */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .pp-wrapper { padding: 48px 36px; gap: 32px; }
+  .pp-container { width: 58%; min-width: 480px; margin-right: 8%; }
+  .pp-left-panel { width: 34%; max-width: 420px; }
+  .pp-price-and-carousel { grid-template-columns: 1fr 380px; }
+  .product-card { width: 280px; min-width: 280px; }
+}
+
+/* Standard laptop / desktop */
+@media (min-width: 901px) and (max-width: 1199px) {
+  .pp-wrapper { padding: 40px 28px; gap: 26px; }
+  .pp-container { width: 65%; margin-right: 6%; }
+  .pp-left-panel { width: 32%; max-width: 380px; }
+  .pp-price-and-carousel { grid-template-columns: 1fr 340px; }
+  .carousel-viewport { padding: 10px; }
+}
+
+/* Tablet landscape and smaller laptops */
+@media (max-width: 900px) {
+  /* stack vertically, keep left panel visible on wider tablets */
+  .pp-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    gap: 18px;
+    justify-content: center;
+  }
+
+  /* left panel becomes a top card (collapsible look) */
+  .pp-left-panel {
+    width: 100%;
+    max-width: none;
+    padding-right: 0;
+    order: -1; /* show before content on small screens */
+    display: block;
+  }
+
+  .mandir-img, .mandir-placeholder {
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+  }
+
+  .pp-container {
+    width: 100%;
+    margin-right: 0;
+    padding: 18px;
+  }
+
+  .pp-price-and-carousel {
+    display: block;
+  }
+
+  .pp-price-list {
+    margin-bottom: 14px;
+  }
+
+  .carousel-viewport {
+    margin-top: 12px;
+  }
+
+  /* product cards shrink */
+  .product-card {
+    width: 220px;
+    min-width: 220px;
+    padding: 12px;
+  }
+
+  .carousel-track {
+    gap: 12px;
+  }
+
+  .pp-title { font-size: 20px; }
+}
+
+/* Mobile — phones portrait */
+@media (max-width: 768px) {
+  .pp-wrapper { padding: 16px; gap: 12px; }
+  .pp-container { padding: 14px; border-radius: 12px; }
+  .pp-title { font-size: 18px; }
+  .pp-sub { font-size: 13px; }
+  .tab-btn { padding: 6px 10px; font-size: 14px; border-radius: 8px; }
+  .pp-price-and-carousel { grid-template-columns: 1fr; }
+
+  /* adjust carousel viewport so cards are easy to scroll horizontally on touch */
+  .carousel-viewport {
+    padding: 8px;
+  }
+  .carousel-track { gap: 10px; transition: transform .28s ease; }
+
+  .product-card { width: 200px; min-width: 200px; padding: 12px; }
+
+  /* reduce left/ right paddings to maximize readable space */
+  .pp-wrapper { padding-left: 12px; padding-right: 12px; }
+}
+
+/* Small mobile — narrow devices */
+@media (max-width: 480px) {
+  .product-card { min-width: 180px; width: 180px; padding: 10px; }
+  .card-title { font-size: 13px; }
+  .card-price { font-size: 14px; }
+  .pp-title { font-size: 16px; }
+  .pp-sub { font-size: 12px; }
+  .tab-btn { padding: 6px 8px; font-size: 13px; }
+  .sanskrit-track { font-size: 12px; letter-spacing: 3px; }
+  .price-head, .price-row { padding: 8px 10px; }
+  .pp-divider { margin: 14px 0; }
+}
+
+/* Very small (old phones / very narrow) */
+@media (max-width: 360px) {
+  .product-card { min-width: 160px; width: 160px; padding: 10px; }
+  .prod-image { height: auto; max-height: 120px; object-fit: contain; }
+  .pp-title { font-size: 15px; }
+  .tab-btn { padding: 6px 6px; font-size: 12px; }
+}
+
+/* Touch / accessibility helpers (no visual changes) */
+.carousel-track { -webkit-overflow-scrolling: touch; }
+.product-card, .btn-primary, .carousel-btn { touch-action: manipulation; }
+
+/* Utility: center wrapper and limit max width */
+@media (min-width: 1100px) {
+  .pp-wrapper { justify-content: center; }
+  .pp-wrapper > .pp-container { max-width: var(--page-max); }
+}
+
+/* small polish */
+.tab-btn svg, .pp-tabs svg { font-size:14px; vertical-align:middle; }
+
+/* small animation for entry */
+.pp-container { animation: containerIn .24s ease both; }
+@keyframes containerIn { from{ transform: translateY(6px); opacity:0 } to{ transform:none; opacity:1 } }

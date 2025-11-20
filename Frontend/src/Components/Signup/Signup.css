@@ -1,0 +1,334 @@
+/* SignInPage.css
+   Exact sign-in layout matching the reference screenshot.
+   Unique prefix: lnux-
+   Fonts: Baloo 2 for headings + Poppins for UI
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Poppins:wght@300;400;500;600&display=swap");
+
+:root{
+  --lnux-bg: #0d1113;
+  --lnux-panel-bg: #0b0e10;
+  --lnux-muted: #9aa3a8;
+  --lnux-accent: #7a2e1b;         /* accent (used for link hovers, checkbox checked) */
+  --lnux-button-brown: #7a2e1b ;   /* brown primary button */
+  --lnux-hero-overlay: #7a2e1b75; /* warm tint */
+  --lnux-radius: 12px;
+  --lnux-width: 1120px;
+}
+
+/* page root */
+.lnux-root {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #090c0e 0%, #0d1113 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 30px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+/* center container */
+.lnux-center {
+  width: var(--lnux-width);
+  max-width: 100%;
+  height: 720px;
+  display:grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Left hero panel (big background image with tint) */
+.lnux-hero {
+  position: relative;
+  border-radius: var(--lnux-radius);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 30px 60px rgba(3,6,8,0.55);
+  display:flex;
+  align-items:flex-start;
+  padding: 42px 48px;
+}
+
+/* overlay tint */
+.lnux-hero-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--lnux-hero-overlay);
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+/* hero inner content */
+.lnux-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  color: #fff;
+}
+
+/* logo */
+.lnux-logo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 80px;
+  opacity: 0.95;
+}
+
+/* hero heading - Baloo 2 */
+.lnux-hero-heading {
+  margin: 0 0 14px 0;
+  font-family: "Baloo 2", cursive;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -0.8px;
+}
+
+/* hero subtitle */
+.lnux-hero-sub {
+  margin: 0 0 28px 0;
+  font-size: 16px;
+  color: rgba(255,255,255,0.92);
+}
+
+/* hero CTA */
+.lnux-hero-btn {
+  display:inline-flex;
+  align-items:center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.38);
+}
+.lnux-hero-play{
+  width:34px; height:34px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,0.05);
+  font-size: 14px;
+}
+
+/* RIGHT panel (sign in card) */
+.lnux-panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: var(--lnux-radius);
+  padding: 36px 34px;
+  box-shadow: 0 30px 60px rgba(3,6,8,0.55);
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* panel heading */
+.lnux-panel-heading {
+  margin: 6px 0 20px 0;
+  font-family: "Baloo 2", cursive;
+  font-size: 32px;
+  text-align: center;
+  color: #fff;
+}
+
+/* form layout */
+.lnux-form {
+  display:flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* field wrapper */
+.lnux-field {
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* label above input */
+.lnux-field-label {
+  color: var(--lnux-muted);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* input styles */
+.lnux-input {
+  height: 46px;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #14181a;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+  font-size: 14px;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.3);
+  transition: box-shadow .14s ease, border-color .14s ease, transform .12s ease;
+}
+.lnux-input::placeholder { color: rgba(255,255,255,0.34); }
+.lnux-input:focus {
+  outline: none;
+  border-color: rgba(122,46,27,0.9);
+  box-shadow: 0 8px 18px rgba(122,46,27,0.06);
+  transform: translateY(-2px);
+}
+
+/* helpers row: remember + forgot */
+.lnux-helpers-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+/* remember checkbox */
+.lnux-remember {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  color: var(--lnux-muted);
+}
+.lnux-remember-input {
+  position: absolute;
+  opacity: 0;
+}
+.lnux-remember-box {
+  width:18px; height:18px; border-radius:4px;
+  background: #0b0f10;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.35);
+  flex-shrink: 0;
+}
+.lnux-remember-input:checked + .lnux-remember-box {
+  background: var(--lnux-accent);
+  border-color: var(--lnux-accent);
+  box-shadow: 0 8px 20px rgba(122,46,27,0.14);
+}
+.lnux-remember-text { color: var(--lnux-muted); }
+
+/* forgot password link */
+.lnux-forgot {
+  color: rgba(255,255,255,0.78);
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.04);
+  font-weight: 600;
+}
+.lnux-forgot:hover, .lnux-forgot:focus { color: var(--lnux-accent); text-decoration-color: rgba(122,46,27,0.18); }
+
+/* submit button */
+.lnux-submit {
+  margin-top: 8px;
+  height:48px;
+  background: var(--lnux-button-brown);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  transition: transform .12s ease, filter .12s ease;
+}
+.lnux-submit:hover { transform: translateY(-3px); filter: brightness(.97); }
+
+/* divider line with text */
+.lnux-divider {
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 12px;
+  color: rgba(255,255,255,0.16);
+  font-size: 13px;
+}
+.lnux-divider-line {
+  height:1px;
+  background: rgba(255,255,255,0.04);
+  flex:1;
+}
+.lnux-divider-text { white-space: nowrap; }
+
+/* social icons row */
+.lnux-socials {
+  display:flex;
+  gap: 12px;
+  justify-content:center;
+  margin-bottom: 18px;
+}
+.lnux-social{
+  width:44px; height:44px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  border: 0; font-weight:700; color: white; cursor: pointer;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.36);
+}
+.lnux-social--fb { background: #2b67c8; }
+.lnux-social--tw { background: #1da1f2; color: #071022; }
+.lnux-social--gg { background: #ea4335; }
+.lnux-social--in { background: #0077b5; }
+
+/* footer text */
+.lnux-footer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--lnux-muted);
+}
+.lnux-footer .lnux-link { text-decoration: underline; color: rgba(255,255,255,0.88); }
+
+/* Responsiveness: stacks on smaller screens */
+@media (max-width: 980px) {
+  .lnux-center {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .lnux-hero {
+    min-height: 340px;
+    padding: 28px;
+    align-items: flex-end;
+  }
+
+  .lnux-panel {
+    margin-top: -40px;
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 26px;
+    border-radius: 12px;
+  }
+
+  .lnux-panel-heading { font-size: 28px; }
+  .lnux-hero-heading { font-size: 40px; }
+}
+
+/* small devices */
+@media (max-width: 520px) {
+  .lnux-hero-heading { font-size: 30px; }
+  .lnux-panel { padding: 18px; }
+  .lnux-submit { height:44px; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .lnux-input, .lnux-submit, .lnux-hero-btn { transition: none !important; }
+}
+/* Logo image inside hero panel */
+.lnux-logo-img {
+  height: 48px;         /* adjust for your logo height */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  opacity: 0.95;
+}
+
