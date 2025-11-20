@@ -8,10 +8,9 @@ import FreshCollection from "./Pages/FreshCollection/FreshCollection";
 import AllIdols from "./Pages/AllIdols/AllIdols";
 import FestiveFilter from "./Pages/FestiveFilter/FestiveFilter";
 import ShopSec from "./Pages/ShopSec/ShopSec";
-<<<<<<< HEAD
-=======
 
->>>>>>> cf2fd696970e1cded8ef0fbf1df449d1b4d95460
+
+
 import Blog from "./Pages/Blog/Blog";
 import BlogDetailsSection from "./Components/BlogDetailsSection/BlogDetailsSection";
 import BestSelling from "./Pages/BestSelling/BestSelling";
@@ -23,8 +22,7 @@ import CheckOutSection from "./Components/CheckoutSection/CheckoutSection";
 import OrderConfirm from "./Pages/OrderConfirm/OrderConfirm";
 import OrdersTable from "./Components/OrdersTable/OrdersTable";
 
-<<<<<<< HEAD
-=======
+
 
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import Termandcondition from './Components/Termandcondition/Termandcondition'
@@ -32,7 +30,7 @@ import About from "./Pages/About/About";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/Signup/Signup";
 
->>>>>>> cf2fd696970e1cded8ef0fbf1df449d1b4d95460
+
 
 function App() {
   return (
@@ -48,39 +46,15 @@ function App() {
           <Route path="/about" element={<About />} />
           
           <Route path="/contact" element={<Contact />} />
-<<<<<<< HEAD
-=======
 
->>>>>>> cf2fd696970e1cded8ef0fbf1df449d1b4d95460
+
+
           <Route path="/shop" element={<ShopSec />} />
           <Route path="/fresh/collection" element={< FreshCollection/>} />
           <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
           <Route path="/blog" element={<Blog/>} />
           <Route path="/blog/details" element={<BlogDetailsSection/>} />
-<<<<<<< HEAD
-          <Route path="best-sellers" element={<BestSelling/>} />
-          <Route path="/pooja/essentials" element={<PoojaEssentials/>} />
-          <Route path="/home/decor" element={<HomeDecor/>} />
-          <Route path="/track/order" element={<TrackOrder/>} />
-          <Route path="/faq" element={<Faq/>} />
-          <Route path="/check/out" element={<CheckOutSection/>} />
-          <Route path="/order/confirm" element={<OrderConfirm/>} />
-          <Route path="/order/history" element={<OrdersTable/>} />
-
-
-          
-
-          
-
-
-
-
-
-
-
-
-=======
           <Route path="/best-sellers" element={<BestSelling/>} />
           
 
@@ -96,7 +70,6 @@ function App() {
           <Route path="/termandcondition" element={<Termandcondition/>} />
           
 
->>>>>>> cf2fd696970e1cded8ef0fbf1df449d1b4d95460
         </Routes>
       </main>
 
