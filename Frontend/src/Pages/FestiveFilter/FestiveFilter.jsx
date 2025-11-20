@@ -7,10 +7,6 @@ const FestiveFilter = () => {
     <>
     <FestiveBanner/>
     <FestiveGrid/>
-
-    
-    
-    
     </>
   )
 }

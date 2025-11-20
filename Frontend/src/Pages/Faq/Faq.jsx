@@ -6,10 +6,6 @@ const Faq = () => {
   return (
     <>
     <SupportFaq/>
-
-    
-    
-    
     </>
   )
 }

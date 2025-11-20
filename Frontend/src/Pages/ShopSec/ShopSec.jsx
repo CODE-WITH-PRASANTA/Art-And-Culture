@@ -17,6 +17,7 @@ import product13 from "../../assets/14.webp";
 import product14 from "../../assets/15.webp";
 import product15 from "../../assets/16.webp";
 import product16 from "../../assets/04.webp";
+import ShopBreadCrum from "../../Components/ShopBreadCrum/ShopBreadCrum";
 
 const ShopSec = () => {
   const [sortType, setSortType] = useState("default");
@@ -73,6 +74,8 @@ const ShopSec = () => {
   const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
   return (
+    <>
+    <ShopBreadCrum />
     <div className="shop-container">
       <h1 className="shop-title">Shop</h1>
 
@@ -164,6 +167,8 @@ const ShopSec = () => {
       </div>
 
     </div>
+
+    </>
   );
 };
 
