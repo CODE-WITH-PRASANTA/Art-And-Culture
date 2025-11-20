@@ -6,7 +6,7 @@ const SLIDES = [
     id: 1,
     variant: "variant-1",
     leftImage: "https://svastika.in/cdn/shop/files/Dagadushethchauki02.jpg?v=1750414277&width=360",
-    rightImage: "https://wpthemes.themehunk.com/god-idols/wp-content/uploads/sites/284/2023/12/1-1-300x300.png",
+    rightImage: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
     title: "Divine & Idols",
     lead: "Beautifully crafted idols bringing blessings to your home",
     rightTitle: "Premium & Collections",
@@ -15,8 +15,8 @@ const SLIDES = [
   {
     id: 2,
     variant: "variant-2",
-    leftImage: "https://svastika.in/cdn/shop/files/Dagadushethchauki02.jpg?v=1750414277&width=360",
-    rightImage: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&auto=format&fit=crop&q=60",
+    leftImage: "https://cdn.pixabay.com/photo/2019/08/20/15/30/ganesh-4419043_640.jpg",
+    rightImage: "https://cdn.pixabay.com/photo/2019/08/20/15/30/ganesh-4419043_640.jpg",
     title: "Hand-Carved <span class='accent-word'>Treasures</span>",
     lead: "Artisan-crafted idols with centuries of tradition and spiritual significance",
     rightTitle: "Curated Picks",
@@ -165,9 +165,7 @@ const Herosection = ({ interval = 5000 }) => {
 
                         <button className="shop-button" aria-label="Shop now">
                           <span className="button-text">Shop Now</span>
-                          <span className="button-icon" aria-hidden>
-                            →
-                          </span>
+                          
                         </button>
 
                         <p className="dress-more-text">
@@ -211,8 +209,8 @@ const Herosection = ({ interval = 5000 }) => {
                     <div className="left-card-inner left-card-inner--stacked">
                       <div className="text-content--side text-content--glass">
                         <div className="card-badge premium">Artisan Crafted</div>
-                        <h2 
-                          className="fashion-text variant2-title" 
+                        <h2
+                          className="fashion-text variant2-title"
                           dangerouslySetInnerHTML={{ __html: s.title }}
                         />
                         <p className="lead-copy premium">{s.lead}</p>
@@ -245,80 +243,41 @@ const Herosection = ({ interval = 5000 }) => {
 
               {/* Variant 3 - Immersive Showcase Style */}
               {s.variant === "variant-3" && (
-                <article className="immersive-showcase" tabIndex={0}>
-                  <div className="immersive-content">
-                    <div className="label-system">
-                      <span className="advanced-label label-primary">Premium Collection</span>
-                      <span className="advanced-label label-secondary">Limited Edition</span>
-                      <span className="advanced-label label-tertiary">Handcrafted</span>
-                    </div>
-
-                    <h1 
-                      className="immersive-title"
-                      dangerouslySetInnerHTML={{ __html: s.title }}
-                    />
-                    
-                    <p className="immersive-subtitle">{s.lead}</p>
-
-                    <div className="feature-list">
-                      {s.features.map((feature, index) => (
-                        <div key={index} className="feature-item">
-                          <div className="feature-icon">✓</div>
-                          <span>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="immersive-ctas">
-                      <button className="cta-primary" aria-label="Discover collection">
-                        Discover Collection
-                      </button>
-                      <button className="cta-secondary" aria-label="View gallery">
-                        View Gallery
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="immersive-visual">
-                    <div className="visual-container">
-                      <div className="visual-main">
-                        <img
-                          src={s.leftImage}
-                          alt="Main Spiritual Collection"
-                          loading="lazy"
+                <>
+                  <article className="left-card left-card--tall" tabIndex={0}>
+                    <div className="left-card-inner left-card-inner--stacked">
+                      <div className="text-content--side text-content--glass">
+                        <div className="card-badge premium">Artisan Crafted</div>
+                        <h2
+                          className="fashion-text variant2-title"
+                          dangerouslySetInnerHTML={{ __html: s.title }}
                         />
-                        <div className="visual-overlay" aria-hidden="true" />
-                      </div>
-                      <div className="visual-grid">
-                        <div className="grid-item">
-                          <img
-                            src={s.gridImage1}
-                            alt="Spiritual Detail 1"
-                            loading="lazy"
-                          />
-                        </div>
-                        <div className="grid-item">
-                          <img
-                            src={s.gridImage2}
-                            alt="Spiritual Detail 2"
-                            loading="lazy"
-                          />
+                        <p className="lead-copy premium">{s.lead}</p>
+                        <div className="variant-2-ctas">
+                          <button className="shop-button premium" aria-label="Shop collection">
+                            Explore Collection
+                          </button>
+                          <button className="view-collection-btn secondary premium" aria-label="View craftsmanship">
+                            Our Craftsmanship
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <div className="image-shine" aria-hidden />
-                  </div>
+                  </article>
 
-                  <div className="immersive-decoration">
-                    <div className="decoration-badge">Exclusive</div>
-                  </div>
-
-                  <div className="floating-elements variant-3" aria-hidden>
-                    <div className="floating-element element-1">✨</div>
-                    <div className="floating-element element-2">⭐</div>
-                    <div className="floating-element element-3">💫</div>
-                  </div>
-                </article>
+                  <article className="right-card right-card--frame" tabIndex={0}>
+                    <div className="right-card-full">
+                      <img
+                        className="right-full-image"
+                        src={s.rightImage}
+                        alt="Artisan Collection"
+                        loading="lazy"
+                      />
+                      <div className="frame-accent" aria-hidden />
+                      <div className="image-shine" aria-hidden />
+                    </div>
+                  </article>
+                </>
               )}
             </div>
           );
@@ -341,7 +300,12 @@ const Herosection = ({ interval = 5000 }) => {
           pointerEvents: "auto",
         }}
       >
-        <div className="dots" role="tablist" aria-label="Select slide" style={{ display: "flex", gap: 8 }}>
+        <div
+          className="dots"
+          role="tablist"
+          aria-label="Select slide"
+          style={{ display: "flex", gap: 8 }}
+        >
           {SLIDES.map((_, i) => (
             <button
               key={i}
