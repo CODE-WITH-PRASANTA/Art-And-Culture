@@ -1,7 +1,8 @@
 /* =========================================================
-   FestiveGrid.css
-   Fully responsive, well-structured, all features included
-   (Responsive fixes applied without changing visual design)
+   FestiveGrid.css — Full ready-to-paste responsive stylesheet
+   - Desktop cards 640px, tight grid rows on tablet/mobile
+   - Mobile-first max-width media queries only
+   - Multi-line CSS rule formatting, clear structure
    ========================================================= */
 
 /* =========================
@@ -19,16 +20,20 @@
   --shadow-2: 0 28px 70px rgba(12, 18, 30, 0.10);
   --fast: 180ms cubic-bezier(.2,.9,.2,1);
   --med: 300ms cubic-bezier(.2,.9,.2,1);
+  --drawer-z: 9999;
+  --card-action-height: 64px; /* reserved area for buttons */
 }
 
 /* =========================
-   RESET
+   RESET / BASE
    ========================= */
 * {
   box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   background: var(--page-bg);
@@ -36,8 +41,10 @@ html, body, #root {
 }
 
 body {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
   color: var(--text);
+  -webkit-font-feature-settings: "liga" 1;
 }
 
 img {
@@ -63,23 +70,61 @@ button {
   display: flex;
   gap: 28px;
   align-items: flex-start;
+  position: relative;
 }
 
 /* =========================
-   SIDEBAR / FILTERS
+   BACKDROP (drawer overlay)
+   ========================= */
+.festivegrid-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 8, 10, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--fast);
+  z-index: calc(var(--drawer-z) - 1);
+}
+
+.festivegrid-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================
+   SIDEBAR / FILTERS (desktop and drawer)
    ========================= */
 .festivegrid-filters {
   width: 300px;
   background: linear-gradient(180deg, #fff, #fff);
   padding: 22px;
   border-radius: 14px;
-  border: 1px solid rgba(12,18,30,0.04);
+  border: 1px solid rgba(12, 18, 30, 0.04);
   box-shadow: var(--shadow);
-  /* keep filters visible on large screens */
   position: relative;
+  z-index: calc(var(--drawer-z) + 10);
+  transition: transform var(--med), box-shadow var(--med);
+  overflow: visible;
 }
 
-/* keep heading and groups identical */
+/* Drawer header area (close button visible on mobile) */
+.festivegrid-drawer-header {
+  display: none;
+  margin-bottom: 8px;
+}
+
+.festivegrid-drawer-close {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #eee;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* headings and filters */
 .festivegrid-filters h2 {
   font-size: 34px;
   margin: 2px 0 18px;
@@ -167,8 +212,8 @@ button {
 .festivegrid-range-track::before {
   content: "";
   position: absolute;
-  left: calc(var(--min-pct,0) * 1%);
-  width: calc((var(--max-pct,100) - var(--min-pct,0)) * 1%);
+  left: calc(var(--min-pct, 0) * 1%);
+  width: calc((var(--max-pct, 100) - var(--min-pct, 0)) * 1%);
   height: 100%;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   border-radius: 999px;
@@ -209,6 +254,28 @@ button {
   margin-bottom: 22px;
 }
 
+.festivegrid-top-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.festivegrid-top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.festivegrid-filter-toggle {
+  display: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #efe7e5;
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .festivegrid-topbar select {
   padding: 8px 12px;
   border-radius: 10px;
@@ -244,25 +311,50 @@ button {
 /* =========================
    PRODUCTS - GRID MODE
    ========================= */
+/* base 3-column grid on large screens; small default row-gap (will be tightened at breakpoints) */
 .festivegrid-mode-grid .festivegrid-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  column-gap: 26px;
+  row-gap: 12px;
+  align-items: start;     /* prevent implicit stretching */
+  grid-auto-rows: auto;   /* let rows size to content */
 }
 
-/* CARD & FLIP EFFECT */
+/* ensure grid children have no extra margins */
+.festivegrid-mode-grid .festivegrid-grid > * {
+  margin: 0;
+  align-self: start;
+}
+
+/* =========================
+   CARD & FLIP EFFECT
+   - Desktop: keep card height at 640px (requested)
+   - Internal faces positioned absolutely to enable flip while matching card height
+   ========================= */
 .festivegrid-card {
+  height: 640px;               /* desktop requested height */
+  display: flex;
+  flex-direction: column;
   position: relative;
   perspective: 1200px;
+  min-height: 0;
 }
 
+/* card inner is a column layout: media + info + reserved action area */
 .festivegrid-card-inner {
   position: relative;
-  height: 420px;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  height: 100%;
   transition: transform .8s cubic-bezier(.2,.9,.2,1);
   transform-style: preserve-3d;
+  will-change: transform;
+  background: transparent;
 }
 
+/* faces positioned absolutely for flip */
 .festivegrid-face {
   position: absolute;
   inset: 0;
@@ -272,23 +364,28 @@ button {
   overflow: hidden;
   backface-visibility: hidden;
   transition: transform .65s cubic-bezier(.2,.9,.2,1), opacity .3s;
+  display: flex;
+  flex-direction: column;
 }
 
+/* front/back face layout */
 .festivegrid-front {
   transform: rotateY(0);
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 .festivegrid-back {
   transform: rotateY(180deg);
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 20px;
   background: linear-gradient(180deg, #fff, #fcfcfd);
 }
 
+/* flipped states */
 .festivegrid-card-inner.flipped .festivegrid-front {
   transform: rotateY(-180deg);
   opacity: 0;
@@ -299,7 +396,10 @@ button {
   opacity: 1;
 }
 
-/* MEDIA / IMAGE */
+/* =========================
+   MEDIA / IMAGE
+   ========================= */
+/* desktop proportions */
 .festivegrid-media {
   flex: 0 0 54%;
   height: 56%;
@@ -308,6 +408,7 @@ button {
   justify-content: center;
   padding: 12px;
   background: linear-gradient(180deg, #fff, #fbfcff);
+  overflow: visible;
 }
 
 .festivegrid-imgwrap {
@@ -332,7 +433,7 @@ button {
   transform: scale(1.04);
 }
 
-/* DISCOUNT PILL */
+/* discount pill + hover actions */
 .festivegrid-discount-pill {
   position: absolute;
   left: 14px;
@@ -345,7 +446,6 @@ button {
   box-shadow: 0 8px 18px rgba(200,90,40,0.12);
 }
 
-/* HOVER ACTIONS */
 .festivegrid-hover-actions {
   position: absolute;
   right: 12px;
@@ -376,16 +476,18 @@ button {
 }
 
 /* =========================
-   PRODUCT INFO
+   PRODUCT INFO + reserved action area
    ========================= */
 .festivegrid-info {
   padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
+/* title/meta */
 .festivegrid-info h3 {
   margin: 0;
   font-size: 16px;
@@ -438,13 +540,27 @@ button {
 }
 
 /* =========================
-   PRODUCT ACTIONS
+   ACTION BAR (reserved at bottom)
    ========================= */
 .festivegrid-actions {
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 12px;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.festivegrid-ghost-btn,
+.festivegrid-primary-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  height: 44px;
+  border-radius: 10px;
 }
 
 .festivegrid-ghost-btn {
@@ -463,12 +579,18 @@ button {
   align-items: center;
   padding: 10px 14px;
   border-radius: 10px;
-  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   color: #fff;
   font-weight: 800;
   border: none;
   box-shadow: 0 12px 30px rgba(200,90,40,0.12);
   cursor: pointer;
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.festivegrid-primary-btn span {
+  display: inline-block;
 }
 
 /* =========================
@@ -478,6 +600,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-height: 0;
 }
 
 .festivegrid-desc {
@@ -500,6 +623,7 @@ button {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 /* =========================
@@ -508,17 +632,17 @@ button {
 .festivegrid-mode-list .festivegrid-list {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 16px;
 }
 
 .festivegrid-product-row {
   display: flex;
   gap: 24px;
   align-items: flex-start;
-  background: linear-gradient(180deg,#fff,#fff);
+  background: linear-gradient(180deg, #fff, #fff);
   padding: 24px;
   border-radius: var(--radius);
-  border: 1px solid rgba(12,18,30,0.03);
+  border: 1px solid rgba(12, 18, 30, 0.03);
   box-shadow: var(--shadow);
 }
 
@@ -545,6 +669,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0;
 }
 
 .festivegrid-product-title {
@@ -571,6 +696,7 @@ button {
   align-items: center;
   gap: 16px;
   margin-top: 8px;
+  flex-wrap: nowrap;
 }
 
 .festivegrid-btn-quick,
@@ -615,7 +741,7 @@ button {
   padding: 20px;
   background: #fff;
   border-radius: var(--radius);
-  border: 1px solid rgba(12,18,30,0.03);
+  border: 1px solid rgba(12, 18, 30, 0.03);
   text-align: center;
   color: var(--muted);
 }
@@ -625,69 +751,134 @@ button:focus,
 input:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(200,90,40,0.08);
+  box-shadow: 0 0 0 4px rgba(200, 90, 40, 0.08);
   border-radius: 8px;
 }
 
 /* =========================
-   PRODUCTS - GRID MODE (redundant safe rule kept)
-   ========================= */
-.festivegrid-mode-grid .festivegrid-grid {
-  display: grid;
-  gap: 26px;
-  grid-template-columns: repeat(3, 1fr); /* Default: Desktop / Tablet */
-}
-
-/* =========================
-   RESPONSIVE
+   RESPONSIVE — mobile-first max-width queries
+   - tighten grid row spacing and scale card internals on smaller breakpoints
    ========================= */
 
-/* -------------------------
-   Strategy:
-   - Desktop/Tablet: 3 columns
-   - Mobile (481–767): 2 columns
-   - Small mobile (<480): 1 column
-   - Filters become full-width and stack above content on smaller screens
-   - Preserve design exactly; only layout & sizing adapt
-   ------------------------- */
-
-/* Desktop (default) — keep 3 columns and existing sizes */
-.festivegrid-mode-grid .festivegrid-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
-}
-
-/* Wide laptop adjustments (<= 1280px) — slightly tighter spacing */
+/* wide laptop adjustments (<= 1280px) */
 @media (max-width: 1280px) {
-  .festivegrid-container { padding: 20px; gap: 22px; }
-  .festivegrid-mode-grid .festivegrid-grid { gap: 22px; }
-  .festivegrid-card-inner { height: 400px; }
-  .festivegrid-media { height: 54%; }
+  .festivegrid-container {
+    padding: 20px;
+    gap: 22px;
+  }
+
+  .festivegrid-mode-grid .festivegrid-grid {
+    column-gap: 22px;
+    row-gap: 10px;
+  }
+
+  /* keep desktop height for large laptops, allow autosizing if needed */
+  .festivegrid-card {
+    height: 640px;
+    min-height: 0;
+  }
+
+  .festivegrid-card-inner {
+    min-height: 520px;
+  }
+
+  .festivegrid-media {
+    height: 54%;
+  }
 }
 
-/* Tablet — keep 3 columns (as requested) and ensure filters width doesn't push layout */
-@media (max-width: 1024px) and (min-width: 769px) {
+/* Tablet (<= 1024px) — drawer overlay + tighten rows */
+@media (max-width: 1024px) {
   .festivegrid-container {
     padding: 18px;
     gap: 18px;
     align-items: flex-start;
   }
-  /* keep the 3-column grid on tablet */
-  .festivegrid-mode-grid .festivegrid-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+
+  .festivegrid-filter-toggle {
+    display: inline-block;
   }
 
-  /* make filters slightly flexible so layout doesn't break */
+  .festivegrid-topbar {
+    align-items: center;
+    gap: 12px;
+  }
+
   .festivegrid-filters {
-    width: 300px;
-    flex: 0 0 300px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 340px;
+    max-width: 92%;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    transform: translateX(-110%);
+    transition: transform .36s cubic-bezier(.2,.9,.2,1);
+    box-shadow: 0 30px 80px rgba(6,8,10,0.3);
+    overflow-y: auto;
+    padding: 20px;
+    z-index: calc(var(--drawer-z) + 10);
+    will-change: transform;
+  }
+
+  .festivegrid-drawer-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .festivegrid-filters.open {
+    transform: translateX(0);
+  }
+
+  .festivegrid-main {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .festivegrid-products {
+    width: 100%;
+  }
+
+  .festivegrid-container.drawer-open {
+    pointer-events: auto;
+  }
+
+  /* TIGHTEN grid rows and prevent stretching */
+  .festivegrid-mode-grid .festivegrid-grid {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 18px;
+    row-gap: 6px; /* tightened for tablet */
+    align-items: start;
+    grid-auto-rows: auto;
+  }
+
+  /* Make cards compact on tablet while keeping content readable */
+  .festivegrid-card {
+    min-height: 480px;
+    height: auto;
+  }
+
+  .festivegrid-card-inner {
+    min-height: 420px;
+  }
+
+  /* Slightly reduce media height so info area doesn't force extra height */
+  .festivegrid-media {
+    flex: 0 0 50%;
+    height: 50%;
+    padding: 10px;
+  }
+
+  /* push actions to bottom (inside the card) */
+  .festivegrid-info {
+    padding-bottom: calc(var(--card-action-height) / 2);
   }
 }
 
-/* Mobile Large (481px–768px) — 2 columns */
-@media (max-width: 768px) and (min-width: 481px) {
+/* Mobile Large (<= 768px) — 2 columns, tight rows */
+@media (max-width: 768px) {
   .festivegrid-container {
     padding: 16px;
     gap: 16px;
@@ -695,38 +886,49 @@ select:focus {
     align-items: stretch;
   }
 
-  /* Filters stack on top and become full width */
   .festivegrid-filters {
     width: 100%;
     order: 0;
     margin-bottom: 12px;
     flex: 0 0 auto;
+    position: relative;
+    transform: translateX(0);
+    border-radius: 12px;
   }
 
-  /* Main area fills remaining width */
   .festivegrid-main {
     width: 100%;
     order: 1;
   }
 
-  /* Grid -> 2 columns */
   .festivegrid-mode-grid .festivegrid-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    column-gap: 16px;
+    row-gap: 6px; /* very tight vertical spacing */
+    align-items: start;
+    grid-auto-rows: auto;
   }
 
-  /* Cards slightly shorter for better fit */
-  .festivegrid-card-inner { height: 360px; }
+  /* reduce height on tablet/mobile for usability while preserving desktop 640px elsewhere */
+  .festivegrid-card {
+    min-height: 460px;
+    height: auto;
+  }
 
-  /* Adjust media area sizing so images fit well */
+  .festivegrid-card-inner {
+    min-height: 400px;
+  }
+
   .festivegrid-media {
     height: 56%;
-    padding: 10px;
+    padding: 8px;
   }
 
-  .festivegrid-prod-img { width: 88%; height: 88%; }
+  .festivegrid-prod-img {
+    width: 88%;
+    height: 88%;
+  }
 
-  /* List rows become stacked and centered */
   .festivegrid-product-row {
     padding: 20px;
     gap: 16px;
@@ -746,10 +948,30 @@ select:focus {
     align-items: center;
   }
 
-  .festivegrid-product-ctas { justify-content: center; }
+  .festivegrid-product-ctas {
+    justify-content: center;
+  }
+
+  .festivegrid-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .festivegrid-ghost-btn {
+    flex: 0 0 auto;
+  }
+
+  .festivegrid-primary-btn {
+    flex: 1 1 auto;
+  }
+
+  .festivegrid-back-actions {
+    flex-direction: row;
+    gap: 10px;
+  }
 }
 
-/* Small Mobile (<= 480px) — 1 column, everything stacked */
+/* Small Mobile (<= 480px) — 1 column, tight rows */
 @media (max-width: 480px) {
   .festivegrid-container {
     padding: 12px;
@@ -757,35 +979,50 @@ select:focus {
     flex-direction: column;
   }
 
-  /* Filters: full width at top, remove sticky behavior */
   .festivegrid-filters {
     width: 100%;
     order: 0;
     margin-bottom: 10px;
     padding: 16px;
     border-radius: 12px;
+    position: relative;
+    transform: translateX(0);
   }
 
-  /* Main consumes full width beneath filters */
   .festivegrid-main {
     width: 100%;
     order: 1;
   }
 
-  /* Grid -> 1 column */
   .festivegrid-mode-grid .festivegrid-grid {
     grid-template-columns: repeat(1, 1fr);
-    gap: 12px;
+    column-gap: 12px;
+    row-gap: 6px; /* tight rows on mobile */
+    align-items: start;
+    grid-auto-rows: auto;
   }
 
-  /* Make cards shorter in height for narrow screens */
-  .festivegrid-card-inner { height: 320px; }
+  .festivegrid-card {
+    min-height: 420px;
+    height: auto;
+  }
 
-  /* Media image scaling */
-  .festivegrid-media { height: 52%; padding: 8px; }
-  .festivegrid-prod-img { width: 92%; height: 88%; }
+  .festivegrid-card-inner {
+    min-height: 380px;
+  }
 
-  /* List rows: stacked, left-aligned for readability */
+  .festivegrid-media {
+    height: 48%;
+    padding: 6px;
+  }
+
+  .festivegrid-prod-img {
+    width: 92%;
+    height: auto;
+    max-height: 220px;
+    object-fit: contain;
+  }
+
   .festivegrid-product-row {
     flex-direction: column;
     align-items: flex-start;
@@ -799,50 +1036,124 @@ select:focus {
     flex: 0 0 auto;
   }
 
-  .festivegrid-product-body { align-items: flex-start; }
+  .festivegrid-product-body {
+    align-items: flex-start;
+  }
 
-  .festivegrid-product-title { font-size: 18px; }
+  .festivegrid-product-title {
+    font-size: 18px;
+  }
 
-  .festivegrid-actions,
-  .festivegrid-product-ctas { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .festivegrid-actions {
+    flex-direction: row;
+    gap: 8px;
+  }
 
-  .festivegrid-price-line { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .festivegrid-ghost-btn {
+    flex: 0 0 auto;
+  }
+
+  .festivegrid-primary-btn {
+    flex: 1 1 auto;
+  }
+
+  .festivegrid-back-actions {
+    flex-direction: row;
+    gap: 8px;
+  }
 }
 
-/* Mid-break adjustments to prevent visual overlap when filters are wide */
+/* mid-break / safety tweaks */
 @media (max-width: 1100px) {
-  .festivegrid-container { padding: 18px; gap: 18px; flex-wrap: wrap; }
-  .festivegrid-product-row { padding: 18px; }
-  .festivegrid-product-media { flex-basis: 300px; height: 220px; }
-  .festivegrid-filters { width: 100%; order: 1; }
+  .festivegrid-container {
+    padding: 18px;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .festivegrid-product-row {
+    padding: 18px;
+  }
+
+  .festivegrid-product-media {
+    flex-basis: 300px;
+    height: 220px;
+  }
+
+  .festivegrid-filters {
+    width: 100%;
+    order: 1;
+  }
 }
 
-/* Additional breakpoint where layout stacks for small laptops / large tablets */
 @media (max-width: 920px) {
-  .festivegrid-container { flex-direction: column; padding: 12px; }
-  .festivegrid-filters { order:0; width:100%; margin-bottom:16px; }
-  .festivegrid-product-row { flex-direction: column; align-items:center; text-align:center; }
-  .festivegrid-product-media { width: 100%; height:auto; max-height: 300px; }
-  .festivegrid-product-body { text-align:center; }
-  .festivegrid-product-ctas { justify-content:center; }
+  .festivegrid-container {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .festivegrid-filters {
+    order: 0;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .festivegrid-product-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .festivegrid-product-media {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+
+  .festivegrid-product-body {
+    text-align: center;
+  }
+
+  .festivegrid-product-ctas {
+    justify-content: center;
+  }
 }
 
-/* Topbar tweaks for small screens */
+/* Topbar tweaks */
 @media (max-width: 640px) {
-  .festivegrid-topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .festivegrid-view-area { justify-content:flex-start; gap:6px; }
+  .festivegrid-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .festivegrid-view-area {
+    justify-content: flex-start;
+    gap: 6px;
+  }
 }
 
-/* Fine-tune very small screens */
+/* Fine-tune tiny screens */
 @media (max-width: 420px) {
-  .festivegrid-prod-img { width: 94%; height: 86%; }
-  .festivegrid-product-title { font-size: 17px; }
-  .festivegrid-price { font-size: 16px; }
+  .festivegrid-prod-img {
+    width: 94%;
+    height: 86%;
+  }
+
+  .festivegrid-product-title {
+    font-size: 17px;
+  }
+
+  .festivegrid-price {
+    font-size: 16px;
+  }
 }
 
-/* safety: keep focus outlines readable on all sizes */
-button:focus, input:focus, select:focus {
+/* focus outlines */
+button:focus,
+input:focus,
+select:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(200,90,40,0.08);
+  box-shadow: 0 0 0 4px rgba(200, 90, 40, 0.08);
   border-radius: 8px;
 }

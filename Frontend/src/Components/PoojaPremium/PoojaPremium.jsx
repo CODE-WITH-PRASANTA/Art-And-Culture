@@ -51,7 +51,7 @@ const PoojaPremium = () => {
     const el = carouselRef.current;
     if (!el) return;
     const cardWidth =
-      el.firstElementChild ? el.firstElementChild.offsetWidth + 16 : 300;
+      el.firstElementChild ? el.firstElementChild.offsetWidth + 16 : 260;
     const newIndex = Math.max(
       0,
       Math.min(PRODUCTS.length - 1, carouselIndex + dir)
@@ -64,7 +64,7 @@ const PoojaPremium = () => {
     <div className="pp-wrapper ivory-theme">
       <div className="sanskrit-border" aria-hidden="true">
         <div className="sanskrit-track">
-          ॐ ॐ ॐ ॐ ॐ  ॐ ॐ ॐ  ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ
+          ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ ॐ
         </div>
       </div>
 
@@ -85,15 +85,12 @@ const PoojaPremium = () => {
             <FaStar className="pp-gold-icon" /> Art and Culture — Pooja Essentials
           </h1>
           <p className="pp-sub">
-            Premium handcrafted pooja items — timeless, devotional, and
-            gift-ready.
+            Premium handcrafted pooja items — timeless, devotional, and gift-ready.
           </p>
 
           <nav className="pp-tabs">
             <button
-              className={`tab-btn ${
-                activeTab === "prices" ? "active" : ""
-              }`}
+              className={`tab-btn ${activeTab === "prices" ? "active" : ""}`}
               onClick={() => setActiveTab("prices")}
             >
               <FaGift /> Prices
@@ -105,9 +102,7 @@ const PoojaPremium = () => {
               <FaInfoCircle /> FAQ
             </button>
             <button
-              className={`tab-btn ${
-                activeTab === "features" ? "active" : ""
-              }`}
+              className={`tab-btn ${activeTab === "features" ? "active" : ""}`}
               onClick={() => setActiveTab("features")}
             >
               <FaStar /> Features
@@ -117,11 +112,8 @@ const PoojaPremium = () => {
 
         <div className="pp-divider shimmer-gold"></div>
 
-        <section
-          className={`pp-panel ${
-            activeTab === "prices" ? "show" : "hide"
-          }`}
-        >
+        {/* Prices Panel */}
+        <section className={`pp-panel ${activeTab === "prices" ? "show" : "hide"}`}>
           <div className="pp-price-and-carousel">
             <div className="pp-price-list gold-animated-border">
               <div className="price-head">
@@ -175,9 +167,8 @@ const PoojaPremium = () => {
           </div>
         </section>
 
-        <section
-          className={`pp-panel ${activeTab === "faq" ? "show" : "hide"}`}
-        >
+        {/* FAQ Panel */}
+        <section className={`pp-panel ${activeTab === "faq" ? "show" : "hide"}`}>
           <div className="pp-faq">
             {faqs.map((f, idx) => (
               <div key={idx} className="faq-item">
@@ -187,9 +178,7 @@ const PoojaPremium = () => {
                   aria-expanded={openFAQ === idx}
                 >
                   <span>{f.q}</span>
-                  <span className="faq-symbol">
-                    {openFAQ === idx ? "−" : "+"}
-                  </span>
+                  <span className="faq-symbol">{openFAQ === idx ? "−" : "+"}</span>
                 </button>
                 <div className={`faq-a ${openFAQ === idx ? "open" : ""}`}>
                   <p>{f.a}</p>
@@ -199,11 +188,8 @@ const PoojaPremium = () => {
           </div>
         </section>
 
-        <section
-          className={`pp-panel ${
-            activeTab === "features" ? "show" : "hide"
-          }`}
-        >
+        {/* Features Panel */}
+        <section className={`pp-panel ${activeTab === "features" ? "show" : "hide"}`}>
           <ul className="features-list">
             {features.map((it, i) => (
               <li key={i} className="feature-item">
