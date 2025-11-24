@@ -27,12 +27,13 @@ import Terms from "./Components/Termandcondition/Termandcondition";
 function App() {
   return (
     <>
-      {/* Navbar visible on all pages */}
-      <Navbar />
 
       {/* Page Content */}
       <main style={{ minHeight: "80vh" }}>
+      <Navbar />
+
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<ShopSec />} />
           <Route path="/about" element={<About />} />
@@ -61,10 +62,10 @@ function App() {
           <Route path="/OrdersHistory" element={<OrdersTable />} />
           
         </Routes>
+      <Footer />
+
       </main> 
 
-      {/* Footer visible on all pages */}
-      <Footer />
     </>
   );
 }
