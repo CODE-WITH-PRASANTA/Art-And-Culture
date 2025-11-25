@@ -18,10 +18,11 @@ import TrackOrder from "./Pages/TrackOrder/TrackOrder";
 import Faq from "./Pages/Faq/Faq";
 import CheckOutSection from "./Components/CheckoutSection/CheckoutSection";
 import OrderConfirm from "./Pages/OrderConfirm/OrderConfirm";
-import OrdersTable from "./Components/OrdersTable/OrdersTable";
 import About from "./Pages/About/About";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./Components/Termandcondition/Termandcondition";
+import OrderHistory from "./Pages/OrderHistory/OrderHistory";
+import CheckOut from "./Pages/CheckOut/CheckOut";
 
 
 function App() {
@@ -54,9 +55,9 @@ function App() {
           <Route path="/HomeDecor" element={<HomeDecor />} />
           <Route path="/TrackOrder" element={<TrackOrder />} />
           <Route path="/Faq" element={<Faq />} />
-          <Route path="/CheckOutSection" element={<CheckOutSection />} />
+          <Route path="/CheckOutSection" element={<CheckOut />} />
           <Route path="/OrderConfirm" element={<OrderConfirm />} />
-          <Route path="/OrdersHistory" element={<OrdersTable />} />
+          <Route path="/OrdersHistory" element={<OrderHistory />} />
           
         </Routes>
       </main> 
