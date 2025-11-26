@@ -1,6 +1,6 @@
 import React from "react";
 import "./BestsellersBreadcrum.css";
-import aboutImg from "../../assets/best sellers banner.webp";
+import aboutImg from "../../assets/art-7.webp";
 
 const AboutBreadCrum = () => {
   return (

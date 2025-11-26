@@ -1,6 +1,6 @@
 import React from "react";
 import "./PoojaEssentialsBreadCrum.css";
-import aboutImg from "../../assets/poojaessential banner.webp";
+import aboutImg from "../../assets/art-4.webp";
 
 const AboutBreadCrum = () => {
   return (

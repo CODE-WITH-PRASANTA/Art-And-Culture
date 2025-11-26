@@ -1,6 +1,6 @@
 import React from "react";
 import "./BlogBreadCrum.css";
-import aboutImg from "../../assets/blog banner.webp";
+import aboutImg from "../../assets/art-3.webp";
 
 const AboutBreadCrum = () => {
   return (
