@@ -85,10 +85,14 @@ const SubscribeHero = () => {
             className="sh-particle"
             style={{
               // custom variable used by CSS to change timing/position
-              ["--i"]: `${(n % 10) + 6}`, // vary speeds/delays
-              ["--x"]: `${(Math.random() * 90 + 2).toFixed(2)}%`, // random x position
-              ["--y"]: `${(Math.random() * 60 + 5).toFixed(2)}%`, // random start Y
-              ["--s"]: `${(Math.random() * 0.9 + 0.6).toFixed(2)}`, // scale
+              ["--i"]: `${(n % 10) + 6}`,
+              // vary speeds/delays
+              ["--x"]: `${(Math.random() * 90 + 2).toFixed(2)}%`,
+              // random x position
+              ["--y"]: `${(Math.random() * 60 + 5).toFixed(2)}%`,
+              // random start Y
+              ["--s"]: `${(Math.random() * 0.9 + 0.6).toFixed(2)}`,
+              // scale
             }}
           />
         ))}
@@ -97,15 +101,19 @@ const SubscribeHero = () => {
       <div className="sh-container">
         {/* HERO LEFT */}
         <div className="sh-hero sh-reveal">
-          <div className="sh-promo">25% UP TO <span>OFF</span> ALL PRODUCTS</div>
+          <div className="sh-promo">
+            25% UP TO <span>OFF</span> ALL PRODUCTS
+          </div>
 
           <h1 className="sh-title">
-            Stay Home &amp; Get Your Daily<br />
+            Stay Home &amp; Get Your Daily
+            <br />
             Needs From Our Shop
           </h1>
 
           <p className="sh-sub">
-            Start Your Daily Shopping with <span className="sh-accent">Art and Culture</span>
+            Start Your Daily Shopping with{" "}
+            <span className="sh-accent">Art and Culture</span>
           </p>
 
           <form
@@ -139,7 +147,11 @@ const SubscribeHero = () => {
         {/* HERO RIGHT — image container (no svg, full image visible) */}
         <div className="sh-visual sh-reveal">
           <div className="sh-image-wrap">
-            <img src={personImg} alt="Person shopping" className="sh-person-full" />
+            <img
+              src={personImg}
+              alt="Person shopping"
+              className="sh-person-full"
+            />
             {/* shimmer overlay is CSS-only — no extra markup required */}
           </div>
         </div>

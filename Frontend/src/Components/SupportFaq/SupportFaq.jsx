@@ -14,6 +14,11 @@ import {
   FaMoneyBillWave,
 } from "react-icons/fa";
 import "./SupportFaq.css";
+import HERO_ART_URL from "../../assets/team-1.webp";
+
+/* NOTE: using local path (from conversation assets) for hero artwork.
+   If you prefer an import alias or different path, update HERO_ART_URL accordingly.
+*/
 
 const faqItems = [
   {
@@ -54,132 +59,171 @@ const SupportFaq = () => {
 
   return (
     <div className="support-faq-page">
-      {/* TOP BLUE TITLE SECTION */}
+      {/* TOP HERO - modern, with image on the right */}
       <section className="support-top-hero" aria-hidden={false}>
-        <h1 className="support-top-title">Frequently Asked Questions</h1>
-        <div className="support-breadcrumbs" aria-label="Breadcrumb">
-          <span className="crumb">Shop</span>
-          <FiChevronRight className="crumb-icon" aria-hidden />
-          <span className="crumb active">Faq's</span>
+        <div className="support-top-hero-inner">
+          <div className="support-top-copy">
+            <div className="support-crumbs-row">
+              <div className="support-breadcrumbs" aria-label="Breadcrumb">
+                <span className="crumb">Support</span>
+                <FiChevronRight className="crumb-icon" aria-hidden />
+                <span className="crumb active">Help Center</span>
+              </div>
+            </div>
+
+            <h1 className="support-top-title">
+              We’ve got answers — fast, friendly, and helpful.
+            </h1>
+            <p className="support-top-sub">
+              Explore curated help topics or search the FAQ. If you still need help our team is ready — call or chat anytime.
+            </p>
+
+            <div className="support-top-ctas">
+              <button
+                className="support-pill support-pill-email"
+                aria-label="Email us"
+                type="button"
+              >
+                <FiMail className="support-pill-icon" aria-hidden />
+                <span>Email Us</span>
+              </button>
+
+              <button
+                className="support-pill support-pill-tweet"
+                aria-label="Send us tweet"
+                type="button"
+              >
+                <FaTwitter className="support-pill-icon" aria-hidden />
+                <span>Tweet Us</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="support-top-art-wrap" aria-hidden>
+            <img
+              src={HERO_ART_URL}
+              alt="Decorative support artwork"
+              className="support-hero-art"
+            />
+          </div>
         </div>
       </section>
 
       <div className="support-faq-inner">
-        {/* Header / CTAs */}
-        <header className="support-faq-header">
-          <h2 className="support-faq-title">Have any Questions ?</h2>
-          <p className="support-faq-sub">
-            You can ask anything you want to know about Feedback.
-          </p>
+        {/* Main area: left = FAQ list, right = quick assistance panel */}
+        <div className="support-main-grid">
+          <main className="support-main-col">
+            {/* Search box (visual only - can be wired later) */}
+            <div className="support-search-row">
+              <input
+                type="search"
+                placeholder="Search FAQs, e.g. 'returns', 'shipping', 'invoice'..."
+                className="support-search"
+                aria-label="Search FAQs"
+              />
+              <div className="support-need-help">Need help now?</div>
+            </div>
 
-          <div
-            className="support-faq-ctas"
-            role="toolbar"
-            aria-label="Contact CTAs"
-          >
-            <button
-              className="support-pill support-pill-email"
-              aria-label="Email us"
-              type="button"
+            {/* Frequently Asked */}
+            <section
+              className="support-faq-accordion"
+              aria-label="General Questions"
             >
-              <FiMail className="support-pill-icon" aria-hidden />
-              <span>Email Us</span>
-            </button>
+              <h3 className="support-accordion-title">Frequently Asked</h3>
 
-            <button
-              className="support-pill support-pill-tweet"
-              aria-label="Send us tweet"
-              type="button"
-            >
-              <FaTwitter className="support-pill-icon" aria-hidden />
-              <span>Send Us Tweet</span>
-            </button>
-          </div>
-        </header>
+              <div className="support-accordion-list" role="list">
+                {faqItems.map((it, i) => {
+                  const open = openIndex === i;
+                  return (
+                    <div
+                      className={`support-accordion-item ${open ? "open" : ""}`}
+                      key={i}
+                      role="listitem"
+                    >
+                      <button
+                        className="support-accordion-header"
+                        onClick={() => toggle(i)}
+                        aria-expanded={open}
+                        aria-controls={`faq-body-${i}`}
+                        id={`faq-header-${i}`}
+                        type="button"
+                      >
+                        <span className="support-question">{it.q}</span>
+                        <span className="support-chev-wrap" aria-hidden>
+                          {open ? (
+                            <FiChevronUp className="support-chev" />
+                          ) : (
+                            <FiChevronDown className="support-chev" />
+                          )}
+                        </span>
+                      </button>
 
-        {/* Icon cards */}
-        <section
-          className="support-icon-cards"
-          aria-label="Categories (Order, Payments, Delivery, Returns)"
-        >
-          <IconBox label="Order" Icon={FaBox} />
-          <IconBox label="Payments" Icon={FaMoneyBillWave} />
-          <IconBox label="Delivery" Icon={FaTruck} />
-          <IconBox label="Returns" Icon={FaUndoAlt} />
-        </section>
-
-        {/* FAQ accordion */}
-        <section className="support-faq-accordion" aria-label="General Questions">
-          <h3 className="support-accordion-title">General Questions</h3>
-
-          <div className="support-accordion-list" role="list">
-            {faqItems.map((it, i) => {
-              const open = openIndex === i;
-              return (
-                <div
-                  className={`support-accordion-item ${open ? "open" : ""}`}
-                  key={i}
-                  role="listitem"
-                >
-                  <button
-                    className="support-accordion-header"
-                    onClick={() => toggle(i)}
-                    aria-expanded={open}
-                    aria-controls={`faq-body-${i}`}
-                    id={`faq-header-${i}`}
-                    type="button"
-                  >
-                    <span>{it.q}</span>
-                    <span className="support-chev-wrap" aria-hidden>
-                      {open ? (
-                        <FiChevronUp className="support-chev" />
-                      ) : (
-                        <FiChevronDown className="support-chev" />
-                      )}
-                    </span>
-                  </button>
-
-                  <div
-                    id={`faq-body-${i}`}
-                    className="support-accordion-body"
-                    style={{ maxHeight: open ? "240px" : "0px" }}
-                    aria-labelledby={`faq-header-${i}`}
-                  >
-                    <div className="support-accordion-body-inner">
-                      <p>{it.a}</p>
+                      <div
+                        id={`faq-body-${i}`}
+                        className="support-accordion-body"
+                        style={{ maxHeight: open ? "420px" : "0px" }}
+                        aria-labelledby={`faq-header-${i}`}
+                      >
+                        <div className="support-accordion-body-inner">
+                          <p>{it.a}</p>
+                        </div>
+                      </div>
                     </div>
+                  );
+                })}
+              </div>
+            </section>
+          </main>
+
+          {/* RIGHT SIDEBAR - assistance cards and icon cards */}
+          <aside className="support-side-col" aria-label="Help options">
+            <div className="support-side-stack">
+              <div className="support-side-card support-side-contact">
+                <div className="support-side-left">
+                  <div className="support-side-title">Call Support</div>
+                  <div className="support-side-sub">
+                    Available 24/7 — speak to an agent
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </section>
+                <div className="support-side-cta">
+                  <button
+                    className="support-call-btn"
+                    type="button"
+                    aria-label="Call support"
+                  >
+                    <FiPhone className="support-phone-icon" />
+                    <span>Call</span>
+                  </button>
+                </div>
+              </div>
 
-        {/* Hero (gradient background and CTA) */}
-        <section
-          className="support-hero-cta"
-          role="region"
-          aria-label="Contact call to action"
-        >
-          <div className="support-hero-overlay" />
-
-          <div className="support-hero-inner">
-            <h2 className="support-hero-title">
-              Let Us Know How We Can Help You
-            </h2>
-
-            <div className="support-hero-contact">
-              <button
-                className="support-contact-pill"
-                aria-label="Contact us"
-                type="button"
+              <div
+                className="support-icon-cards"
+                aria-label="Categories (Order, Payments, Delivery, Returns)"
               >
-                <FiPhone className="support-phone-icon" aria-hidden />
-                <span>Contact Us</span>
-              </button>
+                <IconBox label="Order" Icon={FaBox} />
+                <IconBox label="Payments" Icon={FaMoneyBillWave} />
+                <IconBox label="Delivery" Icon={FaTruck} />
+                <IconBox label="Returns" Icon={FaUndoAlt} />
+              </div>
+
+              <div className="support-side-card support-side-cta-large">
+                <div>
+                  <h4 className="support-side-cta-title">Still need help?</h4>
+                  <p className="support-side-cta-text">
+                    Our team is available 24/7. Chat with us or request a callback and we'll assist you quickly.
+                  </p>
+                </div>
+                <div className="support-side-cta-actions">
+                  <button className="support-start-chat">Start Chat</button>
+                  <button className="support-outline-btn">
+                    Request a Callback
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </aside>
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,6 @@
+/* ShopSec.css (full file with only a few added/updated rules for the topbar responsiveness) */
+
+/* ----- original styles (unchanged) ----- */
 .shop-container {
   padding: 40px;
   background: #fff;
@@ -15,27 +18,65 @@
   margin-bottom: 15px;
 }
 
+/* ---------- UPDATED topbar layout (responsive) ---------- */
+/* The markup was split into .topbar-left and .topbar-right to allow stacking on small screens */
 .shop-topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
   margin-bottom: 30px;
+  flex-wrap: nowrap; /* allow nowrap on wide screens */
 }
 
+/* left and right columns */
+.topbar-left {
+  display: flex;
+  align-items: center;
+  min-width: 0; /* allow children to shrink on small screens */
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* visually-hidden helper for accessibility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* results text */
 .results-text {
   font-size: 16px;
   color: #444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* sort wrapper unchanged but responsive friendly */
 .sort-wrapper {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0; /* allow shrinking */
 }
 
 .sort-label {
   font-size: 16px;
   color: #444;
+  white-space: nowrap;
 }
 
 .sort-dropdown {
@@ -46,6 +87,7 @@
   border-radius: 6px;
   width: 220px;
   cursor: pointer;
+  min-width: 0;
 }
 
 .sort-dropdown:focus {
@@ -56,14 +98,12 @@
 /* Product Grid */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin-top: 10px;
 }
 
 .product-card {
   background: #faf7e9;
-  padding: 10px;
   border-radius: 10px;
   position: relative;
   transition: 0.3s ease;
@@ -76,7 +116,6 @@
 .product-img {
   width: 100%;
   height: 260px;
-  object-fit: contain;
 }
 
 .product-name {
@@ -219,6 +258,7 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
 /* ============================
    RESPONSIVE DESIGN
    ============================ */
@@ -242,14 +282,21 @@
 /* Tablets (max-width: 768px) */
 @media (max-width: 768px) {
   .shop-topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    flex-wrap: wrap; /* allow stacking */
+    gap: 12px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .sort-wrapper {
-    width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
+    width: auto;
   }
 
   .sort-dropdown {
@@ -270,7 +317,7 @@
   }
 }
 
-/* Mobile (max-width: 576px) — EXACT LIKE YOUR IMAGE */
+/* Mobile (max-width: 576px) */
 @media (max-width: 576px) {
 
   .shop-container {
@@ -287,20 +334,37 @@
   }
 
   .shop-topbar {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    width: 100%;
     justify-content: space-between;
-    align-items: center;
+  }
+
+  .results-text {
+    font-size: 14px;
   }
 
   .sort-wrapper {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
   }
 
-  /* SORT BY RESPONSIVE — MATCH SCREENSHOT */
+  /* make the select take the remaining width under label on small screens */
+  .sort-label {
+    display: inline-block;
+    margin-right: 8px;
+  }
+
   .sort-dropdown {
-    width: 100%;
+    width: calc(100% - 80px); /* leaves space for label comfortably */
+    max-width: 100%;
     padding: 8px 12px;
     font-size: 14px;
   }
