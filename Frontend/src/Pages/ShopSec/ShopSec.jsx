@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// ShopSec.jsx
+import React, { useEffect, useState, useRef } from "react";
 import "./ShopSec.css";
 
 import product1 from "../../assets/01.webp";
@@ -24,7 +25,48 @@ const ShopSec = () => {
   const [wishlistState, setWishlistState] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
 
-  const productsPerPage = 16;
+  // rows we want per page (fixed)
+  const rowsPerPage = 3;
+
+  // columns will be derived from viewport width so itemsPerPage = rowsPerPage * columns
+  const [columns, setColumns] = useState(getColumnsFromWidth(typeof window !== "undefined" ? window.innerWidth : 1200));
+  const [productsPerPage, setProductsPerPage] = useState(rowsPerPage * columns);
+
+  const resizeTimer = useRef(null);
+
+  // Utility: decide columns based on width (match your CSS breakpoints)
+  function getColumnsFromWidth(width) {
+    // matches CSS behavior in your stylesheet:
+    // >1024px => 5 columns (desktop)
+    // 769-1024px => 3 columns
+    // <=768px => 2 columns
+    if (width > 1024) return 5;
+    if (width > 768) return 3;
+    return 2;
+  }
+
+  useEffect(() => {
+    // On mount and resize adjust columns/products-per-page
+    const handleResize = () => {
+      const w = window.innerWidth;
+      const cols = getColumnsFromWidth(w);
+      // debounce a bit for performance
+      if (resizeTimer.current) clearTimeout(resizeTimer.current);
+      resizeTimer.current = setTimeout(() => {
+        setColumns(cols);
+        setProductsPerPage(rowsPerPage * cols);
+      }, 80);
+    };
+
+    window.addEventListener("resize", handleResize);
+    // initial set (in case SSR -> client mismatch)
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimer.current) clearTimeout(resizeTimer.current);
+    };
+  }, []); // run once
 
   const toggleWishlist = (id) => {
     setWishlistState((prev) => ({
@@ -58,116 +100,147 @@ const ShopSec = () => {
   // SORTING LOGIC
   const sortedProducts = [...products].sort((a, b) => {
     switch (sortType) {
-      case "low-high": return a.price - b.price;
-      case "high-low": return b.price - a.price;
-      case "popularity": return b.popularity - a.popularity;
-      case "rating": return b.rating - a.rating;
-      case "latest": return new Date(b.date) - new Date(a.date);
-      default: return 0;
+      case "low-high":
+        return a.price - b.price;
+      case "high-low":
+        return b.price - a.price;
+      case "popularity":
+        return b.popularity - a.popularity;
+      case "rating":
+        return b.rating - a.rating;
+      case "latest":
+        return new Date(b.date) - new Date(a.date);
+      default:
+        return 0;
     }
   });
 
-  // PAGINATION LOGIC
+  // PAGINATION LOGIC (reactively based on productsPerPage)
+  const totalPages = Math.max(1, Math.ceil(sortedProducts.length / productsPerPage));
+
+  // Ensure currentPage is within range whenever totalPages changes
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+    if (currentPage < 1) setCurrentPage(1);
+  }, [totalPages, currentPage]);
+
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = sortedProducts.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+
+  // Results text (Showing start - end of total)
+  const resultsStart = sortedProducts.length === 0 ? 0 : indexOfFirst + 1;
+  const resultsEnd = indexOfFirst + currentProducts.length;
+  const totalResults = sortedProducts.length;
+
+  // helper to jump to page (clamp)
+  const goToPage = (page) => {
+    const p = Math.max(1, Math.min(totalPages, page));
+    setCurrentPage(p);
+    // scroll to top of product grid for better UX (optional)
+    const grid = document.querySelector(".product-grid");
+    if (grid) grid.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
-    <ShopBreadCrum />
-    <div className="shop-container">
-      <h1 className="shop-title">Shop</h1>
+      <ShopBreadCrum />
+      <div className="shop-container">
+        <div className="shop-topbar" role="region" aria-label="Shop controls">
+          <div className="topbar-left">
+            <span className="results-text">
+              Showing {resultsStart}–{resultsEnd} of {totalResults} results
+            </span>
+          </div>
 
-      <div className="breadcrumb">Home / Shop</div>
-
-      <div className="shop-topbar">
-        <span className="results-text">Showing 1–16 of 24 results</span>
-
-        <div className="sort-wrapper">
-          <span className="sort-label">Sort By:</span>
-          <select className="sort-dropdown" onChange={(e) => setSortType(e.target.value)}>
-            <option value="default">Default sorting</option>
-            <option value="popularity">Sort by popularity</option>
-            <option value="rating">Sort by average rating</option>
-            <option value="latest">Sort by latest</option>
-            <option value="low-high">Sort by price: low to high</option>
-            <option value="high-low">Sort by price: high to low</option>
-          </select>
+          <div className="topbar-right">
+            <label htmlFor="sort-select" className="sr-only">
+              Sort products
+            </label>
+            <div className="sort-wrapper">
+              <span className="sort-label">Sort By:</span>
+              <select
+                id="sort-select"
+                className="sort-dropdown"
+                value={sortType}
+                onChange={(e) => {
+                  setSortType(e.target.value);
+                  // go back to first page whenever sorting changes
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="default">Default sorting</option>
+                <option value="popularity">Sort by popularity</option>
+                <option value="rating">Sort by average rating</option>
+                <option value="latest">Sort by latest</option>
+                <option value="low-high">Sort by price: low to high</option>
+                <option value="high-low">Sort by price: high to low</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* PRODUCT GRID */}
-      <div className="product-grid">
-        {currentProducts.map((item) => (
-          <div className="product-card" key={item.id}>
+        {/* PRODUCT GRID */}
+        <div className="product-grid">
+          {currentProducts.map((item) => (
+            <div className="product-card" key={item.id}>
+              {item.sale && <span className="sale-badge">Sale</span>}
 
-            {item.sale && <span className="sale-badge">Sale</span>}
+              <img src={item.img} alt={item.name} className="product-img" />
 
-            <img src={item.img} alt={item.name} className="product-img" />
+              {/* HOVER SECTION */}
+              <div className="card-hover-box">
+                <button className="add-to-cart-btn">Add to cart</button>
 
-            {/* HOVER SECTION */}
-            <div className="card-hover-box">
-              <button className="add-to-cart-btn">Add to cart</button>
+                <div className="hover-links">
+                  {/* ❤️ Wishlist */}
+                  <button
+                    className={`wishlist-btn ${wishlistState[item.id] ? "active" : ""}`}
+                    onClick={() => toggleWishlist(item.id)}
+                  >
+                    {wishlistState[item.id] ? "❤️ Wishlist" : "♡ Wishlist"}
+                  </button>
 
-              <div className="hover-links">
-                
-                {/* ❤️ Wishlist */}
-                <button
-                  className={`wishlist-btn ${wishlistState[item.id] ? "active" : ""}`}
-                  onClick={() => toggleWishlist(item.id)}
-                >
-                  {wishlistState[item.id] ? "❤️ Wishlist" : "♡ Wishlist"}
-                </button>
+                  {/* ⇄ Compare */}
+                  <button className="compare-btn">⇄ Compare</button>
+                </div>
+              </div>
 
-                {/* ⇄ Compare */}
-                <button className="compare-btn">⇄ Compare</button>
+              <h2 className="product-name">{item.name}</h2>
 
+              <div className="price-box">
+                {item.oldPrice && <span className="old-price">{item.oldPrice} ₹</span>}
+                <span className="price">₹ {item.price}</span>
               </div>
             </div>
+          ))}
+        </div>
 
-            <h2 className="product-name">{item.name}</h2>
-
-            <div className="price-box">
-              {item.oldPrice && <span className="old-price">{item.oldPrice} ₹</span>}
-              <span className="price">{item.price} ₹</span>
-            </div>
-
-          </div>
-        ))}
-      </div>
-
-      {/* PAGINATION  */}
-      <div className="pagination">
-        <button
-          className="page-btn"
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((p) => p - 1)}
-        >
-          ←
-        </button>
-
-        {[...Array(totalPages)].map((_, index) => (
-          <button
-            key={index}
-            className={`page-number ${currentPage === index + 1 ? "active" : ""}`}
-            onClick={() => setCurrentPage(index + 1)}
-          >
-            {index + 1}
+        {/* PAGINATION  */}
+        <div className="pagination">
+          <button className="page-btn" disabled={currentPage === 1} onClick={() => goToPage(currentPage - 1)}>
+            ←
           </button>
-        ))}
 
-        <button
-          className="page-btn"
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((p) => p + 1)}
-        >
-          →
-        </button>
+          {/* show page numbers */}
+          {[...Array(totalPages)].map((_, idx) => {
+            const pageNum = idx + 1;
+            return (
+              <button
+                key={pageNum}
+                className={`page-number ${currentPage === pageNum ? "active" : ""}`}
+                onClick={() => goToPage(pageNum)}
+              >
+                {pageNum}
+              </button>
+            );
+          })}
+
+          <button className="page-btn" disabled={currentPage === totalPages} onClick={() => goToPage(currentPage + 1)}>
+            →
+          </button>
+        </div>
       </div>
-
-    </div>
-
     </>
   );
 };

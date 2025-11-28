@@ -26,7 +26,7 @@ const SLIDES = [
     id: 3,
     variant: "variant-3",
     leftImage: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
-    rightImage: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
+    rightImage: "https://cdn.pixabay.com/photo/2019/08/20/15/30/ganesh-4419043_640.jpg",
     gridImage1: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
     gridImage2: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
     title: "Sacred <span class='title-gradient'>Elegance</span>",
@@ -244,6 +244,20 @@ const Herosection = ({ interval = 5000 }) => {
               {/* Variant 3 - Immersive Showcase Style */}
               {s.variant === "variant-3" && (
                 <>
+
+                <article className="right-card right-card--frame" tabIndex={0}>
+                    <div className="right-card-full">
+                      <img
+                        className="right-full-image"
+                        src={s.rightImage}
+                        alt="Artisan Collection"
+                        loading="lazy"
+                      />
+                      <div className="frame-accent" aria-hidden />
+                      <div className="image-shine" aria-hidden />
+                    </div>
+                  </article>
+                  
                   <article className="left-card left-card--tall" tabIndex={0}>
                     <div className="left-card-inner left-card-inner--stacked">
                       <div className="text-content--side text-content--glass">
@@ -265,18 +279,7 @@ const Herosection = ({ interval = 5000 }) => {
                     </div>
                   </article>
 
-                  <article className="right-card right-card--frame" tabIndex={0}>
-                    <div className="right-card-full">
-                      <img
-                        className="right-full-image"
-                        src={s.rightImage}
-                        alt="Artisan Collection"
-                        loading="lazy"
-                      />
-                      <div className="frame-accent" aria-hidden />
-                      <div className="image-shine" aria-hidden />
-                    </div>
-                  </article>
+                  
                 </>
               )}
             </div>

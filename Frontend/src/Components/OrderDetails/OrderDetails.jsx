@@ -96,30 +96,33 @@ const OrderDetails = () => {
           <div className="items-grid">
             {/* Items list */}
             <div className="items-list" role="table">
-              <div className="items-header" role="row">
-                <div className="h-col h-num">#</div>
-                <div className="h-col h-product">Product</div>
-                <div className="h-col h-rate">Rate</div>
-                <div className="h-col h-qty">Qty</div>
-                <div className="h-col h-amount">Amount</div>
-              </div>
-              {products.map((p, i) => {
-                const amount = (p.rate * p.qty).toFixed(2);
-                return (
-                  <div className="item-row" role="row" key={p.id}>
-                    <div className="cell col-num">{p.id}</div>
-                    <div className="cell col-product">
-                      <div className="prod-card">
-                        <div className="prod-thumb flip-front" style={{ background: p.imgBg }}></div>
-                        <div className="prod-content"><div className="prod-title">{p.title}</div><div className="prod-sub">{p.subtitle}</div></div>
+              <div className="items-table">
+                <div className="items-header" role="row">
+                  <div className="h-col h-num">#</div>
+                  <div className="h-col h-product">Product</div>
+                  <div className="h-col h-rate">Rate</div>
+                  <div className="h-col h-qty">Qty</div>
+                  <div className="h-col h-amount">Amount</div>
+                </div>
+
+                {products.map((p, i) => {
+                  const amount = (p.rate * p.qty).toFixed(2);
+                  return (
+                    <div className="item-row" role="row" key={p.id}>
+                      <div className="cell col-num">{p.id}</div>
+                      <div className="cell col-product">
+                        <div className="prod-card">
+                          <div className="prod-thumb flip-front" style={{ background: p.imgBg }}></div>
+                          <div className="prod-content"><div className="prod-title">{p.title}</div><div className="prod-sub">{p.subtitle}</div></div>
+                        </div>
                       </div>
+                      <div className="cell col-rate">${p.rate.toFixed(2)}</div>
+                      <div className="cell col-qty">{String(p.qty).padStart(2,"0")}</div>
+                      <div className="cell col-amount">${amount}</div>
                     </div>
-                    <div className="cell col-rate">${p.rate.toFixed(2)}</div>
-                    <div className="cell col-qty">{String(p.qty).padStart(2,"0")}</div>
-                    <div className="cell col-amount">${amount}</div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             {/* Sticky summary aside */}

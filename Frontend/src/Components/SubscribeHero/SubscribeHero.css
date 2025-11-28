@@ -1,6 +1,6 @@
 /* =========================
    SubscribeHero.css
-   (Option B - full image + animations)
+   Option B - full image + animations (improved, mobile-first)
    ========================= */
 
 /* Basic tokens */
@@ -16,21 +16,44 @@
   --max-width: 1280px;
   --container-pad: 36px;
   --feature-height: 92px;
+  --particle-size: 6px;
 }
 
 /* Reset / base */
-* { box-sizing: border-box; }
-html,body { height:100%; margin:0; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial; background: var(--bg); color: var(--muted); }
-img { max-width:100%; display:block; }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: var(--bg);
+  color: var(--muted);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
 
 /* visually-hidden */
-.visually-hidden { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
 
 /* Wrapper + background */
 .sh-wrapper {
   position: relative;
   overflow: hidden;
   padding: 0;
+  background-color: transparent;
 }
 
 /* decorative background image (texture) */
@@ -43,6 +66,7 @@ img { max-width:100%; display:block; }
   filter: saturate(0.98) brightness(1.03);
   z-index: 0;
   pointer-events: none;
+  background-size: auto;
 }
 
 /* ===== PARTICLES (medium intensity) ===== */
@@ -57,8 +81,8 @@ img { max-width:100%; display:block; }
   position: absolute;
   left: var(--x, 10%);
   top: var(--y, 10%);
-  width: calc(6px * var(--s, 1));
-  height: calc(6px * var(--s, 1));
+  width: calc(var(--particle-size) * var(--s, 1));
+  height: calc(var(--particle-size) * var(--s, 1));
   border-radius: 50%;
   background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(212,167,98,0.6));
   box-shadow: 0 6px 14px rgba(20,40,60,0.08);
@@ -72,14 +96,29 @@ img { max-width:100%; display:block; }
 
 /* subtle pathing to create drifting effect */
 @keyframes particleFloat {
-  0% { transform: translateY(0) translateX(0) scale(var(--s,1)); opacity: 0.85; }
-  25% { transform: translateY(-18vh) translateX(6vw) scale(calc(var(--s,1) * 1.05)); opacity: 0.95; }
-  50% { transform: translateY(-36vh) translateX(-4vw) scale(var(--s,1)); opacity: 0.7; }
-  75% { transform: translateY(-18vh) translateX(4vw) scale(calc(var(--s,1) * 0.98)); opacity: 0.9; }
-  100% { transform: translateY(0) translateX(0) scale(var(--s,1)); opacity: 0.85; }
+  0% {
+    transform: translateY(0) translateX(0) scale(var(--s,1));
+    opacity: 0.85;
+  }
+  25% {
+    transform: translateY(-18vh) translateX(6vw) scale(calc(var(--s,1) * 1.05));
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(-36vh) translateX(-4vw) scale(var(--s,1));
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-18vh) translateX(4vw) scale(calc(var(--s,1) * 0.98));
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(var(--s,1));
+    opacity: 0.85;
+  }
 }
 
-/* container */
+/* container (desktop-first layout kept but CSS is mobile-first via max-width queries below) */
 .sh-container {
   max-width: var(--max-width);
   margin: 56px auto 0;
@@ -99,17 +138,24 @@ img { max-width:100%; display:block; }
   transform: translateY(18px);
   transition: all 560ms cubic-bezier(.22,.9,.3,1);
 }
-.sh-hero.visible { opacity:1; transform: none; }
+
+.sh-hero.visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* promo */
 .sh-promo {
-  font-weight:700;
+  font-weight: 700;
   color: var(--pink);
   letter-spacing: 0.6px;
   margin-bottom: 10px;
   font-size: 14px;
 }
-.sh-promo span { color: #0b1630; }
+
+.sh-promo span {
+  color: #0b1630;
+}
 
 /* title */
 .sh-title {
@@ -122,11 +168,26 @@ img { max-width:100%; display:block; }
 }
 
 /* subtitle */
-.sh-sub { color: #4b5b6a; margin-bottom: 24px; font-size: 16px; }
-.sh-sub .sh-accent { color: var(--accent); font-weight:700; }
+.sh-sub {
+  color: #4b5b6a;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+.sh-sub .sh-accent {
+  color: var(--accent);
+  font-weight: 700;
+}
 
 /* subscribe form */
-.sh-subscribe { display:flex; gap: 16px; align-items: center; width: 100%; max-width: 780px; }
+.sh-subscribe {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  max-width: 780px;
+}
+
 .sh-input {
   flex: 1 1 auto;
   border-radius: 999px;
@@ -138,11 +199,13 @@ img { max-width:100%; display:block; }
   outline: none;
   transition: box-shadow .18s ease, transform .18s ease;
 }
+
 .sh-input:focus {
   box-shadow: 0 12px 30px rgba(25,166,217,0.12);
   transform: translateY(-1px);
   border-color: rgba(25,166,217,0.22);
 }
+
 .sh-btn {
   border-radius: 40px;
   padding: 12px 26px;
@@ -155,13 +218,17 @@ img { max-width:100%; display:block; }
   transition: transform .15s ease, box-shadow .15s ease;
   white-space: nowrap;
 }
-.sh-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 34px rgba(13,105,128,0.12); }
+
+.sh-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 34px rgba(13,105,128,0.12);
+}
 
 /* HERO RIGHT - full image wrapper with shimmer */
 .sh-visual {
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   width: 100%;
   min-height: 320px;
@@ -170,7 +237,11 @@ img { max-width:100%; display:block; }
   transform: translateY(18px);
   transition: all 620ms cubic-bezier(.22,.9,.3,1);
 }
-.sh-visual.visible { opacity:1; transform:none; }
+
+.sh-visual.visible {
+  opacity: 1;
+  transform: none;
+}
 
 .sh-image-wrap {
   width: 420px;
@@ -203,9 +274,14 @@ img { max-width:100%; display:block; }
   opacity: 0.9;
   animation: shimmerMove 2.4s linear infinite;
 }
+
 @keyframes shimmerMove {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(120%); }
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 /* small hover "lift" on image */
@@ -226,8 +302,8 @@ img { max-width:100%; display:block; }
 
 /* feature card — rotating 3D on hover */
 .sh-feature-card {
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 18px;
   background: white;
   padding: 18px;
@@ -239,6 +315,7 @@ img { max-width:100%; display:block; }
   perspective: 1000px;
   transition: transform 420ms cubic-bezier(.2,.9,.3,1), box-shadow 420ms;
 }
+
 .sh-feature-card:hover {
   transform: rotateY(12deg) translateY(-6px);
   box-shadow: 0 18px 40px rgba(12,30,41,0.08);
@@ -248,64 +325,209 @@ img { max-width:100%; display:block; }
 .sh-feature-icon {
   width: 56px;
   height: 56px;
-  min-width:56px;
+  min-width: 56px;
   border-radius: 12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(180deg, rgba(246,246,250,1), #fff);
   box-shadow: 0 6px 14px rgba(12,30,41,0.03);
 }
-.sh-feature-icon img { width:40px; height:40px; object-fit:contain; }
+
+.sh-feature-icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
 
 /* text */
-.sh-feature-title { font-weight:700; color:#132a37; font-size:15px; margin-bottom:6px; }
-.sh-feature-sub { color:#8b98a3; font-size:13px; }
+.sh-feature-title {
+  font-weight: 700;
+  color: #132a37;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.sh-feature-sub {
+  color: #8b98a3;
+  font-size: 13px;
+}
 
 /* ===========================
    Scroll reveal utility for .sh-reveal
    =========================== */
-.sh-reveal { opacity: 0; transform: translateY(18px); transition: all 520ms cubic-bezier(.22,.9,.3,1); }
-.sh-reveal.visible { opacity:1; transform:none; }
+.sh-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: all 520ms cubic-bezier(.22,.9,.3,1);
+}
+
+.sh-reveal.visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* ===========================
-   RESPONSIVE
+   RESPONSIVE (mobile-first: max-width queries)
    =========================== */
+
+/* <= 1100px - medium / large tablet */
 @media (max-width: 1100px) {
-  .sh-features { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .sh-container { grid-template-columns: 1fr 420px; gap: 28px; margin-top: 40px; }
-  .sh-image-wrap { width: 360px; height: 360px; }
-  .sh-particle { display: none; } /* reduce particle load on medium screens */
+  .sh-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .sh-container {
+    grid-template-columns: 1fr 420px;
+    gap: 28px;
+    margin-top: 40px;
+  }
+
+  .sh-image-wrap {
+    width: 360px;
+    height: 360px;
+  }
+
+  .sh-particle {
+    display: none;
+  }
 }
 
+/* <= 900px - tablet and large phones:
+   - collapse to single column
+   - image becomes smaller and moves before content for better flow
+*/
 @media (max-width: 900px) {
-  .sh-container { grid-template-columns: 1fr; gap: 18px; margin-top: 20px; padding: 0 20px; }
-  .sh-visual { order: -1; justify-content:flex-end; }
-  .sh-image-wrap { width: 300px; height: 300px; margin-left: auto; margin-right: 8px; }
-  .sh-title { font-size: clamp(28px, 6.6vw, 40px); }
-  .sh-features { margin-top: 26px; grid-template-columns: repeat(2, 1fr); }
-  .sh-particles { display: none; }
+  .sh-container {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .sh-visual {
+    order: -1;
+    justify-content: flex-end;
+  }
+
+  .sh-image-wrap {
+    width: 300px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  .sh-title {
+    font-size: clamp(28px, 6.6vw, 40px);
+  }
+
+  .sh-features {
+    margin-top: 26px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sh-particles {
+    display: none;
+  }
 }
 
+/* <= 520px - mobile portrait:
+   - stack subscribe controls
+   - features become single column
+*/
 @media (max-width: 520px) {
-  .sh-image-wrap { width: 260px; height: 260px; margin: 0 auto; }
-  .sh-visual { justify-content: center; }
-  .sh-title { font-size: 24px; line-height:1.08; }
-  .sh-subscribe { flex-direction: column; align-items: stretch; gap: 12px; }
-  .sh-btn { padding: 12px; width: 46%; margin-left: auto; border-radius: 10px; }
-  .sh-features { grid-template-columns: 1fr; gap: 14px; padding: 0 18px; margin: 20px auto 60px; }
-  .sh-feature-card { padding: 12px; gap: 12px; min-height: 80px; }
-  .sh-feature-icon { width: 46px; height: 46px; min-width: 46px; }
+  .sh-image-wrap {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+  }
+
+  .sh-visual {
+    justify-content: center;
+  }
+
+  .sh-title {
+    font-size: 24px;
+    line-height: 1.08;
+  }
+
+  .sh-subscribe {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .sh-btn {
+    padding: 12px;
+    width: 46%;
+    margin-left: auto;
+    border-radius: 10px;
+  }
+
+  .sh-features {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 0 18px;
+    margin: 20px auto 60px;
+  }
+
+  .sh-feature-card {
+    padding: 12px;
+    gap: 12px;
+    min-height: 80px;
+  }
+
+  .sh-feature-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+  }
 }
 
+/* <= 360px - smallest phones */
 @media (max-width: 360px) {
-  .sh-title { font-size: 20px; }
-  .sh-btn { width: 100%; }
-  .sh-image-wrap { width: 220px; height: 220px; }
+  .sh-title {
+    font-size: 20px;
+  }
+
+  .sh-btn {
+    width: 100%;
+  }
+
+  .sh-image-wrap {
+    width: 220px;
+    height: 220px;
+  }
+
+  .sh-subscribe .sh-input {
+    padding: 12px 14px;
+  }
+
+  .sh-subscribe {
+    gap: 8px;
+  }
 }
 
-/* slight polish for large screens */
-@media (min-width: 1400px) {
-  .sh-container { margin-top: 80px; }
-  .sh-features { margin-bottom: 120px; }
+/* slight polish for very large screens (4K) - still mobile-first, only max-width used */
+@media (min-width: 1401px) {
+  .sh-container {
+    margin-top: 80px;
+  }
+
+  .sh-features {
+    margin-bottom: 120px;
+  }
+
+  .sh-image-wrap {
+    width: 520px;
+    height: 520px;
+  }
+}
+
+/* Safety: ensure smooth scaling on intermediate sizes */
+@media (max-width: 1280px) {
+  .sh-title {
+    font-size: clamp(32px, 4.6vw, 48px);
+  }
 }
