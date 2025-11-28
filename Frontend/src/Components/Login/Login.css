@@ -1,5 +1,5 @@
 /* LoginPage.css
-   Pixel-accurate layout that matches the provided reference.
+   Exact sign-in layout matching the reference screenshot.
    Unique prefix: lnux-
    Fonts: Baloo 2 for headings + Poppins for UI
 */
@@ -9,13 +9,12 @@
 :root{
   --lnux-bg: #0d1113;
   --lnux-panel-bg: #0b0e10;
-  --lnux-card-surface: rgba(255,255,255,0.02);
   --lnux-muted: #9aa3a8;
-  --lnux-accent: #7a2e1b;         /* used for focused link/checkbox highlight */
-  --lnux-button-brown: #a26e5f;   /* brown sign-up button like ref */
-  --lnux-hero-overlay: rgba(122,46,27,0.45); /* warm tint */
+  --lnux-accent: #7a2e1b;         /* accent (used for link hovers, checkbox checked) */
+  --lnux-button-brown: #7a2e1b ;   /* brown primary button */
+  --lnux-hero-overlay: #7a2e1b75; /* warm tint */
   --lnux-radius: 12px;
-  --lnux-width: 1120px; /* container width */
+  --lnux-width: 1120px;
 }
 
 /* page root */
@@ -37,7 +36,7 @@
   max-width: 100%;
   height: 720px;
   display:grid;
-  grid-template-columns: 1fr 420px; /* left flexible + right fixed width like ref */
+  grid-template-columns: 1fr 420px;
   gap: 28px;
   align-items: stretch;
 }
@@ -55,7 +54,7 @@
   padding: 42px 48px;
 }
 
-/* warm overlay tint */
+/* overlay tint */
 .lnux-hero-tint {
   position: absolute;
   inset: 0;
@@ -64,7 +63,7 @@
   opacity: 1;
 }
 
-/* hero content block */
+/* hero inner content */
 .lnux-hero-inner {
   position: relative;
   z-index: 2;
@@ -72,7 +71,7 @@
   color: #fff;
 }
 
-/* logo (top-left) */
+/* logo */
 .lnux-logo {
   font-family: "Poppins", sans-serif;
   font-weight: 700;
@@ -81,7 +80,7 @@
   opacity: 0.95;
 }
 
-/* hero heading - large Baloo 2 */
+/* hero heading - Baloo 2 */
 .lnux-hero-heading {
   margin: 0 0 14px 0;
   font-family: "Baloo 2", cursive;
@@ -92,7 +91,7 @@
   letter-spacing: -0.8px;
 }
 
-/* hero subheading */
+/* hero subtitle */
 .lnux-hero-sub {
   margin: 0 0 28px 0;
   font-size: 16px;
@@ -120,7 +119,7 @@
   font-size: 14px;
 }
 
-/* RIGHT panel: form card */
+/* RIGHT panel (sign in card) */
 .lnux-panel {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius: var(--lnux-radius);
@@ -147,21 +146,21 @@
   gap: 14px;
 }
 
-/* individual field wrapper */
+/* field wrapper */
 .lnux-field {
   display:flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* label style above the input */
+/* label above input */
 .lnux-field-label {
   color: var(--lnux-muted);
   font-weight: 600;
   font-size: 14px;
 }
 
-/* input style */
+/* input styles */
 .lnux-input {
   height: 46px;
   border-radius: 8px;
@@ -181,9 +180,17 @@
   transform: translateY(-2px);
 }
 
-/* terms row: checkbox + text */
-.lnux-terms-row { margin-top: 6px; margin-bottom: 6px; }
-.lnux-terms {
+/* helpers row: remember + forgot */
+.lnux-helpers-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+/* remember checkbox */
+.lnux-remember {
   display:flex;
   gap:12px;
   align-items:center;
@@ -191,49 +198,35 @@
   user-select: none;
   font-size: 13px;
   color: var(--lnux-muted);
-  line-height: 1.2;
 }
-
-/* hide native checkbox but keep accessible */
-.lnux-terms-checkbox {
+.lnux-remember-input {
   position: absolute;
   opacity: 0;
-  pointer-events: auto;
 }
-
-/* visible checkbox box */
-.lnux-checkbox-visual {
+.lnux-remember-box {
   width:18px; height:18px; border-radius:4px;
   background: #0b0f10;
   border: 1px solid rgba(255,255,255,0.06);
   box-shadow: inset 0 -2px 0 rgba(0,0,0,0.35);
   flex-shrink: 0;
 }
-
-/* when the hidden input is checked, style the visual box via sibling selector */
-.lnux-terms-checkbox:checked + .lnux-checkbox-visual {
+.lnux-remember-input:checked + .lnux-remember-box {
   background: var(--lnux-accent);
   border-color: var(--lnux-accent);
   box-shadow: 0 8px 20px rgba(122,46,27,0.14);
 }
+.lnux-remember-text { color: var(--lnux-muted); }
 
-/* terms text and inline links */
-.lnux-terms-text { color: var(--lnux-muted); font-size: 13px; }
-.lnux-link {
-  color: rgba(255,255,255,0.88);
+/* forgot password link */
+.lnux-forgot {
+  color: rgba(255,255,255,0.78);
   text-decoration: underline;
-  text-decoration-color: rgba(255,255,255,0.06);
+  text-decoration-color: rgba(255,255,255,0.04);
   font-weight: 600;
-  transition: color .14s ease, text-decoration-color .14s ease;
 }
-.lnux-link:hover,
-.lnux-link:focus {
-  color: var(--lnux-accent);
-  text-decoration-color: rgba(122,46,27,0.18);
-  outline: none;
-}
+.lnux-forgot:hover, .lnux-forgot:focus { color: var(--lnux-accent); text-decoration-color: rgba(122,46,27,0.18); }
 
-/* main submit button (brown) */
+/* submit button */
 .lnux-submit {
   margin-top: 8px;
   height:48px;
@@ -291,9 +284,9 @@
   font-size: 14px;
   color: var(--lnux-muted);
 }
-.lnux-footer .lnux-link { text-decoration: underline; }
+.lnux-footer .lnux-link { text-decoration: underline; color: rgba(255,255,255,0.88); }
 
-/* Responsiveness: exactly like the reference stacks on smaller screens */
+/* Responsiveness: stacks on smaller screens */
 @media (max-width: 980px) {
   .lnux-center {
     grid-template-columns: 1fr;
@@ -307,7 +300,7 @@
   }
 
   .lnux-panel {
-    margin-top: -40px; /* overlapping look similar to reference */
+    margin-top: -40px;
     width: 94%;
     margin-left: auto;
     margin-right: auto;
@@ -326,7 +319,7 @@
   .lnux-submit { height:44px; }
 }
 
-/* reduce motion */
+/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .lnux-input, .lnux-submit, .lnux-hero-btn { transition: none !important; }
 }

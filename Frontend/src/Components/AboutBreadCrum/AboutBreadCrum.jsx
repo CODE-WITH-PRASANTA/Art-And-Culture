@@ -1,6 +1,6 @@
 import React from "react";
 import "./AboutBreadCrum.css";
-import aboutImg from "../../assets/About Us Banner.png";
+import aboutImg from "../../assets/about banner.webp";
 
 const AboutBreadCrum = () => {
   return (
@@ -31,7 +31,7 @@ const AboutBreadCrum = () => {
         <div className="breadcrumb-box">
           <span>Home</span>
           <span className="dash">-</span>
-          <span className="active">Art & Culture</span>
+          <span className="active">About</span>
         </div>
       </div>
 

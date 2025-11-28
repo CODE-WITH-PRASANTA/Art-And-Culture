@@ -39,8 +39,6 @@ function App() {
           <Route path="/about" element={<About />} />
           
           <Route path="/contact" element={<Contact />} />
-          <Route path="/fresh/collection" element={< FreshCollection/>} />
-          <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
           <Route path="/blog" element={<Blog/>} />
           <Route path="/blog/details" element={<BlogDetailsSection/>} />

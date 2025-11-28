@@ -1,15 +1,15 @@
 import React from "react";
 import "./Signup.css";
-import heroImg from "../../assets/img-1.webp"; // <-- replace with your hero image path
+import heroImg from "../../assets/img-1.webp"; // <-- REPLACE this with your hero image path
 import logoImg from "../../assets/Art and Culture Logo.webp"; 
 
 
-export default function SignInPage() {
+export default function LoginPage() {
   return (
     <div className="lnux-root">
       <div className="lnux-center">
 
-        {/* LEFT HERO */}
+        {/* LEFT HERO PANEL */}
         <aside
           className="lnux-hero"
           style={{ backgroundImage: `url(${heroImg})` }}
@@ -23,10 +23,10 @@ export default function SignInPage() {
 </div>
 
 
-            <h1 className="lnux-hero-heading">Welcome back!</h1>
+            <h1 className="lnux-hero-heading">You're new here!</h1>
 
             <p className="lnux-hero-sub">
-              Get access to your Orders, Wishlist and Recommendations.
+              Sign up with your email and personal details to get started!
             </p>
 
             <button className="lnux-hero-btn" type="button" aria-label="Watch demo">
@@ -36,15 +36,20 @@ export default function SignInPage() {
           </div>
         </aside>
 
-        {/* RIGHT SIGN-IN PANEL */}
+        {/* RIGHT FORM PANEL */}
         <main className="lnux-panel" aria-labelledby="lnux-title">
-          <h2 id="lnux-title" className="lnux-panel-heading">Sign In</h2>
+          <h2 id="lnux-title" className="lnux-panel-heading">Sign Up</h2>
 
           <form className="lnux-form" onSubmit={(e) => e.preventDefault()}>
 
             <label className="lnux-field">
+              <span className="lnux-field-label">Full Name</span>
+              <input className="lnux-input" type="text" placeholder="Enter Your Name" required />
+            </label>
+
+            <label className="lnux-field">
               <span className="lnux-field-label">Email Address</span>
-              <input className="lnux-input" type="email" placeholder="Enter Email" required />
+              <input className="lnux-input" type="email" placeholder="Enter Your Email" required />
             </label>
 
             <label className="lnux-field">
@@ -52,19 +57,20 @@ export default function SignInPage() {
               <input className="lnux-input" type="password" placeholder="Enter Password" required />
             </label>
 
-            <div className="lnux-helpers-row">
-              <label className="lnux-remember">
-                <input type="checkbox" className="lnux-remember-input" />
-                <span className="lnux-remember-box" aria-hidden="true" />
-                <span className="lnux-remember-text">Remember Me</span>
+            <div className="lnux-terms-row">
+              <label className="lnux-terms">
+                <input type="checkbox" className="lnux-terms-checkbox" />
+                <span className="lnux-checkbox-visual" aria-hidden="true" />
+                <span className="lnux-terms-text">
+                  I agree to the&nbsp;
+                  <a className="lnux-link" href="/terms" target="_blank" rel="noopener noreferrer">Terms</a>
+                  &nbsp;and&nbsp;
+                  <a className="lnux-link" href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                </span>
               </label>
-
-              <a className="lnux-forgot" href="/forgot" target="_blank" rel="noopener noreferrer">
-                Forgot Password ?
-              </a>
             </div>
 
-            <button className="lnux-submit" type="submit">Sign In</button>
+            <button className="lnux-submit" type="submit">Sign Up</button>
 
             <div className="lnux-divider">
               <span className="lnux-divider-line" />
@@ -80,7 +86,7 @@ export default function SignInPage() {
             </div>
 
             <div className="lnux-footer">
-              Don't have an account? <a className="lnux-link" href="/signup">Sign Up</a>
+              Already have an account? <a className="lnux-link" href="#signin">Sign In</a>
             </div>
 
           </form>
