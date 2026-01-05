@@ -16,7 +16,6 @@ import PoojaEssentials from "./Pages/PoojaEssentials/PoojaEssentials";
 import HomeDecor from "./Pages/HomeDecor/HomeDecor";
 import TrackOrder from "./Pages/TrackOrder/TrackOrder";
 import Faq from "./Pages/Faq/Faq";
-import CheckOutSection from "./Components/CheckoutSection/CheckoutSection";
 import OrderConfirm from "./Pages/OrderConfirm/OrderConfirm";
 import About from "./Pages/About/About";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
