@@ -1,0 +1,459 @@
+/* CustomerInsights.css */
+/* FULLY RESPONSIVE - ALL DEVICES */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.insight-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+/* ===========================
+   COMMON CARD
+=========================== */
+.insight-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.insight-card h3,
+.insight-card h2 {
+  color: #0f172a;
+}
+
+/* ===========================
+   LEFT TOP CUSTOMERS
+=========================== */
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.card-head h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tab-btn {
+  border: none;
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 10px 16px;
+  border-radius: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.customer-scroll {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.customer-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.customer-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+.customer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.left-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.left-info img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.left-info h4 {
+  font-size: 17px;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.left-info p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.customer-row h5 {
+  font-size: 16px;
+  color: #0f172a;
+}
+
+/* ===========================
+   RIGHT SECTION
+=========================== */
+.right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===========================
+   FEEDBACK CARD
+=========================== */
+.feedback-card h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.feedback-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.feed-user {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.feed-text {
+  flex: 1;
+}
+
+.feed-text h4 {
+  font-size: 22px;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.feed-text span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #f59e0b;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.feed-text p {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.feed-illus {
+  width: 120px;
+  animation: floatY 3s ease-in-out infinite;
+}
+
+@keyframes floatY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* ===========================
+   BOTTOM GRID
+=========================== */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* ===========================
+   LINE CARD
+=========================== */
+.line-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.line-top h2 {
+  font-size: 42px;
+}
+
+.line-top p {
+  font-size: 15px;
+  color: #64748b;
+}
+
+.menu-wrap {
+  position: relative;
+}
+
+.menu-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #334155;
+}
+
+.drop-menu {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  background: white;
+  border-radius: 14px;
+  min-width: 140px;
+  padding: 10px 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  z-index: 50;
+}
+
+.drop-menu p {
+  padding: 12px 18px;
+  cursor: pointer;
+  color: #334155;
+  font-size: 14px;
+}
+
+.drop-menu p:hover {
+  background: #f8fafc;
+}
+
+/* ===========================
+   PIE CARD
+=========================== */
+.pie-card h2 {
+  font-size: 22px;
+}
+
+.pie-card p {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* ===========================
+   1400px
+=========================== */
+@media (max-width: 1400px) {
+  .insight-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
+   1200px
+=========================== */
+@media (max-width: 1200px) {
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
+   992px
+=========================== */
+@media (max-width: 992px) {
+  .insight-card {
+    padding: 16px;
+  }
+
+  .feed-text h4 {
+    font-size: 20px;
+  }
+
+  .line-top h2 {
+    font-size: 34px;
+  }
+}
+
+/* ===========================
+   768px
+=========================== */
+@media (max-width: 768px) {
+  .insight-wrapper,
+  .bottom-grid {
+    gap: 14px;
+  }
+
+  .card-head,
+  .line-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feedback-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feed-illus {
+    width: 90px;
+    align-self: center;
+  }
+
+  .left-info img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .left-info h4 {
+    font-size: 15px;
+  }
+
+  .left-info p {
+    font-size: 13px;
+  }
+
+  .customer-row h5 {
+    font-size: 15px;
+  }
+
+  .line-top h2 {
+    font-size: 30px;
+  }
+}
+
+/* ===========================
+   576px
+=========================== */
+@media (max-width: 576px) {
+  .insight-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .card-head h3,
+  .feedback-card h3 {
+    font-size: 16px;
+  }
+
+  .tab-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .customer-row {
+    gap: 10px;
+    padding: 12px 0;
+  }
+
+  .left-info {
+    gap: 10px;
+  }
+
+  .left-info img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .left-info h4 {
+    font-size: 14px;
+  }
+
+  .left-info p {
+    font-size: 12px;
+  }
+
+  .customer-row h5 {
+    font-size: 14px;
+  }
+
+  .feed-user {
+    width: 52px;
+    height: 52px;
+  }
+
+  .feed-text h4 {
+    font-size: 18px;
+  }
+
+  .feed-text p,
+  .pie-card p {
+    font-size: 13px;
+  }
+
+  .line-top h2 {
+    font-size: 26px;
+  }
+
+  .pie-card h2 {
+    font-size: 18px;
+  }
+}
+
+/* ===========================
+   420px
+=========================== */
+@media (max-width: 420px) {
+  .customer-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .customer-row h5 {
+    margin-left: 52px;
+  }
+
+  .feed-text h4 {
+    font-size: 16px;
+  }
+
+  .line-top h2 {
+    font-size: 22px;
+  }
+
+  .drop-menu {
+    min-width: 120px;
+  }
+
+  .drop-menu p {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ===========================
+   320px
+=========================== */
+@media (max-width: 320px) {
+  .insight-card {
+    padding: 10px;
+  }
+
+  .card-head h3,
+  .feedback-card h3 {
+    font-size: 15px;
+  }
+
+  .tab-btn {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .line-top h2 {
+    font-size: 20px;
+  }
+}
