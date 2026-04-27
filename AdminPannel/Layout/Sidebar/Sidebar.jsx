@@ -1,7 +1,7 @@
 // Layout/Sidebar/Sidebar.jsx
 
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Phone,
@@ -14,11 +14,37 @@ import {
   Shield,
   Settings,
   LogOut,
+  ChevronDown,
+  ChevronRight,
+  List,
+  Eye,
+  Gift,
 } from "lucide-react";
 
 import "./Sidebar.css";
 
 const Sidebar = ({ collapsed }) => {
+  const location = useLocation();
+  const [openMenu, setOpenMenu] = useState(null);
+
+  /* =========================
+     AUTO OPEN DROPDOWN (IMPORTANT)
+  ========================= */
+  useEffect(() => {
+    if (location.pathname.startsWith("/sub")) {
+      setOpenMenu("sub");
+    } else if (location.pathname.startsWith("/blog")) {
+      setOpenMenu("blog");
+    }
+  }, [location.pathname]);
+
+  const toggleMenu = (menu) => {
+    setOpenMenu(openMenu === menu ? null : menu);
+  };
+
+  /* =========================
+     MAIN MENU
+  ========================= */
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard size={18} /> },
     { name: "Contact", path: "/contact", icon: <Phone size={18} /> },
@@ -34,9 +60,9 @@ const Sidebar = ({ collapsed }) => {
   ];
 
   return (
-    <div className={collapsed ? "sidebar collapsed" : "sidebar"}>
-      
-      {/* Logo */}
+    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+
+      {/* ================= LOGO ================= */}
       <div className="sidebar-top">
         <div className="logo-box">A</div>
 
@@ -48,8 +74,10 @@ const Sidebar = ({ collapsed }) => {
         )}
       </div>
 
-      {/* Menu */}
+      {/* ================= MENU ================= */}
       <div className="sidebar-menu">
+
+        {/* MAIN LINKS */}
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
@@ -62,9 +90,117 @@ const Sidebar = ({ collapsed }) => {
             {!collapsed && <span>{item.name}</span>}
           </NavLink>
         ))}
+
+        {/* ================= SUB MANAGEMENT ================= */}
+        {/* {!collapsed && <p className="menu-title">Sub Management</p>} */}
+
+        <div className={`dropdown ${openMenu === "sub" ? "open" : ""}`}>
+          <div
+            className="menu-link"
+            onClick={() => toggleMenu("sub")}
+          >
+            <Package size={18} />
+            {!collapsed && <span>Sub Management</span>}
+
+            {!collapsed &&
+              (openMenu === "sub" ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              ))}
+          </div>
+
+          <div className="submenu">
+            <NavLink
+              to="/sub/view"
+              className={({ isActive }) =>
+                isActive ? "submenu-link active" : "submenu-link"
+              }
+            >
+              <Eye size={16} />
+              <span>Sub View</span>
+            </NavLink>
+
+            <NavLink
+              to="/sub/list"
+              className={({ isActive }) =>
+                isActive ? "submenu-link active" : "submenu-link"
+              }
+            >
+              <List size={16} />
+              <span>Sub List</span>
+            </NavLink>
+          </div>
+        </div>
+
+        {/* ================= BLOG MANAGEMENT ================= */}
+        {/* {!collapsed && <p className="menu-title">Blog Management</p>} */}
+
+        <div className={`dropdown ${openMenu === "blog" ? "open" : ""}`}>
+          <div
+            className="menu-link"
+            onClick={() => toggleMenu("blog")}
+          >
+            <Newspaper size={18} />
+            {!collapsed && <span>Blog Management</span>}
+
+            {!collapsed &&
+              (openMenu === "blog" ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              ))}
+          </div>
+
+          <div className="submenu">
+            <NavLink
+              to="/blog/view"
+              className={({ isActive }) =>
+                isActive ? "submenu-link active" : "submenu-link"
+              }
+            >
+              <Eye size={16} />
+              <span>Blog View</span>
+            </NavLink>
+
+            <NavLink
+              to="/blog/list"
+              className={({ isActive }) =>
+                isActive ? "submenu-link active" : "submenu-link"
+              }
+            >
+              <List size={16} />
+              <span>Blog List</span>
+            </NavLink>
+          </div>
+        </div>
+
+        {/* ================= PRODUCT ================= */}
+        {/* {!collapsed && <p className="menu-title">Product</p>} */}
+
+        <NavLink
+          to="/product/details"
+          className={({ isActive }) =>
+            isActive ? "menu-link active" : "menu-link"
+          }
+        >
+          <Package size={18} />
+          {!collapsed && <span>Product Details</span>}
+        </NavLink>
+
+        <NavLink
+          to="/product/gift"
+          className={({ isActive }) =>
+            isActive ? "menu-link active" : "menu-link"
+          }
+        >
+          <Gift size={18} />
+          {!collapsed && <span>Gift Posting</span>}
+        </NavLink>
+
       </div>
 
-      {/* Logout */}
+      {/* ================= FOOTER ================= */}
       <div className="sidebar-footer">
         <button className="logout-btn">
           <LogOut size={18} />
