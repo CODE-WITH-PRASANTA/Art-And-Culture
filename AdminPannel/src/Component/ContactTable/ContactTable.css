@@ -1,0 +1,216 @@
+/* ===============================
+   CONTACT TABLE - PRO VERSION
+=============================== */
+
+.contactTable-container {
+  padding: 24px;
+  width: 100%;
+}
+
+/* ===============================
+   TITLE
+=============================== */
+.contactTable-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2b2b2b;
+}
+
+/* ===============================
+   WRAPPER
+=============================== */
+.contactTable-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* ===============================
+   TABLE
+=============================== */
+.contactTable-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+/* ===============================
+   HEADER (🔥 UPGRADED)
+=============================== */
+.contactTable-table thead {
+  background: linear-gradient(90deg, #8B2E14, #C89B5E);
+}
+
+.contactTable-table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+/* ===============================
+   BODY
+=============================== */
+.contactTable-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #333;
+  border-top: 1px solid #f1f1f1;
+}
+
+/* Alternate row color */
+.contactTable-table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* Hover effect */
+.contactTable-table tbody tr:hover {
+  background: #f3f6fb;
+  transition: 0.2s;
+}
+
+/* ===============================
+   MESSAGE
+=============================== */
+.contactTable-message {
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===============================
+   ACTIONS
+=============================== */
+.contactTable-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Buttons */
+.contactTable-edit,
+.contactTable-delete {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* Edit */
+.contactTable-edit {
+  background: #4caf50;
+  color: #fff;
+}
+.contactTable-edit:hover {
+  background: #43a047;
+}
+
+/* Delete */
+.contactTable-delete {
+  background: #e53935;
+  color: #fff;
+}
+.contactTable-delete:hover {
+  background: #d32f2f;
+}
+
+/* ===============================
+   PAGINATION (🔥 FIXED)
+=============================== */
+.contactTable-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.contactTable-pagination button {
+  min-width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333; /* 🔥 FIXED VISIBILITY */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.contactTable-pagination button:hover {
+  background: #f4f4f4;
+}
+
+/* Active */
+.contactTable-pagination button.active {
+  background: linear-gradient(90deg, #8B2E14, #C89B5E);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 10px rgba(139, 46, 20, 0.25);
+}
+
+/* Disabled */
+.contactTable-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #eee;
+  color: #999;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .contactTable-container {
+    padding: 16px;
+  }
+
+  .contactTable-title {
+    font-size: 20px;
+  }
+
+  .contactTable-table th,
+  .contactTable-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .contactTable-container {
+    padding: 10px;
+  }
+
+  .contactTable-actions {
+    flex-direction: column;
+  }
+
+  .contactTable-edit,
+  .contactTable-delete {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .contactTable-pagination button {
+    min-width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+}

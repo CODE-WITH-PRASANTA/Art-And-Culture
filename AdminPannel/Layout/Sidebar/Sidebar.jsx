@@ -100,7 +100,7 @@ const Sidebar = ({ collapsed }) => {
             onClick={() => toggleMenu("sub")}
           >
             <Package size={18} />
-            {!collapsed && <span>Sub Management</span>}
+            {!collapsed && <span>Shop Management</span>}
 
             {!collapsed &&
               (openMenu === "sub" ? (
@@ -118,7 +118,7 @@ const Sidebar = ({ collapsed }) => {
               }
             >
               <Eye size={16} />
-              <span>Sub View</span>
+              <span>Shop View</span>
             </NavLink>
 
             <NavLink
@@ -128,7 +128,7 @@ const Sidebar = ({ collapsed }) => {
               }
             >
               <List size={16} />
-              <span>Sub List</span>
+              <span>Shop List</span>
             </NavLink>
           </div>
         </div>
@@ -154,23 +154,23 @@ const Sidebar = ({ collapsed }) => {
 
           <div className="submenu">
             <NavLink
-              to="/blog/view"
+              to="/blog/post"
               className={({ isActive }) =>
                 isActive ? "submenu-link active" : "submenu-link"
               }
             >
               <Eye size={16} />
-              <span>Blog View</span>
+              <span>Blog Post</span>
             </NavLink>
 
             <NavLink
-              to="/blog/list"
+              to="/blog/view"
               className={({ isActive }) =>
                 isActive ? "submenu-link active" : "submenu-link"
               }
             >
               <List size={16} />
-              <span>Blog List</span>
+              <span>Blog view</span>
             </NavLink>
           </div>
         </div>
