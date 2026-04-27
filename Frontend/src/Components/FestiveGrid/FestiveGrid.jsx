@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./FestiveGrid.css";
 
 /* ---------- image imports (keep your paths) ---------- */
-import Jagannath from "../../assets/Lord-jagannath.webp";
+import Jagannath from "../../assets/Lord-Jagannath.webp";
 import Ganesha from "../../assets/Lord-Ganesha.webp";
 import Krishna from "../../assets/Lord-Krishna.webp";
 import Hanuman from "../../assets/Lord-Hanuman.webp";

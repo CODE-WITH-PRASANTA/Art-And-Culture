@@ -1,5 +1,5 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
-import "./TrendingProducts.css";
+import "./Trendingproducts.css";
 import img from '../../assets/01.webp';
 /* ------------------ PRODUCT ARRAYS ------------------ */
 const popular = [

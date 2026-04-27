@@ -1,5 +1,5 @@
 import React from "react";
-import "./ContactFormsection.css";
+import "./Contactformsection.css";
 import kidImg from "../../assets/k-5.webp"; // replace with your image path
 
 export default function ContactFormSection() {

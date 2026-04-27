@@ -11,7 +11,7 @@ import  GaneshChaturthi from "../../assets/Ganesh_Chaturthi.webp";
 import  JagannathRathyatra from "../../assets/Jagannath_Rath_Yatra.webp";
 import Janmasthami from "../../assets/Janmasthami.webp";
 import RakshaBandhan from "../../assets/Rakhi.webp";
-import Mahashivratri from "../../assets/Mahashivratri_gifts.webp";
+import Mahashivratri from "../../assets/Mahashivratri_Gifts.webp";
 import Onam from "../../assets/Onam.webp";
 
 const SLIDES = [

@@ -1,5 +1,5 @@
 import React from "react";
-import "./MapSection.css";
+import "./Mapsection.css";
 
 export default function MapSection({
   title = "How To Find Us",
