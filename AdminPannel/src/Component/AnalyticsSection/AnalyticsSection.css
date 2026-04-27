@@ -1,0 +1,298 @@
+/* AnalyticsSection.css */
+/* FULLY RESPONSIVE - ALL DEVICES */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.analytics-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ===========================
+   CARD
+=========================== */
+.analytics-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+
+.analytics-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   TOP
+=========================== */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-top h3,
+.student-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.card-top svg {
+  font-size: 15px;
+  color: #64748b;
+}
+
+/* ===========================
+   EARNING
+=========================== */
+.earnings-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.earnings-head div {
+  font-size: 13px;
+  color: #334155;
+}
+
+.earnings-head h2 {
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+/* ===========================
+   EXPENSE
+=========================== */
+.expense-values {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.expense-values h2 {
+  font-size: 18px;
+}
+
+/* ===========================
+   PIE
+=========================== */
+.student-info {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #334155;
+}
+
+.student-info h2 {
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+/* ===========================
+   DOT
+=========================== */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.blue {
+  background: #3b82f6;
+}
+
+.red {
+  background: #ef4444;
+}
+
+/* ===========================
+   CHART SIZE
+=========================== */
+.earnings-card .recharts-responsive-container,
+.expense-card .recharts-responsive-container,
+.student-card .recharts-responsive-container {
+  height: 220px !important;
+  width: 100% !important;
+}
+
+/* ===========================
+   1400px
+=========================== */
+@media (max-width: 1400px) {
+  .analytics-wrapper {
+    grid-template-columns: 1.7fr 1fr 1fr;
+    gap: 14px;
+  }
+}
+
+/* ===========================
+   1200px Laptop
+=========================== */
+@media (max-width: 1200px) {
+  .analytics-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .student-card {
+    grid-column: span 2;
+  }
+}
+
+/* ===========================
+   992px Tablet
+=========================== */
+@media (max-width: 992px) {
+  .analytics-wrapper {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .student-card {
+    grid-column: span 1;
+  }
+
+  .earnings-head {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .analytics-card {
+    padding: 15px;
+  }
+}
+
+/* ===========================
+   768px Mobile
+=========================== */
+@media (max-width: 768px) {
+  .analytics-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .card-top h3,
+  .student-card h3 {
+    font-size: 16px;
+  }
+
+  .earnings-head div,
+  .student-info {
+    font-size: 12px;
+  }
+
+  .earnings-head h2,
+  .expense-values h2,
+  .student-info h2 {
+    font-size: 17px;
+  }
+
+  .earnings-card .recharts-responsive-container,
+  .expense-card .recharts-responsive-container,
+  .student-card .recharts-responsive-container {
+    height: 200px !important;
+  }
+}
+
+/* ===========================
+   576px Small Mobile
+=========================== */
+@media (max-width: 576px) {
+  .analytics-wrapper {
+    gap: 12px;
+  }
+
+  .analytics-card {
+    padding: 12px;
+  }
+
+  .card-top h3,
+  .student-card h3 {
+    font-size: 15px;
+  }
+
+  .expense-values {
+    gap: 6px;
+  }
+
+  .expense-values h2 {
+    font-size: 16px;
+  }
+
+  .earnings-head h2,
+  .student-info h2 {
+    font-size: 16px;
+  }
+
+  .earnings-card .recharts-responsive-container,
+  .expense-card .recharts-responsive-container,
+  .student-card .recharts-responsive-container {
+    height: 180px !important;
+  }
+}
+
+/* ===========================
+   420px Extra Small
+=========================== */
+@media (max-width: 420px) {
+  .analytics-card {
+    padding: 10px;
+  }
+
+  .card-top h3,
+  .student-card h3 {
+    font-size: 14px;
+  }
+
+  .earnings-head div,
+  .student-info {
+    font-size: 11px;
+  }
+
+  .earnings-head h2,
+  .expense-values h2,
+  .student-info h2 {
+    font-size: 15px;
+  }
+
+  .earnings-card .recharts-responsive-container,
+  .expense-card .recharts-responsive-container,
+  .student-card .recharts-responsive-container {
+    height: 160px !important;
+  }
+}
+
+/* ===========================
+   320px Mini Device
+=========================== */
+@media (max-width: 320px) {
+  .analytics-card {
+    padding: 8px;
+  }
+
+  .card-top h3 {
+    font-size: 13px;
+  }
+
+  .earnings-card .recharts-responsive-container,
+  .expense-card .recharts-responsive-container,
+  .student-card .recharts-responsive-container {
+    height: 145px !important;
+  }
+}

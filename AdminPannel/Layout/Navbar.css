@@ -1,0 +1,252 @@
+/* Layout/Navbar.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  width: 100%;
+  height: 85px;
+   background: #ccae8b;
+  border-bottom: 1px solid #b47c48;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* Left Section */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  
+}
+
+.menu-btn {
+  width: 52px;
+  height: 52px;
+  border: none;
+  outline: none;
+  background: #f2f5fb;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #334155;
+  transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+  background: #e6ecf7;
+}
+
+.navbar-left h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Right Section */
+.navbar-right {
+  position: relative;
+}
+
+.navbar-title {
+  color: #5E1F0E;
+}
+
+.profile-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #f1f5f9;
+}
+
+/* Dropdown */
+.profile-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: 240px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  padding: 10px;
+  animation: fadeDown 0.25s ease;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #334155;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: #f8fafc;
+}
+
+.logout {
+  color: #ef4444;
+}
+
+/* ========================
+   Large Laptop
+======================== */
+@media (max-width: 1200px) {
+  .navbar-left h2 {
+    font-size: 30px;
+  }
+}
+
+/* ========================
+   Laptop
+======================== */
+@media (max-width: 992px) {
+  .navbar {
+    height: 78px;
+    padding: 0 22px;
+  }
+
+  .navbar-left h2 {
+    font-size: 28px;
+  }
+
+  .menu-btn,
+  .profile-img {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ========================
+   Tablet
+======================== */
+@media (max-width: 768px) {
+  .navbar {
+    height: 72px;
+    padding: 0 18px;
+  }
+
+  .navbar-left {
+    gap: 14px;
+  }
+
+  .navbar-left h2 {
+    font-size: 24px;
+  }
+
+  .menu-btn,
+  .profile-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .profile-dropdown {
+    width: 220px;
+    top: 62px;
+  }
+
+  .dropdown-item {
+    font-size: 15px;
+    padding: 13px;
+  }
+}
+
+/* ========================
+   Mobile
+======================== */
+@media (max-width: 576px) {
+  .navbar {
+    height: 65px;
+    padding: 0 14px;
+  }
+
+  .navbar-left {
+    gap: 10px;
+  }
+
+  .menu-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-left h2 {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+
+  .profile-dropdown {
+    width: 200px;
+    top: 56px;
+    right: -4px;
+    border-radius: 16px;
+  }
+
+  .dropdown-item {
+    font-size: 14px;
+    padding: 12px;
+    gap: 10px;
+  }
+}
+
+/* ========================
+   Small Mobile
+======================== */
+@media (max-width: 400px) {
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .navbar-left h2 {
+    font-size: 16px;
+  }
+
+  .menu-btn,
+  .profile-img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .profile-dropdown {
+    width: 180px;
+  }
+
+  .dropdown-item {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
