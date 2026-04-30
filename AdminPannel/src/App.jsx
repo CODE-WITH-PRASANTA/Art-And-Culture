@@ -1,10 +1,8 @@
 // src/App.jsx
 
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminLayout from "../Layout/AdminLayout";
-
-
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Contact from "./pages/Contact/Contact";
@@ -28,30 +26,16 @@ const App = () => {
     <BrowserRouter>
       <Routes>
 
-        {/* Admin Layout */}
         <Route path="/" element={<AdminLayout />}>
 
-
-          {/* Default Route */}
-          <Route index element={<Navigate to="/dashboard" />} />
-
-          {/* Temporary Routes */}
-          <Route path="dashboard" element={<Dashboard />} />
+          {/* ✅ Correct */}
+          <Route index element={<Dashboard />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="orders" element={<OrderManagement />} />
-          <Route path="accounts" element={<Accounts />} />
-          <Route path="cart" element={<CartSystem />} />
-          <Route path="news" element={<NewsPosting />} />
-          <Route path="pooja" element={<PoojaEssential />} />
-          <Route path="enquiry" element={<EnquiryManagement />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="settings" element={<Settings />} />
+          
 
         </Route>
 
-        {/* Not Found */}
-        <Route path="*" element={<h1>404 Page Not Found</h1>} />
+        
 
       </Routes>
     </BrowserRouter>

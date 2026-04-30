@@ -1,5 +1,5 @@
 import React from "react";
-import "./BlogBreadCrum.css";
+import "./BlogBreadcrum.css";
 import aboutImg from "../../assets/art-3.webp";
 
 const AboutBreadCrum = () => {
