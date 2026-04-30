@@ -7,11 +7,12 @@ import AdminLayout from "../Layout/AdminLayout";
 
 
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Contact from "./pages/Contact/Contact";
 
 /* Temporary Pages Until You Create Real Pages */
 
 
-const ContactManagement = () => <h1>Contact Management</h1>;
+
 const OrderManagement = () => <h1>Order Management</h1>;
 const Accounts = () => <h1>Login / Account</h1>;
 const CartSystem = () => <h1>Cart System</h1>;
@@ -36,7 +37,7 @@ const App = () => {
 
           {/* Temporary Routes */}
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="contact" element={<ContactManagement />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="orders" element={<OrderManagement />} />
           <Route path="accounts" element={<Accounts />} />
           <Route path="cart" element={<CartSystem />} />
