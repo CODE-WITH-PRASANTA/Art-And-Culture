@@ -10,6 +10,21 @@ import BlogPost from "./Component/BlogPost/BlogPost";
 import Order from "./pages/Order/Order";
 import Pooja from "./pages/Pooja/Pooja";
 import Testimonial from "./pages/Testimonial/Testimonial";
+import Contact from "./pages/Contact/Contact";
+
+/* Temporary Pages Until You Create Real Pages */
+
+
+
+const OrderManagement = () => <h1>Order Management</h1>;
+const Accounts = () => <h1>Login / Account</h1>;
+const CartSystem = () => <h1>Cart System</h1>;
+const NewsPosting = () => <h1>News Posting</h1>;
+const PoojaEssential = () => <h1>Pooja Essential</h1>;
+const EnquiryManagement = () => <h1>Enquiry Management</h1>;
+const Terms = () => <h1>Terms & Conditions</h1>;
+const Privacy = () => <h1>Privacy Policy</h1>;
+const Settings = () => <h1>Settings</h1>;
 
 const App = () => {
   return (
@@ -25,6 +40,8 @@ const App = () => {
           <Route path="/orders" element={<Order/>}/>
           <Route path="/pooja" element={<Pooja/>}/>
           <Route path="/testimonial" element={<Testimonial/>}/>
+          <Route path="contact" element={<Contact />} />
+          
 
         </Route>
 
