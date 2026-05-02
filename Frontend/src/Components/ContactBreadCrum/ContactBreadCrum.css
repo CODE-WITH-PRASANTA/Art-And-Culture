@@ -3,158 +3,188 @@
   background: #ffffff;
 }
 
-/* --- FULL BACKGROUND HERO --- */
+/* --- HERO SECTION (SMALLER + PREMIUM) --- */
 .contact-hero-section {
   width: 100%;
-  height: 550px;
+  height: 420px; /* reduced from 550 */
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   padding-left: 5%;
+  position: relative;
+  overflow: hidden;
 }
 
-/* LEFT CONTENT BRAND LOOK */
+/* PREMIUM DARK OVERLAY */
+.contact-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.45) 40%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  backdrop-filter: blur(2px);
+}
+
+/* LEFT CONTENT */
 .contact-left {
-  max-width: 600px;
-  border-left: 4px solid #6E2E1C;
-  padding-left: 22px;
+  max-width: 520px;
+  border-left: 4px solid #C4622D;
+  padding-left: 18px;
+  position: relative;
+  z-index: 2;
 }
 
+/* HEADING PREMIUM */
 .contact-left h1 {
   font-family: 'Merriweather', serif;
-  font-size: 48px;
+  font-size: 40px; /* reduced */
   font-weight: 900;
-  line-height: 1.2;
-  color: #8A3D26; /* Brand Primary */
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
 .contact-left h1 span {
-  color: #8A3D26; /* Same brand color – strong identity */
+  color: #f5d6c6; /* soft premium tone */
+  font-size: 20px;
+  font-weight: 500;
 }
 
+/* SUBTEXT */
 .contact-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  line-height: 1.7;
-  margin-top: 14px;
-  color: #2D1F18; /* Brand Dark */
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 12px;
+  color: #f1f1f1;
+  opacity: 0.9;
 }
 
-
-/* Optional decorative effect */
-.contact-left {
-  border-left: 4px solid #C4622D;
-  padding-left: 20px;
-}
-
-/* REMOVE RIGHT SIDE COMPLETELY */
+/* REMOVE RIGHT SIDE */
 .contact-right {
   display: none !important;
 }
 
-/* --- BREADCRUMB SAME DESIGN --- */
+/* --- BREADCRUMB (GLASS + PREMIUM) --- */
 .breadcrumb-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   z-index: 5;
-  margin-top: -40px;
+  margin-top: -30px;
   position: relative;
 }
 
 .breadcrumb-box {
-  background: #7a2e1b;
-  padding: 17px 90px;
-  border-radius: 12px;
+  background: rgba(122, 46, 27, 0.95);
+  padding: 14px 60px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   color: #ffffff;
-  font-size: 18px;
-  font-weight: 700;
-  box-shadow: 0px 12px 30px rgba(0,0,0,0.18);
+  font-size: 16px;
+  font-weight: 600;
+
+  /* PREMIUM EFFECT */
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .dash {
-  font-size: 20px;
-  font-weight: 900;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .active {
-  color: #ffffff;
+  color: #ffd7c2;
 }
 
-/* Existing CSS remains the same */
+/* ---------------- RESPONSIVE ---------------- */
 
-/* Media Queries for Responsiveness */
-
-/* Large Devices (Desktops, Laptops) */
+/* Laptop */
 @media (max-width: 1200px) {
   .contact-hero-section {
-    height: 450px;
+    height: 380px;
   }
-  .contact-left {
-    max-width: 500px;
+  .contact-left h1 {
+    font-size: 34px;
   }
 }
 
-/* Medium Devices (Tablets) */
+/* Tablet */
 @media (max-width: 992px) {
   .contact-hero-section {
-    height: 400px;
+    height: 340px;
   }
   .contact-left {
-    max-width: 400px;
+    max-width: 420px;
   }
   .contact-left h1 {
-    font-size: 36px;
+    font-size: 30px;
   }
-  .contact-subtitle {
-    font-size: 15px;
+  .contact-left h1 span {
+    font-size: 18px;
   }
 }
 
-/* Small Devices (Mobile Phones) */
+/* Mobile */
 @media (max-width: 768px) {
   .contact-hero-section {
-    height: 350px;
-    padding-left: 5%;
-    padding-right: 5%;
+    height: 300px;
+    padding: 0 5%;
   }
+
   .contact-left {
     max-width: 100%;
-    border-left: 2px solid #6E2E1C;
-    padding-left: 10px;
+    border-left: 2px solid #C4622D;
+    padding-left: 12px;
   }
-  .contact-left h1 {
-    font-size: 28px;
-  }
-  .contact-subtitle {
-    font-size: 14px;
-  }
-  .breadcrumb-box {
-    padding: 15px 40px;
-  }
-}
 
-/* Extra Small Devices (Small Mobile Phones) */
-@media (max-width: 480px) {
-  .contact-hero-section {
-    height: 300px;
-  }
   .contact-left h1 {
     font-size: 24px;
   }
+
+  .contact-left h1 span {
+    font-size: 15px;
+  }
+
   .contact-subtitle {
     font-size: 13px;
   }
+
   .breadcrumb-box {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 30px;
+    font-size: 14px;
   }
-  .breadcrumb-box span {
-    font-size: 16px;
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .contact-hero-section {
+    height: 260px;
+  }
+
+  .contact-left h1 {
+    font-size: 20px;
+  }
+
+  .contact-left h1 span {
+    font-size: 13px;
+  }
+
+  .contact-subtitle {
+    font-size: 12px;
+  }
+
+  .breadcrumb-box {
+    padding: 10px 18px;
+    font-size: 13px;
   }
 }

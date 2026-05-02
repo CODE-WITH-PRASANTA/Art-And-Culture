@@ -57,6 +57,7 @@ const Sidebar = ({ collapsed }) => {
     { name: "Terms", path: "/terms", icon: <FileText size={18} /> },
     { name: "Privacy", path: "/privacy", icon: <Shield size={18} /> },
     { name: "Settings", path: "/settings", icon: <Settings size={18} /> },
+    {name: "Testimonial", path: "/testimonial", icon: <Settings size={18}/>},
   ];
 
   return (

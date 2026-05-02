@@ -10,43 +10,109 @@
   --mapux-max: 1280px;
 }
 
+/* ROOT */
 .mapux-root {
-  background: var(--mapux-bg);
-  padding: 48px 20px 80px;
   position: relative;
+  padding: 80px 20px 110px;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  background: #fff;
 }
 
+/* ===== PREMIUM BACKGROUND ===== */
+
+/* Base gradient */
+.mapux-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 210, 180, 0.4), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(122, 46, 27, 0.15), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(255, 230, 210, 0.4), transparent 50%),
+    linear-gradient(135deg, #fffaf7, #ffffff);
+  z-index: 0;
+}
+
+/* Glow blobs */
+.mapux-bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Glow 1 */
+.mapux-glow-1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(122, 46, 27, 0.25);
+  top: 10%;
+  left: 5%;
+}
+
+/* Glow 2 */
+.mapux-glow-2 {
+  width: 350px;
+  height: 350px;
+  background: rgba(255, 180, 140, 0.35);
+  bottom: 0;
+  right: 10%;
+}
+
+/* INNER */
 .mapux-inner {
   max-width: var(--mapux-max);
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
+/* TITLE */
 .mapux-title {
   font-family: "Baloo 2", cursive;
-  font-size: 42px;
+  font-size: 46px;
   color: var(--mapux-text);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-weight: 800;
+  text-align: center;
 }
 
-/* Address text */
+/* Address Card */
+.mapux-address-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 18px 22px;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  text-align: center;
+  box-shadow: 0 12px 50px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Address */
 .mapux-address {
-  font-size: 18px;
+  font-size: 17px;
   color: var(--mapux-muted);
-  margin-bottom: 25px;
   line-height: 1.6;
-  max-width: 900px;
 }
 
+/* MAP */
 .mapux-framewrap {
   width: 100%;
-  height: 420px;
+  height: 450px;
   background: #fff;
   border-radius: var(--mapux-radius);
   overflow: hidden;
-  box-shadow: 0 18px 50px rgba(10,10,10,0.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.12);
   border: 1px solid rgba(16,16,16,0.04);
+  transition: all 0.4s ease;
+}
+
+.mapux-framewrap:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.18);
 }
 
 .mapux-iframe {
@@ -55,33 +121,46 @@
   border: 0;
 }
 
-/* Back-to-top button */
+/* BUTTON */
 .mapux-topbtn {
   position: fixed;
   right: 28px;
   bottom: 28px;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: var(--mapux-accent);
+  background: linear-gradient(135deg, #7a2e1b, #c45a2d);
   color: #fff;
   border: none;
   font-size: 22px;
   cursor: pointer;
-  box-shadow: 0 10px 32px rgba(122,46,27,0.22);
+  box-shadow: 0 12px 35px rgba(122,46,27,0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform .2s;
+  transition: all .3s ease;
+  z-index: 999;
 }
 
 .mapux-topbtn:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px) scale(1.1);
 }
 
-/* Responsive */
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .mapux-title { font-size: 36px; }
+  .mapux-framewrap { height: 380px; }
+}
+
 @media (max-width: 768px) {
-  .mapux-title { font-size: 32px; }
-  .mapux-address { font-size: 16px; }
-  .mapux-framewrap { height: 320px; }
+  .mapux-title { font-size: 30px; }
+  .mapux-address { font-size: 15px; }
+  .mapux-framewrap { height: 300px; }
+}
+
+@media (max-width: 480px) {
+  .mapux-root { padding: 60px 15px 90px; }
+  .mapux-title { font-size: 26px; }
+  .mapux-framewrap { height: 260px; }
 }
