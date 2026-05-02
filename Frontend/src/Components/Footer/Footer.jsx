@@ -111,8 +111,8 @@ const Footer = () => {
                 </li>
 
                 <li>
-                  <Link to="/sale" onClick={scrollTop}>
-                    <span>›</span> Sale
+                  <Link to="/Pooja-essentials" onClick={scrollTop}>
+                    <span>›</span> Pooja Essentials
                   </Link>
                 </li>
 
@@ -137,42 +137,30 @@ const Footer = () => {
 
               <h3>Categories</h3>
 
-              <ul>
+              <ul className="footer-category-list">
 
                 <li>
-                  <Link to="/category/god-murtis" onClick={scrollTop}>
-                    <span>›</span> God Murtis
-                  </Link>
+                  <span>›</span> God Murtis
                 </li>
 
                 <li>
-                  <Link to="/category/pooja-items" onClick={scrollTop}>
-                    <span>›</span> Pooja Items
-                  </Link>
+                  <span>›</span> Pooja Items
                 </li>
 
                 <li>
-                  <Link to="/category/brass-idols" onClick={scrollTop}>
-                    <span>›</span> Brass Idols
-                  </Link>
+                  <span>›</span> Brass Idols
                 </li>
 
                 <li>
-                  <Link to="/category/handicraft" onClick={scrollTop}>
-                    <span>›</span> Handicraft
-                  </Link>
+                  <span>›</span> Handicraft
                 </li>
 
                 <li>
-                  <Link to="/category/temple-decor" onClick={scrollTop}>
-                    <span>›</span> Temple Decor
-                  </Link>
+                  <span>›</span> Temple Decor
                 </li>
 
                 <li>
-                  <Link to="/category/spiritual-jewelry" onClick={scrollTop}>
-                    <span>›</span> Spiritual Jewelry
-                  </Link>
+                  <span>›</span> Spiritual Jewelry
                 </li>
 
               </ul>

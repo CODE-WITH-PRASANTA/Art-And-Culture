@@ -193,6 +193,25 @@
 }
 
 /* =========================
+   CATEGORY LIST
+========================= */
+
+.footer-category-list li {
+  color: #5d514a;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.footer-category-list li span {
+  color: #a84d23;
+  font-size: 18px;
+}
+
+/* =========================
    MAP
 ========================= */
 
@@ -326,6 +345,10 @@
   }
 
   .footer-contact-item {
+    justify-content: center;
+  }
+
+  .footer-category-list li {
     justify-content: center;
   }
 
