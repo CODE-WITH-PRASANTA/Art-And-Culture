@@ -1,0 +1,360 @@
+/* ================= GLOBAL ================= */
+.testimonialadmin {
+  width: 100%;
+  padding: 30px;
+  background: #f4f6fb;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* ================= TOP ================= */
+.testimonialadmin-top {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+/* ================= FORM ================= */
+.testimonialadmin-formbox {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.06);
+  transition: 0.3s;
+}
+
+.testimonialadmin-formbox:hover {
+  transform: translateY(-3px);
+}
+
+.testimonialadmin-heading h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1f1f1f;
+  margin-bottom: 5px;
+}
+
+.testimonialadmin-heading p {
+  color: #777;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+/* ================= SECTION ================= */
+.testimonialadmin-section {
+  margin-bottom: 24px;
+}
+
+.testimonialadmin-section h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* ================= INPUT ================= */
+.testimonialadmin-formbox input,
+.testimonialadmin-formbox textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #e3e6ee;
+  margin-bottom: 14px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.25s ease;
+  background: #fafbff;
+}
+
+.testimonialadmin-formbox input:focus,
+.testimonialadmin-formbox textarea:focus {
+  border-color: #7b61ff;
+  box-shadow: 0 0 0 2px rgba(123, 97, 255, 0.15);
+  background: #fff;
+}
+
+.testimonialadmin-formbox textarea {
+  resize: none;
+}
+
+/* ================= SETTINGS ================= */
+.testimonialadmin-settings {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.testimonialadmin-settings label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* ================= SAVE BUTTON ================= */
+.testimonialadmin-savebtn {
+  width: 100%;
+  background: linear-gradient(135deg, #7b61ff, #5b8cff);
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.testimonialadmin-savebtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(123, 97, 255, 0.3);
+}
+
+/* ================= UPLOAD ================= */
+.testimonialadmin-uploadbox {
+  width: 100%;
+}
+
+.testimonialadmin-uploadlabel {
+  width: 100%;
+  min-height: 220px;
+  border: 2px dashed #d6daf0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fafaff, #f3f5ff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
+}
+
+.testimonialadmin-uploadlabel:hover {
+  border-color: #7b61ff;
+  background: #f4f0ff;
+}
+
+.testimonialadmin-uploadicon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7b61ff, #5b8cff);
+  color: #fff;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 25px rgba(123, 97, 255, 0.3);
+}
+
+.testimonialadmin-uploadlabel h4 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.testimonialadmin-uploadlabel p {
+  font-size: 13px;
+  color: #777;
+}
+
+.testimonialadmin-uploadlabel span {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* IMAGE PREVIEW */
+.testimonialadmin-imagepreview {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.testimonialadmin-imagepreview img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ================= PREVIEW ================= */
+.testimonialadmin-previewbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonialadmin-previewcard {
+  width: 100%;
+  background: #fff;
+  border-radius: 28px;
+  padding: 35px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+/* HIGHLIGHT CARD */
+.activehighlight {
+  transform: scale(1.05);
+  border: 2px solid #7b61ff;
+  box-shadow: 0 20px 60px rgba(123, 97, 255, 0.25);
+}
+
+/* QUOTE */
+.testimonialadmin-quote {
+  font-size: 60px;
+  color: #7b61ff;
+  margin-bottom: 10px;
+}
+
+/* MESSAGE */
+.testimonialadmin-message {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* USER */
+.testimonialadmin-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonialadmin-user img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonialadmin-user h4 {
+  font-size: 15px;
+}
+
+.testimonialadmin-user span {
+  font-size: 13px;
+  color: #777;
+}
+
+/* STARS */
+.testimonialadmin-stars {
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+/* ================= TABLE ================= */
+.testimonialadmin-tablebox {
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.testimonialadmin-tablewrapper {
+  overflow-x: auto;
+}
+
+/* TABLE */
+.testimonialadmin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.testimonialadmin-table th {
+  background: #f8f9fd;
+  padding: 14px;
+  font-size: 14px;
+  color: #555;
+  text-align: left;
+}
+
+.testimonialadmin-table td {
+  padding: 14px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+
+.testimonialadmin-table tbody tr:hover {
+  background: #fafbff;
+}
+
+/* IMAGE */
+.testimonialadmin-table td img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* ACTIONS */
+.testimonialadmin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.testimonialadmin-actions button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.testimonialadmin-actions button:first-child {
+  background: #5b8cff;
+  color: white;
+}
+
+.deletebtn {
+  background: #ff4d4f !important;
+  color: white;
+}
+
+/* BADGES */
+.testimonialadmin-yes {
+  background: #e7f9ed;
+  color: #16a34a;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.testimonialadmin-no {
+  background: #fff1f1;
+  color: #ff4d4f;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  .testimonialadmin-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonialadmin {
+    padding: 15px;
+  }
+
+  .testimonialadmin-formbox,
+  .testimonialadmin-previewcard,
+  .testimonialadmin-tablebox {
+    padding: 20px;
+  }
+
+  .testimonialadmin-heading h2 {
+    font-size: 22px;
+  }
+}

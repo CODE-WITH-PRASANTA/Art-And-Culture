@@ -1,5 +1,3 @@
-// Layout/Sidebar/Sidebar.jsx
-
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -23,13 +21,11 @@ import {
 
 import "./Sidebar.css";
 
-const Sidebar = ({ collapsed }) => {
+const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
   const location = useLocation();
   const [openMenu, setOpenMenu] = useState(null);
 
-  /* =========================
-     AUTO OPEN DROPDOWN (IMPORTANT)
-  ========================= */
+  /* ================= AUTO OPEN ================= */
   useEffect(() => {
     if (location.pathname.startsWith("/sub")) {
       setOpenMenu("sub");
@@ -42,9 +38,10 @@ const Sidebar = ({ collapsed }) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
-  /* =========================
-     MAIN MENU
-  ========================= */
+  const closeMobile = () => {
+    setMobileOpen(false);
+  };
+
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard size={18} /> },
     { name: "Contact", path: "/contact", icon: <Phone size={18} /> },
@@ -57,17 +54,23 @@ const Sidebar = ({ collapsed }) => {
     { name: "Terms", path: "/terms", icon: <FileText size={18} /> },
     { name: "Privacy", path: "/privacy", icon: <Shield size={18} /> },
     { name: "Settings", path: "/settings", icon: <Settings size={18} /> },
+    { name: "Testimonial", path: "/testimonial", icon: <Settings size={18} /> },
   ];
 
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <div
+      className={`Sidebar-container 
+        ${collapsed ? "Sidebar-container--collapsed" : ""} 
+        ${mobileOpen ? "Sidebar-container--mobileOpen" : ""}`
+      }
+    >
 
-      {/* ================= LOGO ================= */}
-      <div className="sidebar-top">
-        <div className="logo-box">A</div>
+      {/* ================= TOP ================= */}
+      <div className="Sidebar-top">
+        <div className="Sidebar-logoBox">A</div>
 
         {!collapsed && (
-          <div className="logo-text">
+          <div className="Sidebar-logoText">
             <h2>Admin Panel</h2>
             <p>Management System</p>
           </div>
@@ -75,15 +78,18 @@ const Sidebar = ({ collapsed }) => {
       </div>
 
       {/* ================= MENU ================= */}
-      <div className="sidebar-menu">
+      <div className="Sidebar-menu">
 
         {/* MAIN LINKS */}
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
             to={item.path}
+            onClick={closeMobile}
             className={({ isActive }) =>
-              isActive ? "menu-link active" : "menu-link"
+              isActive
+                ? "Sidebar-link Sidebar-link--active"
+                : "Sidebar-link"
             }
           >
             {item.icon}
@@ -91,12 +97,14 @@ const Sidebar = ({ collapsed }) => {
           </NavLink>
         ))}
 
-        {/* ================= SUB MANAGEMENT ================= */}
-        {/* {!collapsed && <p className="menu-title">Sub Management</p>} */}
-
-        <div className={`dropdown ${openMenu === "sub" ? "open" : ""}`}>
+        {/* ================= SHOP ================= */}
+        <div
+          className={`Sidebar-dropdown ${
+            openMenu === "sub" ? "Sidebar-dropdown--open" : ""
+          }`}
+        >
           <div
-            className="menu-link"
+            className="Sidebar-link Sidebar-dropdownHeader"
             onClick={() => toggleMenu("sub")}
           >
             <Package size={18} />
@@ -110,11 +118,14 @@ const Sidebar = ({ collapsed }) => {
               ))}
           </div>
 
-          <div className="submenu">
+          <div className="Sidebar-submenu">
             <NavLink
               to="/sub/view"
+              onClick={closeMobile}
               className={({ isActive }) =>
-                isActive ? "submenu-link active" : "submenu-link"
+                isActive
+                  ? "Sidebar-subLink Sidebar-subLink--active"
+                  : "Sidebar-subLink"
               }
             >
               <Eye size={16} />
@@ -123,8 +134,11 @@ const Sidebar = ({ collapsed }) => {
 
             <NavLink
               to="/sub/list"
+              onClick={closeMobile}
               className={({ isActive }) =>
-                isActive ? "submenu-link active" : "submenu-link"
+                isActive
+                  ? "Sidebar-subLink Sidebar-subLink--active"
+                  : "Sidebar-subLink"
               }
             >
               <List size={16} />
@@ -133,30 +147,28 @@ const Sidebar = ({ collapsed }) => {
           </div>
         </div>
 
-        {/* ================= BLOG MANAGEMENT ================= */}
-        {/* {!collapsed && <p className="menu-title">Blog Management</p>} */}
-
-        <div className={`dropdown ${openMenu === "blog" ? "open" : ""}`}>
+        {/* ================= BLOG ================= */}
+        <div
+          className={`Sidebar-dropdown ${
+            openMenu === "blog" ? "Sidebar-dropdown--open" : ""
+          }`}
+        >
           <div
-            className="menu-link"
+            className="Sidebar-link Sidebar-dropdownHeader"
             onClick={() => toggleMenu("blog")}
           >
             <Newspaper size={18} />
             {!collapsed && <span>Blog Management</span>}
-
-            {!collapsed &&
-              (openMenu === "blog" ? (
-                <ChevronDown size={16} />
-              ) : (
-                <ChevronRight size={16} />
-              ))}
           </div>
 
-          <div className="submenu">
+          <div className="Sidebar-submenu">
             <NavLink
               to="/blog/post"
+              onClick={closeMobile}
               className={({ isActive }) =>
-                isActive ? "submenu-link active" : "submenu-link"
+                isActive
+                  ? "Sidebar-subLink Sidebar-subLink--active"
+                  : "Sidebar-subLink"
               }
             >
               <Eye size={16} />
@@ -165,23 +177,27 @@ const Sidebar = ({ collapsed }) => {
 
             <NavLink
               to="/blog/view"
+              onClick={closeMobile}
               className={({ isActive }) =>
-                isActive ? "submenu-link active" : "submenu-link"
+                isActive
+                  ? "Sidebar-subLink Sidebar-subLink--active"
+                  : "Sidebar-subLink"
               }
             >
               <List size={16} />
-              <span>Blog view</span>
+              <span>Blog View</span>
             </NavLink>
           </div>
         </div>
 
         {/* ================= PRODUCT ================= */}
-        {/* {!collapsed && <p className="menu-title">Product</p>} */}
-
         <NavLink
           to="/product/details"
+          onClick={closeMobile}
           className={({ isActive }) =>
-            isActive ? "menu-link active" : "menu-link"
+            isActive
+              ? "Sidebar-link Sidebar-link--active"
+              : "Sidebar-link"
           }
         >
           <Package size={18} />
@@ -190,8 +206,11 @@ const Sidebar = ({ collapsed }) => {
 
         <NavLink
           to="/product/gift"
+          onClick={closeMobile}
           className={({ isActive }) =>
-            isActive ? "menu-link active" : "menu-link"
+            isActive
+              ? "Sidebar-link Sidebar-link--active"
+              : "Sidebar-link"
           }
         >
           <Gift size={18} />
@@ -201,8 +220,8 @@ const Sidebar = ({ collapsed }) => {
       </div>
 
       {/* ================= FOOTER ================= */}
-      <div className="sidebar-footer">
-        <button className="logout-btn">
+      <div className="Sidebar-footer">
+        <button className="Sidebar-logoutBtn">
           <LogOut size={18} />
           {!collapsed && <span>Logout</span>}
         </button>
