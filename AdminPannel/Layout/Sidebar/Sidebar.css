@@ -243,3 +243,9 @@
     height: calc(100vh - 65px);
   }
 }
+.Sidebar-arrow{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
