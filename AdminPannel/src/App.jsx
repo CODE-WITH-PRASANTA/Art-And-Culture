@@ -11,6 +11,7 @@ import Order from "./pages/Order/Order";
 import Pooja from "./pages/Pooja/Pooja";
 import Testimonial from "./pages/Testimonial/Testimonial";
 import Contact from "./pages/Contact/Contact";
+import TeamMember from "./pages/TeamMember/TeamMember";
 
 /* Temporary Pages Until You Create Real Pages */
 
@@ -41,7 +42,7 @@ const App = () => {
           <Route path="/pooja" element={<Pooja/>}/>
           <Route path="/testimonial" element={<Testimonial/>}/>
           <Route path="contact" element={<Contact />} />
-          
+          <Route path="/team/members-post" element={<TeamMember/>}/>
 
         </Route>
 
