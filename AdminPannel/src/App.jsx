@@ -1,17 +1,24 @@
 // src/App.jsx
 
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminLayout from "../Layout/AdminLayout";
 
-
-
 import Dashboard from "./pages/Dashboard/Dashboard";
+import ContactTable from "./Component/ContactTable/ContactTable";
+import BlogPost from "./Component/BlogPost/BlogPost";
+import Order from "./pages/Order/Order";
+import Pooja from "./pages/Pooja/Pooja";
+import Testimonial from "./pages/Testimonial/Testimonial";
+import Contact from "./pages/Contact/Contact";
+import ShopManagement from "./pages/ShopManageView/ShopManageView";
+import ShopListPage from "./pages/ShopListPage/ShopListPage";
+import CategoryManage from "./pages/CategoryManage/CategoryManage";
 
 /* Temporary Pages Until You Create Real Pages */
 
 
-const ContactManagement = () => <h1>Contact Management</h1>;
+
 const OrderManagement = () => <h1>Order Management</h1>;
 const Accounts = () => <h1>Login / Account</h1>;
 const CartSystem = () => <h1>Cart System</h1>;
@@ -27,30 +34,25 @@ const App = () => {
     <BrowserRouter>
       <Routes>
 
-        {/* Admin Layout */}
         <Route path="/" element={<AdminLayout />}>
 
-
-          {/* Default Route */}
-          <Route index element={<Navigate to="/dashboard" />} />
-
-          {/* Temporary Routes */}
+          {/* ✅ Correct */}
+          <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="contact" element={<ContactManagement />} />
-          <Route path="orders" element={<OrderManagement />} />
-          <Route path="accounts" element={<Accounts />} />
-          <Route path="cart" element={<CartSystem />} />
-          <Route path="news" element={<NewsPosting />} />
-          <Route path="pooja" element={<PoojaEssential />} />
-          <Route path="enquiry" element={<EnquiryManagement />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="/contact" element={<ContactTable />} />
+          <Route path="/blog/post" element={<BlogPost />} />
+          <Route path="/orders" element={<Order/>}/>
+          <Route path="/pooja" element={<Pooja/>}/>
+          <Route path="/testimonial" element={<Testimonial/>}/>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/sub/view" element={<ShopManagement/>}/>
+          <Route path="/sub/list" element={<ShopListPage/>}/>
+          <Route path="/category/add" element={<CategoryManage/>}/>
+          
 
         </Route>
 
-        {/* Not Found */}
-        <Route path="*" element={<h1>404 Page Not Found</h1>} />
+        
 
       </Routes>
     </BrowserRouter>

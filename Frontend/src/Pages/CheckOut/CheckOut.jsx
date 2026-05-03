@@ -6,7 +6,6 @@ const CheckOut = () => {
   return (
     <>
     <CheckoutBreadcrumb/>
-    {/* <CheckOutSection /> */}
     </>
   )
 }

@@ -4,11 +4,12 @@ import Herosection from '../../Components/HeroSection/HeroSection'
 import Typesofidols from '../../Components/Typesofidols/Typesofidols'
 import Trendingproducts from '../../Components/Trendingproducts/Trendingproducts'
 import News from '../../Components/News/News'
-import Giftfinder from '../../Components/Giftfinder/Giftfinder'
-import Findgiftsbyocassions from '../../Components/Findgiftsbyocassions/Findgiftsbyocassions'
+
+
 import GodCollectionSection from '../../Components/GodCollectionSection/GodCollectionSection'
-import Celebrationscalendar from '../../Components/Celebrationscalendar/Celebrationscalendar'
+
 import Artpromise from '../../Components/Artpromise/Artpromise'
+import Testimonial from '../../Components/Testimonial/Testimonial'
 
 const Home = () => {
   return (
@@ -16,10 +17,10 @@ const Home = () => {
       <News/>
       <Herosection/>
       <Typesofidols/>
-      <Giftfinder/>
+     <Testimonial/>
       <Trendingproducts/>
-      <Findgiftsbyocassions/>
-      <Celebrationscalendar/>
+      
+      
       <GodCollectionSection/>
       <Artpromise/>
     </div>

@@ -1,0 +1,189 @@
+.BlogPost-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+/* FORM */
+.BlogPost-formSection {
+  width: 48%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.BlogPost-formSection h2 {
+  text-align: center;
+  color: #8b3d2c;
+  margin-bottom: 20px;
+}
+
+/* FLOATING INPUT */
+.BlogPost-floatingGroup {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.BlogPost-floatingGroup input,
+.BlogPost-floatingGroup textarea {
+  width: 100%;
+  padding: 14px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+}
+
+.BlogPost-floatingGroup textarea {
+  height: 100px;
+}
+
+.BlogPost-floatingGroup label {
+  position: absolute;
+  top: -8px;
+  left: 10px;
+  background: #fff;
+  padding: 0 5px;
+  font-size: 12px;
+  color: #8b3d2c;
+}
+
+/* DATE */
+.BlogPost-dateInput {
+  width: 100%;
+}
+
+/* UPLOAD */
+.BlogPost-uploadSection {
+  margin-bottom: 20px;
+}
+
+.BlogPost-uploadSection label {
+  display: block;
+  margin-bottom: 6px;
+  color: #8b3d2c;
+}
+
+.BlogPost-uploadBox {
+  position: relative;
+  border: 2px dashed #d6b5ac;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  background: #fff8f6;
+  cursor: pointer;
+}
+
+.BlogPost-uploadBox input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.BlogPost-uploadBox span {
+  color: #8b3d2c;
+}
+
+.BlogPost-preview {
+  margin-top: 10px;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* BUTTON */
+.BlogPost-submitBtn {
+  width: 100%;
+  padding: 12px;
+  background: #8b3d2c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* TABLE */
+.BlogPost-tableSection {
+  width: 48%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.BlogPost-tableSection h2 {
+  text-align: center;
+  color: #8b3d2c;
+}
+
+.BlogPost-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.BlogPost-table th {
+  background: #f3e5e1;
+  color: #8b3d2c;
+}
+
+.BlogPost-table th,
+.BlogPost-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.BlogPost-tableImg {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+}
+
+/* BUTTONS */
+.BlogPost-editBtn {
+  background: #4caf50;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  margin-right: 5px;
+}
+
+.BlogPost-deleteBtn {
+  background: #e53935;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+}
+
+/* PAGINATION */
+.BlogPost-pagination {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.BlogPost-pagination button {
+  margin: 0 4px;
+  padding: 6px 10px;
+  background: #ddd;
+  border: none;
+  border-radius: 6px;
+}
+
+.BlogPost-pagination .active {
+  background: #8b3d2c;
+  color: #fff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .BlogPost-formSection,
+  .BlogPost-tableSection {
+    width: 100%;
+  }
+}
