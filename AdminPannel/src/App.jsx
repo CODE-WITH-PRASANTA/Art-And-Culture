@@ -14,6 +14,7 @@ import Contact from "./pages/Contact/Contact";
 import ShopManagement from "./pages/ShopManageView/ShopManageView";
 import ShopListPage from "./pages/ShopListPage/ShopListPage";
 import CategoryManage from "./pages/CategoryManage/CategoryManage";
+import TeamMember from "./pages/TeamMember/TeamMember";
 
 /* Temporary Pages Until You Create Real Pages */
 
@@ -49,6 +50,8 @@ const App = () => {
           <Route path="/sub/list" element={<ShopListPage/>}/>
           <Route path="/category/add" element={<CategoryManage/>}/>
           
+          <Route path="contact" element={<Contact />} />
+          <Route path="/team/members-post" element={<TeamMember/>}/>
 
         </Route>
 
