@@ -6,11 +6,13 @@ import AdminLayout from "../Layout/AdminLayout";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ContactTable from "./Component/ContactTable/ContactTable";
-import BlogPost from "./Component/BlogPost/BlogPost";
+
 import Order from "./pages/Order/Order";
 import Pooja from "./pages/Pooja/Pooja";
 import Testimonial from "./pages/Testimonial/Testimonial";
 import Contact from "./pages/Contact/Contact";
+import Blog from "./pages/Blog/Blog";
+import BlogView from "./pages/BlogView/BlogView";
 
 /* Temporary Pages Until You Create Real Pages */
 
@@ -36,12 +38,13 @@ const App = () => {
           {/* ✅ Correct */}
           <Route index element={<Dashboard />} />
           <Route path="/contact" element={<ContactTable />} />
-          <Route path="/blog/post" element={<BlogPost />} />
+          
           <Route path="/orders" element={<Order/>}/>
           <Route path="/pooja" element={<Pooja/>}/>
           <Route path="/testimonial" element={<Testimonial/>}/>
           <Route path="contact" element={<Contact />} />
-          
+          <Route path="/blog/post" element={<Blog/>}/>
+          <Route path="/blog/view" element={<BlogView/>}/>
 
         </Route>
 

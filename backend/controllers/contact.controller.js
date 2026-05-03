@@ -1,52 +1,154 @@
 const Contact = require("../models/contact.model");
 
-/* CREATE CONTACT (Frontend Form Submit) */
-exports.createContact = async (req, res) => {
+/* =========================================
+   CREATE CONTACT
+========================================= */
+
+const createContact = async (req, res) => {
   try {
-    const contact = await Contact.create(req.body);
-    res.status(201).json(contact);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      message,
+    } = req.body;
 
-/* GET CONTACTS (Admin - Search + Pagination) */
-exports.getContacts = async (req, res) => {
-  try {
-    const { page = 1, limit = 6, search = "" } = req.query;
+    /* VALIDATION */
 
-    const query = {
-      $or: [
-        { firstName: { $regex: search, $options: "i" } },
-        { lastName: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
-      ],
-    };
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !message
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all fields",
+      });
+    }
 
-    const total = await Contact.countDocuments(query);
+    /* CREATE NEW CONTACT */
 
-    const contacts = await Contact.find(query)
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(Number(limit));
-
-    res.json({
-      contacts,
-      total,
-      page: Number(page),
-      pages: Math.ceil(total / limit),
+    const newContact = await Contact.create({
+      firstName,
+      lastName,
+      email,
+      phone,
+      message,
     });
+
+    res.status(201).json({
+      success: true,
+      message: "Message sent successfully",
+      data: newContact,
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
   }
 };
 
-/* DELETE CONTACT */
-exports.deleteContact = async (req, res) => {
+/* =========================================
+   GET ALL CONTACTS
+========================================= */
+
+const getAllContacts = async (req, res) => {
   try {
-    await Contact.findByIdAndDelete(req.params.id);
-    res.json({ message: "Contact deleted successfully" });
+
+    const contacts = await Contact.find().sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      success: true,
+      total: contacts.length,
+      data: contacts,
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
   }
+};
+
+/* =========================================
+   GET SINGLE CONTACT
+========================================= */
+
+const getSingleContact = async (req, res) => {
+  try {
+
+    const contact = await Contact.findById(req.params.id);
+
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: contact,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+/* =========================================
+   DELETE CONTACT
+========================================= */
+
+const deleteContact = async (req, res) => {
+  try {
+
+    const contact = await Contact.findById(req.params.id);
+
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found",
+      });
+    }
+
+    await contact.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      message: "Contact deleted successfully",
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+module.exports = {
+  createContact,
+  getAllContacts,
+  getSingleContact,
+  deleteContact,
 };

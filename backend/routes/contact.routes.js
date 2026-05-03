@@ -1,19 +1,28 @@
 const express = require("express");
+
 const router = express.Router();
 
 const {
   createContact,
-  getContacts,
+  getAllContacts,
+  getSingleContact,
   deleteContact,
 } = require("../controllers/contact.controller");
 
-/* FRONTEND: Submit contact form */
+/* =========================================
+   ROUTES
+========================================= */
+
+/* CREATE CONTACT */
 router.post("/", createContact);
 
-/* ADMIN: Get all contacts (with search + pagination) */
-router.get("/", getContacts);
+/* GET ALL CONTACTS */
+router.get("/", getAllContacts);
 
-/* ADMIN: Delete contact */
+/* GET SINGLE CONTACT */
+router.get("/:id", getSingleContact);
+
+/* DELETE CONTACT */
 router.delete("/:id", deleteContact);
 
 module.exports = router;
