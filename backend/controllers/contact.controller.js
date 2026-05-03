@@ -3,9 +3,10 @@ const Contact = require("../models/contact.model");
 /* =========================================
    CREATE CONTACT
 ========================================= */
-
 const createContact = async (req, res) => {
+
   try {
+
     const {
       firstName,
       lastName,
@@ -15,7 +16,6 @@ const createContact = async (req, res) => {
     } = req.body;
 
     /* VALIDATION */
-
     if (
       !firstName ||
       !lastName ||
@@ -25,12 +25,11 @@ const createContact = async (req, res) => {
     ) {
       return res.status(400).json({
         success: false,
-        message: "Please fill all fields",
+        message: "All fields required",
       });
     }
 
-    /* CREATE NEW CONTACT */
-
+    /* SAVE */
     const newContact = await Contact.create({
       firstName,
       lastName,
@@ -41,11 +40,12 @@ const createContact = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Message sent successfully",
-      data: newContact,
+      message: "Contact submitted successfully",
+      contact: newContact,
     });
 
   } catch (error) {
+
     console.log(error);
 
     res.status(500).json({
@@ -58,26 +58,25 @@ const createContact = async (req, res) => {
 /* =========================================
    GET ALL CONTACTS
 ========================================= */
-
 const getAllContacts = async (req, res) => {
+
   try {
 
-    const contacts = await Contact.find().sort({
-      createdAt: -1,
-    });
+    const contacts = await Contact.find()
+      .sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
-      total: contacts.length,
-      data: contacts,
+      contacts,
     });
 
   } catch (error) {
+
     console.log(error);
 
     res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: "Failed to fetch contacts",
     });
   }
 };
@@ -85,11 +84,13 @@ const getAllContacts = async (req, res) => {
 /* =========================================
    GET SINGLE CONTACT
 ========================================= */
-
 const getSingleContact = async (req, res) => {
+
   try {
 
-    const contact = await Contact.findById(req.params.id);
+    const contact = await Contact.findById(
+      req.params.id
+    );
 
     if (!contact) {
       return res.status(404).json({
@@ -100,10 +101,11 @@ const getSingleContact = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: contact,
+      contact,
     });
 
   } catch (error) {
+
     console.log(error);
 
     res.status(500).json({
@@ -116,11 +118,13 @@ const getSingleContact = async (req, res) => {
 /* =========================================
    DELETE CONTACT
 ========================================= */
-
 const deleteContact = async (req, res) => {
+
   try {
 
-    const contact = await Contact.findById(req.params.id);
+    const contact = await Contact.findByIdAndDelete(
+      req.params.id
+    );
 
     if (!contact) {
       return res.status(404).json({
@@ -129,19 +133,18 @@ const deleteContact = async (req, res) => {
       });
     }
 
-    await contact.deleteOne();
-
     res.status(200).json({
       success: true,
       message: "Contact deleted successfully",
     });
 
   } catch (error) {
+
     console.log(error);
 
     res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: "Delete failed",
     });
   }
 };

@@ -9,20 +9,16 @@ const {
   deleteContact,
 } = require("../controllers/contact.controller");
 
-/* =========================================
-   ROUTES
-========================================= */
-
-/* CREATE CONTACT */
+/* CREATE */
 router.post("/", createContact);
 
-/* GET ALL CONTACTS */
+/* GET ALL */
 router.get("/", getAllContacts);
 
-/* GET SINGLE CONTACT */
+/* GET SINGLE */
 router.get("/:id", getSingleContact);
 
-/* DELETE CONTACT */
+/* DELETE */
 router.delete("/:id", deleteContact);
 
 module.exports = router;

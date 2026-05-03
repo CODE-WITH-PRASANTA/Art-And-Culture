@@ -10,6 +10,7 @@ dotenv.config();
 const connectDB = require("./config/db");
 
 const contactRoutes = require("./routes/contact.routes");
+const categoryRoutes = require("./routes/category.routes");
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 /* Routes */
 
 app.use("/api/contact", contactRoutes);
+app.use("/api/category", categoryRoutes);
 
 
 /* Test Route */

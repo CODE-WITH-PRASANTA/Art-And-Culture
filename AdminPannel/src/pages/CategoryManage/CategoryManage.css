@@ -1,0 +1,160 @@
+/* ROOT */
+.CategoryManage {
+  padding: 20px;
+  background: #f4f7fb;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden; /* 🚀 prevents right gap */
+  box-sizing: border-box;
+}
+
+/* CONTAINER */
+.CategoryManage__container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* LEFT FORM */
+.CategoryManage__formCard {
+  flex: 0 0 320px;
+  max-width: 320px;
+}
+
+/* RIGHT TABLE */
+.CategoryManage__tableCard {
+  flex: 1;
+  min-width: 0; /* 🚀 IMPORTANT: prevents overflow */
+}
+
+/* CARD */
+.CategoryManage__formCard,
+.CategoryManage__tableCard {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* TITLE */
+.CategoryManage__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #6366f1;
+}
+
+/* FORM */
+.CategoryManage__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.CategoryManage__form label{
+    color: black;
+}
+
+.CategoryManage__formGroup input {
+  width: 100%; /* 🚀 fix input overflow */
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+/* BUTTON */
+.CategoryManage__btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* TABLE */
+.CategoryManage__tableWrapper {
+  width: 100%;
+  overflow-x: auto; /* 🚀 allows scroll instead of breaking layout */
+}
+
+.CategoryManage__table {
+  width: 100%;
+  min-width: 500px; /* 🚀 prevents compression */
+  border-collapse: collapse;
+}
+
+.CategoryManage__table th,
+.CategoryManage__table td {
+  padding: 12px;
+  text-align: left;
+}
+
+/* ACTION COLUMN WRAPPER */
+.CategoryManage__action {
+  display: flex;
+  gap: 8px; /* 🔥 spacing between buttons */
+  align-items: center;
+}
+
+/* COMMON BUTTON STYLE */
+.CategoryManage__action button {
+  border: none;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 500;
+}
+
+/* EDIT BUTTON */
+.CategoryManage__editBtn {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.CategoryManage__editBtn:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* DELETE BUTTON */
+.CategoryManage__deleteBtn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.CategoryManage__deleteBtn:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+  .CategoryManage__container {
+    flex-direction: column;
+  }
+
+  .CategoryManage__formCard {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .CategoryManage {
+    padding: 10px;
+  }
+
+  .CategoryManage__table {
+    font-size: 13px;
+  }
+}
