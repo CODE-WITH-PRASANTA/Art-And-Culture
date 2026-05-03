@@ -237,3 +237,10 @@
   border-radius: 20px;
 }
 
+@media (max-width: 768px) {
+
+  .Sidebar-container{
+    top: auto;
+    height: calc(100vh - 65px);
+  }
+}
