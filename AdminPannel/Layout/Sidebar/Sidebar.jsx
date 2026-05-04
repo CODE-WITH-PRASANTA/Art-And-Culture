@@ -382,24 +382,6 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
             )}
 
           </div>
-
-          <div className="Sidebar-submenu">
-
-            <NavLink
-              to="/terms"
-              onClick={closeMobile}
-              className={({ isActive }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-              <span>Terms View</span>
-            </NavLink>
-
-          </div>
-
         </div>
 
         {/* ================= TESTIMONIAL ================= */}
