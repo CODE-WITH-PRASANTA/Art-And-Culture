@@ -11,6 +11,8 @@ const ShopManageView = () => {
     shipping: "",
     categoryType: "Normal",
     helpline: "",
+    price: "", // ✅ NEW
+    discount: "", // ✅ NEW
     sizes: { height: "", width: "", weight: "" },
     details: "",
     faqs: [{ question: "", answer: "" }],
@@ -55,6 +57,11 @@ const ShopManageView = () => {
     updated[i][field] = value;
     setProduct({ ...product, faqs: updated });
   };
+
+  const finalPrice =
+  product.price && product.discount
+    ? product.price - (product.price * product.discount) / 100
+    : product.price;
 
   useEffect(() => {
     return () => {
@@ -129,6 +136,28 @@ const ShopManageView = () => {
               name="helpline"
               value={product.helpline}
               onChange={handleChange}
+            />
+          </div>
+
+          <div className="shopManagement-field">
+            <label>Price (₹)</label>
+            <input
+              type="number" min="0"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              placeholder="Enter price"
+            />
+          </div>
+
+          <div className="shopManagement-field">
+            <label>Discount (%)</label>
+            <input
+              type="number" min="0"
+              name="discount"
+              value={product.discount}
+              onChange={handleChange}
+              placeholder="Enter discount"
             />
           </div>
 
@@ -248,6 +277,20 @@ const ShopManageView = () => {
             H: {product.sizes.height} | W: {product.sizes.width} | Weight:{" "}
             {product.sizes.weight}
           </p>
+        </div>
+
+        <div className="shopManagement-previewSection">
+          <strong>Price:</strong> {product.price ? `₹${product.price}` : "₹0"}
+          {product.discount && (
+            <p>
+              Discount: {product.discount}% <br />
+              Final Price:₹{finalPrice || 0}
+              {(
+                product.price -
+                (product.price * product.discount) / 100
+              ).toFixed(2)}
+            </p>
+          )}
         </div>
 
         <div
