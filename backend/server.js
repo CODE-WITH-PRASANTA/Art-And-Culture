@@ -11,6 +11,7 @@ const connectDB = require("./config/db");
 
 const contactRoutes = require("./routes/contact.routes");
 const categoryRoutes = require("./routes/category.routes");
+const blogRoutes=require("./routes/blog.routes");
 
 
 const app = express();
@@ -30,6 +31,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/contact", contactRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/blog",blogRoutes);
 
 
 /* Test Route */
