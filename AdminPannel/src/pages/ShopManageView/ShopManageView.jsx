@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import "./ShopManageView.css";
 
+import API from "../../api/axios";
+
 const ShopManageView = () => {
   const [product, setProduct] = useState({
     title: "",
@@ -11,12 +13,15 @@ const ShopManageView = () => {
     shipping: "",
     categoryType: "Normal",
     helpline: "",
+    price: "",
+    discount: "",
     sizes: { height: "", width: "", weight: "" },
     details: "",
     faqs: [{ question: "", answer: "" }],
     images: [],
   });
 
+  /* ================= INPUT ================= */
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
@@ -28,6 +33,7 @@ const ShopManageView = () => {
     });
   };
 
+  /* ================= IMAGE ================= */
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (!file || product.images.length >= 5) return;
@@ -43,6 +49,7 @@ const ShopManageView = () => {
     setProduct({ ...product, images: updated });
   };
 
+  /* ================= FAQ ================= */
   const addFAQ = () => {
     setProduct({
       ...product,
@@ -56,19 +63,80 @@ const ShopManageView = () => {
     setProduct({ ...product, faqs: updated });
   };
 
+  const removeFAQ = (index) => {
+    const updated = product.faqs.filter((_, i) => i !== index);
+    setProduct({ ...product, faqs: updated });
+  };
+
+  /* ================= SUBMIT ================= */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+
+      Object.keys(product).forEach((key) => {
+        if (key !== "images" && key !== "faqs" && key !== "sizes") {
+          formData.append(key, product[key]);
+        }
+      });
+
+      formData.append("sizes", JSON.stringify(product.sizes));
+      formData.append("faqs", JSON.stringify(product.faqs));
+
+      product.images.forEach((img) => {
+        formData.append("images", img);
+      });
+
+      const res = await API.post("/products", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      if (res.data.success) {
+        alert("Product Added Successfully ✅");
+
+        setProduct({
+          title: "",
+          use: "",
+          rating: "",
+          stock: "",
+          shipping: "",
+          categoryType: "Normal",
+          helpline: "",
+          price: "",
+          discount: "",
+          sizes: { height: "", width: "", weight: "" },
+          details: "",
+          faqs: [{ question: "", answer: "" }],
+          images: [],
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error adding product ❌");
+    }
+  };
+
   useEffect(() => {
     return () => {
       product.images.forEach((file) => URL.revokeObjectURL(file));
     };
   }, [product.images]);
 
+  const finalPrice =
+    product.price && product.discount
+      ? product.price - (product.price * product.discount) / 100
+      : product.price;
+
   return (
     <div className="shopManagement-container">
-      {/* ================= LEFT FORM ================= */}
-      <form className="shopManagement-card">
+
+      {/* ================= FORM ================= */}
+      <form className="shopManagement-card" onSubmit={handleSubmit}>
         <h2 className="shopManagement-title">Post Product</h2>
 
         <div className="shopManagement-grid">
+
           <div className="shopManagement-field full">
             <label>Product Title</label>
             <input name="title" value={product.title} onChange={handleChange} />
@@ -81,81 +149,57 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Category</label>
-            <select
-              name="categoryType"
-              value={product.categoryType}
-              onChange={handleChange}
-            >
+            <select name="categoryType" value={product.categoryType} onChange={handleChange}>
               <option>Normal</option>
               <option>Best Seller</option>
             </select>
           </div>
 
           <div className="shopManagement-field">
-            <label>Rating (1–5)</label>
-            <input
-              type="number"
-              min="1"
-              max="5"
-              name="rating"
-              value={product.rating}
-              onChange={handleChange}
-            />
+            <label>Rating</label>
+            <input name="rating" value={product.rating} onChange={handleChange} />
           </div>
 
           <div className="shopManagement-field">
             <label>Stock</label>
-            <input
-              type="number"
-              min="0"
-              name="stock"
-              value={product.stock}
-              onChange={handleChange}
-            />
+            <input name="stock" value={product.stock} onChange={handleChange} />
           </div>
 
           <div className="shopManagement-field">
-            <label>Shipping Days</label>
-            <input
-              name="shipping"
-              value={product.shipping}
-              onChange={handleChange}
-            />
+            <label>Shipping</label>
+            <input name="shipping" value={product.shipping} onChange={handleChange} />
           </div>
 
           <div className="shopManagement-field">
             <label>Helpline</label>
-            <input
-              name="helpline"
-              value={product.helpline}
-              onChange={handleChange}
-            />
+            <input name="helpline" value={product.helpline} onChange={handleChange} />
+          </div>
+
+          <div className="shopManagement-field">
+            <label>Price</label>
+            <input name="price" value={product.price} onChange={handleChange} />
+          </div>
+
+          <div className="shopManagement-field">
+            <label>Discount</label>
+            <input name="discount" value={product.discount} onChange={handleChange} />
           </div>
 
           {/* SIZE */}
           <div className="shopManagement-field full">
-            <label>Size Management</label>
+            <label>Size</label>
             <div className="shopManagement-sizeGrid">
-              <input
-                placeholder="Height (cm)"
-                onChange={(e) => handleSizeChange("height", e.target.value)}
-              />
-              <input
-                placeholder="Width (cm)"
-                onChange={(e) => handleSizeChange("width", e.target.value)}
-              />
-              <input
-                placeholder="Weight (kg)"
-                onChange={(e) => handleSizeChange("weight", e.target.value)}
-              />
+              <input placeholder="Height" onChange={(e) => handleSizeChange("height", e.target.value)} />
+              <input placeholder="Width" onChange={(e) => handleSizeChange("width", e.target.value)} />
+              <input placeholder="Weight" onChange={(e) => handleSizeChange("weight", e.target.value)} />
             </div>
           </div>
 
           {/* EDITOR */}
           <div className="shopManagement-field full">
-            <label>Product Details</label>
+            <label>Details</label>
             <Editor
-              apiKey="jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"
+              apiKey={"jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"}
               value={product.details}
               init={{ height: 250 }}
               onEditorChange={(content) =>
@@ -164,35 +208,30 @@ const ShopManageView = () => {
             />
           </div>
 
-          {/* IMAGE UPLOAD */}
+          {/* IMAGE */}
           <div className="shopManagement-field full">
-            <label>Upload Images (Max 5)</label>
+            <label>Upload Images</label>
 
             <div className="shopManagement-uploadGrid">
-              {product.images.map((file, index) => (
-                <div key={index} className="shopManagement-uploadItem">
+              {product.images.map((file, i) => (
+                <div key={i} className="shopManagement-uploadItem">
                   <img src={URL.createObjectURL(file)} alt="" />
-                  <button type="button" onClick={() => removeImage(index)}>
-                    ✕
-                  </button>
+                  <button type="button" onClick={() => removeImage(i)}>✕</button>
                 </div>
               ))}
 
               {product.images.length < 5 && (
                 <label className="shopManagement-uploadBox">
                   +
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
+                  <input type="file" onChange={handleImageUpload} />
                 </label>
               )}
             </div>
           </div>
+
         </div>
 
-        {/* FAQ */}
+        {/* ================= FAQ ================= */}
         <div className="shopManagement-faqBlock">
           <h3>FAQ</h3>
 
@@ -201,31 +240,40 @@ const ShopManageView = () => {
               <input
                 placeholder="Question"
                 value={faq.question}
-                onChange={(e) => handleFAQChange(i, "question", e.target.value)}
+                onChange={(e) =>
+                  handleFAQChange(i, "question", e.target.value)
+                }
               />
+
               <textarea
                 placeholder="Answer"
                 value={faq.answer}
-                onChange={(e) => handleFAQChange(i, "answer", e.target.value)}
+                onChange={(e) =>
+                  handleFAQChange(i, "answer", e.target.value)
+                }
               />
+
+              <button type="button" onClick={() => removeFAQ(i)}>
+                Remove
+              </button>
             </div>
           ))}
 
           <button
             type="button"
-            onClick={addFAQ}
             className="shopManagement-addBtn"
+            onClick={addFAQ}
           >
-            Add FAQ
+            + Add FAQ
           </button>
         </div>
 
-        <button type="submit" className="shopManagement-submitBtn">
+        <button className="shopManagement-submitBtn">
           Submit Product
         </button>
       </form>
 
-      {/* ================= RIGHT PREVIEW ================= */}
+      {/* ================= PREVIEW (UNCHANGED DESIGN) ================= */}
       <div className="shopManagement-card shopManagement-previewCard">
         <h2 className="shopManagement-title">Live Preview</h2>
 
@@ -248,6 +296,16 @@ const ShopManageView = () => {
             H: {product.sizes.height} | W: {product.sizes.width} | Weight:{" "}
             {product.sizes.weight}
           </p>
+        </div>
+
+        <div className="shopManagement-previewSection">
+          <strong>Price:</strong> ₹{product.price || 0}
+          {product.discount && (
+            <p>
+              Discount: {product.discount}% <br />
+              Final Price: ₹{finalPrice || 0}
+            </p>
+          )}
         </div>
 
         <div
