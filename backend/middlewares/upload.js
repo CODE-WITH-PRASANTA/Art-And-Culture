@@ -14,7 +14,6 @@ const ensureDir = (dir) => {
 const routeFolderMap = {
   "/api/blog": "uploads/blogs", 
     
-    
 };
 
 /* ================= GET UPLOAD PATH ================= */

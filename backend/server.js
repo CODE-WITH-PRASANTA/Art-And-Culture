@@ -13,7 +13,6 @@ const contactRoutes = require("./routes/contact.routes");
 const categoryRoutes = require("./routes/category.routes");
 const blogRoutes = require("./routes/blog.routes");
 
-
 const app = express();
 
 /* Connect Database */
