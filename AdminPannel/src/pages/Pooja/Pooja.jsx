@@ -79,27 +79,51 @@ const Pooja = () => {
   return (
     <div className="pooja">
       <div className="pooja-top">
-
         {/* FORM */}
         <div className="pooja-form">
           <h2>{editIndex !== null ? "Edit Product" : "Add New Product"}</h2>
 
           <div className="pooja-box">
             <h4>Basic Info</h4>
-            <input name="name" value={form.name} placeholder="Product Name" onChange={handleChange}/>
-            <input name="slug" value={form.slug} placeholder="Slug" onChange={handleChange}/>
+            <input
+              name="name"
+              value={form.name}
+              placeholder="Product Name"
+              onChange={handleChange}
+            />
+            <input
+              name="slug"
+              value={form.slug}
+              placeholder="Slug"
+              onChange={handleChange}
+            />
           </div>
 
           <div className="pooja-box">
             <h4>Pricing</h4>
-            <input name="price" value={form.price} placeholder="Price" onChange={handleChange}/>
-            <input name="salePrice" value={form.salePrice} placeholder="Sale Price" onChange={handleChange}/>
+            <input
+              name="price"
+              value={form.price}
+              placeholder="Price"
+              onChange={handleChange}
+            />
+            <input
+              name="salePrice"
+              value={form.salePrice}
+              placeholder="Sale Price"
+              onChange={handleChange}
+            />
             <p className="discount">Discount: {discount}%</p>
           </div>
 
           <div className="pooja-box">
             <h4>Inventory</h4>
-            <input name="stock" value={form.stock} placeholder="Stock" onChange={handleChange}/>
+            <input
+              name="stock"
+              value={form.stock}
+              placeholder="Stock"
+              onChange={handleChange}
+            />
             <select name="status" value={form.status} onChange={handleChange}>
               <option>Active</option>
               <option>Draft</option>
@@ -112,7 +136,12 @@ const Pooja = () => {
 
           <div className="pooja-box">
             <h4>Description</h4>
-            <textarea name="shortDesc" value={form.shortDesc} placeholder="Short Description" onChange={handleChange}/>
+            <textarea
+              name="shortDesc"
+              value={form.shortDesc}
+              placeholder="Short Description"
+              onChange={handleChange}
+            />
           </div>
 
           {/* IMAGE */}
@@ -125,7 +154,7 @@ const Pooja = () => {
             </label>
 
             {form.image && (
-              <img src={form.image} alt="" className="upload-preview"/>
+              <img src={form.image} alt="" className="upload-preview" />
             )}
           </div>
 
@@ -175,8 +204,8 @@ const Pooja = () => {
       <div className="pooja-table">
         <h2>All Products</h2>
 
-        <table>
-          <thead>
+        <table className="pooja-table-main">
+          <thead className="pooja-thead">
             <tr>
               <th>Image</th>
               <th>Name</th>
@@ -188,20 +217,30 @@ const Pooja = () => {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="pooja-tbody">
             {products.map((p, index) => (
-              <tr key={index}>
-                <td>{p.image && <img src={p.image} alt="" />}</td>
-                <td>{p.name}</td>
-                <td>₹{p.salePrice || p.price}</td>
-                <td>{p.stock}</td>
-                <td>{p.status}</td>
-                <td>{p.type}</td>
-                <td>
-                  <button className="edit" onClick={() => handleEdit(index)}>
+              <tr key={index} className="pooja-row">
+                <td className="pooja-cell">
+                  {p.image && (
+                    <img src={p.image} alt="" className="pooja-img" />
+                  )}
+                </td>
+                <td className="pooja-cell">{p.name}</td>
+                <td className="pooja-cell">₹{p.salePrice || p.price}</td>
+                <td className="pooja-cell">{p.stock}</td>
+                <td className="pooja-cell">{p.status}</td>
+                <td className="pooja-cell">{p.type}</td>
+                <td className="pooja-cell">
+                  <button
+                    className="pooja-edit"
+                    onClick={() => handleEdit(index)}
+                  >
                     Edit
                   </button>
-                  <button className="delete" onClick={() => handleDelete(index)}>
+                  <button
+                    className="pooja-delete"
+                    onClick={() => handleDelete(index)}
+                  >
                     Delete
                   </button>
                 </td>
