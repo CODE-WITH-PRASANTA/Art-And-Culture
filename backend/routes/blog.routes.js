@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const upload = require("../middleware/upload");
+const { upload, convertToWebp } = require("../middlewares/upload");
 
 const {
   createBlog,
@@ -11,17 +11,19 @@ const {
   deleteBlog,
 } = require("../controllers/blog.controller");
 
-// CREATE
-router.post("/", upload.single("image"), createBlog);
+/* CREATE */
+router.post("/", upload.single("image"), convertToWebp, createBlog);
 
-// READ
+/* GET ALL */
 router.get("/", getAllBlogs);
+
+/* GET ONE */
 router.get("/:id", getSingleBlog);
 
-// UPDATE
-router.put("/:id", upload.single("image"), updateBlog);
+/* UPDATE */
+router.put("/:id", upload.single("image"), convertToWebp, updateBlog);
 
-// DELETE
+/* DELETE */
 router.delete("/:id", deleteBlog);
 
 module.exports = router;
