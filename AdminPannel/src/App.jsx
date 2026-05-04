@@ -6,11 +6,17 @@ import AdminLayout from "../Layout/AdminLayout";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ContactTable from "./Component/ContactTable/ContactTable";
-import BlogPost from "./Component/BlogPost/BlogPost";
+
 import Order from "./pages/Order/Order";
 import Pooja from "./pages/Pooja/Pooja";
 import Testimonial from "./pages/Testimonial/Testimonial";
 import Contact from "./pages/Contact/Contact";
+import Blog from "./pages/Blog/Blog";
+import BlogView from "./pages/BlogView/BlogView";
+import ShopManagement from "./pages/ShopManageView/ShopManageView";
+import ShopListPage from "./pages/ShopListPage/ShopListPage";
+import CategoryManage from "./pages/CategoryManage/CategoryManage";
+import TeamMember from "./pages/TeamMember/TeamMember";
 
 /* Temporary Pages Until You Create Real Pages */
 
@@ -35,13 +41,22 @@ const App = () => {
 
           {/* ✅ Correct */}
           <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="/contact" element={<ContactTable />} />
-          <Route path="/blog/post" element={<BlogPost />} />
+          
           <Route path="/orders" element={<Order/>}/>
           <Route path="/pooja" element={<Pooja/>}/>
           <Route path="/testimonial" element={<Testimonial/>}/>
           <Route path="contact" element={<Contact />} />
+          <Route path="/blog/post" element={<Blog/>}/>
+          <Route path="/blog/view" element={<BlogView/>}/>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/sub/view" element={<ShopManagement/>}/>
+          <Route path="/sub/list" element={<ShopListPage/>}/>
+          <Route path="/category/add" element={<CategoryManage/>}/>
           
+          <Route path="contact" element={<Contact />} />
+          <Route path="/team/members-post" element={<TeamMember/>}/>
 
         </Route>
 

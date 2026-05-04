@@ -1,0 +1,305 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.blogadmin{
+  width:100%;
+  min-height:100vh;
+  padding:30px;
+  background:#f3f5f9;
+}
+
+/* FORM */
+
+.blogadmin-form{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:25px;
+}
+
+/* CARD */
+
+.blogadmin-card{
+  background:#fff;
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:25px;
+
+  box-shadow:
+  0 4px 25px rgba(0,0,0,0.05);
+
+  border:1px solid #eef2f7;
+}
+
+/* LABEL */
+
+.blogadmin-card label{
+  display:block;
+  font-size:15px;
+  font-weight:700;
+  color:#111827;
+  margin-bottom:14px;
+}
+
+/* INPUT */
+
+.blogadmin-card input,
+.blogadmin-card select,
+.blogadmin-card textarea{
+  width:100%;
+  border:none;
+  outline:none;
+  background:#f8fafc;
+  border:1px solid #dbe3ec;
+
+  padding:15px;
+  border-radius:14px;
+
+  font-size:15px;
+  color:#111827;
+
+  transition:0.3s;
+}
+
+.blogadmin-card input:focus,
+.blogadmin-card select:focus,
+.blogadmin-card textarea:focus{
+  border-color:#2563eb;
+  background:#fff;
+
+  box-shadow:
+  0 0 0 4px rgba(37,99,235,0.08);
+}
+
+.blogadmin-card textarea{
+  resize:none;
+}
+
+/* UPLOAD */
+
+.blogadmin-upload-box{
+  width:100%;
+  height:280px;
+
+  border:2px dashed #cdd8e6;
+  border-radius:20px;
+
+  overflow:hidden;
+  position:relative;
+
+  background:#f8fbff;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.blogadmin-upload-box input{
+  position:absolute;
+  width:100%;
+  height:100%;
+  opacity:0;
+  cursor:pointer;
+}
+
+.blogadmin-upload-content{
+  text-align:center;
+}
+
+.blogadmin-upload-icon{
+  font-size:58px;
+  margin-bottom:12px;
+}
+
+.blogadmin-upload-content h4{
+  font-size:18px;
+  color:#111827;
+  margin-bottom:6px;
+}
+
+.blogadmin-upload-content p{
+  color:#64748b;
+  font-size:14px;
+}
+
+.blogadmin-preview{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ============================= */
+/* ✅ TINYMCE EDITOR STYLING */
+/* ============================= */
+
+.editor-title{
+  font-size:18px;
+  font-weight:700;
+  color:#111827;
+  margin-bottom:12px;
+}
+
+/* Main Editor Box */
+.tox-tinymce{
+  border-radius:18px !important;
+  border:1px solid #dbe3ec !important;
+  overflow:hidden !important;
+  box-shadow:none !important;
+}
+
+/* Toolbar */
+.tox-toolbar{
+  background:#f1f5f9 !important;
+  border-bottom:1px solid #e2e8f0 !important;
+}
+
+/* Toolbar Buttons */
+.tox-tbtn{
+  border-radius:8px !important;
+}
+
+/* Editor Content Area */
+.tox-edit-area iframe{
+  background:#ffffff !important;
+}
+
+/* Status bar bottom */
+.tox-statusbar{
+  border-top:1px solid #e2e8f0 !important;
+}
+
+/* Hover */
+.tox-tbtn:hover{
+  background:#2563eb !important;
+  color:#fff !important;
+}
+
+/* BLOG TYPE */
+
+.blogadmin-type-wrapper{
+  display:flex;
+  gap:15px;
+}
+
+.blogadmin-type-card{
+  flex:1;
+  border:2px solid #dbe3ec;
+  border-radius:16px;
+  padding:18px;
+
+  background:#f8fafc;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.blogadmin-type-card:hover{
+  border-color:#2563eb;
+  transform:translateY(-2px);
+}
+
+.blogadmin-type-card input{
+  width:auto;
+}
+
+.blogadmin-type-card span{
+  font-size:15px;
+  font-weight:700;
+  color:#111827;
+}
+
+/* SUBMIT */
+
+.blogadmin-submit-btn{
+  width:100%;
+  border:none;
+  border-radius:18px;
+
+  padding:18px;
+
+  background:linear-gradient(
+  135deg,
+  #2563eb,
+  #1d4ed8
+  );
+
+  color:#fff;
+  font-size:17px;
+  font-weight:700;
+
+  cursor:pointer;
+  transition:0.3s;
+
+  box-shadow:
+  0 10px 30px rgba(37,99,235,0.3);
+}
+
+.blogadmin-submit-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+  .blogadmin-form{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .blogadmin{
+    padding:15px;
+  }
+
+  .blogadmin-card{
+    padding:18px;
+    border-radius:20px;
+  }
+
+  .editor-title{
+    font-size:16px;
+  }
+
+  .blogadmin-type-wrapper{
+    flex-direction:column;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .blogadmin{
+    padding:10px;
+  }
+
+  .blogadmin-card{
+    padding:15px;
+  }
+
+  .blogadmin-upload-box{
+    height:220px;
+  }
+
+  .blogadmin-upload-icon{
+    font-size:42px;
+  }
+
+  .blogadmin-upload-content h4{
+    font-size:16px;
+  }
+
+  .blogadmin-submit-btn{
+    font-size:15px;
+    padding:16px;
+  }
+
+}
