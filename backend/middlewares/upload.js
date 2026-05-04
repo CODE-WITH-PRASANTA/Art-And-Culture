@@ -21,7 +21,6 @@ const routeFolderMap = {
     "/admissions": "uploads/admissions",
     "/subjects": "uploads/subjects", 
     
-    
 };
 
 /* ================= GET UPLOAD PATH ================= */
