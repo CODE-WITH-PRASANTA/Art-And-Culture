@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./ContactFormsection.css";
 import kidImg from "../../assets/k-5.webp";
-import API from "../../api/axios"; // ✅ your axios instance
+import API from "../../api/axios";
 
 export default function ContactFormSection() {
 
+  /* =========================
+      STATES
+  ========================= */
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -15,7 +18,9 @@ export default function ContactFormSection() {
 
   const [loading, setLoading] = useState(false);
 
-  /* HANDLE INPUT */
+  /* =========================
+      HANDLE CHANGE
+  ========================= */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -23,31 +28,40 @@ export default function ContactFormSection() {
     });
   };
 
-  /* HANDLE SUBMIT */
+  /* =========================
+      HANDLE SUBMIT
+  ========================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // simple validation
+    /* VALIDATION */
     if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.message
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim() ||
+      !formData.message.trim()
     ) {
       alert("Please fill all fields ❗");
       return;
     }
 
     try {
+
       setLoading(true);
 
-      // 🔥 SEND DATA TO BACKEND
-      await API.post("/contact", formData);
+      /* SEND DATA */
+      const response = await API.post(
+        "/contact",
+        formData
+      );
 
-      alert("Message sent successfully ✅");
+      console.log(response.data);
 
-      // reset form
+      /* SUCCESS */
+      alert("Message Sent Successfully ✅");
+
+      /* RESET */
       setFormData({
         firstName: "",
         lastName: "",
@@ -57,8 +71,18 @@ export default function ContactFormSection() {
       });
 
     } catch (error) {
+
       console.log(error);
-      alert("Something went wrong ❌");
+
+      if (error.response) {
+        alert(
+          error.response.data.message ||
+          "Something went wrong ❌"
+        );
+      } else {
+        alert("Server Error ❌");
+      }
+
     } finally {
       setLoading(false);
     }
@@ -66,10 +90,14 @@ export default function ContactFormSection() {
 
   return (
     <section className="contactformux-root">
+
       <div className="contactformux-inner">
 
-        {/* LEFT FORM */}
+        {/* ====================================
+                LEFT SECTION
+        ==================================== */}
         <div className="contactformux-left">
+
           <p className="contactformux-topline">
             HAVE ANY QUESTIONS? SO PLEASE
           </p>
@@ -78,84 +106,147 @@ export default function ContactFormSection() {
             Feel Free To Contact!
           </h2>
 
-          <form className="contactformux-form" onSubmit={handleSubmit}>
+          <p className="contactformux-subtitle">
+            We would love to hear from you. Send us your
+            questions, feedback, or creative ideas and
+            our team will get back to you as soon as possible.
+          </p>
 
+          {/* FORM */}
+          <form
+            className="contactformux-form"
+            onSubmit={handleSubmit}
+          >
+
+            {/* ROW */}
             <div className="contactformux-row">
+
+              {/* FIRST NAME */}
               <label className="contactformux-label">
+
                 First Name
+
                 <input
                   type="text"
                   name="firstName"
+                  placeholder="Enter first name"
                   value={formData.firstName}
                   onChange={handleChange}
                   className="contactformux-input"
                 />
+
               </label>
 
+              {/* LAST NAME */}
               <label className="contactformux-label">
+
                 Last Name
+
                 <input
                   type="text"
                   name="lastName"
+                  placeholder="Enter last name"
                   value={formData.lastName}
                   onChange={handleChange}
                   className="contactformux-input"
                 />
+
               </label>
+
             </div>
 
+            {/* ROW */}
             <div className="contactformux-row">
+
+              {/* EMAIL */}
               <label className="contactformux-label">
-                Email
+
+                Email Address
+
                 <input
                   type="email"
                   name="email"
+                  placeholder="Enter email address"
                   value={formData.email}
                   onChange={handleChange}
                   className="contactformux-input"
                 />
+
               </label>
 
+              {/* PHONE */}
               <label className="contactformux-label">
-                Phone
+
+                Phone Number
+
                 <input
                   type="text"
                   name="phone"
+                  placeholder="Enter phone number"
                   value={formData.phone}
                   onChange={handleChange}
                   className="contactformux-input"
                 />
+
               </label>
+
             </div>
 
+            {/* MESSAGE */}
             <label className="contactformux-label">
+
               Message
+
               <textarea
                 name="message"
+                placeholder="Write your message here..."
                 value={formData.message}
                 onChange={handleChange}
                 className="contactformux-textarea"
               ></textarea>
+
             </label>
 
-            <button type="submit" className="contactformux-btn">
+            {/* BUTTON */}
+            <button
+              type="submit"
+              className="contactformux-btn"
+              disabled={loading}
+            >
               {loading ? "Sending..." : "Send Message"}
             </button>
 
           </form>
+
         </div>
 
-        {/* RIGHT IMAGE */}
+        {/* ====================================
+                RIGHT SECTION
+        ==================================== */}
         <div className="contactformux-right">
-          <div className="contactformux-yellowblob" />
+
+          {/* BG SHAPE */}
+          <div className="contactformux-yellowblob"></div>
+
+          {/* IMAGE WRAP */}
           <div className="contactformux-kid-wrap">
+
             <div className="contactformux-kid-frame">
-              <img src={kidImg} alt="Kid painting" className="contactformux-kidimg" />
+
+              <img
+                src={kidImg}
+                alt="Kid Painting"
+                className="contactformux-kidimg"
+              />
+
             </div>
+
           </div>
+
         </div>
 
       </div>
+
     </section>
   );
 }
