@@ -17,6 +17,7 @@ const contactRoutes = require("./routes/contact.routes");
 const categoryRoutes = require("./routes/category.routes");
 const blogRoutes = require("./routes/blog.routes");
 const orderRoutes = require("./routes/order.routes");
+const poojaRoutes = require("./routes/pooja.routes");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api/products", productRoutes); // ✅ ADD
 /* ================= TEST ROUTE ================= */
 app.use("/api/blog", blogRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/pooja", poojaRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server Running 🚀");
