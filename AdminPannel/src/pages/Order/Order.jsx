@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Order.css";
-import API from "../../api/axios";
+import API, { IMG_URL } from "../../api/axios";
 
 const Order = () => {
   const defaultForm = {
@@ -28,6 +28,8 @@ const Order = () => {
   const [products, setProducts] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [editId, setEditId] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [viewProduct, setViewProduct] = useState(null);
 
   /* ================= FETCH ================= */
   const fetchProducts = async () => {
@@ -52,8 +54,15 @@ const Order = () => {
   /* ================= IMAGE ================= */
   const handleImage = (e) => {
     const file = e.target.files[0];
+
     if (file) {
-      setForm({ ...form, image: URL.createObjectURL(file) });
+      setImageFile(file);
+
+      // preview
+      setForm({
+        ...form,
+        image: URL.createObjectURL(file),
+      });
     }
   };
 
@@ -62,21 +71,29 @@ const Order = () => {
     if (!form.name) return alert("Product name required");
 
     try {
-      const payload = {
-        ...form,
-        tags: form.tags ? form.tags.split(",") : [],
-      };
+      const formData = new FormData();
+
+      Object.keys(form).forEach((key) => {
+        if (key !== "image") {
+          formData.append(key, form[key]);
+        }
+      });
+
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
 
       if (editId) {
-        await API.put(`/orders/update/${editId}`, payload);
+        await API.put(`/orders/update/${editId}`, formData);
         alert("Updated successfully");
       } else {
-        await API.post("/orders/create", payload);
+        await API.post("/orders/create", formData);
         alert("Created successfully");
       }
 
       setForm(defaultForm);
       setEditId(null);
+      setImageFile(null);
       fetchProducts();
     } catch (err) {
       console.error(err);
@@ -97,38 +114,118 @@ const Order = () => {
 
   /* ================= EDIT ================= */
   const handleEdit = (product) => {
+    setEditId(product._id);
+
     setForm({
       ...product,
       tags: product.tags?.join(",") || "",
+      image: product.image ? `${IMG_URL}/uploads/${product.image}` : "",
     });
-    setEditId(product._id);
+
     setActiveDropdown(null);
   };
 
   return (
     <div className="luxadmin">
-      <div className="luxadmin-top">
+      {viewProduct && (
+        <div className="luxadmin-modal">
+          <div className="luxadmin-modal-content">
+            <button
+              className="luxadmin-close"
+              onClick={() => setViewProduct(null)}
+            >
+              ✕
+            </button>
 
-        {/* FORM */}
+            <div className="luxadmin-card">
+              {viewProduct.saleBadge && <span className="badge">SALE</span>}
+
+              <img
+                src={
+                  viewProduct.image
+                    ? `${IMG_URL}/uploads/${viewProduct.image}`
+                    : "https://images.unsplash.com/photo-1611078489935-0cb964de46d6"
+                }
+                alt=""
+              />
+
+              <h3>{viewProduct.name}</h3>
+              <p>{viewProduct.shortDesc}</p>
+
+              <div className="price">
+                <span className="old">₹{viewProduct.price}</span>
+                <span className="new">₹{viewProduct.salePrice}</span>
+              </div>
+
+              <button className="cart">Add To Cart</button>
+
+              <div className="small-btns">
+                {viewProduct.wishlist && <button>Wishlist</button>}
+                {viewProduct.compare && <button>Compare</button>}
+              </div>
+
+              <div className="extra">
+                <span>{viewProduct.stock} in stock</span>
+                <span>{viewProduct.category}</span>
+                <span>{viewProduct.type}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="luxadmin-top">
+        {/* ================= FORM ================= */}
         <div className="luxadmin-form">
           <h2>{editId ? "Edit Product" : "Add Product"}</h2>
 
           <div className="luxadmin-grid">
-            <input name="name" value={form.name} placeholder="Product Name" onChange={handleChange} />
+            <input
+              name="name"
+              value={form.name}
+              placeholder="Product Name"
+              onChange={handleChange}
+            />
 
-            <select name="category" value={form.category} onChange={handleChange}>
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+            >
               <option>Temple Idol</option>
               <option>Decor</option>
               <option>Spiritual</option>
             </select>
 
-            <input name="slug" value={form.slug} placeholder="Slug" onChange={handleChange} />
+            <input
+              name="slug"
+              value={form.slug}
+              placeholder="Slug"
+              onChange={handleChange}
+            />
 
-            <input name="price" value={form.price} type="number" placeholder="Price" onChange={handleChange} />
+            <input
+              name="price"
+              value={form.price}
+              type="number"
+              placeholder="Price"
+              onChange={handleChange}
+            />
 
-            <input name="salePrice" value={form.salePrice} type="number" placeholder="Sale Price" onChange={handleChange} />
+            <input
+              name="salePrice"
+              value={form.salePrice}
+              type="number"
+              placeholder="Sale Price"
+              onChange={handleChange}
+            />
 
-            <input name="stock" value={form.stock} type="number" placeholder="Stock" onChange={handleChange} />
+            <input
+              name="stock"
+              value={form.stock}
+              type="number"
+              placeholder="Stock"
+              onChange={handleChange}
+            />
 
             <select name="status" value={form.status} onChange={handleChange}>
               <option>Active</option>
@@ -142,6 +239,7 @@ const Order = () => {
               <option>Sale</option>
             </select>
 
+            {/* IMAGE */}
             <input type="file" onChange={handleImage} />
 
             <textarea
@@ -158,17 +256,40 @@ const Order = () => {
               onChange={handleChange}
             ></textarea>
 
-            <input name="tags" value={form.tags} placeholder="Tags" onChange={handleChange} />
+            <input
+              name="tags"
+              value={form.tags}
+              placeholder="Tags"
+              onChange={handleChange}
+            />
 
             <div className="luxadmin-checks">
               <label>
-                <input type="checkbox" name="wishlist" checked={form.wishlist} onChange={handleChange} /> Wishlist
+                <input
+                  type="checkbox"
+                  name="wishlist"
+                  checked={form.wishlist}
+                  onChange={handleChange}
+                />{" "}
+                Wishlist
               </label>
               <label>
-                <input type="checkbox" name="compare" checked={form.compare} onChange={handleChange} /> Compare
+                <input
+                  type="checkbox"
+                  name="compare"
+                  checked={form.compare}
+                  onChange={handleChange}
+                />{" "}
+                Compare
               </label>
               <label>
-                <input type="checkbox" name="saleBadge" checked={form.saleBadge} onChange={handleChange} /> Sale
+                <input
+                  type="checkbox"
+                  name="saleBadge"
+                  checked={form.saleBadge}
+                  onChange={handleChange}
+                />{" "}
+                Sale
               </label>
             </div>
 
@@ -178,7 +299,7 @@ const Order = () => {
           </div>
         </div>
 
-        {/* LIVE PREVIEW */}
+        {/* ================= PREVIEW ================= */}
         <div className="luxadmin-preview">
           <h2>Live Preview</h2>
 
@@ -187,8 +308,11 @@ const Order = () => {
 
             <img
               src={
-                form.image ||
-                "https://images.unsplash.com/photo-1611078489935-0cb964de46d6"
+                form.image
+                  ? form.image.startsWith("blob")
+                    ? form.image
+                    : `${IMG_URL}/uploads/${form.image.split("/").pop()}`
+                  : "https://images.unsplash.com/photo-1611078489935-0cb964de46d6"
               }
               alt=""
             />
@@ -217,7 +341,7 @@ const Order = () => {
         </div>
       </div>
 
-      {/* TABLE */}
+      {/* ================= TABLE ================= */}
       <div className="luxadmin-table">
         <h2>All Products</h2>
 
@@ -240,8 +364,15 @@ const Order = () => {
               {products.map((p, i) => (
                 <tr key={p._id}>
                   <td>
-                    <img src={p.image} className="table-img" alt="" />
+                    {p.image && (
+                      <img
+                        src={`${IMG_URL}/uploads/${p.image}`}
+                        className="table-img"
+                        alt=""
+                      />
+                    )}
                   </td>
+
                   <td>{p.name}</td>
                   <td>{p._id}</td>
                   <td>{p.category}</td>
@@ -251,13 +382,23 @@ const Order = () => {
 
                   <td>
                     <div className="action">
-                      <button onClick={() => setActiveDropdown(activeDropdown === i ? null : i)}>⋮</button>
+                      <button
+                        onClick={() =>
+                          setActiveDropdown(activeDropdown === i ? null : i)
+                        }
+                      >
+                        ⋮
+                      </button>
 
                       {activeDropdown === i && (
                         <div className="dropdown">
-                          <button onClick={() => alert(JSON.stringify(p, null, 2))}>View</button>
+                          <button onClick={() => setViewProduct(p)}>
+                            View
+                          </button>
                           <button onClick={() => handleEdit(p)}>Edit</button>
-                          <button onClick={() => handleDelete(p._id)}>Delete</button>
+                          <button onClick={() => handleDelete(p._id)}>
+                            Delete
+                          </button>
                         </div>
                       )}
                     </div>
@@ -265,7 +406,6 @@ const Order = () => {
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
       </div>

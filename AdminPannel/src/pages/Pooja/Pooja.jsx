@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Editor } from "@tinymce/tinymce-react";
+import API, { IMG_URL } from "../../api/axios";
 import "./Pooja.css";
 
 const Pooja = () => {
   const defaultForm = {
     name: "",
     slug: "",
-    category: "Idol",
+    category: "",
     price: "",
     salePrice: "",
     stock: "",
@@ -13,241 +15,313 @@ const Pooja = () => {
     type: "Featured",
     shortDesc: "",
     image: "",
+    rating: 5,
   };
 
   const [form, setForm] = useState(defaultForm);
   const [products, setProducts] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
-  // INPUT CHANGE
+  /* ================= FETCH ================= */
+  const fetchProducts = async () => {
+    try {
+      const res = await API.get("/pooja/all");
+      setProducts(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  /* ================= INPUT ================= */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // IMAGE UPLOAD
+  /* ================= IMAGE ================= */
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    setImageFile(file);
+
     if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setForm({ ...form, image: imageURL });
+      const preview = URL.createObjectURL(file);
+      setForm({ ...form, image: preview });
     }
   };
 
-  // DISCOUNT
-  const discount =
-    form.price && form.salePrice
-      ? Math.round(((form.price - form.salePrice) / form.price) * 100)
-      : 0;
-
-  // SAVE / UPDATE
-  const handleSave = () => {
+  /* ================= SAVE ================= */
+  const handleSave = async () => {
     if (!form.name || !form.price) {
       alert("Fill required fields");
       return;
     }
 
-    if (editIndex !== null) {
-      const updated = [...products];
-      updated[editIndex] = form;
-      setProducts(updated);
-      setEditIndex(null);
-    } else {
-      setProducts([...products, form]);
+    try {
+      const formData = new FormData();
+
+      Object.keys(form).forEach((key) => {
+        if (key !== "image") {
+          formData.append(key, form[key]);
+        }
+      });
+
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+      if (editId) {
+        await API.put(`/pooja/update/${editId}`, formData);
+      } else {
+        await API.post("/pooja/create", formData);
+      }
+
+      fetchProducts();
+      setForm(defaultForm);
+      setEditId(null);
+      setImageFile(null);
+    } catch (err) {
+      console.log(err);
     }
-
-    setForm(defaultForm);
   };
 
-  // DELETE
-  const handleDelete = (index) => {
-    const updated = products.filter((_, i) => i !== index);
-    setProducts(updated);
+  /* ================= DELETE ================= */
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/pooja/delete/${id}`);
+      fetchProducts();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // EDIT
-  const handleEdit = (index) => {
-    setForm(products[index]);
-    setEditIndex(index);
+  /* ================= EDIT ================= */
+  const handleEdit = (product) => {
+    setEditId(product._id);
+
+    setForm({
+      ...product,
+      image: product.image
+        ? `${IMG_URL}/uploads/${product.image}`
+        : "",
+    });
   };
 
-  // CANCEL EDIT
   const handleCancel = () => {
     setForm(defaultForm);
-    setEditIndex(null);
+    setEditId(null);
+    setImageFile(null);
   };
 
+  /* ================= DISCOUNT ================= */
+  const discount =
+    form.price && form.salePrice
+      ? Math.round(((form.price - form.salePrice) / form.price) * 100)
+      : 0;
+
   return (
-    <div className="pooja">
-      <div className="pooja-top">
-        {/* FORM */}
-        <div className="pooja-form">
-          <h2>{editIndex !== null ? "Edit Product" : "Add New Product"}</h2>
+    <div className="pooja-wrapper">
+      <div className="pooja-grid">
 
-          <div className="pooja-box">
-            <h4>Basic Info</h4>
+        {/* ================= FORM ================= */}
+        <div className="pooja-card">
+          <h2 className="pooja-title">
+            {editId ? "Edit Product" : "Add Product"}
+          </h2>
+
+          <div className="pooja-section">
+            <label>Product Name</label>
+            <input name="name" value={form.name} onChange={handleChange} />
+          </div>
+
+          <div className="pooja-section">
+            <label>Slug</label>
+            <input name="slug" value={form.slug} onChange={handleChange} />
+          </div>
+
+          <div className="pooja-row">
+            <div>
+              <label>Price</label>
+              <input name="price" value={form.price} onChange={handleChange} />
+            </div>
+            <div>
+              <label>Sale Price</label>
+              <input
+                name="salePrice"
+                value={form.salePrice}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <p className="pooja-discount">Discount: {discount}%</p>
+
+          <div className="pooja-section">
+            <label>Rating (1 - 5)</label>
             <input
-              name="name"
-              value={form.name}
-              placeholder="Product Name"
-              onChange={handleChange}
-            />
-            <input
-              name="slug"
-              value={form.slug}
-              placeholder="Slug"
+              type="number"
+              name="rating"
+              min="1"
+              max="5"
+              step="0.1"
+              value={form.rating}
               onChange={handleChange}
             />
           </div>
 
-          <div className="pooja-box">
-            <h4>Pricing</h4>
-            <input
-              name="price"
-              value={form.price}
-              placeholder="Price"
-              onChange={handleChange}
-            />
-            <input
-              name="salePrice"
-              value={form.salePrice}
-              placeholder="Sale Price"
-              onChange={handleChange}
-            />
-            <p className="discount">Discount: {discount}%</p>
+          <div className="pooja-row">
+            <div>
+              <label>Stock</label>
+              <input name="stock" value={form.stock} onChange={handleChange} />
+            </div>
+
+            <div>
+              <label>Status</label>
+              <select name="status" value={form.status} onChange={handleChange}>
+                <option>Active</option>
+                <option>Draft</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Type</label>
+              <select name="type" value={form.type} onChange={handleChange}>
+                <option>Featured</option>
+                <option>Normal</option>
+              </select>
+            </div>
           </div>
 
-          <div className="pooja-box">
-            <h4>Inventory</h4>
-            <input
-              name="stock"
-              value={form.stock}
-              placeholder="Stock"
-              onChange={handleChange}
-            />
-            <select name="status" value={form.status} onChange={handleChange}>
-              <option>Active</option>
-              <option>Draft</option>
-            </select>
-            <select name="type" value={form.type} onChange={handleChange}>
-              <option>Featured</option>
-              <option>Normal</option>
-            </select>
-          </div>
+          {/* TinyMCE */}
+          <div className="pooja-section">
+            <label>Description</label>
 
-          <div className="pooja-box">
-            <h4>Description</h4>
-            <textarea
-              name="shortDesc"
-              value={form.shortDesc}
-              placeholder="Short Description"
-              onChange={handleChange}
-            />
+            <div className="pooja-editor">
+              <Editor
+                apiKey="jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"
+                value={form.shortDesc}
+                onEditorChange={(content) =>
+                  setForm({ ...form, shortDesc: content })
+                }
+                init={{
+                  height: 220,
+                  menubar: false,
+                  plugins: ["lists", "link", "image", "code"],
+                  toolbar:
+                    "undo redo | bold italic underline | bullist numlist | link image | code",
+                }}
+              />
+            </div>
           </div>
 
           {/* IMAGE */}
-          <div className="pooja-box">
-            <h4>Upload Image</h4>
-
-            <label className="upload-box">
-              <input type="file" onChange={handleImageUpload} />
-              <span>Click to Upload</span>
-            </label>
-
-            {form.image && (
-              <img src={form.image} alt="" className="upload-preview" />
-            )}
+          <div className="pooja-upload">
+            <input type="file" onChange={handleImageUpload} />
+            <span>Upload Image</span>
           </div>
 
-          <button className="pooja-save" onClick={handleSave}>
-            {editIndex !== null ? "Update Product" : "Save Product"}
+          {form.image && (
+            <img src={form.image} className="pooja-preview-img" alt="" />
+          )}
+
+          <button className="pooja-btn-primary" onClick={handleSave}>
+            {editId ? "Update Product" : "Save Product"}
           </button>
 
-          {editIndex !== null && (
-            <button className="cancel-btn" onClick={handleCancel}>
+          {editId && (
+            <button className="pooja-btn-secondary" onClick={handleCancel}>
               Cancel
             </button>
           )}
         </div>
 
-        {/* PREVIEW */}
-        <div className="pooja-preview">
-          <h2>Live Product Preview</h2>
+        {/* ================= PREVIEW ================= */}
+        <div className="pooja-card">
+          <h2 className="pooja-title">Live Preview</h2>
 
-          <div className="preview-card">
-            <div className="preview-img">
+          <div className="pooja-preview-card">
+            <div className="pooja-preview-left">
               {form.image ? (
                 <img src={form.image} alt="" />
               ) : (
-                <div className="no-img">No Image</div>
+                <div className="pooja-no-img">No Image</div>
               )}
-              {discount > 0 && <span className="badge">-{discount}%</span>}
+
+              {discount > 0 && (
+                <span className="pooja-badge">-{discount}%</span>
+              )}
             </div>
 
-            <div className="preview-content">
+            <div className="pooja-preview-right">
               <h3>{form.name || "Product Name"}</h3>
-              <p className="rating">⭐ 5.0</p>
+              <p className="pooja-rating">⭐ {form.rating || 0}</p>
 
-              <div className="price">
+              <div className="pooja-price">
                 <span className="sale">₹{form.salePrice || 0}</span>
                 <span className="original">₹{form.price || 0}</span>
               </div>
 
-              <p className="desc">
-                {form.shortDesc || "Product description preview..."}
-              </p>
+              <div
+                className="desc"
+                dangerouslySetInnerHTML={{
+                  __html: form.shortDesc || "Product description preview...",
+                }}
+              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* TABLE */}
-      <div className="pooja-table">
-        <h2>All Products</h2>
+      {/* ================= TABLE ================= */}
+      <div className="pooja-card pooja-table">
+        <h2 className="pooja-title">All Products</h2>
 
-        <table className="pooja-table-main">
-          <thead className="pooja-thead">
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Status</th>
-              <th>Type</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody className="pooja-tbody">
-            {products.map((p, index) => (
-              <tr key={index} className="pooja-row">
-                <td className="pooja-cell">
-                  {p.image && (
-                    <img src={p.image} alt="" className="pooja-img" />
-                  )}
-                </td>
-                <td className="pooja-cell">{p.name}</td>
-                <td className="pooja-cell">₹{p.salePrice || p.price}</td>
-                <td className="pooja-cell">{p.stock}</td>
-                <td className="pooja-cell">{p.status}</td>
-                <td className="pooja-cell">{p.type}</td>
-                <td className="pooja-cell">
-                  <button
-                    className="pooja-edit"
-                    onClick={() => handleEdit(index)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="pooja-delete"
-                    onClick={() => handleDelete(index)}
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="pooja-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {products.map((p) => (
+                <tr key={p._id}>
+                  <td>
+                    {p.image && (
+                      <img
+                        src={`${IMG_URL}/uploads/${p.image}`}
+                        alt=""
+                      />
+                    )}
+                  </td>
+                  <td>{p.name}</td>
+                  <td>₹{p.salePrice || p.price}</td>
+                  <td>⭐ {p.rating}</td>
+                  <td>{p.stock}</td>
+                  <td>{p.status}</td>
+                  <td>{p.type}</td>
+                  <td>
+                    <button onClick={() => handleEdit(p)}>Edit</button>
+                    <button onClick={() => handleDelete(p._id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
