@@ -10,10 +10,13 @@ dotenv.config();
 const connectDB = require("./config/db");
 
 /* Import Routes */
-const contactRoutes = require("./routes/contact.routes");
-const categoryRoutes = require("./routes/category.routes");
 const teamRoutes = require("./routes/teamMember.routes");
 const productRoutes = require("./routes/product.routes");
+// const { upload, convertToWebp } = require("./middlewares/upload.js");
+const contactRoutes = require("./routes/contact.routes");
+const categoryRoutes = require("./routes/category.routes");
+const blogRoutes = require("./routes/blog.routes");
+const orderRoutes = require("./routes/order.routes");
 
 const app = express();
 
@@ -36,6 +39,8 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/team", teamRoutes); // ✅ ADD
 app.use("/api/products", productRoutes); // ✅ ADD
 /* ================= TEST ROUTE ================= */
+app.use("/api/blog", blogRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server Running 🚀");

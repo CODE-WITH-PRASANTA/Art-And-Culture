@@ -1,31 +1,30 @@
-/* RESET */
-* {
+/* RESET (SCOPED) */
+.luxadmin * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  background: #f4f6f9;
-  font-family: "Poppins", sans-serif;
-}
+/* BODY FIX REMOVED (avoid global override) */
 
 /* MAIN */
 .luxadmin {
   padding: 30px;
+  background: #f4f6f9;
+  font-family: "Poppins", sans-serif;
 }
 
 /* TOP SECTION */
-.luxadmin-top {
+.luxadmin .luxadmin-top {
   display: flex;
   gap: 30px;
   align-items: flex-start;
 }
 
 /* COMMON CARD */
-.luxadmin-form,
-.luxadmin-preview,
-.luxadmin-table {
+.luxadmin .luxadmin-form,
+.luxadmin .luxadmin-preview,
+.luxadmin .luxadmin-table {
   background: #fff;
   border-radius: 22px;
   padding: 25px;
@@ -33,32 +32,32 @@ body {
 }
 
 /* FORM */
-.luxadmin-form {
+.luxadmin .luxadmin-form {
   flex: 1.5;
 }
 
-.luxadmin-form h2 {
+.luxadmin .luxadmin-form h2 {
   font-size: 26px;
   font-weight: 700;
 }
 
-.luxadmin-form p {
+.luxadmin .luxadmin-form p {
   color: #777;
   margin: 10px 0 20px;
   font-size: 14px;
 }
 
 /* GRID */
-.luxadmin-grid {
+.luxadmin .luxadmin-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
 /* INPUTS */
-.luxadmin-grid input,
-.luxadmin-grid select,
-.luxadmin-grid textarea {
+.luxadmin .luxadmin-grid input,
+.luxadmin .luxadmin-grid select,
+.luxadmin .luxadmin-grid textarea {
   width: 100%;
   padding: 13px;
   border-radius: 12px;
@@ -66,11 +65,12 @@ body {
   font-size: 14px;
   background: #fafafa;
   transition: all 0.25s ease;
+  color: #000;
 }
 
-.luxadmin-grid input:focus,
-.luxadmin-grid select:focus,
-.luxadmin-grid textarea:focus {
+.luxadmin .luxadmin-grid input:focus,
+.luxadmin .luxadmin-grid select:focus,
+.luxadmin .luxadmin-grid textarea:focus {
   border-color: #111;
   background: #fff;
   box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
@@ -78,14 +78,14 @@ body {
 }
 
 /* TEXTAREA */
-.luxadmin-grid textarea {
+.luxadmin .luxadmin-grid textarea {
   grid-column: span 2;
   min-height: 90px;
   resize: none;
 }
 
 /* CHECKBOX */
-.luxadmin-checks {
+.luxadmin .luxadmin-checks {
   grid-column: span 2;
   display: flex;
   gap: 20px;
@@ -93,17 +93,17 @@ body {
   flex-wrap: wrap;
 }
 
-.luxadmin-checks label {
+.luxadmin .luxadmin-checks label {
   display: flex;
   align-items: center;
 }
 
-.luxadmin-checks input {
+.luxadmin .luxadmin-checks input {
   margin-right: 6px;
 }
 
 /* BUTTON */
-.luxadmin-save {
+.luxadmin .luxadmin-save {
   grid-column: span 2;
   padding: 15px;
   background: linear-gradient(135deg, #111, #333);
@@ -116,25 +116,25 @@ body {
   transition: 0.3s;
 }
 
-.luxadmin-save:hover {
+.luxadmin .luxadmin-save:hover {
   transform: translateY(-2px);
   background: #000;
 }
 
 /* PREVIEW */
-.luxadmin-preview {
+.luxadmin .luxadmin-preview {
   flex: 1;
   position: sticky;
   top: 20px;
 }
 
-.luxadmin-preview h2 {
+.luxadmin .luxadmin-preview h2 {
   font-size: 22px;
   margin-bottom: 10px;
 }
 
 /* CARD */
-.luxadmin-card {
+.luxadmin .luxadmin-card {
   margin-top: 20px;
   border-radius: 20px;
   overflow: hidden;
@@ -144,19 +144,19 @@ body {
   transition: 0.3s;
 }
 
-.luxadmin-card:hover {
+.luxadmin .luxadmin-card:hover {
   transform: translateY(-4px);
 }
 
 /* IMAGE */
-.luxadmin-card img {
+.luxadmin .luxadmin-card img {
   width: 100%;
   height: 260px;
   object-fit: cover;
 }
 
 /* BADGE */
-.badge {
+.luxadmin .badge {
   position: absolute;
   top: 12px;
   left: 12px;
@@ -169,35 +169,35 @@ body {
 }
 
 /* TEXT */
-.luxadmin-card h3 {
+.luxadmin .luxadmin-card h3 {
   font-size: 18px;
   margin: 14px 0 6px;
 }
 
-.luxadmin-card p {
+.luxadmin .luxadmin-card p {
   font-size: 13px;
   color: #666;
   padding: 0 15px;
 }
 
 /* PRICE */
-.price {
+.luxadmin .price {
   margin: 12px 0;
 }
 
-.old {
+.luxadmin .old {
   text-decoration: line-through;
   color: #aaa;
   margin-right: 6px;
 }
 
-.new {
+.luxadmin .new {
   font-size: 22px;
   font-weight: 700;
 }
 
 /* CART */
-.cart {
+.luxadmin .cart {
   width: 90%;
   margin: 10px auto;
   padding: 12px;
@@ -210,34 +210,34 @@ body {
   transition: 0.3s;
 }
 
-.cart:hover {
+.luxadmin .cart:hover {
   background: #000;
 }
 
 /* SMALL BUTTONS */
-.small-btns {
+.luxadmin .small-btns {
   display: flex;
   gap: 10px;
   padding: 0 15px;
 }
 
-.small-btns button {
+.luxadmin .small-btns button {
   flex: 1;
   padding: 9px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  background: #fff;
+  background: #9968ed;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.small-btns button:hover {
+.luxadmin .small-btns button:hover {
   background: #111;
   color: #fff;
 }
 
 /* EXTRA */
-.extra {
+.luxadmin .extra {
   margin: 12px 0 20px;
   display: flex;
   flex-wrap: wrap;
@@ -245,55 +245,62 @@ body {
   justify-content: center;
 }
 
-.extra span {
-  background: #f1f1f1;
+.luxadmin .extra span {
+  background: #f44e4e;
   padding: 5px 9px;
   border-radius: 20px;
   font-size: 11px;
+  color: #000;
 }
 
 /* TABLE */
-.luxadmin-table {
+.luxadmin .luxadmin-table {
   margin-top: 30px;
 }
 
-.luxadmin-table h2 {
+.luxadmin .luxadmin-table h2 {
   margin-bottom: 15px;
 }
 
 /* WRAP */
-.table-wrap {
+.luxadmin .table-wrap {
   width: 100%;
   overflow-x: auto;
+  overflow-y: visible; /* ✅ ADD THIS */
   border-radius: 15px;
 }
 
-/* TABLE */
-table {
+/* TABLE FIXED */
+.luxadmin table {
   width: 100%;
   min-width: 850px;
   border-collapse: collapse;
+  overflow: visible; /* ✅ ADD */
 }
 
-th {
+.luxadmin th {
   background: #111;
   color: #fff;
   padding: 13px;
   font-size: 13px;
 }
 
-td {
+.luxadmin td {
   padding: 13px;
   text-align: center;
   border-bottom: 1px solid #eee;
 }
 
-tr:hover {
+.luxadmin tr:hover {
   background: #fafafa;
 }
 
+.luxadmin tr{
+  position: relative;
+  overflow: visible; /* ✅ ADD */
+}
 /* IMAGE */
-.table-img {
+.luxadmin .table-img {
   width: 60px;
   height: 60px;
   border-radius: 10px;
@@ -301,30 +308,32 @@ tr:hover {
 }
 
 /* ACTION */
-.action {
+.luxadmin .action {
   position: relative;
 }
 
-.action button {
+.luxadmin .action button {
   width: 34px;
   height: 34px;
   border-radius: 8px;
   border: none;
-  background: #f2f2f2;
+  background: #a03d3d;
   cursor: pointer;
   font-size: 18px;
 }
 
-.action button:hover {
+.luxadmin .action button:hover {
   background: #111;
   color: #fff;
 }
 
-/* DROPDOWN (FIXED ISSUE) */
-.dropdown {
+/* DROPDOWN */
+.luxadmin .dropdown {
+  all: unset;
   position: absolute;
   right: 0;
-  top: 40px;
+  top: 100%;
+  margin-top: 6px;
   width: 160px;
   background: #fff;
   border-radius: 12px;
@@ -332,20 +341,25 @@ tr:hover {
   overflow: hidden;
   z-index: 9999;
   animation: fade 0.2s ease;
+  display: flex;
+  flex-direction: column; /* ✅ FORCE COLUMN */
+  gap: 2px;
 }
 
-.dropdown button {
+.luxadmin .dropdown button {
   width: 100%;
   padding: 11px;
   border: none;
-  background: #fff;
+  background: #839eee;
   text-align: left;
   font-size: 13px;
   cursor: pointer;
   transition: 0.2s;
+  display: block;        /* ✅ stack vertically */
+  
 }
 
-.dropdown button:hover {
+.luxadmin .dropdown button:hover {
   background: #111;
   color: #fff;
 }
@@ -364,11 +378,11 @@ tr:hover {
 
 /* RESPONSIVE */
 @media (max-width: 1100px) {
-  .luxadmin-top {
+  .luxadmin .luxadmin-top {
     flex-direction: column;
   }
 
-  .luxadmin-preview {
+  .luxadmin .luxadmin-preview {
     position: relative;
     top: 0;
   }
@@ -379,35 +393,32 @@ tr:hover {
     padding: 15px;
   }
 
-  .luxadmin-grid {
+  .luxadmin .luxadmin-grid {
     grid-template-columns: 1fr;
   }
 
-  .luxadmin-grid textarea,
-  .luxadmin-save,
-  .luxadmin-checks {
+  .luxadmin .luxadmin-grid textarea,
+  .luxadmin .luxadmin-save,
+  .luxadmin .luxadmin-checks {
     grid-column: span 1;
   }
 
-  .luxadmin-card img {
+  .luxadmin .luxadmin-card img {
     height: 220px;
   }
 
-  table {
+  .luxadmin table {
     min-width: 700px;
   }
 }
 
 @media (max-width: 480px) {
-  .luxadmin-form h2 {
+  .luxadmin .luxadmin-form h2,
+  .luxadmin .luxadmin-preview h2 {
     font-size: 20px;
   }
 
-  .luxadmin-preview h2 {
-    font-size: 20px;
-  }
-
-  .new {
+  .luxadmin .new {
     font-size: 18px;
   }
 }

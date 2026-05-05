@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Order.css";
+import API from "../../api/axios";
 
 const Order = () => {
   const defaultForm = {
@@ -26,13 +27,29 @@ const Order = () => {
   const [form, setForm] = useState(defaultForm);
   const [products, setProducts] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
 
+  /* ================= FETCH ================= */
+  const fetchProducts = async () => {
+    try {
+      const res = await API.get("/orders");
+      setProducts(res.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  /* ================= CHANGE ================= */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
+  /* ================= IMAGE ================= */
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -40,33 +57,51 @@ const Order = () => {
     }
   };
 
-  const handleSave = () => {
+  /* ================= SAVE ================= */
+  const handleSave = async () => {
     if (!form.name) return alert("Product name required");
 
-    if (editIndex !== null) {
-      const updated = [...products];
-      updated[editIndex] = { ...form, id: products[editIndex].id };
-      setProducts(updated);
-      setEditIndex(null);
-    } else {
-      const newProduct = {
+    try {
+      const payload = {
         ...form,
-        id: `#PRD${products.length + 1}`,
+        tags: form.tags ? form.tags.split(",") : [],
       };
-      setProducts([...products, newProduct]);
+
+      if (editId) {
+        await API.put(`/orders/update/${editId}`, payload);
+        alert("Updated successfully");
+      } else {
+        await API.post("/orders/create", payload);
+        alert("Created successfully");
+      }
+
+      setForm(defaultForm);
+      setEditId(null);
+      fetchProducts();
+    } catch (err) {
+      console.error(err);
+      alert("Error saving product");
     }
-
-    setForm(defaultForm);
   };
 
-  const handleDelete = (index) => {
-    setProducts(products.filter((_, i) => i !== index));
-    setActiveDropdown(null);
+  /* ================= DELETE ================= */
+  const handleDelete = async (id) => {
+    try {
+      await API.delete(`/orders/delete/${id}`);
+      setActiveDropdown(null);
+      fetchProducts();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleEdit = (index) => {
-    setForm(products[index]);
-    setEditIndex(index);
+  /* ================= EDIT ================= */
+  const handleEdit = (product) => {
+    setForm({
+      ...product,
+      tags: product.tags?.join(",") || "",
+    });
+    setEditId(product._id);
     setActiveDropdown(null);
   };
 
@@ -76,7 +111,7 @@ const Order = () => {
 
         {/* FORM */}
         <div className="luxadmin-form">
-          <h2>{editIndex !== null ? "Edit Product" : "Add Product"}</h2>
+          <h2>{editId ? "Edit Product" : "Add Product"}</h2>
 
           <div className="luxadmin-grid">
             <input name="name" value={form.name} placeholder="Product Name" onChange={handleChange} />
@@ -88,9 +123,11 @@ const Order = () => {
             </select>
 
             <input name="slug" value={form.slug} placeholder="Slug" onChange={handleChange} />
+
             <input name="price" value={form.price} type="number" placeholder="Price" onChange={handleChange} />
 
             <input name="salePrice" value={form.salePrice} type="number" placeholder="Sale Price" onChange={handleChange} />
+
             <input name="stock" value={form.stock} type="number" placeholder="Stock" onChange={handleChange} />
 
             <select name="status" value={form.status} onChange={handleChange}>
@@ -107,19 +144,36 @@ const Order = () => {
 
             <input type="file" onChange={handleImage} />
 
-            <textarea name="shortDesc" value={form.shortDesc} placeholder="Short Description" onChange={handleChange}></textarea>
-            <textarea name="fullDesc" value={form.fullDesc} placeholder="Full Description" onChange={handleChange}></textarea>
+            <textarea
+              name="shortDesc"
+              value={form.shortDesc}
+              placeholder="Short Description"
+              onChange={handleChange}
+            ></textarea>
+
+            <textarea
+              name="fullDesc"
+              value={form.fullDesc}
+              placeholder="Full Description"
+              onChange={handleChange}
+            ></textarea>
 
             <input name="tags" value={form.tags} placeholder="Tags" onChange={handleChange} />
 
             <div className="luxadmin-checks">
-              <label><input type="checkbox" name="wishlist" checked={form.wishlist} onChange={handleChange}/> Wishlist</label>
-              <label><input type="checkbox" name="compare" checked={form.compare} onChange={handleChange}/> Compare</label>
-              <label><input type="checkbox" name="saleBadge" checked={form.saleBadge} onChange={handleChange}/> Sale</label>
+              <label>
+                <input type="checkbox" name="wishlist" checked={form.wishlist} onChange={handleChange} /> Wishlist
+              </label>
+              <label>
+                <input type="checkbox" name="compare" checked={form.compare} onChange={handleChange} /> Compare
+              </label>
+              <label>
+                <input type="checkbox" name="saleBadge" checked={form.saleBadge} onChange={handleChange} /> Sale
+              </label>
             </div>
 
             <button className="luxadmin-save" onClick={handleSave}>
-              {editIndex !== null ? "Update Product" : "Save Product"}
+              {editId ? "Update Product" : "Save Product"}
             </button>
           </div>
         </div>
@@ -184,10 +238,12 @@ const Order = () => {
 
             <tbody>
               {products.map((p, i) => (
-                <tr key={i}>
-                  <td><img src={p.image} className="table-img" alt="" /></td>
+                <tr key={p._id}>
+                  <td>
+                    <img src={p.image} className="table-img" alt="" />
+                  </td>
                   <td>{p.name}</td>
-                  <td>{p.id}</td>
+                  <td>{p._id}</td>
                   <td>{p.category}</td>
                   <td>₹{p.price}</td>
                   <td>₹{p.salePrice}</td>
@@ -200,8 +256,8 @@ const Order = () => {
                       {activeDropdown === i && (
                         <div className="dropdown">
                           <button onClick={() => alert(JSON.stringify(p, null, 2))}>View</button>
-                          <button onClick={() => handleEdit(i)}>Edit</button>
-                          <button onClick={() => handleDelete(i)}>Delete</button>
+                          <button onClick={() => handleEdit(p)}>Edit</button>
+                          <button onClick={() => handleDelete(p._id)}>Delete</button>
                         </div>
                       )}
                     </div>
