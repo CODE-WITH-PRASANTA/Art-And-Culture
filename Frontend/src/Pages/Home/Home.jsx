@@ -4,6 +4,7 @@ import Herosection from '../../Components/HeroSection/HeroSection'
 import Typesofidols from '../../Components/Typesofidols/Typesofidols'
 import Trendingproducts from '../../Components/Trendingproducts/Trendingproducts'
 import News from '../../Components/News/News'
+import TeamMember from '../../Components/TeamMember/TeamMember'
 
 
 import GodCollectionSection from '../../Components/GodCollectionSection/GodCollectionSection'
@@ -19,7 +20,7 @@ const Home = () => {
       <Typesofidols/>
      <Testimonial/>
       <Trendingproducts/>
-      
+      <TeamMember/>
       
       <GodCollectionSection/>
       <Artpromise/>
