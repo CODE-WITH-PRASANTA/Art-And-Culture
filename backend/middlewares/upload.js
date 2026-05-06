@@ -12,6 +12,8 @@ const ensureDir = (dir) => {
 
 /* ================= ROUTE → FOLDER MAP ================= */
 const routeFolderMap = {
+  "/api/blog": "uploads/blogs",
+  "/api/pooja": "uploads/pooja", 
   "/gallery": "uploads/gallery",
   "/news": "uploads/news",
   "/events": "uploads/events",

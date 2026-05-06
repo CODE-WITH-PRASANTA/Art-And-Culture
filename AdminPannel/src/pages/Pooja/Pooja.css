@@ -1,182 +1,297 @@
-/* ================= ROOT ================= */
-.pooja {
-  padding: 24px;
+.pooja-wrapper {
+  padding: 5px;
+  background: #f5f7fb;
   font-family: "Inter", sans-serif;
-  background: #f4f6fb;
-  min-height: 100vh;
 }
 
-/* ================= TOP ================= */
-.pooja-top {
-  display: flex;
+/* GRID */
+.pooja-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-/* ================= FORM ================= */
-.pooja-form {
-  flex: 1;
-  min-width: 380px;
-  background: #fff;
-  padding: 22px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-}
-
-.pooja-form h2 {
-  margin-bottom: 20px;
-  font-size: 22px;
-}
-
-/* BOX */
-.pooja-box {
-  margin-bottom: 22px;
-}
-
-.pooja-box h4 {
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-
-/* INPUT */
-.pooja-box input,
-.pooja-box textarea,
-.pooja-box select {
-  width: 100%;
-  padding: 11px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #e1e5ee;
-  background: #fafbff;
-}
-
-.pooja-box textarea {
-  height: 90px;
-}
-
-/* BUTTON */
-.pooja-save {
-  width: 100%;
-  padding: 13px;
-  background: linear-gradient(135deg, #ff7a18, #ffb347);
-  color: white;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-}
-
-.cancel-btn {
-  margin-top: 10px;
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #e0e0e0;
-}
-
-/* UPLOAD */
-.upload-box {
-  display: flex;
-  justify-content: center;
-  border: 2px dashed #ccc;
-  padding: 20px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.upload-preview {
-  width: 100%;
-  max-height: 160px;
-  margin-top: 12px;
-  border-radius: 12px;
-}
-
-/* ================= PREVIEW ================= */
-.pooja-preview {
-  flex: 1;
-  min-width: 380px;
-  background: #fff;
-  padding: 22px;
-  border-radius: 16px;
 }
 
 /* CARD */
-.preview-card {
+.pooja-card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  margin-top: 40px;
+}
+
+/* TITLE */
+.pooja-title {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #111;
+}
+
+/* ================= FORM ================= */
+
+.pooja-section label,
+.pooja-row label {
+  font-size: 13px;
+  color: #555;
+  font-weight: 600;
+}
+
+/* INPUT SCOPED */
+.pooja-section input,
+.pooja-section textarea,
+.pooja-section select,
+.pooja-row input,
+.pooja-row select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #ffffff;
+  color: #111;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* FOCUS */
+.pooja-section input:focus,
+.pooja-section textarea:focus,
+.pooja-section select:focus,
+.pooja-row input:focus,
+.pooja-row select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
+}
+
+/* TEXTAREA */
+.pooja-section textarea {
+  min-height: 90px;
+  resize: none;
+}
+
+/* ROW */
+.pooja-row {
   display: flex;
-  gap: 15px;
+  gap: 12px;
+}
+
+/* DISCOUNT */
+.pooja-discount {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+/* ================= BUTTONS ================= */
+
+.pooja-btn-primary {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pooja-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.pooja-btn-secondary {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: #eef0f4;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ================= UPLOAD ================= */
+
+.pooja-upload {
+  margin-top: 14px;
+  border: 2px dashed #d1d5db;
+  padding: 18px;
+  text-align: center;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  background: #fafafa;
+}
+
+.pooja-upload input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pooja-preview-img {
+  margin-top: 12px;
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* ================= PREVIEW ================= */
+
+.pooja-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   background: #f9fafc;
-  padding: 14px;
+  padding: 16px;
   border-radius: 14px;
 }
 
-.preview-img img,
-.no-img {
-  width: 150px;
-  height: 120px;
+/* LEFT IMAGE */
+.pooja-preview-left {
+  position: relative;
+}
+
+.pooja-preview-left img {
+  width: 140px;
+  height: 110px;
+  object-fit: cover;
   border-radius: 12px;
 }
 
-.badge {
+.pooja-no-img {
+  width: 140px;
+  height: 110px;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+/* BADGE */
+.pooja-badge {
   position: absolute;
+  top: -8px;
+  left: -8px;
+  background: #ef4444;
+  color: #fff;
+  padding: 4px 6px;
+  font-size: 11px;
+  border-radius: 6px;
+}
+
+/* RIGHT CONTENT */
+.pooja-preview-right {
+  flex: 1;
+  text-align: center;
+}
+
+.pooja-preview-right h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.pooja-price {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.pooja-price .sale {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.pooja-price .original {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.pooja-preview-right .desc {
+  font-size: 13px;
+  color: #666;
 }
 
 /* ================= TABLE ================= */
-.pooja-table {
-  margin-top: 30px;
-  background: #fff;
-  padding: 22px;
-  border-radius: 16px;
+
+.pooja-table-wrapper {
+  overflow-x: auto;
 }
 
-/* TABLE SAFE */
-.pooja-table-main {
+.pooja-table table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.pooja-thead th {
-  text-align: left;
+.pooja-table th,
+.pooja-table td {
   padding: 12px;
-  background: #fafafa;
+  text-align: left;
 }
 
-.pooja-cell {
-  padding: 12px;
+.pooja-table th {
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+.pooja-table td {
   border-bottom: 1px solid #eee;
 }
 
-.pooja-row:hover {
-  background: #f9fafc;
-}
-
-/* IMAGE */
-.pooja-img {
-  width: 55px;
-  height: 45px;
-  border-radius: 8px;
-}
-
-/* BUTTONS */
-.pooja-edit {
-  background: #007bff;
-  color: #fff;
-  padding: 6px 10px;
+.pooja-table td img {
+  width: 50px;
+  height: 40px;
   border-radius: 6px;
-  border: none;
+  object-fit: cover;
 }
 
-.pooja-delete {
-  background: #e63946;
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
+/* TABLE BUTTONS */
+.pooja-table td button {
+  margin-right: 6px;
+  padding: 5px 10px;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pooja-table td button:first-child {
+  background: #3b82f6;
+  color: white;
+}
+
+.pooja-table td button:last-child {
+  background: #ef4444;
+  color: white;
 }
 
 /* ================= RESPONSIVE ================= */
+
 @media (max-width: 992px) {
-  .pooja-top {
+  .pooja-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .pooja-row {
     flex-direction: column;
+  }
+
+  .pooja-preview-card {
+    flex-direction: column;
+  }
+
+  .pooja-preview-left img,
+  .pooja-no-img {
+    width: 100%;
+    height: 180px;
   }
 }
