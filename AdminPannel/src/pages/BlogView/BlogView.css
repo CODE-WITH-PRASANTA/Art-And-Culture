@@ -345,3 +345,97 @@
     justify-content: center;
   }
 }
+/* ================= NEW UI ENHANCEMENTS ================= */
+
+.blogview-wrapper{
+  max-width:1400px;
+  margin:auto;
+}
+
+/* Card hover premium feel */
+.blogview-card{
+  transition:all 0.3s ease;
+}
+
+.blogview-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 45px rgba(0,0,0,0.1);
+}
+
+/* Image zoom effect */
+.blogview-card-image img{
+  transition:0.4s;
+}
+
+.blogview-card:hover img{
+  transform:scale(1.05);
+}
+
+/* Menu button modern */
+.blogview-menu-btn{
+  backdrop-filter:blur(6px);
+}
+
+/* Dropdown smooth */
+.blogview-dropdown{
+  animation:fadeDropdown 0.2s ease;
+}
+
+@keyframes fadeDropdown{
+  from{
+    opacity:0;
+    transform:translateY(-10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Category badge polish */
+.blogview-category{
+  font-weight:600;
+  letter-spacing:0.3px;
+}
+
+/* Title polish */
+.blogview-card-content h3{
+  font-weight:700;
+  line-height:1.3;
+}
+
+/* Footer alignment */
+.blogview-card-footer div{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* Modal improvement */
+.blogview-modal-content{
+  box-shadow:0 25px 60px rgba(0,0,0,0.2);
+}
+
+/* Modal image */
+.blogview-modal img{
+  max-height:300px;
+  object-fit:cover;
+}
+
+/* Smooth scroll */
+.blogview{
+  scroll-behavior:smooth;
+}
+
+/* Responsive polish */
+@media(max-width:768px){
+
+  .blogview-card-content{
+    padding:18px;
+  }
+
+  .blogview-card-content h3{
+    font-size:18px;
+  }
+
+}

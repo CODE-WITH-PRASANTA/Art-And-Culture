@@ -328,8 +328,87 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
+/* ================= TABLE ALIGNMENT FIX ================= */
+
 .testimonialadmin-tablewrapper {
+  width: 100%;
   overflow-x: auto;
+}
+
+/* FORCE STRUCTURE */
+.testimonialadmin-table {
+  width: 100%;
+  min-width: 900px;
+  table-layout: fixed; /* 🔥 KEY FIX */
+}
+
+/* COLUMN WIDTH CONTROL */
+.col-img {
+  width: 90px;
+  text-align: center;
+}
+
+.col-name {
+  width: 160px;
+}
+
+.col-role {
+  width: 160px;
+}
+
+.col-message {
+  width: 350px;
+}
+
+.col-action {
+  width: 180px;
+  text-align: center;
+}
+
+/* FIX HEADER ALIGNMENT */
+.testimonialadmin-table th {
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* FIX TD ALIGNMENT */
+.testimonialadmin-table td {
+  vertical-align: middle;
+}
+
+/* MESSAGE CONTROL */
+.message-text {
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+}
+
+/* IMAGE CENTER */
+.col-img img,
+.col-img .avatar {
+  display: block;
+  margin: auto;
+}
+
+/* EMPTY ROW */
+.empty-row {
+  text-align: center;
+  padding: 40px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* ACTION CENTER */
+.col-action {
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .testimonialadmin-table {
+    min-width: 700px;
+  }
 }
 
 /* TABLE */
@@ -493,4 +572,101 @@
   justify-content: center;
   align-items: center;
   font-size: 12px;
+}
+/* ================= WRAPPER ================= */
+
+.testimonialadmin-wrapper{
+  max-width:1400px;
+  margin:auto;
+}
+
+/* ================= TITLE ================= */
+
+.testimonialadmin-title{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:20px;
+  color:#1f2937;
+}
+
+/* ================= INPUT UX ================= */
+
+.testimonialadmin-formbox input,
+.testimonialadmin-formbox textarea{
+  font-weight:500;
+  letter-spacing:0.3px;
+}
+
+.testimonialadmin-formbox input:focus,
+.testimonialadmin-formbox textarea:focus{
+  transform:translateY(-1px);
+}
+
+/* ================= UPLOAD ENHANCE ================= */
+
+.testimonialadmin-uploadlabel{
+  transition:all 0.3s ease;
+}
+
+.testimonialadmin-uploadlabel:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(123,97,255,0.2);
+}
+
+/* ================= PREVIEW CARD ================= */
+
+.testimonialadmin-previewcard{
+  transition:0.3s;
+}
+
+.testimonialadmin-previewcard:hover{
+  transform:translateY(-5px);
+}
+
+/* ================= TABLE ================= */
+
+.testimonialadmin-table tbody tr{
+  transition:0.25s;
+}
+
+.testimonialadmin-table tbody tr:hover{
+  background:#f9fbff;
+}
+
+/* ================= ACTION BUTTON ================= */
+
+.testimonialadmin-actions button:active{
+  transform:scale(0.95);
+}
+
+/* ================= IMAGE ================= */
+
+.testimonialadmin-table-img{
+  transition:0.3s;
+}
+
+.testimonialadmin-table-img:hover{
+  transform:scale(1.1);
+}
+
+/* ================= EMPTY ================= */
+
+.testimonialadmin-table td[colspan]{
+  text-align:center;
+  padding:30px;
+  color:#9ca3af;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  .testimonialadmin-title{
+    text-align:center;
+  }
+
+  .testimonialadmin-top{
+    gap:15px;
+  }
+
 }
