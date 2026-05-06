@@ -18,7 +18,7 @@ const categoryRoutes = require("./routes/category.routes");
 const blogRoutes = require("./routes/blog.routes");
 const orderRoutes = require("./routes/order.routes");
 const poojaRoutes = require("./routes/pooja.routes");
-
+const freshCollectionRoutes = require("./routes/freshcollection.routes");
 const app = express();
 
 /* Connect Database */
@@ -43,7 +43,7 @@ app.use("/api/products", productRoutes); // ✅ ADD
 app.use("/api/blog", blogRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/pooja", poojaRoutes);
-
+app.use("/api/freshcollection", freshCollectionRoutes);
 app.get("/", (req, res) => {
   res.send("Server Running 🚀");
 });

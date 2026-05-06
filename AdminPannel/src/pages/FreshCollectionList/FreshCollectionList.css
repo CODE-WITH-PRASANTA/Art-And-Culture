@@ -1,0 +1,602 @@
+/* =========================================================
+   FRESH COLLECTION - FULL RESPONSIVE PREMIUM UI
+========================================================= */
+
+.freshCollectionPage {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background: #f3f6fb;
+  box-sizing: border-box;
+}
+
+.freshCollectionWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.freshCollectionFormCard,
+.freshCollectionTableCard {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 24px;
+  box-sizing: border-box;
+  border: 1px solid #edf1f7;
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.04),
+    0 4px 10px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.freshCollectionCardHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.freshCollectionCardHeader h2 {
+  font-size: 25px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.freshCollectionCardHeader p {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.freshCollectionHeaderIcon {
+  min-width: 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.freshCollectionForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.freshCollectionField {
+  width: 100%;
+}
+
+.freshCollectionField label {
+  display: block;
+  margin-bottom: 10px;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.freshCollectionUploadBox {
+  width: 100%;
+  position: relative;
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+}
+
+.freshCollectionUploadBox:hover {
+  border-color: #4f46e5;
+  background: #f6f5ff;
+}
+
+.freshCollectionUploadBox input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.freshCollectionUploadContent {
+  width: 100%;
+  padding: 42px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 12px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.freshCollectionPreview {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-top: 16px;
+  display: block;
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.freshCollectionInputWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+  padding: 0 16px;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+}
+
+.freshCollectionInputWrap:focus-within {
+  border-color: #4f46e5;
+  background: #ffffff;
+}
+
+.freshCollectionInputWrap svg {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.freshCollectionInputWrap input {
+  width: 100%;
+  height: 56px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.freshCollectionField textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  border-radius: 18px;
+  border: 1px solid #dbe3ee;
+  background: #f8fafc;
+  padding: 16px;
+  font-size: 15px;
+  color: #0f172a;
+  outline: none;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+}
+
+.freshCollectionField textarea:focus {
+  border-color: #4f46e5;
+  background: #ffffff;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.freshCollectionSubmitBtn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.freshCollectionSubmitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(79, 70, 229, 0.25);
+}
+
+/* =========================================================
+   TABLE SECTION
+========================================================= */
+
+.freshCollectionTableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 18px;
+}
+
+.freshCollectionTable {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+}
+
+.freshCollectionTable thead {
+  background: #f8fafc;
+}
+
+.freshCollectionTable th {
+  padding: 18px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.freshCollectionTable td {
+  padding: 18px 16px;
+  border-top: 1px solid #edf2f7;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.freshCollectionTableImage {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+}
+
+.freshCollectionDescCell {
+  max-width: 240px;
+  line-height: 1.6;
+}
+
+.freshCollectionProductLink {
+  color: #4f46e5;
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.freshCollectionActionBtns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.freshCollectionEditBtn,
+.freshCollectionDeleteBtn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.freshCollectionEditBtn {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.freshCollectionDeleteBtn {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.freshCollectionEditBtn:hover,
+.freshCollectionDeleteBtn:hover {
+  transform: scale(1.05);
+}
+
+/* =========================================
+   FIX TABLE DESCRIPTION OVERLAP
+========================================= */
+
+.freshCollectionTable {
+  table-layout: fixed;
+}
+
+.freshCollectionTable th,
+.freshCollectionTable td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+}
+
+/* DESCRIPTION COLUMN */
+.freshCollectionDescCell {
+  max-width: 260px;
+  min-width: 220px;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.7;
+}
+
+/* PRODUCT LINK COLUMN */
+.freshCollectionProductLink {
+  display: inline-block;
+  max-width: 180px;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+/* ACTION BUTTON COLUMN */
+.freshCollectionActionBtns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* TABLE CELLS */
+.freshCollectionTable td {
+  padding: 18px 16px;
+  border-top: 1px solid #edf2f7;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+  .freshCollectionDescCell {
+    max-width: 200px;
+    min-width: 180px;
+  }
+
+  .freshCollectionProductLink {
+    max-width: 140px;
+  }
+}
+
+/* =========================================================
+   LARGE LAPTOP
+========================================================= */
+
+@media (max-width: 1400px) {
+  .freshCollectionWrapper {
+    grid-template-columns: 340px 1fr;
+  }
+}
+
+/* =========================================================
+   TABLET LANDSCAPE
+========================================================= */
+
+@media (max-width: 1100px) {
+  .freshCollectionWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .freshCollectionFormCard,
+  .freshCollectionTableCard {
+    border-radius: 22px;
+  }
+
+  .freshCollectionPreview {
+    height: 260px;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+  .freshCollectionPage {
+    padding: 16px;
+  }
+
+  .freshCollectionWrapper {
+    gap: 18px;
+  }
+
+  .freshCollectionFormCard,
+  .freshCollectionTableCard {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .freshCollectionCardHeader {
+    align-items: flex-start;
+  }
+
+  .freshCollectionCardHeader h2 {
+    font-size: 22px;
+  }
+
+  .freshCollectionHeaderIcon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 16px;
+  }
+
+  .freshCollectionPreview {
+    height: 220px;
+  }
+
+  .freshCollectionInputWrap input {
+    height: 52px;
+    font-size: 14px;
+  }
+
+  .freshCollectionField textarea {
+    font-size: 14px;
+  }
+
+  .freshCollectionSubmitBtn {
+    height: 52px;
+    font-size: 14px;
+  }
+
+  .freshCollectionTable {
+    min-width: 760px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .freshCollectionPage {
+    padding: 12px;
+  }
+
+  .freshCollectionWrapper {
+    gap: 16px;
+  }
+
+  .freshCollectionFormCard,
+  .freshCollectionTableCard {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .freshCollectionCardHeader {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .freshCollectionCardHeader h2 {
+    font-size: 20px;
+  }
+
+  .freshCollectionCardHeader p {
+    font-size: 13px;
+  }
+
+  .freshCollectionHeaderIcon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border-radius: 14px;
+  }
+
+  .freshCollectionUploadContent {
+    padding: 34px 12px;
+    font-size: 13px;
+  }
+
+  .freshCollectionPreview {
+    height: 180px;
+    border-radius: 14px;
+  }
+
+  .freshCollectionInputWrap {
+    padding: 0 14px;
+    border-radius: 15px;
+  }
+
+  .freshCollectionInputWrap input {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  .freshCollectionField textarea {
+    min-height: 110px;
+    padding: 14px;
+    border-radius: 15px;
+  }
+
+  .freshCollectionSubmitBtn {
+    height: 50px;
+    border-radius: 15px;
+    font-size: 14px;
+  }
+
+  .freshCollectionTable {
+    min-width: 700px;
+  }
+
+  .freshCollectionTable th,
+  .freshCollectionTable td {
+    padding: 14px;
+  }
+
+  .freshCollectionTableImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+
+  .freshCollectionEditBtn,
+  .freshCollectionDeleteBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .freshCollectionCardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .freshCollectionCardHeader h2 {
+    font-size: 18px;
+  }
+
+  .freshCollectionPreview {
+    height: 160px;
+  }
+
+  .freshCollectionInputWrap input {
+    font-size: 13px;
+  }
+
+  .freshCollectionField textarea {
+    font-size: 13px;
+  }
+
+  .freshCollectionSubmitBtn {
+    font-size: 13px;
+  }
+}

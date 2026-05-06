@@ -14,16 +14,10 @@ const ensureDir = (dir) => {
 const routeFolderMap = {
   "/api/blog": "uploads/blogs",
   "/api/pooja": "uploads/pooja", 
-  "/gallery": "uploads/gallery",
-  "/news": "uploads/news",
-  "/events": "uploads/events",
-  "/classes": "uploads/classes",
   "/testimonials": "uploads/testimonials",
-  "/teachers": "uploads/teachers",
-  "/admissions": "uploads/admissions",
-  "/subjects": "uploads/subjects",
   "/products": "uploads/products", // ✅ IMPORTANT ADD
   "/api/blog": "uploads/blogs", 
+  "/api/freshcollection": "uploads/freshcollection",
     
 };
 

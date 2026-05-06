@@ -13,6 +13,9 @@ import {
   LogOut,
   ChevronDown,
   ChevronRight,
+  Sparkles,
+  PlusCircle,
+  Gem,
   List,
   Eye,
   Gift,
@@ -52,9 +55,8 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
     } else if (location.pathname.startsWith("/product")) {
       setOpenMenu("product");
     } else if (location.pathname.startsWith("/team")) {
-      setOpenMenu("team");  
+      setOpenMenu("team");
     }
-
   }, [location.pathname]);
 
   const toggleMenu = (menu) => {
@@ -168,7 +170,7 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
           </div>
         </div>
 
-        {/* ================= ORDERS ================= */}
+        {/* ================= ORDERS =================
         <div
           className={`Sidebar-dropdown ${openMenu === "orders" ? "Sidebar-dropdown--open" : ""}`}
         >
@@ -207,10 +209,54 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
               <span>Order List</span>
             </NavLink>
           </div>
+        </div> */}
+
+        {/* ================= FRESH COLLECTION ================= */}
+        <div
+          className={`Sidebar-dropdown ${
+            openMenu === "freshCollection" ? "Sidebar-dropdown--open" : ""
+          }`}
+        >
+          <div
+            className="Sidebar-link Sidebar-dropdownHeader"
+            onClick={() => toggleMenu("freshCollection")}
+          >
+            <Sparkles size={18} />
+
+            {!collapsed && (
+              <>
+                <span>Fresh Collection</span>
+
+                <div className="Sidebar-arrow">
+                  {openMenu === "freshCollection" ? (
+                    <ChevronDown size={16} />
+                  ) : (
+                    <ChevronRight size={16} />
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="Sidebar-submenu">
+            <NavLink
+              to="/fresh-collection"
+              onClick={closeMobile}
+              className={({ isActive }) =>
+                isActive
+                  ? "Sidebar-subLink Sidebar-subLink--active"
+                  : "Sidebar-subLink"
+              }
+            >
+              <Gem size={15} />
+              <span>Fresh Collection List</span>
+            </NavLink>
+
+          </div>
         </div>
 
         {/* ================= CART ================= */}
-        <div
+        {/* <div
           className={`Sidebar-dropdown ${openMenu === "cart" ? "Sidebar-dropdown--open" : ""}`}
         >
           <div
@@ -248,7 +294,7 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
               <span>Cart View</span>
             </NavLink>
           </div>
-        </div>
+        </div> */}
 
         {/* ================= POOJA ================= */}
         <div
@@ -495,7 +541,6 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
           </div>
 
           <div className="Sidebar-submenu">
-
             <NavLink
               to="/category/add"
               onClick={closeMobile}
@@ -622,51 +667,46 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
         </div>
       </div>
 
-      
       {/* ================= Team Members ================= */}
-        <div className={`Sidebar-dropdown ${openMenu === "team" ? "Sidebar-dropdown--open" : ""}`}>
+      <div
+        className={`Sidebar-dropdown ${openMenu === "team" ? "Sidebar-dropdown--open" : ""}`}
+      >
+        <div
+          className="Sidebar-link Sidebar-dropdownHeader"
+          onClick={() => toggleMenu("team")}
+        >
+          <Gift size={18} />
 
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() => toggleMenu("team")}
-          >
+          {!collapsed && (
+            <>
+              <span>Team Members</span>
 
-            <Gift size={18} />
-
-            {!collapsed && (
-              <>
-                <span>Team Members</span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu === "team" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-
-          </div>
-
-          <div className="Sidebar-submenu">
-
-            <NavLink
-              to="/team/members-post"
-              onClick={closeMobile}
-              className={({ isActive }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Package size={15} />
-              <span>Post Team Members</span>
-            </NavLink>
-
-          </div>
-
+              <div className="Sidebar-arrow">
+                {openMenu === "team" ? (
+                  <ChevronDown size={16} />
+                ) : (
+                  <ChevronRight size={16} />
+                )}
+              </div>
+            </>
+          )}
         </div>
+
+        <div className="Sidebar-submenu">
+          <NavLink
+            to="/team/members-post"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              isActive
+                ? "Sidebar-subLink Sidebar-subLink--active"
+                : "Sidebar-subLink"
+            }
+          >
+            <Package size={15} />
+            <span>Post Team Members</span>
+          </NavLink>
+        </div>
+      </div>
 
       {/* ================= FOOTER ================= */}
       <div className="Sidebar-footer">
