@@ -21,7 +21,6 @@ const Home = () => {
      <Testimonial/>
       <Trendingproducts/>
       <TeamMember/>
-      
       <GodCollectionSection/>
       <Artpromise/>
     </div>

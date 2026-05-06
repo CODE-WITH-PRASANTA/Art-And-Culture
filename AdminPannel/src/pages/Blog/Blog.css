@@ -303,3 +303,90 @@
   }
 
 }
+/* ADD THIS BELOW YOUR EXISTING CSS */
+
+/* Wrapper Enhancement */
+.blogadmin-wrapper{
+  max-width:1400px;
+  margin:auto;
+}
+
+/* Better spacing */
+.blogadmin-left,
+.blogadmin-right{
+  display:flex;
+  flex-direction:column;
+}
+
+/* Field spacing */
+.blogadmin-field input,
+.blogadmin-field textarea,
+.blogadmin-field select{
+  font-size:16px;
+  padding:16px;
+}
+
+/* Card hover effect */
+.blogadmin-card{
+  transition:all 0.3s ease;
+}
+
+.blogadmin-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 35px rgba(0,0,0,0.08);
+}
+
+/* Upload box improvement */
+.blogadmin-upload-box{
+  transition:0.3s;
+}
+
+.blogadmin-upload-box:hover{
+  border-color:#2563eb;
+  background:#f0f7ff;
+}
+
+/* Image preview fix */
+.blogadmin-preview{
+  border-radius:18px;
+}
+
+/* Editor spacing */
+.blogadmin-editor{
+  padding:20px;
+}
+
+/* Button improvement */
+.blogadmin-submit-btn{
+  letter-spacing:0.5px;
+}
+
+.blogadmin-submit-btn:active{
+  transform:scale(0.98);
+}
+
+/* Radio card active */
+.blogadmin-type-card input:checked + span{
+  color:#2563eb;
+}
+
+/* Smooth typography */
+.blogadmin-card label{
+  letter-spacing:0.3px;
+}
+
+/* Scroll fix for editor */
+.tox-tinymce{
+  min-height:420px;
+}
+
+/* Mobile polish */
+@media(max-width:768px){
+  .blogadmin-form{
+    gap:15px;
+  }
+
+  .blogadmin-card{
+    margin-bottom:15px;
+  }
+}
