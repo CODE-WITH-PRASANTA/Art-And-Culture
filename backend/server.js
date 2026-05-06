@@ -16,11 +16,8 @@ const contactRoutes = require("./routes/contact.routes");
 const categoryRoutes = require("./routes/category.routes");
 const blogRoutes = require("./routes/blog.routes");
 const orderRoutes = require("./routes/order.routes");
-<<<<<<< HEAD
 const testimonialRoutes=require("./routes/testimonial.routes");
-=======
 const poojaRoutes = require("./routes/pooja.routes");
->>>>>>> 26cdf62b7f359964587cc1ef8d33555c4afd15b5
 
 const app = express();
 
