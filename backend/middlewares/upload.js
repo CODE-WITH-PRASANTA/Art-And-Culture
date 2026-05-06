@@ -15,7 +15,7 @@ const routeFolderMap = {
   "/api/blog": "uploads/blogs",
   "/api/pooja": "uploads/pooja", 
   "/testimonials": "uploads/testimonials",
-  "/products": "uploads/products", // ✅ IMPORTANT ADD
+  "/products": "uploads/products", 
   "/api/blog": "uploads/blogs", 
   "/api/freshcollection": "uploads/freshcollection",
     

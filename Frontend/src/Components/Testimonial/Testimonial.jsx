@@ -1,77 +1,117 @@
 import React, { useEffect, useState } from "react";
+import API, { BASE_URL } from "../../api/axios";
 import "./Testimonial.css";
 
-const testimonials = [
-  {
-    name: "Ananya Sharma",
-    role: "Devotee",
-    text: "Absolutely divine experience! The craftsmanship and detailing are beyond expectations.",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-  },
-  {
-    name: "Rahul Verma",
-    role: "Collector",
-    text: "Premium quality and elegant design. Truly a masterpiece collection.",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-  },
-  {
-    name: "Priya Das",
-    role: "Spiritual Enthusiast",
-    text: "Each product radiates positivity and devotion. Loved it!",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-  },
-  {
-    name: "Arjun Patel",
-    role: "Buyer",
-    text: "Fast delivery and amazing packaging. Feels very premium.",
-    image: "https://randomuser.me/api/portraits/men/12.jpg",
-  },
-  {
-    name: "Sneha Roy",
-    role: "Customer",
-    text: "A perfect blend of tradition and modern luxury. Highly recommended!",
-    image: "https://randomuser.me/api/portraits/women/25.jpg",
-  },
-];
-
 const Testimonial = () => {
+  const [testimonials, setTestimonials] = useState([]);
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  // ================= IMAGE FIX =================
+  const getImageUrl = (path) => {
+    if (!path) return "https://via.placeholder.com/100";
+
+    if (path.startsWith("http")) return path;
+
+    const cleanPath = path.replace(/^\/+/, "");
+    return `${BASE_URL}/${cleanPath}`;
+  };
+
+  // ================= FETCH =================
+  const fetchTestimonials = async () => {
+    try {
+      const res = await API.get("/testimonial");
+
+      const data = Array.isArray(res.data)
+        ? res.data
+        : res.data.data || res.data.testimonials || [];
+
+      setTestimonials(data);
+    } catch (error) {
+      console.log("Fetch Error:", error);
+      setTestimonials([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  // ================= AUTO SLIDER =================
+  useEffect(() => {
+    if (testimonials.length === 0) return;
+
     const slider = setInterval(() => {
       setIndex((prev) => (prev + 1) % testimonials.length);
     }, 3500);
 
     return () => clearInterval(slider);
-  }, []);
+  }, [testimonials]);
+
+  // ================= LOADING =================
+  if (loading) {
+    return (
+      <section className="testimonial-section">
+        <div className="testimonial-container">
+          <h2 className="testimonial-title">
+            Loading Testimonials...
+          </h2>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="testimonial-section">
       <div className="testimonial-container">
-        <h2 className="testimonial-title">Sacred Experiences</h2>
+
+        <h2 className="testimonial-title">
+          Sacred Experiences
+        </h2>
+
         <p className="testimonial-subtitle">
           Trusted by thousands of devotees
         </p>
 
+        {/* ================= SLIDER ================= */}
         <div className="testimonial-slider">
           {testimonials.map((item, i) => {
             const position =
               i === index
                 ? "active"
-                : i === (index - 1 + testimonials.length) % testimonials.length
+                : i ===
+                  (index - 1 + testimonials.length) %
+                    testimonials.length
                 ? "prev"
                 : i === (index + 1) % testimonials.length
                 ? "next"
                 : "hidden";
 
             return (
-              <div key={i} className={`testimonial-card ${position}`}>
+              <div
+                key={item._id}
+                className={`testimonial-card ${position}`}
+              >
                 <div className="quote">❝</div>
 
-                <p className="testimonial-text">{item.text}</p>
+                {/* ✅ FIXED message field */}
+                <p className="testimonial-text">
+                  {item.message || "No message available"}
+                </p>
 
                 <div className="testimonial-user">
-                  <img src={item.image} alt="" />
+                  {/* ✅ FIXED image */}
+                  <img
+                    src={getImageUrl(item.image)}
+                    alt={item.name}
+                    onError={(e) => {
+                      e.target.src =
+                        "https://via.placeholder.com/100?text=User";
+                    }}
+                  />
+
                   <div>
                     <h4>{item.name}</h4>
                     <span>{item.role}</span>
@@ -82,7 +122,7 @@ const Testimonial = () => {
           })}
         </div>
 
-        {/* dots */}
+        {/* ================= DOTS ================= */}
         <div className="testimonial-dots">
           {testimonials.map((_, i) => (
             <span
@@ -92,6 +132,7 @@ const Testimonial = () => {
             />
           ))}
         </div>
+
       </div>
     </section>
   );

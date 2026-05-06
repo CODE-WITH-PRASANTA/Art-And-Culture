@@ -185,26 +185,95 @@
 }
 
 /* ================= PREVIEW ================= */
+/* PREVIEW BOX */
 .testimonialadmin-previewbox {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* CARD */
 .testimonialadmin-previewcard {
   width: 100%;
+  max-width: 400px;
   background: #fff;
-  border-radius: 28px;
-  padding: 35px;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
+  border-radius: 25px;
+  padding: 30px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
-/* HIGHLIGHT CARD */
+/* QUOTE */
+.quote {
+  font-size: 50px;
+  color: #7b61ff;
+}
+
+/* MESSAGE */
+.testimonialadmin-previewcard p {
+  font-size: 14px;
+  color: #555;
+  margin: 15px 0;
+  line-height: 1.6;
+}
+
+/* USER */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* IMAGE */
+.user img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* AVATAR */
+.avatar {
+  width: 55px;
+  height: 55px;
+  background: #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* USER INFO */
+.userinfo {
+  flex: 1;
+}
+
+/* NAME */
+.userinfo h4 {
+  font-size: 15px;
+  margin: 0;
+}
+
+/* ROLE */
+.userinfo span {
+  font-size: 12px;
+  color: #777;
+}
+
+/* ⭐ STARS FIX */
+.stars {
+  display: flex;
+  flex-wrap: wrap; /* prevents overflow */
+  gap: 3px;
+  margin-top: 5px;
+  max-width: 200px; /* control width */
+  overflow: hidden;
+}
+
+/* HIGHLIGHT */
 .activehighlight {
   transform: scale(1.05);
   border: 2px solid #7b61ff;
-  box-shadow: 0 20px 60px rgba(123, 97, 255, 0.25);
 }
 
 /* QUOTE */
@@ -296,27 +365,65 @@
 }
 
 /* ACTIONS */
+/* ================= BUTTON FIX ================= */
+
+/* action container */
 .testimonialadmin-actions {
   display: flex;
-  gap: 8px;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
 }
 
+/* base button fix */
 .testimonialadmin-actions button {
   border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 10px;
   font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  min-width: 80px;
 }
 
-.testimonialadmin-actions button:first-child {
-  background: #5b8cff;
-  color: white;
+/* EDIT BUTTON */
+.edit-btn {
+  background: linear-gradient(135deg, #5b8cff, #7b61ff);
+  color: #fff;
 }
 
-.deletebtn {
-  background: #ff4d4f !important;
-  color: white;
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(91, 140, 255, 0.4);
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  background: linear-gradient(135deg, #ff4d4f, #ff7875);
+  color: #fff;
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 77, 79, 0.4);
+}
+
+/* FIX ACTION COLUMN ALIGN */
+.testimonialadmin-table td:last-child {
+  text-align: center;
+}
+
+/* MOBILE FIX */
+@media (max-width: 600px) {
+  .testimonialadmin-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .testimonialadmin-actions button {
+    width: 100%;
+  }
 }
 
 /* BADGES */
@@ -357,4 +464,33 @@
   .testimonialadmin-heading h2 {
     font-size: 22px;
   }
+}
+.testimonialadmin-table-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.imgWrap {
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+
+.imgWrap img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar.fallback {
+  display: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #eee;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
 }

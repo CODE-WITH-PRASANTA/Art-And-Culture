@@ -3,66 +3,69 @@ const cors = require("cors");
 const path = require("path");
 const dotenv = require("dotenv");
 
-/* Load env first */
+/* Load env */
 dotenv.config();
 
-/* Import DB */
+/* DB */
 const connectDB = require("./config/db");
 
-/* Import Routes */
+/* Routes */
 const teamRoutes = require("./routes/teamMember.routes");
 const productRoutes = require("./routes/product.routes");
-// const { upload, convertToWebp } = require("./middlewares/upload.js");
 const contactRoutes = require("./routes/contact.routes");
 const categoryRoutes = require("./routes/category.routes");
 const blogRoutes = require("./routes/blog.routes");
 const orderRoutes = require("./routes/order.routes");
+const testimonialRoutes=require("./routes/testimonial.routes");
 const poojaRoutes = require("./routes/pooja.routes");
 const freshCollectionRoutes = require("./routes/freshcollection.routes");
 const app = express();
 
-/* Connect Database */
+/* DB Connect */
 connectDB();
 
-/* Middleware */
-app.use(cors());
+/* CORS */
+app.use(
+  cors({
+    origin: true, // allow all origins
+    credentials: true,
+  })
+);
 
+/* Body parser */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/* Static folder for images */
+/* Static Images */
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-/* ================= ROUTES ================= */
-
+/* Routes */
 app.use("/api/contact", contactRoutes);
 app.use("/api/category", categoryRoutes);
-app.use("/api/team", teamRoutes); // ✅ ADD
-app.use("/api/products", productRoutes); // ✅ ADD
-/* ================= TEST ROUTE ================= */
+app.use("/api/team", teamRoutes);
+app.use("/api/products", productRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/pooja", poojaRoutes);
 app.use("/api/freshcollection", freshCollectionRoutes);
+
+/* Test */
 app.get("/", (req, res) => {
   res.send("Server Running 🚀");
 });
 
-/* ================= ERROR HANDLER ================= */
-
+/* Error Handler */
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
     success: false,
-    message: "Something went wrong",
+    message: err.message || "Something went wrong",
   });
 });
 
-/* ================= PORT ================= */
-
+/* Start */
 const PORT = process.env.PORT || 5000;
-
-/* Start Server */
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

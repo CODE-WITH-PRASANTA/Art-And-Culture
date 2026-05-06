@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import FloatingIcons from "./Components/FloatingIcons/FloatingIcons";
-
 import Home from "./Pages/Home/Home";
 import Contact from "./Pages/Contact/Contact";
 import FreshCollection from "./Pages/FreshCollection/FreshCollection";
@@ -36,7 +34,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/details" element={<BlogDetailsSection />} />
+          <Route path="/blog/details/:id" element={<BlogDetailsSection />} />
           <Route path="/best-sellers" element={<BestSelling />} />
 
           <Route path="/fresh/collection" element={<FreshCollection />} />
