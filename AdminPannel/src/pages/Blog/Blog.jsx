@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Blog.css";
 import { Editor } from "@tinymce/tinymce-react";
 import API from "../../api/axios"; // ✅ use centralized axios
+import { useParams, useNavigate } from "react-router-dom";
 
 const Blog = () => {
+  const { id } = useParams();
+const navigate = useNavigate();
+const isEditMode = Boolean(id);
   const [previewImage, setPreviewImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -47,66 +51,104 @@ const Blog = () => {
     }
   };
 
-  // 🧹 FIX MEMORY LEAK
-  useEffect(() => {
-    return () => {
-      if (previewImage?.startsWith("blob:")) {
-        URL.revokeObjectURL(previewImage);
-      }
-    };
-  }, [previewImage]);
-
-  /* 🚀 SUBMIT */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setLoading(true);
-
+ useEffect(() => {
+  const fetchSingleBlog = async () => {
     try {
-      const formData = new FormData();
+      if (!id) return;
 
-      // append all fields
-      Object.keys(blogData).forEach((key) => {
-        formData.append(key, blogData[key]);
+      const res = await API.get(`/blog/${id}`);
+
+      console.log("BLOG RESPONSE:", res.data);
+
+      // ✅ CORRECT
+      const blog = res.data.data;
+
+      if (!blog) {
+        alert("Blog not found");
+        return;
+      }
+
+      // ✅ SET FORM DATA
+      setBlogData({
+        title: blog.title || "",
+        quote: blog.quote || "",
+        category: blog.category || "",
+        author: blog.author || "",
+        designation: blog.designation || "",
+        aboutAuthor: blog.aboutAuthor || "",
+        details: blog.details || "",
+        blogType: blog.blogType || "Trending",
       });
 
-      // append image
-      if (imageFile) {
-        formData.append("image", imageFile);
+      // ✅ IMAGE PREVIEW
+      if (blog.image) {
+        const imagePath = blog.image
+          .replace(/\\/g, "/")
+          .replace(/^\/+/, "");
+
+        setPreviewImage(`http://localhost:5000/${imagePath}`);
       }
 
-      const res = await API.post("/blog", formData, {
+    } catch (error) {
+      console.error("FETCH BLOG ERROR:", error);
+      alert("Failed to fetch blog");
+    }
+  };
+
+  fetchSingleBlog();
+}, [id]);
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+    const formData = new FormData();
+
+    Object.keys(blogData).forEach((key) => {
+      formData.append(key, blogData[key]);
+    });
+
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
+    let res;
+
+    // ✅ EDIT
+    if (isEditMode) {
+      res = await API.put(`/blog/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("✅ Blog Updated Successfully");
+    }
+
+    // ✅ CREATE
+    else {
+      res = await API.post("/blog", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
       alert("✅ Blog Published Successfully");
-      console.log(res.data);
-
-      // 🔄 RESET
-      setBlogData({
-        title: "",
-        quote: "",
-        category: "",
-        author: "",
-        designation: "",
-        aboutAuthor: "",
-        details: "",
-        blogType: "Trending",
-      });
-
-      setPreviewImage(null);
-      setImageFile(null);
-
-    } catch (error) {
-      console.error("BLOG ERROR:", error);
-      alert("❌ Error publishing blog");
-    } finally {
-      setLoading(false);
     }
-  };
 
+    console.log(res.data);
+
+    navigate("/blog/view");
+
+  } catch (error) {
+    console.error(error);
+    alert("❌ Error saving blog");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="blogadmin">
       <form
@@ -247,7 +289,15 @@ const Blog = () => {
           </div>
 
           <button className="blogadmin-submit-btn" disabled={loading}>
-            {loading ? "Publishing..." : "Publish Blog"}
+            {
+            loading
+              ? isEditMode
+                ? "Updating..."
+                : "Publishing..."
+              : isEditMode
+              ? "Update Blog"
+              : "Publish Blog"
+          }
           </button>
 
         </div>

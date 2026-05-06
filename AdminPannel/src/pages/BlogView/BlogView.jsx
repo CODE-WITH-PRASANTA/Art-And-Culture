@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./BlogView.css";
-import API, { BASE_URL } from "../../api/axios";
+import API, { BASE_URL } from "../../api/axios"
+import { useNavigate } from "react-router-dom";;
 
 import {
   MoreVertical,
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 
 const BlogView = () => {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [loadingId, setLoadingId] = useState(null);
@@ -104,16 +106,9 @@ const BlogView = () => {
     setViewBlog(blog);
   };
 
-  // ✅ EDIT
   const handleEditStart = (blog) => {
-    setEditId(blog._id);
-    setEditData({
-      title: blog.title || "",
-      category: blog.category || "",
-      details: blog.details || "",
-    });
-    setActiveMenu(null);
-  };
+  navigate(`/blog/post/${blog._id}`);
+};
 
   const handleSaveEdit = async () => {
     try {
