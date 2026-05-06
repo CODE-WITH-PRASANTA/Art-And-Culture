@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ShopListPage.css";
 
-/* ✅ ADD THIS */
 import API, { IMG_URL } from "../../api/axios";
 
 const ShopListPage = () => {
@@ -16,7 +15,6 @@ const ShopListPage = () => {
 
   const fetchProducts = async () => {
     try {
-      /* ✅ AXIOS INSTEAD OF FETCH */
       const res = await API.get("/products");
 
       if (res.data.success) {
@@ -34,19 +32,18 @@ const ShopListPage = () => {
         setOpenMenuId(null);
       }
     };
+
     document.addEventListener("click", handleClick);
+
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-  /* ================= ACTIONS ================= */
-
-  // DELETE
+  /* ================= DELETE ================= */
   const deleteProduct = async (id) => {
     const ok = window.confirm("Delete this product?");
     if (!ok) return;
 
     try {
-      /* ✅ AXIOS */
       await API.delete(`/products/${id}`);
       fetchProducts();
     } catch (err) {
@@ -56,10 +53,9 @@ const ShopListPage = () => {
     setOpenMenuId(null);
   };
 
-  // TOGGLE STATUS
+  /* ================= TOGGLE STATUS ================= */
   const toggleStatus = async (id) => {
     try {
-      /* ✅ AXIOS */
       await API.put(`/products/toggle/${id}`);
       fetchProducts();
     } catch (err) {
@@ -69,12 +65,12 @@ const ShopListPage = () => {
     setOpenMenuId(null);
   };
 
-  // EDIT
+  /* ================= EDIT ================= */
   const handleEdit = (id) => {
-    window.location.href = `/edit-product/${id}`;
+    window.location.href = `/shop-manage/${id}`;
   };
 
-  // VIEW
+  /* ================= VIEW ================= */
   const handleView = (id) => {
     window.location.href = `/view-product/${id}`;
   };
@@ -99,16 +95,22 @@ const ShopListPage = () => {
                   className="shopListPage-menuBtn"
                   onClick={(e) => {
                     e.stopPropagation();
+
                     setOpenMenuId(
-                      openMenuId === item._id ? null : item._id
+                      openMenuId === item._id
+                        ? null
+                        : item._id
                     );
                   }}
                 >
-                  <span /><span /><span />
+                  <span />
+                  <span />
+                  <span />
                 </button>
 
                 {openMenuId === item._id && (
                   <div className="shopListPage-dropdown">
+
                     <button onClick={() => handleEdit(item._id)}>
                       <span className="icon">✏️</span>
                       <span>Edit</span>
@@ -116,6 +118,7 @@ const ShopListPage = () => {
 
                     <button onClick={() => toggleStatus(item._id)}>
                       <span className="icon">🚀</span>
+
                       <span>
                         {item.status === "Published"
                           ? "Unpublish"
@@ -137,6 +140,7 @@ const ShopListPage = () => {
                       <span className="icon">🗑</span>
                       <span>Delete</span>
                     </button>
+
                   </div>
                 )}
               </div>
@@ -155,18 +159,32 @@ const ShopListPage = () => {
 
               {/* ================= INFO ================= */}
               <div className="shopListPage-info">
+
                 <h3>{item.title}</h3>
 
                 <div className="shopListPage-metaLine">
-                  ⭐ {item.rating || 0} | Stock: {item.stock || 0} |{" "}
+                  ⭐ {item.rating || 0}
+                  {" | "}
+                  Stock: {item.stock || 0}
+                  {" | "}
                   {item.categoryType || "N/A"}
                 </div>
 
                 <div className="shopListPage-price">
                   {item.discount ? (
                     <>
-                      <span className="old">₹{item.price}</span>{" "}
-                      <span className="new">₹{finalPrice}</span>{" "}
+                      <span className="old">
+                        ₹{item.price}
+                      </span>
+
+                      {" "}
+
+                      <span className="new">
+                        ₹{finalPrice}
+                      </span>
+
+                      {" "}
+
                       <span className="off">
                         ({item.discount}% OFF)
                       </span>
@@ -177,8 +195,10 @@ const ShopListPage = () => {
                 </div>
 
                 <div className="shopListPage-size">
-                  H: {item.sizes?.height || "-"} | W:{" "}
-                  {item.sizes?.width || "-"} |{" "}
+                  H: {item.sizes?.height || "-"}
+                  {" | "}
+                  W: {item.sizes?.width || "-"}
+                  {" | "}
                   {item.sizes?.weight || "-"}kg
                 </div>
 
@@ -188,7 +208,10 @@ const ShopListPage = () => {
 
                 <div className="shopListPage-faq">
                   <strong>FAQ:</strong>
-                  <p>{item.faqs?.[0]?.question || "No FAQ"}</p>
+
+                  <p>
+                    {item.faqs?.[0]?.question || "No FAQ"}
+                  </p>
                 </div>
 
                 <div className="shopListPage-helpline">
@@ -204,8 +227,8 @@ const ShopListPage = () => {
                 >
                   {item.status || "Published"}
                 </span>
-              </div>
 
+              </div>
             </div>
           );
         })}

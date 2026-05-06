@@ -1,79 +1,140 @@
-import React from "react";
-import img1 from "../../assets/img1.webp";
-import img2 from "../../assets/img2.webp";
-import img3 from "../../assets/img3.webp";
-import img4 from "../../assets/img4.webp";
-import img5 from "../../assets/img5.webp";
+// GodCollectionSection.jsx
+
+import React, { useEffect, useState } from "react";
 import "./GodCollectionSection.css";
 
-const data = [
-  {
-    img: img1,
-    title: "Brass Idols",
-    subtitle: "Timeless Brass Creations for Sacred Home Corners",
-  },
-  {
-    img: img2,
-    title: "Divine Charan",
-    subtitle: "The Perfect Footsteps of Blessings & Prosperity",
-  },
-  {
-    img: img3,
-    title: "Pocket Temple",
-    subtitle: "Compact. Sacred. Always With You.",
-  },
-  {
-    img: img4,
-    title: "Gold & Silver Plated",
-    subtitle: "Majestic Blend of Timeless Exquisite Craftsmanship",
-  },
-  {
-    img: img5,
-    title: "Premium Edits",
-    subtitle: "Where Spiritual Energy Meets Artistic Elegance",
-  },
-];
+import API, { IMG_URL } from "../../api/axios";
 
 const GodCollectionSection = () => {
-  const handleKey = (e, idx) => {
+  const [collections, setCollections] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  /* =====================================================
+      FETCH COLLECTIONS
+  ===================================================== */
+
+  const fetchCollections = async () => {
+    try {
+      const res = await API.get("/freshcollection");
+
+      console.log("FRESH COLLECTION :", res.data);
+
+      setCollections(res.data.data || []);
+    } catch (error) {
+      console.log("FETCH ERROR :", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCollections();
+  }, []);
+
+  /* =====================================================
+      HANDLE CLICK
+  ===================================================== */
+
+  const handleOpenLink = (link) => {
+    if (link) {
+      window.open(link, "_blank");
+    }
+  };
+
+  /* =====================================================
+      KEYBOARD ACCESS
+  ===================================================== */
+
+  const handleKey = (e, link) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      console.log("Open collection:", data[idx].title);
+
+      handleOpenLink(link);
     }
   };
 
   return (
     <section className="gc-section">
+      {/* ================= HEADER ================= */}
+
       <header className="gc-header">
-        <h2 className="gc-heading">Fresh in God Collection</h2>
-        <p className="gc-lead">Handpicked pieces — new arrivals, crafted with devotion.</p>
+        <h2 className="gc-heading">
+          Fresh in God Collection
+        </h2>
+
+        <p className="gc-lead">
+          Handpicked pieces — new arrivals,
+          crafted with devotion.
+        </p>
       </header>
 
-      <div className="gc-grid">
-        {data.map((item, index) => (
-          <article
-            key={index}
-            tabIndex={0}
-            role="button"
-            aria-pressed="false"
-            onKeyDown={(e) => handleKey(e, index)}
-            onClick={() => console.log("Click ->", item.title)}
-            className={`gc-card ${index === 4 ? "gc-span-2" : ""}`}
-            style={{ animationDelay: `${index * 100}ms` }}
-          >
-            <div className="gc-card-inner">
-              <img src={item.img} alt={item.title} className="gc-image" />
-              <div className="gc-overlay">
-                <div className="gc-overlay-content">
-                  <h3 className="gc-title">{item.title}</h3>
-                  <p className="gc-subtitle">{item.subtitle}</p>
-                  <span className="gc-cta">Explore</span>
+      {/* ================= LOADING ================= */}
+
+      {loading ? (
+        <div className="gc-loading">
+          Loading collections...
+        </div>
+      ) : (
+        <div className="gc-grid">
+          {collections.length > 0 ? (
+            collections.map((item, index) => (
+              <article
+                key={item._id}
+                tabIndex={0}
+                role="button"
+                aria-pressed="false"
+                onKeyDown={(e) =>
+                  handleKey(e, item.link)
+                }
+                onClick={() =>
+                  handleOpenLink(item.link)
+                }
+                className={`gc-card ${
+                  index === 4 ? "gc-span-2" : ""
+                }`}
+                style={{
+                  animationDelay: `${
+                    index * 100
+                  }ms`,
+                }}
+              >
+                <div className="gc-card-inner">
+                  {/* ================= IMAGE ================= */}
+
+                  <img
+                    src={`${IMG_URL}${item.image}`}
+                    alt={item.title}
+                    className="gc-image"
+                  />
+
+                  {/* ================= OVERLAY ================= */}
+
+                  <div className="gc-overlay">
+                    <div className="gc-overlay-content">
+                      <h3 className="gc-title">
+                        {item.title}
+                      </h3>
+
+                      <p className="gc-subtitle">
+                        {item.desc}
+                      </p>
+
+                      <span className="gc-cta">
+                        Explore
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </article>
+            ))
+          ) : (
+            <div className="gc-noData">
+              No Fresh Collections Found
             </div>
-          </article>
-        ))}
-      </div>
+          )}
+        </div>
+      )}
     </section>
   );
 };

@@ -6,6 +6,7 @@ const { upload, convertToWebp } = require("../middlewares/upload");
 const {
   createProduct,
   getProducts,
+  getSingleProduct,
   deleteProduct,
   updateProduct,
   toggleStatus,

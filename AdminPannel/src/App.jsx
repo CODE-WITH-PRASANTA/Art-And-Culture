@@ -13,11 +13,12 @@ import Testimonial from "./pages/Testimonial/Testimonial";
 import Contact from "./pages/Contact/Contact";
 import Blog from "./pages/Blog/Blog";
 import BlogView from "./pages/BlogView/BlogView";
-import ShopManagement from "./pages/ShopManageView/ShopManageView";
+import ShopManageView from "./pages/ShopManageView/ShopManageView";
 import ShopListPage from "./pages/ShopListPage/ShopListPage";
 import CategoryManage from "./pages/CategoryManage/CategoryManage";
 import TeamMember from "./pages/TeamMember/TeamMember";
 import EditProductPage from "./pages/EditProductPage/EditProductPage";
+import FreshCollectionList from "./pages/FreshCollectionList/FreshCollectionList";
 
 /* Temporary Pages Until You Create Real Pages */
 
@@ -52,12 +53,14 @@ const App = () => {
           <Route path="/blog/post/:id?" element={<Blog />} />
           <Route path="/blog/view" element={<BlogView/>}/>
           <Route path="/contact" element={<Contact />} />
-          <Route path="/sub/view" element={<ShopManagement/>}/>
+          <Route path="/shop-manage" element={<ShopManageView />} />
+          <Route path="/shop-manage/:id" element={<ShopManageView />} />
           <Route path="/sub/list" element={<ShopListPage/>}/>
           <Route path="/category/add" element={<CategoryManage/>}/>
           <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/team/members-post" element={<TeamMember/>}/>
+          <Route path="/fresh-collection" element={<FreshCollectionList/>}/>
 
         </Route>
 

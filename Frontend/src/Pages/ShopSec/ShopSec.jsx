@@ -194,7 +194,7 @@ const ShopSec = () => {
 
                   <h2 className="shopsec-product-name">{item.title}</h2>
 
-                  <p className="shopsec-product-desc">{item.details}</p>
+                 <div className="shopsec-product-desc">{item.details}</div>
 
                   {/* ⭐ RATING FIX */}
                   <div className="shopsec-product-rating">
