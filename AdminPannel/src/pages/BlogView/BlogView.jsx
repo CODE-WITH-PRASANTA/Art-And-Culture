@@ -1,122 +1,158 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./BlogView.css";
+import API, { BASE_URL } from "../../api/axios";
+
 import {
   MoreVertical,
-  Eye,
-  Pencil,
   Trash2,
   UploadCloud,
   CalendarDays,
   User,
+  CheckCircle,
+  XCircle,
+  Pencil,
+  Save,
+  X,
+  Eye,
 } from "lucide-react";
 
 const BlogView = () => {
+  const [blogs, setBlogs] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [loadingId, setLoadingId] = useState(null);
 
-  const [blogs, setBlogs] = useState([
-    {
-      id: 1,
-      title: "The Beauty of Indian Handcrafted Art",
-      category: "Culture",
-      author: "Admin",
-      date: "02 May 2026",
-      status: "Published",
-      image:
-        "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 2,
-      title: "Traditional Paintings That Define Heritage",
-      category: "Painting",
-      author: "Admin",
-      date: "28 April 2026",
-      status: "Draft",
-      image:
-        "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 3,
-      title: "Wooden Sculptures & Temple Artwork",
-      category: "Sculpture",
-      author: "Admin",
-      date: "22 April 2026",
-      status: "Review",
-      image:
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 4,
-      title: "Modern Handmade Decorative Trends",
-      category: "Decor",
-      author: "Admin",
-      date: "18 April 2026",
-      status: "Published",
-      image:
-        "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 5,
-      title: "Exploring Odisha Traditional Culture",
-      category: "Heritage",
-      author: "Admin",
-      date: "14 April 2026",
-      status: "Draft",
-      image:
-        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      id: 6,
-      title: "Ancient Art Forms That Still Inspire",
-      category: "History",
-      author: "Admin",
-      date: "09 April 2026",
-      status: "Published",
-      image:
-        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop",
-    },
-  ]);
+  const [editId, setEditId] = useState(null);
+  const [editData, setEditData] = useState({
+    title: "",
+    category: "",
+    details: "",
+  });
 
-  const toggleMenu = (id) => {
-    setActiveMenu(activeMenu === id ? null : id);
-  };
+  const [viewBlog, setViewBlog] = useState(null);
 
-  // ACTIONS
+  // ✅ FETCH BLOGS
+  const fetchBlogs = async () => {
+    try {
+      const res = await API.get("/blog");
 
-  const handleView = (blog) => {
-    alert(`Viewing:\n${blog.title}`);
-    setActiveMenu(null);
-  };
-
-  const handleEdit = (blog) => {
-    alert(`Editing:\n${blog.title}`);
-    setActiveMenu(null);
-  };
-
-  const handleTogglePublish = (id) => {
-    setBlogs(
-      blogs.map((b) =>
-        b.id === id
-          ? {
-              ...b,
-              status: b.status === "Published" ? "Draft" : "Published",
-            }
-          : b
-      )
-    );
-    setActiveMenu(null);
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm("Delete this blog?")) {
-      setBlogs(blogs.filter((b) => b.id !== id));
+      if (Array.isArray(res.data)) setBlogs(res.data);
+      else if (Array.isArray(res.data.data)) setBlogs(res.data.data);
+      else setBlogs([]);
+    } catch (err) {
+      console.error(err);
     }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  // ✅ CLOSE MENU
+  useEffect(() => {
+    const close = () => setActiveMenu(null);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, []);
+
+  const toggleMenu = (e, id) => {
+    e.stopPropagation();
+    setActiveMenu((prev) => (prev === id ? null : id));
+  };
+
+  // ✅ DELETE
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this blog?")) return;
+
+    try {
+      setLoadingId(id);
+      await API.delete(`/blog/${id}`);
+      setBlogs((prev) => prev.filter((b) => b._id !== id));
+    } catch {
+      alert("Delete failed");
+    } finally {
+      setLoadingId(null);
+      setActiveMenu(null);
+    }
+  };
+
+  // ✅ PUBLISH
+  const handleTogglePublish = async (blog) => {
+    try {
+      setLoadingId(blog._id);
+
+      const newStatus =
+        blog.status === "Published" ? "Draft" : "Published";
+
+      await API.put(`/blog/${blog._id}`, { status: newStatus });
+
+      setBlogs((prev) =>
+        prev.map((b) =>
+          b._id === blog._id ? { ...b, status: newStatus } : b
+        )
+      );
+    } catch {
+      alert("Update failed");
+    } finally {
+      setLoadingId(null);
+      setActiveMenu(null);
+    }
+  };
+
+  // ✅ VIEW
+  const handleView = (e, blog) => {
+    e.stopPropagation();
+    setViewBlog(blog);
+  };
+
+  // ✅ EDIT
+  const handleEditStart = (blog) => {
+    setEditId(blog._id);
+    setEditData({
+      title: blog.title || "",
+      category: blog.category || "",
+      details: blog.details || "",
+    });
     setActiveMenu(null);
   };
+
+  const handleSaveEdit = async () => {
+    try {
+      setLoadingId(editId);
+
+      await API.put(`/blog/${editId}`, editData);
+
+      setBlogs((prev) =>
+        prev.map((b) =>
+          b._id === editId ? { ...b, ...editData } : b
+        )
+      );
+
+      setEditId(null);
+    } catch {
+      alert("Update failed");
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  // ✅ IMAGE FIX
+  const getImageUrl = (img) => {
+    if (!img) return "/no-image.png";
+    if (img.startsWith("http")) return img;
+
+    let path = img.replace(/\\/g, "/").replace(/^\/+/, "");
+    if (!path.startsWith("uploads")) path = `uploads/${path}`;
+
+    return `${BASE_URL}/${path}`;
+  };
+
+  const stripHtml = (html) =>
+    html ? html.replace(/<[^>]+>/g, "") : "";
 
   return (
     <div className="blogview">
 
-      {/* HEADER (TEXT REMOVED ONLY) */}
+      {/* HEADER */}
       <div className="blogview-header">
         <button className="blogview-create-btn">
           <UploadCloud size={18} />
@@ -126,79 +162,163 @@ const BlogView = () => {
 
       {/* GRID */}
       <div className="blogview-grid">
-        {blogs.map((blog) => (
-          <div className="blogview-card" key={blog.id}>
+        {blogs.map((blog) => {
+          const isEditing = editId === blog._id;
+          const cleanText = stripHtml(blog.details);
+          const preview = cleanText.slice(0, 120);
 
-            {/* IMAGE */}
-            <div className="blogview-card-image">
-              <img src={blog.image} alt={blog.title} />
+          return (
+            <div className="blogview-card" key={blog._id}>
+              
+              {/* IMAGE */}
+              <div className="blogview-card-image">
+                <img
+                  src={getImageUrl(blog.image)}
+                  alt=""
+                  onError={(e) => (e.target.src = "/no-image.png")}
+                />
 
-              <span className={`blogview-status ${blog.status.toLowerCase()}`}>
-                {blog.status}
-              </span>
+                <span className={`blogview-status ${blog.status === "Published" ? "published" : "draft"}`}>
+                  {blog.status}
+                </span>
 
-              <button
-                className="blogview-menu-btn"
-                onClick={() => toggleMenu(blog.id)}
-              >
-                <MoreVertical size={18} />
-              </button>
+                <button
+                  className="blogview-menu-btn"
+                  onClick={(e) => toggleMenu(e, blog._id)}
+                >
+                  <MoreVertical size={18} />
+                </button>
 
-              {activeMenu === blog.id && (
-                <div className="blogview-dropdown">
+                {activeMenu === blog._id && (
+                  <div className="blogview-dropdown" onClick={(e) => e.stopPropagation()}>
+                    
+                    <button onClick={(e) => handleView(e, blog)}>
+                      <Eye size={16} /> View
+                    </button>
 
-                  <button onClick={() => handleView(blog)}>
-                    <Eye size={16} /> View
-                  </button>
+                    <button onClick={() => handleEditStart(blog)}>
+                      <Pencil size={16} /> Edit
+                    </button>
 
-                  <button onClick={() => handleEdit(blog)}>
-                    <Pencil size={16} /> Edit
-                  </button>
+                    <button onClick={() => handleTogglePublish(blog)}>
+                      {blog.status === "Published" ? "Unpublish" : "Publish"}
+                    </button>
 
-                  <button onClick={() => handleTogglePublish(blog.id)}>
-                    <UploadCloud size={16} />
-                    {blog.status === "Published" ? "Unpublish" : "Publish"}
-                  </button>
+                    <button className="delete" onClick={() => handleDelete(blog._id)}>
+                      <Trash2 size={16} /> Delete
+                    </button>
 
-                  <button
-                    className="delete"
-                    onClick={() => handleDelete(blog.id)}
-                  >
-                    <Trash2 size={16} /> Delete
-                  </button>
-
-                </div>
-              )}
-            </div>
-
-            {/* CONTENT */}
-            <div className="blogview-card-content">
-              <span className="blogview-category">{blog.category}</span>
-
-              <h3>{blog.title}</h3>
-
-              <p>
-                Discover premium handcrafted stories, cultural traditions, and
-                artistic inspirations beautifully curated for modern audiences.
-              </p>
-
-              {/* FOOTER */}
-              <div className="blogview-card-footer">
-                <div>
-                  <User size={15} />
-                  <span>{blog.author}</span>
-                </div>
-
-                <div>
-                  <CalendarDays size={15} />
-                  <span>{blog.date}</span>
-                </div>
+                  </div>
+                )}
               </div>
+
+              {/* CONTENT */}
+              <div className="blogview-card-content">
+
+                {isEditing ? (
+                  <>
+                    <input
+                      value={editData.title}
+                      onChange={(e) =>
+                        setEditData({ ...editData, title: e.target.value })
+                      }
+                    />
+
+                    <input
+                      value={editData.category}
+                      onChange={(e) =>
+                        setEditData({ ...editData, category: e.target.value })
+                      }
+                    />
+
+                    <textarea
+                      value={editData.details}
+                      onChange={(e) =>
+                        setEditData({ ...editData, details: e.target.value })
+                      }
+                    />
+
+                    <div className="edit-actions">
+                      <button onClick={handleSaveEdit}>
+                        <Save size={16} /> Save
+                      </button>
+
+                      <button onClick={() => setEditId(null)}>
+                        <X size={16} /> Cancel
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* CATEGORY */}
+                    <span className="blogview-category">
+                      {blog.category || "General"}
+                    </span>
+
+                    {/* TITLE */}
+                    <h3>{blog.title}</h3>
+
+                    {/* DESCRIPTION */}
+                    <p>
+                      {preview}
+                      {cleanText.length > 120 && "..."}
+                    </p>
+
+                    {/* FOOTER (ADMIN + DATE) */}
+                    <div className="blogview-card-footer">
+                      <div>
+                        <User size={14} />
+                        <span> {blog.author || "Admin"}</span>
+                      </div>
+
+                      <div>
+                        <CalendarDays size={14} />
+                        <span>
+                          {blog.createdAt
+                            ? new Date(blog.createdAt).toDateString()
+                            : "No Date"}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* VIEW MODAL */}
+      {viewBlog && (
+        <div className="blogview-modal">
+          <div className="blogview-modal-content">
+
+            <button
+              className="modal-close"
+              onClick={() => setViewBlog(null)}
+            >
+              <X size={20} />
+            </button>
+
+            <img src={getImageUrl(viewBlog.image)} alt="" />
+
+            <h2>{viewBlog.title}</h2>
+
+            <p>{stripHtml(viewBlog.details)}</p>
+
+            <div className="blogview-card-footer">
+              <span><User size={14} /> {viewBlog.author || "Admin"}</span>
+              <span>
+                <CalendarDays size={14} />
+                {new Date(viewBlog.createdAt).toDateString()}
+              </span>
             </div>
 
           </div>
-        ))}
-      </div>
+        </div>
+      )}
+
     </div>
   );
 };

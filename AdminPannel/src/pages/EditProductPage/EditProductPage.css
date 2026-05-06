@@ -1,0 +1,236 @@
+/* ===== CONTAINER ===== */
+.editProduct-container {
+  padding: 24px;
+  max-width: 1100px;
+  margin: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editProduct-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* ===== FORM GRID ===== */
+.editProduct-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* ===== FORM GROUP ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ===== LABEL ===== */
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* ===== INPUTS ===== */
+.editProduct-form input,
+.editProduct-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.editProduct-form input:focus,
+.editProduct-form textarea:focus {
+  border-color: #4f46e5;
+}
+
+/* ===== TEXTAREA FULL WIDTH ===== */
+.form-group.full,
+.editProduct-form textarea {
+  grid-column: span 2;
+  min-height: 90px;
+  resize: none;
+}
+
+/* ===== SECTION TITLES ===== */
+.editProduct-form h4 {
+  grid-column: span 2;
+  margin-top: 10px;
+  font-size: 15px;
+  color: #333;
+}
+
+/* ===== FAQ BOX ===== */
+.faq-box {
+  grid-column: span 2;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fafafa;
+}
+
+.faq-box button {
+  align-self: flex-end;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* ===== ADD FAQ BUTTON ===== */
+.editProduct-form button[type="button"] {
+  grid-column: span 2;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #16a34a;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ===== IMAGE PREVIEW ===== */
+.preview {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.img-box {
+  position: relative;
+}
+
+.img-box img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ===== DELETE BUTTON ===== */
+.img-box button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.submit-btn {
+  grid-column: span 2;
+  padding: 14px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.submit-btn:hover {
+  background: #4338ca;
+}
+
+/* ========================= */
+/* 📱 RESPONSIVE SECTION */
+/* ========================= */
+
+/* ===== LARGE TABLET ===== */
+@media (max-width: 1024px) {
+  .editProduct-container {
+    padding: 20px;
+  }
+
+  .editProduct-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 768px) {
+  .editProduct-container {
+    padding: 16px;
+  }
+
+  .editProduct-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full,
+  .editProduct-form textarea,
+  .faq-box,
+  .preview,
+  .submit-btn,
+  .editProduct-form h4,
+  .editProduct-form button[type="button"] {
+    grid-column: span 1;
+  }
+
+  .img-box img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .editProduct-container {
+    padding: 12px;
+  }
+
+  .editProduct-container h2 {
+    font-size: 18px;
+  }
+
+  .editProduct-form input,
+  .editProduct-form textarea {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .submit-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .img-box img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* ===== SMALL MOBILE ===== */
+@media (max-width: 360px) {
+  .img-box img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+  }
+}

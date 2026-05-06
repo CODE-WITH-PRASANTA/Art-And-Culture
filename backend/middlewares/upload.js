@@ -12,15 +12,18 @@ const ensureDir = (dir) => {
 
 /* ================= ROUTE → FOLDER MAP ================= */
 const routeFolderMap = {
+  "/api/blog": "uploads/blogs",
+  "/api/pooja": "uploads/pooja", 
   "/gallery": "uploads/gallery",
   "/news": "uploads/news",
   "/events": "uploads/events",
   "/classes": "uploads/classes",
-   "/testimonials": "uploads/testimonials" ,
-    "/teachers": "uploads/teachers",
-    "/admissions": "uploads/admissions",
-    "/subjects": "uploads/subjects", 
-    
+  "/testimonials": "uploads/testimonials",
+  "/teachers": "uploads/teachers",
+  "/admissions": "uploads/admissions",
+  "/subjects": "uploads/subjects",
+  "/products": "uploads/products", // ✅ IMPORTANT ADD
+  "/api/blog": "uploads/blogs", 
     
 };
 
@@ -29,8 +32,6 @@ const getUploadPath = (req) => {
   let uploadPath = "uploads/common";
 
   for (const route in routeFolderMap) {
-
-    
     if (req.originalUrl.includes(route)) {
       uploadPath = routeFolderMap[route];
       break;
@@ -92,8 +93,33 @@ const convertToWebp = async (req, res, next) => {
       req.body[req.file.fieldname] = relativePath;
     }
 
-    /* ================= MULTIPLE FILES ================= */
-    if (req.files) {
+    /* ================= MULTIPLE FILES (FIXED) ================= */
+    if (Array.isArray(req.files)) {
+      const paths = [];
+
+      for (const file of req.files) {
+        const filename = `${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2)}.webp`;
+
+        const outputPath = path.join(uploadPath, filename);
+
+        await sharp(file.buffer)
+          .resize(1200, 1200, { fit: "inside" })
+          .webp({ quality: 80 })
+          .toFile(outputPath);
+
+        const relativePath = "/" + outputPath.replace(/\\/g, "/");
+
+        file.path = relativePath;
+        paths.push(relativePath);
+      }
+
+      req.body.images = paths; // ✅ IMPORTANT
+    }
+
+    /* ================= MULTIPLE FIELDS SUPPORT ================= */
+    if (req.files && !Array.isArray(req.files)) {
       for (const field in req.files) {
         req.body[field] = [];
 
@@ -127,7 +153,7 @@ const convertToWebp = async (req, res, next) => {
   }
 };
 
-/* ================= DELETE IMAGE FUNCTION ================= */
+/* ================= DELETE IMAGE ================= */
 const deleteImageFile = (imagePath) => {
   try {
     if (!imagePath) return;

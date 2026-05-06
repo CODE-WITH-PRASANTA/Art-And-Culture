@@ -11,7 +11,7 @@
   background: #f4f7fb;
 }
 
-/* HEADER (TEXT REMOVED, BUTTON ONLY) */
+/* HEADER */
 
 .blogview-header {
   display: flex;
@@ -102,11 +102,6 @@
   color: #ca8a04;
 }
 
-.blogview-status.review {
-  background: rgba(59, 130, 246, 0.15);
-  color: #2563eb;
-}
-
 /* MENU */
 
 .blogview-menu-btn {
@@ -166,6 +161,7 @@
 
   font-size: 14px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .blogview-dropdown button:hover {
@@ -210,6 +206,127 @@
   justify-content: space-between;
   font-size: 13px;
   color: #6b7280;
+}
+
+/* ========================= */
+/* ✅ EDIT MODE */
+/* ========================= */
+
+.blogview-card-content input,
+.blogview-card-content textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+
+  font-size: 14px;
+  outline: none;
+}
+
+.blogview-card-content textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* EDIT BUTTONS */
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-actions button {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.edit-actions button:first-child {
+  background: #2563eb;
+  color: white;
+}
+
+.edit-actions button:last-child {
+  background: #e5e7eb;
+}
+
+/* ========================= */
+/* ✅ VIEW MODAL */
+/* ========================= */
+
+.blogview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.blogview-modal-content {
+  background: #fff;
+  padding: 24px;
+
+  width: 90%;
+  max-width: 700px;
+
+  border-radius: 16px;
+  position: relative;
+
+  animation: fadeIn 0.3s ease;
+}
+
+.blogview-modal img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.blogview-modal h2 {
+  margin-bottom: 10px;
+}
+
+.blogview-modal p {
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* CLOSE BUTTON */
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* RESPONSIVE */

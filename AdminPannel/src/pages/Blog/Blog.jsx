@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Blog.css";
 import { Editor } from "@tinymce/tinymce-react";
+import API from "../../api/axios"; // ✅ use centralized axios
 
 const Blog = () => {
   const [previewImage, setPreviewImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [blogData, setBlogData] = useState({
     title: "",
@@ -16,45 +19,104 @@ const Blog = () => {
     blogType: "Trending",
   });
 
+  // 🧠 HANDLE INPUT
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setBlogData({
-      ...blogData,
+    setBlogData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
+  // 🧠 HANDLE EDITOR
   const handleEditorChange = (content) => {
-    setBlogData({
-      ...blogData,
+    setBlogData((prev) => ({
+      ...prev,
       details: content,
-    });
+    }));
   };
 
+  // 🖼 IMAGE UPLOAD
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
 
     if (file) {
+      setImageFile(file);
       setPreviewImage(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = (e) => {
+  // 🧹 FIX MEMORY LEAK
+  useEffect(() => {
+    return () => {
+      if (previewImage?.startsWith("blob:")) {
+        URL.revokeObjectURL(previewImage);
+      }
+    };
+  }, [previewImage]);
+
+  /* 🚀 SUBMIT */
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(blogData);
-    alert("Blog Published Successfully");
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+
+      // append all fields
+      Object.keys(blogData).forEach((key) => {
+        formData.append(key, blogData[key]);
+      });
+
+      // append image
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+      const res = await API.post("/blog", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("✅ Blog Published Successfully");
+      console.log(res.data);
+
+      // 🔄 RESET
+      setBlogData({
+        title: "",
+        quote: "",
+        category: "",
+        author: "",
+        designation: "",
+        aboutAuthor: "",
+        details: "",
+        blogType: "Trending",
+      });
+
+      setPreviewImage(null);
+      setImageFile(null);
+
+    } catch (error) {
+      console.error("BLOG ERROR:", error);
+      alert("❌ Error publishing blog");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="blogadmin">
-      <form className="blogadmin-form" onSubmit={handleSubmit}>
-
+      <form
+        className="blogadmin-form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         {/* LEFT */}
         <div className="blogadmin-left">
 
-          {/* TITLE */}
           <div className="blogadmin-card">
             <label>Blog Title</label>
             <input
@@ -62,12 +124,10 @@ const Blog = () => {
               name="title"
               value={blogData.title}
               onChange={handleChange}
-              placeholder="Enter Blog Title"
               required
             />
           </div>
 
-          {/* QUOTE */}
           <div className="blogadmin-card">
             <label>Short Quotes</label>
             <textarea
@@ -75,14 +135,12 @@ const Blog = () => {
               name="quote"
               value={blogData.quote}
               onChange={handleChange}
-              placeholder="Write attractive blog quote..."
               required
             />
           </div>
 
-          {/* ✅ REAL TINYMCE EDITOR */}
           <div className="blogadmin-card">
-            <h3 className="editor-title">Blog Details</h3>
+            <h3>Blog Details</h3>
 
             <Editor
               apiKey="jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"
@@ -91,138 +149,105 @@ const Blog = () => {
               init={{
                 height: 400,
                 menubar: false,
-                plugins: [
-                  "advlist autolink lists link image charmap preview anchor",
-                  "searchreplace visualblocks code fullscreen",
-                  "insertdatetime media table code help wordcount",
-                ],
-                toolbar:
-                  "undo redo | formatselect | bold italic underline | \
-                   alignleft aligncenter alignright alignjustify | \
-                   bullist numlist outdent indent | link image | removeformat",
-                content_style:
-                  "body { font-family:Inter,sans-serif; font-size:14px }",
               }}
             />
           </div>
-
         </div>
 
         {/* RIGHT */}
         <div className="blogadmin-right">
 
-          {/* IMAGE */}
           <div className="blogadmin-card">
             <label>Upload Blog Photo</label>
 
-            <div className="blogadmin-upload-box">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
 
-              {previewImage ? (
-                <img
-                  src={previewImage}
-                  alt="preview"
-                  className="blogadmin-preview"
-                />
-              ) : (
-                <div className="blogadmin-upload-content">
-                  <div className="blogadmin-upload-icon">📷</div>
-                  <h4>Upload Blog Image</h4>
-                  <p>Drag & Drop or Click</p>
-                </div>
-              )}
-            </div>
+            {previewImage && (
+              <img
+                src={previewImage}
+                alt="preview"
+                className="blogadmin-preview"
+              />
+            )}
           </div>
 
-          {/* CATEGORY */}
           <div className="blogadmin-card">
-            <label>Choose Category</label>
+            <label>Category</label>
             <select
               name="category"
               value={blogData.category}
               onChange={handleChange}
               required
             >
-              <option value="">Select Category</option>
+              <option value="">Select</option>
               <option value="Art">Art</option>
               <option value="Culture">Culture</option>
               <option value="Festival">Festival</option>
               <option value="Tradition">Tradition</option>
-              <option value="Handicraft">Handicraft</option>
             </select>
           </div>
 
-          {/* AUTHOR */}
           <div className="blogadmin-card">
-            <label>Author Name</label>
+            <label>Author</label>
             <input
               type="text"
               name="author"
               value={blogData.author}
               onChange={handleChange}
-              required
             />
           </div>
 
-          {/* DESIGNATION */}
           <div className="blogadmin-card">
-            <label>Author Designation</label>
+            <label>Designation</label>
             <input
               type="text"
               name="designation"
               value={blogData.designation}
               onChange={handleChange}
-              required
             />
           </div>
 
-          {/* ABOUT AUTHOR */}
           <div className="blogadmin-card">
             <label>About Author</label>
             <textarea
-              rows="5"
               name="aboutAuthor"
               value={blogData.aboutAuthor}
               onChange={handleChange}
-              required
             />
           </div>
 
-          {/* TYPE */}
           <div className="blogadmin-card">
             <label>Blog Type</label>
 
-            <div className="blogadmin-type-wrapper">
-              <label className="blogadmin-type-card">
-                <input
-                  type="radio"
-                  name="blogType"
-                  value="Trending"
-                  checked={blogData.blogType === "Trending"}
-                  onChange={handleChange}
-                />
-                <span>🔥 Trending</span>
-              </label>
+            <label>
+              <input
+                type="radio"
+                name="blogType"
+                value="Trending"
+                checked={blogData.blogType === "Trending"}
+                onChange={handleChange}
+              />
+              Trending
+            </label>
 
-              <label className="blogadmin-type-card">
-                <input
-                  type="radio"
-                  name="blogType"
-                  value="Normal"
-                  checked={blogData.blogType === "Normal"}
-                  onChange={handleChange}
-                />
-                <span>📝 Normal</span>
-              </label>
-            </div>
+            <label>
+              <input
+                type="radio"
+                name="blogType"
+                value="Normal"
+                checked={blogData.blogType === "Normal"}
+                onChange={handleChange}
+              />
+              Normal
+            </label>
           </div>
 
-          <button className="blogadmin-submit-btn">
-            Publish Blog
+          <button className="blogadmin-submit-btn" disabled={loading}>
+            {loading ? "Publishing..." : "Publish Blog"}
           </button>
 
         </div>
