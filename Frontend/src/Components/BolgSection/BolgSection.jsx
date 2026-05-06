@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./BolgSection.css";
 import API, { BASE_URL } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const BolgSection = () => {
   const [blogs, setBlogs] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -31,48 +33,54 @@ const BolgSection = () => {
     fetchBlogs();
   }, []);
 
-  // ✅ FIX IMAGE PATH
   const getImageUrl = (img) => {
     if (!img) return "/no-image.png";
     if (img.startsWith("http")) return img;
     return `${BASE_URL}/${img.replace(/\\/g, "/").replace(/^\/+/, "")}`;
   };
 
-  // ✅ CLEAN HTML TEXT (REMOVE <p>, <div>, &nbsp;, etc.)
   const stripHtml = (html) => {
     if (!html) return "";
 
-    let text = html.replace(/<[^>]+>/g, ""); // remove tags
-
+    let text = html.replace(/<[^>]+>/g, "");
     text = text
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
 
-    text = text.replace(/\s+/g, " ").trim(); // clean spaces
-
-    return text;
+    return text.replace(/\s+/g, " ").trim();
   };
 
   return (
     <div className="blog-container">
-      <h2 className="blog-heading">Latest Blogs</h2>
 
-      {loading && <p className="blog-msg">Loading blogs...</p>}
-      {!loading && error && <p className="blog-error">{error}</p>}
+      {/* HEADER */}
+      <div className="blog-header">
+        <h2 className="blog-heading">Latest Blogs</h2>
+        <p className="blog-subtitle">Discover stories, ideas and insights</p>
+      </div>
+
+      {/* STATES */}
+      {loading && <div className="blog-msg">Loading amazing blogs...</div>}
+      {!loading && error && <div className="blog-error">{error}</div>}
       {!loading && !error && blogs.length === 0 && (
-        <p className="blog-msg">No Blogs Found</p>
+        <div className="blog-msg">No Blogs Found</div>
       )}
 
+      {/* GRID */}
       <div className="blog-grid">
-        {blogs.slice(0, visibleCount).map((blog, index) => {
+        {blogs.slice(0, visibleCount).map((blog) => {
           const cleanText = stripHtml(blog.details || "");
           const previewText = cleanText.slice(0, 120);
 
           return (
-            <div className="blog-card" key={blog._id || index}>
-              
+            <div
+              className="blog-card"
+              key={blog._id}
+              onClick={() => navigate(`/blog/${blog._id}`)}
+            >
+
               {/* IMAGE */}
               <div className="blog-image">
                 <img
@@ -80,9 +88,15 @@ const BolgSection = () => {
                   alt={blog.title || "blog"}
                   onError={(e) => (e.target.src = "/no-image.png")}
                 />
+
+                <span className="blog-badge">
+                  {blog.category || "Blog"}
+                </span>
               </div>
 
+              {/* CONTENT */}
               <div className="blog-content">
+
                 <p className="blog-date">
                   {blog.createdAt
                     ? new Date(blog.createdAt).toDateString()
@@ -93,24 +107,29 @@ const BolgSection = () => {
                   {blog.title || "No Title"}
                 </h3>
 
-                {/* ✅ CLEAN DESCRIPTION (NO HTML TAGS) */}
                 <p className="blog-desc">
                   {previewText || "No content"}
                   {cleanText.length > 120 && "..."}
                 </p>
+
+                <button className="read-more-btn">
+                  Read More →
+                </button>
+
               </div>
             </div>
           );
         })}
       </div>
 
+      {/* LOAD MORE */}
       {blogs.length > visibleCount && (
         <div className="load-more-wrap">
           <button
             className="load-btn"
             onClick={() => setVisibleCount((prev) => prev + 3)}
           >
-            Load More
+            Load More Stories
           </button>
         </div>
       )}
