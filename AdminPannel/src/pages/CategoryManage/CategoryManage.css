@@ -1,160 +1,480 @@
-/* ROOT */
-.CategoryManage {
-  padding: 20px;
-  background: #f4f7fb;
-  min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden; /* 🚀 prevents right gap */
-  box-sizing: border-box;
+/* =========================================
+   ROOT
+========================================= */
+
+.CategoryManage{
+  width:100%;
+  min-height:100vh;
+
+  padding:24px;
+
+  background:#f5f7fb;
+
+  box-sizing:border-box;
+
+  overflow-x:hidden;
 }
 
-/* CONTAINER */
-.CategoryManage__container {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  max-width: 1400px;
-  margin: auto;
+/* =========================================
+   CONTAINER
+========================================= */
+
+.CategoryManage__container{
+  width:100%;
+  max-width:1400px;
+
+  margin:auto;
+
+  display:flex;
+
+  gap:24px;
+
+  align-items:flex-start;
 }
 
-/* LEFT FORM */
-.CategoryManage__formCard {
-  flex: 0 0 320px;
-  max-width: 320px;
-}
+/* =========================================
+   CARD
+========================================= */
 
-/* RIGHT TABLE */
-.CategoryManage__tableCard {
-  flex: 1;
-  min-width: 0; /* 🚀 IMPORTANT: prevents overflow */
-}
-
-/* CARD */
 .CategoryManage__formCard,
-.CategoryManage__tableCard {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+.CategoryManage__tableCard{
+  background:#ffffff;
+
+  border-radius:24px;
+
+  padding:28px;
+
+  border:1px solid #edf0f5;
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,0.06);
+
+  transition:0.3s ease;
 }
 
-/* TITLE */
-.CategoryManage__title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: #6366f1;
+.CategoryManage__formCard:hover,
+.CategoryManage__tableCard:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 14px 40px rgba(0,0,0,0.08);
 }
 
-/* FORM */
-.CategoryManage__form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+/* =========================================
+   LEFT CARD
+========================================= */
+
+.CategoryManage__formCard{
+  width:340px;
+
+  flex-shrink:0;
 }
 
-.CategoryManage__form label{
-    color: black;
+/* =========================================
+   RIGHT CARD
+========================================= */
+
+.CategoryManage__tableCard{
+  flex:1;
+
+  min-width:0;
 }
 
-.CategoryManage__formGroup input {
-  width: 100%; /* 🚀 fix input overflow */
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
+/* =========================================
+   TITLE
+========================================= */
+
+.CategoryManage__title{
+  font-size:24px;
+  font-weight:700;
+
+  color:#111827;
+
+  margin-bottom:24px;
+
+  line-height:1.3;
 }
 
-/* BUTTON */
-.CategoryManage__btn {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  background: #6366f1;
-  color: white;
-  border: none;
-  cursor: pointer;
+/* =========================================
+   FORM
+========================================= */
+
+.CategoryManage__form{
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
 }
 
-/* TABLE */
-.CategoryManage__tableWrapper {
-  width: 100%;
-  overflow-x: auto; /* 🚀 allows scroll instead of breaking layout */
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.CategoryManage__formGroup{
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
 }
 
-.CategoryManage__table {
-  width: 100%;
-  min-width: 500px; /* 🚀 prevents compression */
-  border-collapse: collapse;
+.CategoryManage__formGroup label{
+  font-size:14px;
+  font-weight:600;
+
+  color:#374151;
 }
 
-.CategoryManage__table th,
-.CategoryManage__table td {
-  padding: 12px;
-  text-align: left;
+/* =========================================
+   INPUT
+========================================= */
+
+.CategoryManage__formGroup input{
+  width:100%;
+
+  height:56px;
+
+  border-radius:14px;
+
+  border:1px solid #dbe1ea;
+
+  background:#f9fafc;
+
+  padding:0 18px;
+
+  font-size:15px;
+
+  color:#111827;
+
+  outline:none;
+
+  transition:0.3s ease;
+
+  box-sizing:border-box;
 }
 
-/* ACTION COLUMN WRAPPER */
-.CategoryManage__action {
-  display: flex;
-  gap: 8px; /* 🔥 spacing between buttons */
-  align-items: center;
+.CategoryManage__formGroup input::placeholder{
+  color:#9ca3af;
 }
 
-/* COMMON BUTTON STYLE */
-.CategoryManage__action button {
-  border: none;
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-weight: 500;
+.CategoryManage__formGroup input:focus{
+  border-color:#6366f1;
+
+  background:#ffffff;
+
+  box-shadow:
+    0 0 0 4px rgba(99,102,241,0.1);
 }
 
-/* EDIT BUTTON */
-.CategoryManage__editBtn {
-  background: #e0f2fe;
-  color: #0284c7;
+/* =========================================
+   BUTTON
+========================================= */
+
+.CategoryManage__btn{
+  width:100%;
+
+  height:56px;
+
+  border:none;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #4f46e5
+    );
+
+  color:#ffffff;
+
+  font-size:15px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+
+  box-shadow:
+    0 10px 25px rgba(99,102,241,0.25);
 }
 
-.CategoryManage__editBtn:hover {
-  background: #0284c7;
-  color: #fff;
+.CategoryManage__btn:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(99,102,241,0.35);
 }
 
-/* DELETE BUTTON */
-.CategoryManage__deleteBtn {
-  background: #fee2e2;
-  color: #dc2626;
+/* =========================================
+   TABLE TOP
+========================================= */
+
+.CategoryManage__tableTop{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  margin-bottom:20px;
 }
 
-.CategoryManage__deleteBtn:hover {
-  background: #dc2626;
-  color: #fff;
+/* =========================================
+   TABLE WRAPPER
+========================================= */
+
+.CategoryManage__tableWrapper{
+  width:100%;
+
+  overflow-x:auto;
+
+  border-radius:18px;
+
+  border:1px solid #edf0f5;
 }
 
+/* =========================================
+   TABLE
+========================================= */
 
-/* ================= RESPONSIVE ================= */
+.CategoryManage__table{
+  width:100%;
 
-/* Tablet */
-@media (max-width: 992px) {
-  .CategoryManage__container {
-    flex-direction: column;
+  min-width:650px;
+
+  border-collapse:collapse;
+
+  background:#ffffff;
+}
+
+/* =========================================
+   TABLE HEAD
+========================================= */
+
+.CategoryManage__table thead{
+  background:#f8fafc;
+}
+
+.CategoryManage__table th{
+  padding:18px 16px;
+
+  text-align:left;
+
+  font-size:13px;
+  font-weight:700;
+
+  color:#6b7280;
+
+  text-transform:uppercase;
+
+  letter-spacing:0.5px;
+
+  border-bottom:1px solid #edf0f5;
+
+  white-space:nowrap;
+}
+
+/* =========================================
+   TABLE BODY
+========================================= */
+
+.CategoryManage__table td{
+  padding:18px 16px;
+
+  font-size:14px;
+  font-weight:500;
+
+  color:#374151;
+
+  border-bottom:1px solid #f1f3f7;
+
+  vertical-align:middle;
+}
+
+.CategoryManage__table tbody tr{
+  transition:0.3s ease;
+}
+
+.CategoryManage__table tbody tr:hover{
+  background:#fafbff;
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.CategoryManage__empty{
+  text-align:center;
+
+  padding:45px 20px;
+
+  color:#9ca3af;
+
+  font-size:14px;
+  font-weight:500;
+}
+
+/* =========================================
+   ACTION
+========================================= */
+
+.CategoryManage__action{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.CategoryManage__editBtn,
+.CategoryManage__deleteBtn{
+  min-width:85px;
+
+  height:40px;
+
+  border:none;
+
+  border-radius:10px;
+
+  padding:0 16px;
+
+  font-size:13px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+/* EDIT */
+
+.CategoryManage__editBtn{
+  background:#e0f2fe;
+
+  color:#0284c7;
+}
+
+.CategoryManage__editBtn:hover{
+  background:#0284c7;
+
+  color:#ffffff;
+
+  transform:translateY(-2px);
+}
+
+/* DELETE */
+
+.CategoryManage__deleteBtn{
+  background:#fee2e2;
+
+  color:#dc2626;
+}
+
+.CategoryManage__deleteBtn:hover{
+  background:#dc2626;
+
+  color:#ffffff;
+
+  transform:translateY(-2px);
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.CategoryManage__tableWrapper::-webkit-scrollbar{
+  height:6px;
+}
+
+.CategoryManage__tableWrapper::-webkit-scrollbar-track{
+  background:#f1f5f9;
+}
+
+.CategoryManage__tableWrapper::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+
+  border-radius:20px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:992px){
+
+  .CategoryManage__container{
+    flex-direction:column;
   }
 
-  .CategoryManage__formCard {
-    max-width: 100%;
-    width: 100%;
+  .CategoryManage__formCard{
+    width:100%;
   }
+
 }
 
-/* Mobile */
-@media (max-width: 576px) {
-  .CategoryManage {
-    padding: 10px;
+@media(max-width:768px){
+
+  .CategoryManage{
+    padding:18px;
   }
 
-  .CategoryManage__table {
-    font-size: 13px;
+  .CategoryManage__formCard,
+  .CategoryManage__tableCard{
+    padding:22px;
+
+    border-radius:20px;
   }
+
+  .CategoryManage__title{
+    font-size:22px;
+  }
+
+  .CategoryManage__table{
+    min-width:600px;
+  }
+
+}
+
+@media(max-width:576px){
+
+  .CategoryManage{
+    padding:14px;
+  }
+
+  .CategoryManage__formCard,
+  .CategoryManage__tableCard{
+    padding:18px;
+
+    border-radius:18px;
+  }
+
+  .CategoryManage__title{
+    font-size:20px;
+  }
+
+  .CategoryManage__formGroup input{
+    height:52px;
+  }
+
+  .CategoryManage__btn{
+    height:52px;
+  }
+
+  .CategoryManage__action{
+    flex-direction:column;
+
+    align-items:stretch;
+  }
+
+  .CategoryManage__editBtn,
+  .CategoryManage__deleteBtn{
+    width:100%;
+  }
+
 }
