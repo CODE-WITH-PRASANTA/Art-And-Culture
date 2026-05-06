@@ -16,6 +16,7 @@ const contactRoutes = require("./routes/contact.routes");
 const categoryRoutes = require("./routes/category.routes");
 const blogRoutes = require("./routes/blog.routes");
 const orderRoutes = require("./routes/order.routes");
+const testimonialRoutes=require("./routes/testimonial.routes");
 const poojaRoutes = require("./routes/pooja.routes");
 
 const app = express();
@@ -45,6 +46,7 @@ app.use("/api/team", teamRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/pooja", poojaRoutes);
 
 /* Test */
