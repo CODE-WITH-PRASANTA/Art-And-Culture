@@ -33,21 +33,18 @@ const ContactTable = () => {
 
       let contactData = [];
 
-      /* FORMAT 1 */
       if (Array.isArray(response.data)) {
 
         contactData = response.data;
 
       }
 
-      /* FORMAT 2 */
       else if (response.data.contacts) {
 
         contactData = response.data.contacts;
 
       }
 
-      /* FORMAT 3 */
       else if (response.data.data) {
 
         contactData = response.data.data;
@@ -85,7 +82,6 @@ const ContactTable = () => {
 
       alert("Contact deleted successfully ✅");
 
-      /* UPDATE UI */
       setContacts((prev) =>
         prev.filter((item) => item._id !== id)
       );
@@ -142,9 +138,7 @@ const ContactTable = () => {
 
     <div className="contactTable-container">
 
-      {/* =========================
-            HEADER
-      ========================= */}
+      {/* HEADER */}
       <div className="contactTable-header">
 
         <div className="contactTable-headingWrap">
@@ -165,9 +159,7 @@ const ContactTable = () => {
 
       </div>
 
-      {/* =========================
-            TABLE
-      ========================= */}
+      {/* TABLE */}
       <div className="contactTable-wrapper">
 
         <table className="contactTable-table">
@@ -187,7 +179,6 @@ const ContactTable = () => {
 
           <tbody>
 
-            {/* LOADING */}
             {loading ? (
 
               <tr>
@@ -205,12 +196,10 @@ const ContactTable = () => {
 
                 <tr key={item._id || index}>
 
-                  {/* ID */}
                   <td>
                     {startIndex + index + 1}
                   </td>
 
-                  {/* NAME */}
                   <td className="contactTable-name">
 
                     {item.firstName || "N/A"}{" "}
@@ -218,29 +207,24 @@ const ContactTable = () => {
 
                   </td>
 
-                  {/* EMAIL */}
                   <td>
                     {item.email || "N/A"}
                   </td>
 
-                  {/* PHONE */}
                   <td>
                     {item.phone || "N/A"}
                   </td>
 
-                  {/* MESSAGE */}
                   <td className="contactTable-message">
 
                     {item.message || "No message"}
 
                   </td>
 
-                  {/* ACTION */}
                   <td>
 
                     <div className="contactTable-actions">
 
-                      {/* VIEW */}
                       <button
                         className="contactTable-view"
                         onClick={() =>
@@ -250,7 +234,6 @@ const ContactTable = () => {
                         View
                       </button>
 
-                      {/* DELETE */}
                       <button
                         className="contactTable-delete"
                         onClick={() =>
@@ -287,14 +270,11 @@ const ContactTable = () => {
 
       </div>
 
-      {/* =========================
-            PAGINATION
-      ========================= */}
+      {/* PAGINATION */}
       {contacts.length > rowsPerPage && (
 
         <div className="contactTable-pagination">
 
-          {/* PREV */}
           <button
             onClick={() =>
               handlePageChange(currentPage - 1)
@@ -304,7 +284,6 @@ const ContactTable = () => {
             {"<"}
           </button>
 
-          {/* PAGE */}
           {[...Array(totalPages)].map((_, index) => {
 
             const page = index + 1;
@@ -328,7 +307,6 @@ const ContactTable = () => {
             );
           })}
 
-          {/* NEXT */}
           <button
             onClick={() =>
               handlePageChange(currentPage + 1)
@@ -342,63 +320,88 @@ const ContactTable = () => {
 
       )}
 
-      {/* =========================
-            VIEW MODAL
-      ========================= */}
+      {/* VIEW MODAL */}
       {selectedContact && (
 
-        <div className="contactModal-overlay">
+        <div
+          className="contactModal-overlay"
+          onClick={closeModal}
+        >
 
-          <div className="contactModal-box">
+          <div
+            className="contactModal-box"
+            onClick={(e) => e.stopPropagation()}
+          >
 
-            <div className="contactModal-header">
+            {/* CLOSE BUTTON */}
+            <button
+              className="contactModal-close"
+              onClick={closeModal}
+            >
+              ×
+            </button>
 
-              <h3>Contact Details</h3>
+            {/* CONTENT */}
+            <div className="contactModal-content">
 
-              <button
-                className="contactModal-close"
-                onClick={closeModal}
-              >
-                ×
-              </button>
+              <h2 className="contactModal-title">
+                Contact Details
+              </h2>
 
-            </div>
+              <div className="contactModal-grid">
 
-            <div className="contactModal-body">
+                {/* NAME */}
+                <div className="contactModal-card">
 
-              <div className="contactModal-item">
-                <span>First Name :</span>
-                <p>
-                  {selectedContact.firstName}
-                </p>
+                  <span>Name</span>
+
+                  <p>
+                    {selectedContact.firstName}{" "}
+                    {selectedContact.lastName}
+                  </p>
+
+                </div>
+
+                {/* EMAIL */}
+                <div className="contactModal-card">
+
+                  <span>Email</span>
+
+                  <p>
+                    {selectedContact.email || "N/A"}
+                  </p>
+
+                </div>
+
+                {/* PHONE */}
+                <div className="contactModal-card">
+
+                  <span>Phone</span>
+
+                  <p>
+                    {selectedContact.phone || "N/A"}
+                  </p>
+
+                </div>
+
               </div>
 
-              <div className="contactModal-item">
-                <span>Last Name :</span>
-                <p>
-                  {selectedContact.lastName}
-                </p>
-              </div>
+              {/* MESSAGE */}
+              <div className="contactModal-messageSection">
 
-              <div className="contactModal-item">
-                <span>Email :</span>
-                <p>
-                  {selectedContact.email}
-                </p>
-              </div>
+                <h3 className="contactModal-messageTitle">
+                  Message
+                </h3>
 
-              <div className="contactModal-item">
-                <span>Phone :</span>
-                <p>
-                  {selectedContact.phone}
-                </p>
-              </div>
+                <div className="contactModal-messageBox">
 
-              <div className="contactModal-item">
-                <span>Message :</span>
-                <p>
-                  {selectedContact.message}
-                </p>
+                  <p>
+                    {selectedContact.message ||
+                      "No message available"}
+                  </p>
+
+                </div>
+
               </div>
 
             </div>
