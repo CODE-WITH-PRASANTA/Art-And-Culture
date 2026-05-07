@@ -563,3 +563,92 @@ table tbody tr:hover {
   border-color: #0077ff;
   background: #f0f7ff;
 }
+/* ================= BASE WRAPPER ================= */
+.teamadmin-root {
+  width: 100%;
+  background: linear-gradient(135deg, #f6f8fc, #eef2f7);
+  min-height: 100vh;
+}
+
+/* HEADING IMPROVE */
+.teamadmin-heading {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #111;
+}
+
+/* FORM SPACING IMPROVE */
+.teamadmin-card form {
+  gap: 22px;
+}
+
+/* INPUT PREMIUM LOOK */
+.form-group input {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
+}
+
+.form-group input:hover {
+  border-color: #bbb;
+}
+
+.form-group input:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.08);
+  background: #fff;
+}
+
+/* SECTION TITLE */
+.form-section-title {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: #444;
+}
+
+/* UPLOAD ENHANCED */
+.custom-upload {
+  height: 70px;
+  border-radius: 16px;
+  border: 2px dashed #d6d6d6;
+  background: #fafafa;
+}
+
+.custom-upload:hover {
+  border-color: #0077ff;
+  background: #f0f7ff;
+}
+
+/* BUTTON IMPROVE */
+.submit-btn {
+  background: linear-gradient(135deg, #000, #333);
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #111, #000);
+  transform: translateY(-2px);
+}
+
+/* TABLE IMPROVE */
+.team-table thead {
+  background: #f9fafc;
+}
+
+.team-table tbody tr:hover {
+  background: #f4f7fb;
+}
+
+/* ACTION BUTTON SMOOTH */
+.edit-btn,
+.delete-btn {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* IMAGE STYLE */
+.table-profile {
+  border: 3px solid #fff;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}

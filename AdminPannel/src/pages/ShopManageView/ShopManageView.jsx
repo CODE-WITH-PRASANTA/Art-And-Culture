@@ -28,10 +28,12 @@ const ShopManageView = () => {
     images: [],
   });
 
-  /* ================= FETCH SINGLE PRODUCT ================= */
+  /* ================= FETCH PRODUCT ================= */
   useEffect(() => {
+
     const fetchSingleProduct = async () => {
       try {
+
         if (!id) return;
 
         const res = await API.get(`/products/${id}`);
@@ -65,6 +67,7 @@ const ShopManageView = () => {
               : [{ question: "", answer: "" }],
           images: [],
         });
+
       } catch (error) {
         console.error(error);
         alert("Failed to fetch product");
@@ -72,23 +75,32 @@ const ShopManageView = () => {
     };
 
     fetchSingleProduct();
+
   }, [id]);
 
   /* ================= INPUT ================= */
   const handleChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+    setProduct({
+      ...product,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSizeChange = (field, value) => {
     setProduct({
       ...product,
-      sizes: { ...product.sizes, [field]: value },
+      sizes: {
+        ...product.sizes,
+        [field]: value,
+      },
     });
   };
 
   /* ================= IMAGE ================= */
   const handleImageUpload = (e) => {
+
     const file = e.target.files[0];
+
     if (!file || product.images.length >= 5) return;
 
     setProduct((prev) => ({
@@ -98,44 +110,81 @@ const ShopManageView = () => {
   };
 
   const removeImage = (index) => {
-    const updated = product.images.filter((_, i) => i !== index);
-    setProduct({ ...product, images: updated });
+
+    const updated = product.images.filter(
+      (_, i) => i !== index
+    );
+
+    setProduct({
+      ...product,
+      images: updated,
+    });
   };
 
   /* ================= FAQ ================= */
   const addFAQ = () => {
     setProduct({
       ...product,
-      faqs: [...product.faqs, { question: "", answer: "" }],
+      faqs: [
+        ...product.faqs,
+        { question: "", answer: "" },
+      ],
     });
   };
 
   const handleFAQChange = (i, field, value) => {
+
     const updated = [...product.faqs];
+
     updated[i][field] = value;
-    setProduct({ ...product, faqs: updated });
+
+    setProduct({
+      ...product,
+      faqs: updated,
+    });
   };
 
   const removeFAQ = (index) => {
-    const updated = product.faqs.filter((_, i) => i !== index);
-    setProduct({ ...product, faqs: updated });
+
+    const updated = product.faqs.filter(
+      (_, i) => i !== index
+    );
+
+    setProduct({
+      ...product,
+      faqs: updated,
+    });
   };
 
   /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
+
       const formData = new FormData();
 
       Object.keys(product).forEach((key) => {
-        if (key !== "images" && key !== "faqs" && key !== "sizes") {
+
+        if (
+          key !== "images" &&
+          key !== "faqs" &&
+          key !== "sizes"
+        ) {
           formData.append(key, product[key]);
         }
       });
 
-      formData.append("sizes", JSON.stringify(product.sizes));
-      formData.append("faqs", JSON.stringify(product.faqs));
+      formData.append(
+        "sizes",
+        JSON.stringify(product.sizes)
+      );
+
+      formData.append(
+        "faqs",
+        JSON.stringify(product.faqs)
+      );
 
       product.images.forEach((img) => {
         formData.append("images", img);
@@ -145,61 +194,85 @@ const ShopManageView = () => {
 
       /* ================= UPDATE ================= */
       if (isEditMode) {
-        res = await API.put(`/products/${id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+
+        res = await API.put(
+          `/products/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type":
+                "multipart/form-data",
+            },
+          }
+        );
 
         alert("✅ Product Updated Successfully");
+
       }
 
       /* ================= CREATE ================= */
       else {
-        res = await API.post("/products", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+
+        res = await API.post(
+          "/products",
+          formData,
+          {
+            headers: {
+              "Content-Type":
+                "multipart/form-data",
+            },
+          }
+        );
 
         alert("✅ Product Added Successfully");
       }
 
       console.log(res.data);
 
-      navigate("/shop-list");
+      navigate("/sub/list");
 
     } catch (err) {
+
       console.error(err);
-      alert("❌ Error saving product");
+      alert("Error saving product ❌");
     }
   };
 
-  /* ================= CLEANUP ================= */
   useEffect(() => {
+
     return () => {
-      product.images.forEach((file) => URL.revokeObjectURL(file));
+      product.images.forEach((file) =>
+        URL.revokeObjectURL(file)
+      );
     };
+
   }, [product.images]);
 
   const finalPrice =
     product.price && product.discount
-      ? product.price - (product.price * product.discount) / 100
+      ? product.price -
+        (product.price * product.discount) / 100
       : product.price;
 
   return (
     <div className="shopManagement-container">
 
-      {/* ================= FORM ================= */}
-      <form className="shopManagement-card" onSubmit={handleSubmit}>
+      <form
+        className="shopManagement-card"
+        onSubmit={handleSubmit}
+      >
+
         <h2 className="shopManagement-title">
-          {isEditMode ? "Update Product" : "Post Product"}
+          {isEditMode
+            ? "Update Product"
+            : "Post Product"}
         </h2>
 
         <div className="shopManagement-grid">
 
           <div className="shopManagement-field full">
             <label>Product Title</label>
+
             <input
               name="title"
               value={product.title}
@@ -209,6 +282,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Use</label>
+
             <input
               name="use"
               value={product.use}
@@ -231,6 +305,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Rating</label>
+
             <input
               name="rating"
               value={product.rating}
@@ -240,6 +315,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Stock</label>
+
             <input
               name="stock"
               value={product.stock}
@@ -249,6 +325,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Shipping</label>
+
             <input
               name="shipping"
               value={product.shipping}
@@ -258,6 +335,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Helpline</label>
+
             <input
               name="helpline"
               value={product.helpline}
@@ -267,6 +345,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Price</label>
+
             <input
               name="price"
               value={product.price}
@@ -276,6 +355,7 @@ const ShopManageView = () => {
 
           <div className="shopManagement-field">
             <label>Discount</label>
+
             <input
               name="discount"
               value={product.discount}
@@ -285,14 +365,19 @@ const ShopManageView = () => {
 
           {/* SIZE */}
           <div className="shopManagement-field full">
+
             <label>Size</label>
 
             <div className="shopManagement-sizeGrid">
+
               <input
                 placeholder="Height"
                 value={product.sizes.height}
                 onChange={(e) =>
-                  handleSizeChange("height", e.target.value)
+                  handleSizeChange(
+                    "height",
+                    e.target.value
+                  )
                 }
               />
 
@@ -300,7 +385,10 @@ const ShopManageView = () => {
                 placeholder="Width"
                 value={product.sizes.width}
                 onChange={(e) =>
-                  handleSizeChange("width", e.target.value)
+                  handleSizeChange(
+                    "width",
+                    e.target.value
+                  )
                 }
               />
 
@@ -308,41 +396,59 @@ const ShopManageView = () => {
                 placeholder="Weight"
                 value={product.sizes.weight}
                 onChange={(e) =>
-                  handleSizeChange("weight", e.target.value)
+                  handleSizeChange(
+                    "weight",
+                    e.target.value
+                  )
                 }
               />
+
             </div>
           </div>
 
-          {/* EDITOR */}
+          {/* DETAILS */}
           <div className="shopManagement-field full">
+
             <label>Details</label>
 
             <Editor
-              apiKey={"jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"}
+              apiKey="jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"
               value={product.details}
               init={{ height: 250 }}
               onEditorChange={(content) =>
                 setProduct({
                   ...product,
-                  details: content.replace(/<\/?p>/g, ""),
+                  details: content.replace(
+                    /<\/?p>/g,
+                    ""
+                  ),
                 })
               }
             />
           </div>
 
-          {/* IMAGE */}
+          {/* IMAGES */}
           <div className="shopManagement-field full">
+
             <label>Upload Images</label>
 
             <div className="shopManagement-uploadGrid">
 
               {product.images.map((file, i) => (
-                <div key={i} className="shopManagement-uploadItem">
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt=""
-                  />
+
+                <div
+                  key={i}
+                  className="shopManagement-uploadItem"
+                >
+
+                 <img
+  src={
+    typeof file === "string"
+      ? `http://localhost:5000${file}`
+      : URL.createObjectURL(file)
+  }
+  alt=""
+/>
 
                   <button
                     type="button"
@@ -350,37 +456,50 @@ const ShopManageView = () => {
                   >
                     ✕
                   </button>
+
                 </div>
               ))}
 
               {product.images.length < 5 && (
+
                 <label className="shopManagement-uploadBox">
+
                   +
 
                   <input
                     type="file"
                     onChange={handleImageUpload}
                   />
+
                 </label>
               )}
+
             </div>
           </div>
 
         </div>
 
-        {/* ================= FAQ ================= */}
+        {/* FAQ */}
         <div className="shopManagement-faqBlock">
 
           <h3>FAQ</h3>
 
           {product.faqs.map((faq, i) => (
-            <div key={i} className="shopManagement-faqRow">
+
+            <div
+              key={i}
+              className="shopManagement-faqRow"
+            >
 
               <input
                 placeholder="Question"
                 value={faq.question}
                 onChange={(e) =>
-                  handleFAQChange(i, "question", e.target.value)
+                  handleFAQChange(
+                    i,
+                    "question",
+                    e.target.value
+                  )
                 }
               />
 
@@ -388,7 +507,11 @@ const ShopManageView = () => {
                 placeholder="Answer"
                 value={faq.answer}
                 onChange={(e) =>
-                  handleFAQChange(i, "answer", e.target.value)
+                  handleFAQChange(
+                    i,
+                    "answer",
+                    e.target.value
+                  )
                 }
               />
 
@@ -413,19 +536,23 @@ const ShopManageView = () => {
         </div>
 
         <button className="shopManagement-submitBtn">
-          {isEditMode ? "Update Product" : "Submit Product"}
+          {isEditMode
+            ? "Update Product"
+            : "Submit Product"}
         </button>
 
       </form>
 
-      {/* ================= PREVIEW ================= */}
+      {/* PREVIEW */}
       <div className="shopManagement-card shopManagement-previewCard">
 
         <h2 className="shopManagement-title">
           Live Preview
         </h2>
 
-        <h2>{product.title || "Product Title"}</h2>
+        <h2>
+          {product.title || "Product Title"}
+        </h2>
 
         <div className="shopManagement-previewMeta">
           ⭐ {product.rating || 0}
@@ -434,64 +561,6 @@ const ShopManageView = () => {
           {" | "}
           {product.categoryType}
         </div>
-
-        <div className="shopManagement-previewImages">
-          {product.images.map((file, i) => (
-            <img
-              key={i}
-              src={URL.createObjectURL(file)}
-              alt=""
-            />
-          ))}
-        </div>
-
-        <div className="shopManagement-previewSection">
-          <strong>Size:</strong>
-
-          <p>
-            H: {product.sizes.height}
-            {" | "}
-            W: {product.sizes.width}
-            {" | "}
-            Weight: {product.sizes.weight}
-          </p>
-        </div>
-
-        <div className="shopManagement-previewSection">
-          <strong>Price:</strong>
-          {" "}₹{product.price || 0}
-
-          {product.discount && (
-            <p>
-              Discount: {product.discount}% <br />
-              Final Price: ₹{finalPrice || 0}
-            </p>
-          )}
-        </div>
-
-        <div
-          className="shopManagement-previewSection"
-          dangerouslySetInnerHTML={{
-            __html: product.details,
-          }}
-        />
-
-        <div className="shopManagement-previewSection">
-          <strong>FAQ:</strong>
-
-          {product.faqs.map((f, i) => (
-            <div key={i}>
-              <b>{f.question}</b>
-              <p>{f.answer}</p>
-            </div>
-          ))}
-        </div>
-
-        <p>
-          <strong>Helpline:</strong>
-          {" "}
-          {product.helpline}
-        </p>
 
       </div>
     </div>

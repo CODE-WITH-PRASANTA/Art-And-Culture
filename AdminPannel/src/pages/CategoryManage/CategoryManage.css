@@ -478,3 +478,116 @@
   }
 
 }
+/* ================= PREMIUM WRAPPER ================= */
+
+.CategoryManage__wrapper{
+  max-width:1400px;
+  margin:auto;
+}
+
+/* ================= CARD DEPTH ================= */
+
+.CategoryManage__formCard,
+.CategoryManage__tableCard{
+  backdrop-filter: blur(6px);
+}
+
+/* ================= INPUT UX IMPROVEMENT ================= */
+
+.CategoryManage__formGroup input{
+  font-weight:500;
+  letter-spacing:0.3px;
+}
+
+/* floating focus feel */
+.CategoryManage__formGroup input:focus{
+  transform:translateY(-1px);
+}
+
+/* ================= BUTTON IMPROVEMENT ================= */
+
+.CategoryManage__btn{
+  letter-spacing:0.4px;
+}
+
+.CategoryManage__btn:active{
+  transform:scale(0.97);
+}
+
+/* ================= TABLE ENHANCEMENT ================= */
+
+.CategoryManage__table tbody tr{
+  position:relative;
+}
+
+/* subtle row hover glow */
+.CategoryManage__table tbody tr:hover{
+  background:#f9fbff;
+  box-shadow: inset 0 0 0 1px #eef2ff;
+}
+
+/* ================= NAME CELL ================= */
+
+.CategoryManage__nameCell{
+  font-weight:600;
+  color:#111827;
+}
+
+/* ================= ACTION BUTTON MICRO INTERACTION ================= */
+
+.CategoryManage__editBtn,
+.CategoryManage__deleteBtn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+
+/* click feedback */
+.CategoryManage__editBtn:active,
+.CategoryManage__deleteBtn:active{
+  transform:scale(0.95);
+}
+
+/* ================= EMPTY STATE ================= */
+
+.CategoryManage__empty{
+  font-size:15px;
+  letter-spacing:0.3px;
+}
+
+/* ================= SMOOTH TRANSITIONS ================= */
+
+.CategoryManage *{
+  transition: all 0.2s ease;
+}
+
+/* ================= RESPONSIVE POLISH ================= */
+
+@media(max-width:768px){
+
+  .CategoryManage__title{
+    text-align:center;
+  }
+
+  .CategoryManage__tableTop{
+    justify-content:center;
+  }
+
+}
+
+/* ================= SCROLL POLISH ================= */
+
+.CategoryManage__tableWrapper{
+  scrollbar-width:thin;
+}
+
+/* ================= PREMIUM LOOK ================= */
+
+.CategoryManage{
+  background:linear-gradient(
+    180deg,
+    #f5f7fb 0%,
+    #eef2ff 100%
+  );
+}

@@ -4,7 +4,6 @@ import API, { BASE_URL } from "../../api/axios";
 
 const Testimonial = () => {
 
-  // ================= DEFAULT =================
   const defaultForm = {
     name: "",
     role: "",
@@ -18,28 +17,22 @@ const Testimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  // ================= IMAGE URL FIX =================
   const getImageUrl = (path) => {
     if (!path) return "";
-
     if (path.startsWith("http")) return path;
-
     const cleanPath = path.replace(/^\/+/, "");
     return `${BASE_URL}/${cleanPath}`;
   };
 
-  // ================= FETCH =================
   const fetchTestimonials = async () => {
     try {
       const res = await API.get("/testimonial");
-
       const data = Array.isArray(res.data)
         ? res.data
         : res.data.data || [];
-
       setTestimonials(data);
     } catch (err) {
-      console.error("Fetch Error:", err);
+      console.error(err);
       setTestimonials([]);
     }
   };
@@ -48,7 +41,6 @@ const Testimonial = () => {
     fetchTestimonials();
   }, []);
 
-  // ================= INPUT =================
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -58,7 +50,6 @@ const Testimonial = () => {
     });
   };
 
-  // ================= IMAGE =================
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -66,7 +57,6 @@ const Testimonial = () => {
     }
   };
 
-  // ================= SAVE =================
   const handleSave = async () => {
     try {
       if (!formData.name || !formData.message) {
@@ -96,11 +86,10 @@ const Testimonial = () => {
       setEditId(null);
 
     } catch (err) {
-      console.error("Save Error:", err);
+      console.error(err);
     }
   };
 
-  // ================= EDIT =================
   const handleEdit = (item) => {
     setFormData({
       name: item.name,
@@ -113,18 +102,18 @@ const Testimonial = () => {
     setEditId(item._id);
   };
 
-  // ================= DELETE =================
   const handleDelete = async (id) => {
     try {
       await API.delete(`/testimonial/${id}`);
       fetchTestimonials();
     } catch (err) {
-      console.error("Delete Error:", err);
+      console.error(err);
     }
   };
 
   return (
-    <div className="testimonialadmin">
+
+    <div className="testimonialadmin testimonialadmin-wrapper">
 
       {/* ================= TOP ================= */}
       <div className="testimonialadmin-top">
@@ -132,48 +121,54 @@ const Testimonial = () => {
         {/* FORM */}
         <div className="testimonialadmin-formbox">
 
-          <h2>Add Testimonial</h2>
+          <h2 className="testimonialadmin-title">
+            {editId ? "Update Testimonial" : "Add Testimonial"}
+          </h2>
 
           <input
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Name"
+            placeholder="Enter full name"
           />
 
           <input
             name="role"
             value={formData.role}
             onChange={handleChange}
-            placeholder="Role"
+            placeholder="Enter role"
           />
 
           <textarea
             name="message"
-            rows="4"
+            rows="5"
             value={formData.message}
             onChange={handleChange}
-            placeholder="Message"
+            placeholder="Write testimonial message..."
           />
 
-          <input type="file" onChange={handleImageUpload} />
+          {/* Upload */}
+          <div className="testimonialadmin-uploadbox">
+            <label className="testimonialadmin-uploadlabel">
+              <div className="testimonialadmin-uploadicon">📤</div>
+              <h4>Upload Image</h4>
+              <p>Click to upload testimonial image</p>
+              <input type="file" onChange={handleImageUpload} hidden />
+            </label>
 
-          {formData.image && (
-            <img
-              src={URL.createObjectURL(formData.image)}
-              alt="preview"
-              width="80"
-            />
-          )}
+            {formData.image && (
+              <div className="testimonialadmin-imagepreview">
+                <img src={URL.createObjectURL(formData.image)} alt="preview" />
+              </div>
+            )}
+          </div>
 
-       
-
-         <button
-  className={`testimonialadmin-savebtn ${editId ? "update" : ""}`}
-  onClick={handleSave}
->
-  {editId ? "Update Testimonial" : "Save Testimonial"}
-</button>
+          <button
+            className={`testimonialadmin-savebtn ${editId ? "update" : ""}`}
+            onClick={handleSave}
+          >
+            {editId ? "Update Testimonial" : "Save Testimonial"}
+          </button>
 
         </div>
 
@@ -181,21 +176,23 @@ const Testimonial = () => {
         <div className="testimonialadmin-previewbox">
           <div className="testimonialadmin-previewcard">
 
+            <div className="testimonialadmin-quote">“</div>
+
             <p>{formData.message || "Preview text..."}</p>
 
-            <div>
+            <div className="testimonialadmin-user">
+
               {formData.image ? (
-                <img
-                  src={URL.createObjectURL(formData.image)}
-                  alt=""
-                  width="50"
-                />
+                <img src={URL.createObjectURL(formData.image)} alt="" />
               ) : (
                 <div className="avatar">IMG</div>
               )}
 
-              <h4>{formData.name || "Name"}</h4>
-              <span>{formData.role || "Role"}</span>
+              <div className="userinfo">
+                <h4>{formData.name || "Name"}</h4>
+                <span>{formData.role || "Role"}</span>
+              </div>
+
             </div>
 
           </div>
@@ -206,87 +203,88 @@ const Testimonial = () => {
       {/* ================= TABLE ================= */}
       <div className="testimonialadmin-tablebox">
 
-        <h2>Testimonials List</h2>
+        <h2 className="testimonialadmin-title">Testimonials List</h2>
 
-        <table className="testimonialadmin-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Message</th>
-              <th>Highlight</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+        <div className="testimonialadmin-tablewrapper">
 
-          <tbody>
-            {testimonials.length > 0 ? (
-              testimonials.map((item) => (
-                <tr key={item._id}>
+          <table className="testimonialadmin-table">
 
-                  {/* IMAGE FIXED */}
-                  <td>
-                    {item.image ? (
-                      <img
-                        src={getImageUrl(item.image)}
-                        alt="testimonial"
-                        className="testimonialadmin-table-img"
-                        onError={(e) => {
-                          e.target.src =
-                            "https://via.placeholder.com/60?text=No+Img";
-                        }}
-                      />
-                    ) : (
-                      <div className="avatar">No Img</div>
-                    )}
-                  </td>
-
-                  <td>{item.name}</td>
-                  <td>{item.role}</td>
-                  <td>{item.message}</td>
-
-                  <td>
-                    {item.highlight ? (
-                      <span className="testimonialadmin-yes">Yes</span>
-                    ) : (
-                      <span className="testimonialadmin-no">No</span>
-                    )}
-                  </td>
-
-                 <td>
-  <div className="testimonialadmin-actions">
-
-    <button
-      className="edit-btn"
-      onClick={() => handleEdit(item)}
-    >
-      Edit
-    </button>
-
-    <button
-      className="deletebtn delete-btn"
-      onClick={() => handleDelete(item._id)}
-    >
-      Delete
-    </button>
-
-  </div>
-</td>
-
-                </tr>
-              ))
-            ) : (
+            <thead>
               <tr>
-                <td colSpan="6">No Data</td>
+                <th className="col-img">Image</th>
+                <th className="col-name">Name</th>
+                <th className="col-role">Role</th>
+                <th className="col-message">Message</th>
+                <th className="col-action">Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {testimonials.length > 0 ? (
+                testimonials.map((item) => (
+                  <tr key={item._id}>
+
+                    <td className="col-img">
+                      {item.image ? (
+                        <img
+                          src={getImageUrl(item.image)}
+                          alt=""
+                          className="testimonialadmin-table-img"
+                        />
+                      ) : (
+                        <div className="avatar">No Img</div>
+                      )}
+                    </td>
+
+                    <td className="col-name">{item.name}</td>
+
+                    <td className="col-role">{item.role}</td>
+
+                    <td className="col-message">
+                      <div className="message-text">
+                        {item.message}
+                      </div>
+                    </td>
+
+                    <td className="col-action">
+                      <div className="testimonialadmin-actions">
+
+                        <button
+                          className="edit-btn"
+                          onClick={() => handleEdit(item)}
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          className="deletebtn delete-btn"
+                          onClick={() => handleDelete(item._id)}
+                        >
+                          Delete
+                        </button>
+
+                      </div>
+                    </td>
+
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="empty-row">
+                    No Data Found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+
+          </table>
+
+        </div>
 
       </div>
 
     </div>
+
   );
 };
 
