@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./ShopByGodSlider.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-import Jagannath from "../../assets/Lord-jagannath.webp";
+import Jagannath from "../../assets/Lord-Jagannath.webp";
 import Ganesha from "../../assets/Lord-Ganesha.webp";
 import Krishna from "../../assets/Lord-Krishna.webp";
 import Hanuman from "../../assets/Lord-Hanuman.webp";
