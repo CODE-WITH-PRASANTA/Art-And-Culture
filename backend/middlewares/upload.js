@@ -13,12 +13,10 @@ const ensureDir = (dir) => {
 /* ================= ROUTE → FOLDER MAP ================= */
 const routeFolderMap = {
   "/api/blog": "uploads/blogs",
-  "/api/pooja": "uploads/pooja", 
-  "/testimonials": "uploads/testimonials",
-  "/products": "uploads/products", 
-  "/api/blog": "uploads/blogs", 
+  "/api/pooja": "uploads/pooja",
+  "/api/testimonial": "uploads/testimonials",
+  "/api/products": "uploads/products",
   "/api/freshcollection": "uploads/freshcollection",
-    
 };
 
 /* ================= GET UPLOAD PATH ================= */
@@ -106,6 +104,8 @@ const convertToWebp = async (req, res, next) => {
         const relativePath = "/" + outputPath.replace(/\\/g, "/");
 
         file.path = relativePath;
+        file.filename = filename;
+
         paths.push(relativePath);
       }
 
@@ -132,6 +132,8 @@ const convertToWebp = async (req, res, next) => {
           const relativePath = "/" + outputPath.replace(/\\/g, "/");
 
           file.path = relativePath;
+          file.filename = filename;
+
           req.body[field].push(relativePath);
         }
       }
