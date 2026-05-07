@@ -1,7 +1,7 @@
 
 
 /* ================= CREATE ================= */
-const Order = require("../models/order.model");
+
 
 exports.createOrder = async (req, res) => {
   try {

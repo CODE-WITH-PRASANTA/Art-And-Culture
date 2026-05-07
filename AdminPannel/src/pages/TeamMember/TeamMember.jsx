@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TeamMember.css";
+import Swal from "sweetalert2";
 
 import {
   FaFacebookF,
@@ -11,8 +12,16 @@ import {
   FaTrash,
 } from "react-icons/fa";
 
-const API = "http://localhost:5000/api/team";
-const IMG = "http://localhost:5000/uploads/";
+/* ================= AXIOS INSTANCE ================= */
+const API_BASE = "http://localhost:5000";
+
+const api = axios.create({
+  baseURL: API_BASE,
+  withCredentials: true,
+});
+
+const API = "/api/team";
+const IMG = `${API_BASE}/uploads/`;
 
 const TeamMemberAdmin = () => {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -31,21 +40,19 @@ const TeamMemberAdmin = () => {
   const [preview, setPreview] = useState(null);
   const [editId, setEditId] = useState(null);
 
-  /* ================= FETCH DATA ================= */
   useEffect(() => {
     fetchMembers();
   }, []);
 
   const fetchMembers = async () => {
     try {
-      const res = await axios.get(API);
+      const res = await api.get(API);
       setTeamMembers(res.data);
     } catch (err) {
-      console.error(err);
+      console.error("Fetch Error:", err);
     }
   };
 
-  /* ================= INPUT CHANGE ================= */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -53,7 +60,6 @@ const TeamMemberAdmin = () => {
     });
   };
 
-  /* ================= IMAGE HANDLE ================= */
   const handleImage = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -63,7 +69,6 @@ const TeamMemberAdmin = () => {
     }
   };
 
-  /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,24 +79,23 @@ const TeamMemberAdmin = () => {
         data.append(key, formData[key]);
       });
 
-      if (image) {
-        data.append("image", image);
-      }
+      if (image) data.append("image", image);
 
       if (editId) {
-        await axios.put(`${API}/${editId}`, data);
+        await api.put(`${API}/${editId}`, data);
+        Swal.fire("Updated!", "Member updated successfully", "success");
       } else {
-        await axios.post(API, data);
+        await api.post(API, data);
+        Swal.fire("Added!", "Member added successfully", "success");
       }
 
       fetchMembers();
       resetForm();
     } catch (err) {
-      console.error(err);
+      console.error("Submit Error:", err);
     }
   };
 
-  /* ================= RESET ================= */
   const resetForm = () => {
     setFormData({
       name: "",
@@ -108,17 +112,28 @@ const TeamMemberAdmin = () => {
     setEditId(null);
   };
 
-  /* ================= DELETE ================= */
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${API}/${id}`);
-      fetchMembers();
-    } catch (err) {
-      console.error(err);
+    const result = await Swal.fire({
+      title: "Delete Member?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff2e2e",
+      cancelButtonColor: "#999",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`${API}/${id}`);
+        fetchMembers();
+        Swal.fire("Deleted!", "Member removed successfully", "success");
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
-  /* ================= EDIT ================= */
   const handleEdit = (member) => {
     setFormData({
       name: member.name,
@@ -136,17 +151,21 @@ const TeamMemberAdmin = () => {
 
   return (
     <div className="teamadmin">
-      {/* ================= FORM ================= */}
+      {/* FORM */}
       <div className="teamadmin-left">
         <div className="teamadmin-card">
           <h2>{editId ? "Update Team Member" : "Add Team Member"}</h2>
 
           <form onSubmit={handleSubmit}>
+            <div className="form-section-title form-full">
+              Basic Information
+            </div>
+
             <div className="form-group">
               <input
                 type="text"
                 name="name"
-                placeholder="Name"
+                placeholder="Full Name"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -164,22 +183,26 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group form-full">
               <input
                 type="text"
                 name="phone"
-                placeholder="Phone"
+                placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
                 required
               />
             </div>
 
+            <div className="form-section-title form-full">
+              Social Links
+            </div>
+
             <div className="form-group">
               <input
                 type="text"
                 name="facebook"
-                placeholder="Facebook"
+                placeholder="Facebook URL"
                 value={formData.facebook}
                 onChange={handleChange}
               />
@@ -189,7 +212,7 @@ const TeamMemberAdmin = () => {
               <input
                 type="text"
                 name="instagram"
-                placeholder="Instagram"
+                placeholder="Instagram URL"
                 value={formData.instagram}
                 onChange={handleChange}
               />
@@ -199,7 +222,7 @@ const TeamMemberAdmin = () => {
               <input
                 type="text"
                 name="linkedin"
-                placeholder="LinkedIn"
+                placeholder="LinkedIn URL"
                 value={formData.linkedin}
                 onChange={handleChange}
               />
@@ -209,114 +232,135 @@ const TeamMemberAdmin = () => {
               <input
                 type="text"
                 name="twitter"
-                placeholder="Twitter"
+                placeholder="Twitter URL"
                 value={formData.twitter}
                 onChange={handleChange}
               />
             </div>
 
-            {/* IMAGE UPLOAD */}
-            <div className="form-group">
-              <input type="file" accept="image/*" onChange={handleImage} />
+            <div className="form-section-title form-full">
+              Profile Image
             </div>
 
-            {/* PREVIEW */}
+            <div className="form-group form-full">
+              <label className="custom-upload">
+                <input type="file" accept="image/*" onChange={handleImage} />
+                <span>📁 Choose Image</span>
+              </label>
+            </div>
+
             {preview && (
-              <div className="preview-box">
+              <div className="preview-box form-full">
                 <img src={preview} alt="preview" className="preview-img" />
               </div>
             )}
 
-            <button type="submit" className="submit-btn">
+            <button type="submit" className="submit-btn form-full">
               {editId ? "Update Member" : "Add Member"}
             </button>
           </form>
         </div>
       </div>
 
-      {/* ================= TABLE ================= */}
-      <div className="teamadmin-right">
-        <div className="teamadmin-table-card">
-          <h2>Team Members</h2>
+      {/* TABLE */}
+  <div className="table-wrapper">
+  <table className="team-table">
 
-          <table>
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Phone</th>
-                <th>Social</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+    {/* 🔥 COLUMN CONTROL (IMPORTANT) */}
+    <colgroup>
+      <col style={{ width: "90px" }} />
+      <col style={{ width: "180px" }} />
+      <col style={{ width: "180px" }} />
+      <col style={{ width: "140px" }} />
+      <col style={{ width: "160px" }} />
+      <col style={{ width: "120px" }} />
+    </colgroup>
 
-            <tbody>
-              {teamMembers.length === 0 ? (
-                <tr>
-                  <td colSpan="6">No Data</td>
-                </tr>
-              ) : (
-                teamMembers.map((m) => (
-                  <tr key={m._id}>
-                    <td>
-                      <img
-                        src={IMG + m.image}
-                        alt=""
-                        className="table-profile"
-                      />
-                    </td>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Phone</th>
+        <th>Social</th>
+        <th className="action-col">Action</th>
+      </tr>
+    </thead>
 
-                    <td>{m.name}</td>
-                    <td>{m.designation}</td>
-                    <td>{m.phone}</td>
+    <tbody>
+      {teamMembers.length === 0 ? (
+        <tr>
+          <td colSpan="6" className="empty-data">
+            No Team Members Found
+          </td>
+        </tr>
+      ) : (
+        teamMembers.map((m) => (
+          <tr key={m._id}>
+            <td>
+              <img
+                src={IMG + m.image}
+                alt=""
+                className="table-profile"
+              />
+            </td>
 
-                    <td className="social-icons">
-                      {m.facebook && (
-                        <a href={m.facebook} target="_blank">
-                          <FaFacebookF />
-                        </a>
-                      )}
-                      {m.instagram && (
-                        <a href={m.instagram} target="_blank">
-                          <FaInstagram />
-                        </a>
-                      )}
-                      {m.linkedin && (
-                        <a href={m.linkedin} target="_blank">
-                          <FaLinkedinIn />
-                        </a>
-                      )}
-                      {m.twitter && (
-                        <a href={m.twitter} target="_blank">
-                          <FaTwitter />
-                        </a>
-                      )}
-                    </td>
+            <td className="text-ellipsis">{m.name}</td>
+            <td className="text-ellipsis">{m.designation}</td>
+            <td>{m.phone}</td>
 
-                    <td>
-                      <button
-                        className="edit-btn"
-                        onClick={() => handleEdit(m)}
-                      >
-                        <FaEdit />
-                      </button>
+            {/* SOCIAL */}
+            <td>
+              <div className="social-icons">
+                {m.facebook && (
+                  <a href={m.facebook} target="_blank" rel="noreferrer">
+                    <FaFacebookF />
+                  </a>
+                )}
+                {m.instagram && (
+                  <a href={m.instagram} target="_blank" rel="noreferrer">
+                    <FaInstagram />
+                  </a>
+                )}
+                {m.linkedin && (
+                  <a href={m.linkedin} target="_blank" rel="noreferrer">
+                    <FaLinkedinIn />
+                  </a>
+                )}
+                {m.twitter && (
+                  <a href={m.twitter} target="_blank" rel="noreferrer">
+                    <FaTwitter />
+                  </a>
+                )}
+              </div>
+            </td>
 
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleDelete(m._id)}
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+            {/* ✅ ACTION FIXED */}
+            <td>
+              <div className="action-buttons">
+                <button
+                  className="edit-btn"
+                  onClick={() => handleEdit(m)}
+                >
+                  <FaEdit />
+                </button>
+
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(m._id)}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
         </div>
-      </div>
-    </div>
+      
   );
 };
 

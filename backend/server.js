@@ -18,7 +18,7 @@ const blogRoutes = require("./routes/blog.routes");
 const orderRoutes = require("./routes/order.routes");
 const testimonialRoutes=require("./routes/testimonial.routes");
 const poojaRoutes = require("./routes/pooja.routes");
-
+const freshCollectionRoutes = require("./routes/freshcollection.routes");
 const app = express();
 
 /* DB Connect */
@@ -48,6 +48,7 @@ app.use("/api/blog", blogRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/pooja", poojaRoutes);
+app.use("/api/freshcollection", freshCollectionRoutes);
 
 /* Test */
 app.get("/", (req, res) => {

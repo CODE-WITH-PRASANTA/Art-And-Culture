@@ -153,3 +153,87 @@
     font-size: 20px;
   }
 }
+/* ===== NEW UI ENHANCEMENTS ===== */
+
+/* ACTION BUTTONS */
+.contact-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.contact-view {
+  background: #1677ff;
+  color: #fff;
+}
+
+.contact-view:hover {
+  background: #0958d9;
+}
+
+/* SHORT MESSAGE */
+.contact-message.short {
+  color: #666;
+}
+
+/* ===== MODAL ===== */
+
+.contact-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.contact-modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 500px;
+
+  animation: fadeIn 0.3s ease;
+}
+
+.contact-modal-content h3 {
+  margin-bottom: 10px;
+}
+
+.full-message {
+  margin-top: 10px;
+  padding: 12px;
+  background: #f6f8fb;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.contact-close {
+  margin-top: 15px;
+  background: #333;
+  color: #fff;
+}
+
+.contact-close:hover {
+  background: #000;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

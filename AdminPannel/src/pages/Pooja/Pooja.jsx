@@ -1,35 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { Editor } from "@tinymce/tinymce-react";
-import API, { IMG_URL } from "../../api/axios";
+import React, { useEffect, useState } from "react";
+
+import {
+  Upload,
+  Pencil,
+  Trash2,
+  Eye,
+  IndianRupee,
+  Package,
+  Star,
+} from "lucide-react";
+
 import "./Pooja.css";
 
+import API, { IMG_URL } from "../../api/axios";
+
 const Pooja = () => {
-  const defaultForm = {
-    name: "",
-    slug: "",
+  const [products, setProducts] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const [editId, setEditId] = useState(null);
+
+  const [previewImage, setPreviewImage] = useState("");
+
+  const [formData, setFormData] = useState({
+    title: "",
     category: "",
     price: "",
-    salePrice: "",
+    oldPrice: "",
     stock: "",
-    status: "Active",
-    type: "Featured",
-    shortDesc: "",
-    image: "",
-    rating: 5,
-  };
+    rating: "",
+    description: "",
+    image: null,
+  });
 
-  const [form, setForm] = useState(defaultForm);
-  const [products, setProducts] = useState([]);
-  const [editId, setEditId] = useState(null);
-  const [imageFile, setImageFile] = useState(null);
+  /* =====================================================
+      FETCH PRODUCTS
+  ===================================================== */
 
-  /* ================= FETCH ================= */
   const fetchProducts = async () => {
     try {
-      const res = await API.get("/pooja/all");
-      setProducts(res.data.data);
-    } catch (err) {
-      console.log(err);
+      const res = await API.get("/pooja");
+
+      setProducts(res.data.data || []);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -37,288 +52,463 @@ const Pooja = () => {
     fetchProducts();
   }, []);
 
-  /* ================= INPUT ================= */
+  /* =====================================================
+      HANDLE CHANGE
+  ===================================================== */
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    const { name, value, files } = e.target;
 
-  /* ================= IMAGE ================= */
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setImageFile(file);
+    /* IMAGE */
 
-    if (file) {
-      const preview = URL.createObjectURL(file);
-      setForm({ ...form, image: preview });
-    }
-  };
+    if (name === "image") {
+      const file = files[0];
 
-  /* ================= SAVE ================= */
-  const handleSave = async () => {
-    if (!form.name || !form.price) {
-      alert("Fill required fields");
+      if (file) {
+        setFormData((prev) => ({
+          ...prev,
+          image: file,
+        }));
+
+        setPreviewImage(URL.createObjectURL(file));
+      }
+
       return;
     }
 
-    try {
-      const formData = new FormData();
+    /* PREVENT NEGATIVE */
 
-      Object.keys(form).forEach((key) => {
-        if (key !== "image") {
-          formData.append(key, form[key]);
-        }
+    if (["price", "oldPrice", "stock", "rating"].includes(name)) {
+      if (Number(value) < 0) return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  /* =====================================================
+      SUBMIT
+  ===================================================== */
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const sendData = new FormData();
+
+      sendData.append("title", formData.title);
+
+      sendData.append("category", formData.category);
+
+      sendData.append("price", formData.price);
+
+      sendData.append("oldPrice", formData.oldPrice);
+
+      sendData.append("stock", formData.stock);
+
+      sendData.append("rating", formData.rating);
+
+      sendData.append("description", formData.description);
+
+      /* IMAGE */
+
+      if (formData.image) {
+        sendData.append("image", formData.image);
+      }
+
+      /* ================= CREATE ================= */
+
+      if (!editId) {
+        await API.post("/pooja/create", sendData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        alert("Product Added Successfully");
+      } else {
+
+      /* ================= UPDATE ================= */
+        await API.put(`/pooja/update/${editId}`, sendData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        alert("Product Updated Successfully");
+      }
+
+      /* RESET */
+
+      setFormData({
+        title: "",
+        category: "",
+        price: "",
+        oldPrice: "",
+        stock: "",
+        rating: "",
+        description: "",
+        image: null,
       });
 
-      if (imageFile) {
-        formData.append("image", imageFile);
-      }
+      setPreviewImage("");
 
-      if (editId) {
-        await API.put(`/pooja/update/${editId}`, formData);
-      } else {
-        await API.post("/pooja/create", formData);
-      }
-
-      fetchProducts();
-      setForm(defaultForm);
       setEditId(null);
-      setImageFile(null);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  /* ================= DELETE ================= */
-  const handleDelete = async (id) => {
-    try {
-      await API.delete(`/pooja/delete/${id}`);
       fetchProducts();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
+
+      alert(error?.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
-  /* ================= EDIT ================= */
-  const handleEdit = (product) => {
-    setEditId(product._id);
+  /* =====================================================
+      EDIT
+  ===================================================== */
 
-    setForm({
-      ...product,
-      image: product.image
-        ? `${IMG_URL}/uploads/${product.image}`
-        : "",
+  const handleEdit = (item) => {
+    setEditId(item._id);
+
+    setFormData({
+      title: item.title,
+      category: item.category,
+      price: item.price,
+      oldPrice: item.oldPrice,
+      stock: item.stock,
+      rating: item.rating,
+      description: item.description,
+      image: null,
+    });
+
+    setPreviewImage(`${IMG_URL}${item.image}`);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   };
 
-  const handleCancel = () => {
-    setForm(defaultForm);
-    setEditId(null);
-    setImageFile(null);
+  /* =====================================================
+      DELETE
+  ===================================================== */
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Delete this product?");
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/pooja/delete/${id}`);
+
+      alert("Product Deleted Successfully");
+
+      fetchProducts();
+    } catch (error) {
+      console.log(error);
+
+      alert("Delete Failed");
+    }
   };
 
-  /* ================= DISCOUNT ================= */
-  const discount =
-    form.price && form.salePrice
-      ? Math.round(((form.price - form.salePrice) / form.price) * 100)
-      : 0;
-
   return (
-    <div className="pooja-wrapper">
-      <div className="pooja-grid">
+    <div className="Pooja-page">
+      <div className="Pooja-wrapper">
+        {/* =====================================================
+            FORM SECTION
+        ===================================================== */}
 
-        {/* ================= FORM ================= */}
-        <div className="pooja-card">
-          <h2 className="pooja-title">
-            {editId ? "Edit Product" : "Add Product"}
-          </h2>
-
-          <div className="pooja-section">
-            <label>Product Name</label>
-            <input name="name" value={form.name} onChange={handleChange} />
-          </div>
-
-          <div className="pooja-section">
-            <label>Slug</label>
-            <input name="slug" value={form.slug} onChange={handleChange} />
-          </div>
-
-          <div className="pooja-row">
+        <div className="Pooja-formSection">
+          <div className="Pooja-cardHeader">
             <div>
-              <label>Price</label>
-              <input name="price" value={form.price} onChange={handleChange} />
+              <h2>Pooja Product Manager</h2>
+
+              <p>Create premium spiritual product listings</p>
             </div>
-            <div>
-              <label>Sale Price</label>
+
+            <div className="Pooja-headerIcon">
+              <Package size={28} />
+            </div>
+          </div>
+
+          <form className="Pooja-form" onSubmit={handleSubmit}>
+            {/* IMAGE */}
+
+            <div className="Pooja-field">
+              <label>Upload Product Image</label>
+
+              <div className="Pooja-uploadBox">
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleChange}
+                />
+
+                <div className="Pooja-uploadContent">
+                  <Upload size={28} />
+
+                  <span>Upload Image</span>
+                </div>
+              </div>
+            </div>
+
+            {/* TITLE */}
+
+            <div className="Pooja-grid2">
+              <div className="Pooja-field">
+                <label>Product Title</label>
+
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Enter title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="Pooja-field">
+                <label>Category</label>
+
+                <input
+                  type="text"
+                  name="category"
+                  placeholder="Enter category"
+                  value={formData.category}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            {/* PRICE */}
+
+            <div className="Pooja-grid3">
+              <div className="Pooja-field">
+                <label>Price</label>
+
+                <input
+                  type="number"
+                  min="0"
+                  name="price"
+                  placeholder="₹ 1999"
+                  value={formData.price}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="Pooja-field">
+                <label>Old Price</label>
+
+                <input
+                  type="number"
+                  min="0"
+                  name="oldPrice"
+                  placeholder="₹ 2499"
+                  value={formData.oldPrice}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="Pooja-field">
+                <label>Stock</label>
+
+                <input
+                  type="number"
+                  min="0"
+                  name="stock"
+                  placeholder="10"
+                  value={formData.stock}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            {/* RATING */}
+
+            <div className="Pooja-field">
+              <label>Rating</label>
+
               <input
-                name="salePrice"
-                value={form.salePrice}
+                type="number"
+                min="0"
+                max="5"
+                step="0.1"
+                name="rating"
+                placeholder="4.5"
+                value={formData.rating}
                 onChange={handleChange}
               />
             </div>
-          </div>
 
-          <p className="pooja-discount">Discount: {discount}%</p>
+            {/* DESCRIPTION */}
 
-          <div className="pooja-section">
-            <label>Rating (1 - 5)</label>
-            <input
-              type="number"
-              name="rating"
-              min="1"
-              max="5"
-              step="0.1"
-              value={form.rating}
-              onChange={handleChange}
-            />
-          </div>
+            <div className="Pooja-field">
+              <label>Description</label>
 
-          <div className="pooja-row">
-            <div>
-              <label>Stock</label>
-              <input name="stock" value={form.stock} onChange={handleChange} />
-            </div>
-
-            <div>
-              <label>Status</label>
-              <select name="status" value={form.status} onChange={handleChange}>
-                <option>Active</option>
-                <option>Draft</option>
-              </select>
-            </div>
-
-            <div>
-              <label>Type</label>
-              <select name="type" value={form.type} onChange={handleChange}>
-                <option>Featured</option>
-                <option>Normal</option>
-              </select>
-            </div>
-          </div>
-
-          {/* TinyMCE */}
-          <div className="pooja-section">
-            <label>Description</label>
-
-            <div className="pooja-editor">
-              <Editor
-                apiKey="jeq7g2k84sqpi9364o8x9ptqf09aoesaq8jxmp49dl4sh57z"
-                value={form.shortDesc}
-                onEditorChange={(content) =>
-                  setForm({ ...form, shortDesc: content })
-                }
-                init={{
-                  height: 220,
-                  menubar: false,
-                  plugins: ["lists", "link", "image", "code"],
-                  toolbar:
-                    "undo redo | bold italic underline | bullist numlist | link image | code",
-                }}
+              <textarea
+                name="description"
+                rows="5"
+                placeholder="Write description..."
+                value={formData.description}
+                onChange={handleChange}
               />
             </div>
-          </div>
 
-          {/* IMAGE */}
-          <div className="pooja-upload">
-            <input type="file" onChange={handleImageUpload} />
-            <span>Upload Image</span>
-          </div>
+            {/* BUTTON */}
 
-          {form.image && (
-            <img src={form.image} className="pooja-preview-img" alt="" />
-          )}
-
-          <button className="pooja-btn-primary" onClick={handleSave}>
-            {editId ? "Update Product" : "Save Product"}
-          </button>
-
-          {editId && (
-            <button className="pooja-btn-secondary" onClick={handleCancel}>
-              Cancel
+            <button
+              type="submit"
+              className="Pooja-submitBtn"
+              disabled={loading}
+            >
+              {loading
+                ? "Please Wait..."
+                : editId
+                  ? "Update Product"
+                  : "Add Product"}
             </button>
-          )}
+          </form>
         </div>
 
-        {/* ================= PREVIEW ================= */}
-        <div className="pooja-card">
-          <h2 className="pooja-title">Live Preview</h2>
+        {/* =====================================================
+            LIVE PREVIEW
+        ===================================================== */}
 
-          <div className="pooja-preview-card">
-            <div className="pooja-preview-left">
-              {form.image ? (
-                <img src={form.image} alt="" />
+        <div className="Pooja-previewSection">
+          <div className="Pooja-previewHeader">
+            <Eye size={22} />
+
+            <h3>Live Preview</h3>
+          </div>
+
+          <div className="Pooja-previewCard">
+            <div className="Pooja-previewImageWrap">
+              {previewImage ? (
+                <img
+                  src={previewImage}
+                  alt="preview"
+                  className="Pooja-previewImage"
+                />
               ) : (
-                <div className="pooja-no-img">No Image</div>
+                <div className="Pooja-noPreview">Upload Product Image</div>
               )}
 
-              {discount > 0 && (
-                <span className="pooja-badge">-{discount}%</span>
-              )}
+              <div className="Pooja-previewBadge">Premium</div>
             </div>
 
-            <div className="pooja-preview-right">
-              <h3>{form.name || "Product Name"}</h3>
-              <p className="pooja-rating">⭐ {form.rating || 0}</p>
+            <div className="Pooja-previewContent">
+              <h2>{formData.title || "Product Title Preview"}</h2>
 
-              <div className="pooja-price">
-                <span className="sale">₹{form.salePrice || 0}</span>
-                <span className="original">₹{form.price || 0}</span>
+              <div className="Pooja-previewRating">
+                <Star size={16} />
+
+                <span>{formData.rating || "0.0"}</span>
               </div>
 
-              <div
-                className="desc"
-                dangerouslySetInnerHTML={{
-                  __html: form.shortDesc || "Product description preview...",
-                }}
-              />
+              <p>
+                {formData.description ||
+                  "Product description preview appears here..."}
+              </p>
+
+              <div className="Pooja-previewPrices">
+                <h3>
+                  <IndianRupee size={18} />
+
+                  {formData.price || "0"}
+                </h3>
+
+                <span>₹{formData.oldPrice || "0"}</span>
+              </div>
+
+              <button className="Pooja-previewBtn">Add To Cart</button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ================= TABLE ================= */}
-      <div className="pooja-card pooja-table">
-        <h2 className="pooja-title">All Products</h2>
+      {/* =====================================================
+          TABLE SECTION
+      ===================================================== */}
 
-        <div className="pooja-table-wrapper">
-          <table>
+      <div className="Pooja-tableSection">
+        <div className="Pooja-cardHeader">
+          <div>
+            <h2>All Products</h2>
+
+            <p>Manage your uploaded pooja products</p>
+          </div>
+        </div>
+
+        <div className="Pooja-tableWrapper">
+          <table className="Pooja-table">
             <thead>
               <tr>
                 <th>Image</th>
-                <th>Name</th>
+                <th>Title</th>
+                <th>Category</th>
                 <th>Price</th>
-                <th>Rating</th>
                 <th>Stock</th>
-                <th>Status</th>
-                <th>Type</th>
-                <th>Actions</th>
+                <th>Rating</th>
+                <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {products.map((p) => (
-                <tr key={p._id}>
-                  <td>
-                    {p.image && (
+              {products.length > 0 ? (
+                products.map((item) => (
+                  <tr key={item._id}>
+                    <td>
                       <img
-                        src={`${IMG_URL}/uploads/${p.image}`}
-                        alt=""
+                        src={`${IMG_URL}${item.image}`}
+                        alt={item.title}
+                        className="Pooja-tableImage"
                       />
-                    )}
-                  </td>
-                  <td>{p.name}</td>
-                  <td>₹{p.salePrice || p.price}</td>
-                  <td>⭐ {p.rating}</td>
-                  <td>{p.stock}</td>
-                  <td>{p.status}</td>
-                  <td>{p.type}</td>
-                  <td>
-                    <button onClick={() => handleEdit(p)}>Edit</button>
-                    <button onClick={() => handleDelete(p._id)}>
-                      Delete
-                    </button>
-                  </td>
+                    </td>
+
+                    <td>{item.title}</td>
+
+                    <td>{item.category}</td>
+
+                    <td>₹{item.price}</td>
+
+                    <td>{item.stock}</td>
+
+                    <td>{item.rating}</td>
+
+                    <td>
+                      <div className="Pooja-actionBtns">
+                        <button
+                          type="button"
+                          className="Pooja-editBtn"
+                          onClick={() => handleEdit(item)}
+                        >
+                          <Pencil size={16} />
+                        </button>
+
+                        <button
+                          type="button"
+                          className="Pooja-deleteBtn"
+                          onClick={() => handleDelete(item._id)}
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7">No Products Added</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

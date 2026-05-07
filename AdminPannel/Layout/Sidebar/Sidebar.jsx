@@ -18,6 +18,9 @@ import {
   Gift,
   Tag,
   Plus,
+  Sparkles,
+  Gem,
+  PlusCircle,
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -262,6 +265,8 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
             </NavLink>
           </div>
         </div>
+
+
         {/* ================= CONTACT ================= */}
         <div
           className={`Sidebar-dropdown ${openMenu === "contact" ? "Sidebar-dropdown--open" : ""}`}
@@ -368,7 +373,7 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
 
           <div className="Sidebar-submenu">
 
-            <NavLink
+            <NavLink 
               to="/category/add"
               onClick={closeMobile}
               className={({ isActive }) =>
@@ -490,6 +495,50 @@ const Sidebar = ({ collapsed, mobileOpen, setMobileOpen }) => {
             </NavLink>
           </div>
         </div>
+{/* ================= FRESH COLLECTION ================= */}
+<div
+  className={`Sidebar-dropdown ${
+    openMenu === "freshCollection" ? "Sidebar-dropdown--open" : ""
+  }`}
+>
+  <div
+    className="Sidebar-link Sidebar-dropdownHeader"
+    onClick={() => toggleMenu("freshCollection")}
+  >
+    <Sparkles size={18} />
+
+    {!collapsed && (
+      <>
+        <span>Fresh Collection</span>
+
+        <div className="Sidebar-arrow">
+          {openMenu === "freshCollection" ? (
+            <ChevronDown size={16} />
+          ) : (
+            <ChevronRight size={16} />
+          )}
+        </div>
+      </>
+    )}
+  </div>
+
+  <div className="Sidebar-submenu">
+    <NavLink
+      to="/fresh-collection"
+      onClick={closeMobile}
+      className={({ isActive }) =>
+        isActive
+          ? "Sidebar-subLink Sidebar-subLink--active"
+          : "Sidebar-subLink"
+      }
+    >
+      <Gem size={15} />
+      <span>Fresh Collection List</span>
+    </NavLink>
+
+  </div>
+</div>
+
         {/* ================= POOJA ================= */}
         <div
           className={`Sidebar-dropdown ${openMenu === "pooja" ? "Sidebar-dropdown--open" : ""}`}
