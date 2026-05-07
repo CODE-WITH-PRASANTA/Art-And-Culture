@@ -1,5 +1,5 @@
 /* =========================================
-   TeamMemberAdmin.css
+   TEAM MEMBER ADMIN
 ========================================= */
 
 * {
@@ -8,136 +8,130 @@
   box-sizing: border-box;
 }
 
-body {
-  overflow-x: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* =========================================
-   MAIN LAYOUT
-========================================= */
-
-.teamadmin {
+.tmAdmin {
   width: 100%;
   min-height: 100vh;
 
-  background: #f5f6fa;
+  padding: 24px;
 
-  padding: 25px;
+  background: linear-gradient(135deg, #f5f7fb, #eef2f7);
 
   display: flex;
   flex-direction: column;
 
-  gap: 25px;
+  gap: 24px;
+
+  overflow-x: hidden;
 }
 
 /* =========================================
-   FORM SECTION
+   CARD
 ========================================= */
 
-.teamadmin-left {
-  width: 100%;
-}
-
-.teamadmin-card {
+.tmAdmin__card {
   width: 100%;
 
   background: #fff;
 
-  border-radius: 22px;
+  border-radius: 24px;
 
   padding: 30px;
 
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
-.teamadmin-card h2 {
+.tmAdmin__title {
   text-align: center;
 
   font-size: 30px;
   font-weight: 700;
 
-  color: #111;
-
   margin-bottom: 30px;
-}
 
-/* FORM GRID */
-
-.teamadmin-card form {
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 20px;
-}
-
-.form-full {
-  grid-column: 1 / -1;
+  color: #111;
 }
 
 /* =========================================
    FORM
 ========================================= */
 
-.form-group {
-  width: 100%;
+.tmAdmin__form {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 22px;
 }
 
-.form-group label {
-  display: block;
+.tmAdmin__full {
+  grid-column: 1 / -1;
+}
 
-  margin-bottom: 8px;
-
+.tmAdmin__sectionTitle {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
 
   color: #333;
+
+  border-bottom: 2px solid #f0f0f0;
+
+  padding-bottom: 8px;
 }
 
-.form-group input {
+.tmAdmin__group {
   width: 100%;
-  height: 52px;
-
-  border: 1px solid #ddd;
-  border-radius: 14px;
-
-  padding: 0 15px;
-
-  font-size: 14px;
-
-  outline: none;
-
-  transition: 0.3s;
 }
 
-.form-group input:focus {
-  border-color: #000;
-}
-
-/* =========================================
-   UPLOAD SECTION
-========================================= */
-
-.upload-box {
-  width: 100%;
-
-  border: 2px dashed #d9d9d9;
-  border-radius: 16px;
-
-  padding: 20px;
-
-  background: #fafafa;
-}
-
-.upload-label {
+.tmAdmin__group input {
   width: 100%;
   height: 54px;
 
-  background: #f4f2f2;
-  color: #fff;
+  padding: 0 16px;
 
-  border-radius: 12px;
+  border-radius: 14px;
+
+  border: 1px solid #dcdcdc;
+
+  background: #fff;
+
+  font-size: 14px;
+
+  color: #111;
+
+  outline: none;
+
+  transition: 0.3s ease;
+}
+
+/* ===== FIX INPUT TEXT NOT VISIBLE ===== */
+
+.tmAdmin__group input::placeholder {
+  color: #888;
+}
+
+.tmAdmin__group input:focus {
+  border-color: #0077ff;
+
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.1);
+}
+
+.tmAdmin__group input:hover {
+  border-color: #aaa;
+}
+
+/* =========================================
+   UPLOAD
+========================================= */
+
+.tmAdmin__upload {
+  width: 100%;
+  height: 70px;
+
+  border: 2px dashed #d5d5d5;
+
+  border-radius: 16px;
+
+  background: #fafafa;
 
   display: flex;
   align-items: center;
@@ -145,17 +139,36 @@ body {
 
   cursor: pointer;
 
-  font-size: 14px;
-  font-weight: 600;
-
   transition: 0.3s;
 }
 
-.upload-label:hover {
-  background: #f1f1f1;
+.tmAdmin__upload:hover {
+  border-color: #0077ff;
+
+  background: #f0f7ff;
 }
 
-.preview-img {
+.tmAdmin__upload input {
+  display: none;
+}
+
+.tmAdmin__upload span {
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #555;
+}
+
+/* =========================================
+   PREVIEW
+========================================= */
+
+.tmAdmin__preview {
+  display: flex;
+  justify-content: center;
+}
+
+.tmAdmin__previewImg {
   width: 110px;
   height: 110px;
 
@@ -163,105 +176,82 @@ body {
 
   border-radius: 50%;
 
-  margin-top: 20px;
-
   border: 4px solid #fff;
 
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* =========================================
    BUTTON
 ========================================= */
 
-.submit-btn {
+.tmAdmin__submit {
   width: 100%;
-  height: 55px;
+  height: 56px;
 
   border: none;
+
   border-radius: 14px;
 
-  background: #000;
+  background: linear-gradient(135deg, #111, #333);
+
   color: #fff;
 
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
 
   cursor: pointer;
 
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
-.submit-btn:hover {
-  background: #222;
-}
+.tmAdmin__submit:hover {
+  transform: translateY(-2px);
 
-/* =========================================
-   TABLE SECTION
-========================================= */
-
-.teamadmin-right {
-  width: 100%;
-}
-
-.teamadmin-table-card {
-  width: 100%;
-
-  background: #fff;
-
-  border-radius: 22px;
-
-  padding: 25px;
-
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
-
-  overflow: hidden;
-}
-
-.table-header {
-  margin-bottom: 20px;
-}
-
-.table-header h2 {
-  text-align: center;
-
-  font-size: 28px;
-  font-weight: 700;
-
-  color: #111;
+  background: linear-gradient(135deg, #000, #111);
 }
 
 /* =========================================
    TABLE
 ========================================= */
 
-.table-wrapper {
+.tmAdmin__tableWrapper {
   width: 100%;
 
   overflow-x: auto;
+
+  background: #fff;
+
+  border-radius: 24px;
+
+  padding: 20px;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
-.table-wrapper::-webkit-scrollbar {
-  height: 7px;
+.tmAdmin__tableWrapper::-webkit-scrollbar {
+  height: 8px;
 }
 
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
+.tmAdmin__tableWrapper::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+
   border-radius: 20px;
 }
 
-table {
+.tmAdmin__table {
   width: 100%;
+
   min-width: 900px;
 
   border-collapse: collapse;
 }
 
-table thead {
-  background: #f3f4f7;
+.tmAdmin__table thead {
+  background: #f6f8fc;
 }
 
-table th {
+.tmAdmin__table th {
   padding: 18px 16px;
 
   text-align: left;
@@ -269,84 +259,98 @@ table th {
   font-size: 14px;
   font-weight: 700;
 
-  color: #333;
-
-  white-space: nowrap;
+  color: #222;
 }
 
-table td {
+.tmAdmin__table td {
   padding: 18px 16px;
 
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #efefef;
 
   font-size: 14px;
-  color: #444;
 
-  white-space: nowrap;
+  color: #444;
 
   vertical-align: middle;
 }
 
-/* PROFILE */
+.tmAdmin__table tbody tr:hover {
+  background: #f9fbff;
+}
 
-.table-profile {
+/* =========================================
+   PROFILE
+========================================= */
+
+.tmAdmin__profile {
   width: 65px;
   height: 65px;
 
   border-radius: 50%;
+
   object-fit: cover;
+
+  border: 3px solid #fff;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* =========================================
-   SOCIAL ICONS
+   SOCIAL
 ========================================= */
 
-.social-icons {
+.tmAdmin__socials {
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
 
-.social-icons a {
+.tmAdmin__socials a {
   width: 36px;
   height: 36px;
 
   border-radius: 50%;
 
-  background: #f1f1f1;
+  background: #f3f3f3;
+
+  color: #111;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  color: #111;
 
   text-decoration: none;
 
   transition: 0.3s;
 }
 
-.social-icons a:hover {
+.tmAdmin__socials a:hover {
   background: #000;
+
   color: #fff;
+
+  transform: translateY(-2px);
 }
 
 /* =========================================
-   ACTION BUTTONS
+   ACTION
 ========================================= */
 
-.action-buttons {
+.tmAdmin__actions {
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
 
-.edit-btn,
-.delete-btn {
+.tmAdmin__editBtn,
+.tmAdmin__deleteBtn {
   width: 42px;
   height: 42px;
 
   border: none;
+
   border-radius: 12px;
 
   cursor: pointer;
@@ -356,33 +360,40 @@ table td {
   transition: 0.3s;
 }
 
-.edit-btn {
-  background: #e8f4ff;
+.tmAdmin__editBtn {
+  background: #e7f3ff;
+
   color: #0077ff;
 }
 
-.delete-btn {
-  background: #ffe9e9;
-  color: #ff2e2e;
+.tmAdmin__deleteBtn {
+  background: #ffe8e8;
+
+  color: #ff3b3b;
 }
 
-.edit-btn:hover,
-.delete-btn:hover {
-  transform: scale(1.05);
+.tmAdmin__editBtn:hover {
+  background: #0077ff;
+
+  color: #fff;
+}
+
+.tmAdmin__deleteBtn:hover {
+  background: #ff3b3b;
+
+  color: #fff;
 }
 
 /* =========================================
-   EMPTY DATA
+   EMPTY
 ========================================= */
 
-.empty-data {
+.tmAdmin__empty {
   text-align: center;
 
   padding: 40px !important;
 
   color: #777;
-
-  font-size: 15px;
 }
 
 /* =========================================
@@ -390,265 +401,65 @@ table td {
 ========================================= */
 
 @media (max-width: 992px) {
-  .teamadmin-card form {
+  .tmAdmin__form {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .teamadmin {
+  .tmAdmin {
     padding: 15px;
   }
 
-  .teamadmin-card,
-  .teamadmin-table-card {
-    padding: 20px;
+  .tmAdmin__card,
+  .tmAdmin__tableWrapper {
+    padding: 18px;
+
     border-radius: 18px;
   }
 
-  .teamadmin-card h2,
-  .table-header h2 {
+  .tmAdmin__title {
     font-size: 24px;
   }
 
-  table {
+  .tmAdmin__table {
     min-width: 760px;
   }
 
-  .preview-img {
+  .tmAdmin__previewImg {
     width: 90px;
     height: 90px;
   }
 }
 
 @media (max-width: 576px) {
-  .teamadmin {
+  .tmAdmin {
     padding: 10px;
   }
 
-  .teamadmin-card,
-  .teamadmin-table-card {
-    padding: 15px;
+  .tmAdmin__card,
+  .tmAdmin__tableWrapper {
+    padding: 14px;
   }
 
-  .teamadmin-card h2,
-  .table-header h2 {
+  .tmAdmin__title {
     font-size: 20px;
   }
 
-  .form-group input {
+  .tmAdmin__group input {
     height: 48px;
+
     font-size: 13px;
   }
 
-  .submit-btn {
+  .tmAdmin__submit {
     height: 48px;
+
     font-size: 14px;
   }
 
-  .preview-img {
+  .tmAdmin__previewImg {
     width: 80px;
     height: 80px;
   }
-}
-/* ADD THIS ONLY BELOW YOUR EXISTING CSS */
-
-/* Smooth UI Enhancements */
-
-.teamadmin-card,
-.teamadmin-table-card {
-  transition: 0.3s ease;
-}
-
-.teamadmin-card:hover,
-.teamadmin-table-card:hover {
-  transform: translateY(-3px);
-}
-
-/* Inputs modern feel */
-.form-group input {
-  background: #fafafa;
-}
-
-.form-group input:focus {
-  border-color: #0077ff;
-  box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.1);
-}
-
-/* Upload box improvement */
-.upload-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.upload-box input {
-  cursor: pointer;
-}
-
-/* Preview center */
-.preview-box {
-  display: flex;
-  justify-content: center;
-}
-
-/* Table hover */
-table tbody tr:hover {
-  background: #f9fafc;
-}
-
-/* Buttons premium feel */
-.edit-btn {
-  background: linear-gradient(135deg, #e8f4ff, #d8ecff);
-}
-
-.delete-btn {
-  background: linear-gradient(135deg, #ffe9e9, #ffd6d6);
-}
-
-.edit-btn:hover {
-  background: #0077ff;
-  color: #fff;
-}
-
-.delete-btn:hover {
-  background: #ff2e2e;
-  color: #fff;
-}
-
-/* Social hover glow */
-.social-icons a:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Scroll improvement */
-.table-wrapper {
-  border-radius: 12px;
-}
-/* SECTION HEADINGS */
-.form-section-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #222;
-  padding-bottom: 5px;
-  border-bottom: 2px solid #eee;
-}
-
-/* CUSTOM FILE UPLOAD */
-.custom-upload {
-  width: 100%;
-  height: 60px;
-  border: 2px dashed #ccc;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.3s;
-  background: #fafafa;
-}
-
-.custom-upload input {
-  display: none;
-}
-
-.custom-upload span {
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-}
-
-.custom-upload:hover {
-  border-color: #0077ff;
-  background: #f0f7ff;
-}
-/* ================= BASE WRAPPER ================= */
-.teamadmin-root {
-  width: 100%;
-  background: linear-gradient(135deg, #f6f8fc, #eef2f7);
-  min-height: 100vh;
-}
-
-/* HEADING IMPROVE */
-.teamadmin-heading {
-  font-size: 32px;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #111;
-}
-
-/* FORM SPACING IMPROVE */
-.teamadmin-card form {
-  gap: 22px;
-}
-
-/* INPUT PREMIUM LOOK */
-.form-group input {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  transition: all 0.25s ease;
-}
-
-.form-group input:hover {
-  border-color: #bbb;
-}
-
-.form-group input:focus {
-  border-color: #0077ff;
-  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.08);
-  background: #fff;
-}
-
-/* SECTION TITLE */
-.form-section-title {
-  font-size: 15px;
-  letter-spacing: 0.5px;
-  color: #444;
-}
-
-/* UPLOAD ENHANCED */
-.custom-upload {
-  height: 70px;
-  border-radius: 16px;
-  border: 2px dashed #d6d6d6;
-  background: #fafafa;
-}
-
-.custom-upload:hover {
-  border-color: #0077ff;
-  background: #f0f7ff;
-}
-
-/* BUTTON IMPROVE */
-.submit-btn {
-  background: linear-gradient(135deg, #000, #333);
-  letter-spacing: 0.5px;
-}
-
-.submit-btn:hover {
-  background: linear-gradient(135deg, #111, #000);
-  transform: translateY(-2px);
-}
-
-/* TABLE IMPROVE */
-.team-table thead {
-  background: #f9fafc;
-}
-
-.team-table tbody tr:hover {
-  background: #f4f7fb;
-}
-
-/* ACTION BUTTON SMOOTH */
-.edit-btn,
-.delete-btn {
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-/* IMAGE STYLE */
-.table-profile {
-  border: 3px solid #fff;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./TeamMember.css";
 import Swal from "sweetalert2";
 
 import {
@@ -12,7 +11,9 @@ import {
   FaTrash,
 } from "react-icons/fa";
 
-/* ================= AXIOS INSTANCE ================= */
+import "./TeamMember.css";
+
+/* ================= AXIOS ================= */
 const API_BASE = "http://localhost:5000";
 
 const api = axios.create({
@@ -40,6 +41,8 @@ const TeamMemberAdmin = () => {
   const [preview, setPreview] = useState(null);
   const [editId, setEditId] = useState(null);
 
+  /* ================= FETCH ================= */
+
   useEffect(() => {
     fetchMembers();
   }, []);
@@ -49,25 +52,33 @@ const TeamMemberAdmin = () => {
       const res = await api.get(API);
       setTeamMembers(res.data);
     } catch (err) {
-      console.error("Fetch Error:", err);
+      console.log(err);
     }
   };
 
+  /* ================= INPUT ================= */
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+  /* ================= IMAGE ================= */
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setImage(file);
 
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
+    if (!file) return;
+
+    setImage(file);
+    setPreview(URL.createObjectURL(file));
   };
+
+  /* ================= SUBMIT ================= */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,22 +90,42 @@ const TeamMemberAdmin = () => {
         data.append(key, formData[key]);
       });
 
-      if (image) data.append("image", image);
+      if (image) {
+        data.append("image", image);
+      }
 
       if (editId) {
         await api.put(`${API}/${editId}`, data);
-        Swal.fire("Updated!", "Member updated successfully", "success");
+
+        Swal.fire({
+          icon: "success",
+          title: "Updated",
+          text: "Team member updated successfully",
+        });
       } else {
         await api.post(API, data);
-        Swal.fire("Added!", "Member added successfully", "success");
+
+        Swal.fire({
+          icon: "success",
+          title: "Added",
+          text: "Team member added successfully",
+        });
       }
 
       fetchMembers();
       resetForm();
     } catch (err) {
-      console.error("Submit Error:", err);
+      console.log(err);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong",
+      });
     }
   };
+
+  /* ================= RESET ================= */
 
   const resetForm = () => {
     setFormData({
@@ -112,56 +143,71 @@ const TeamMemberAdmin = () => {
     setEditId(null);
   };
 
+  /* ================= DELETE ================= */
+
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Delete Member?",
       text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#ff2e2e",
-      cancelButtonColor: "#999",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#ff3b3b",
+      cancelButtonColor: "#888",
+      confirmButtonText: "Delete",
     });
 
     if (result.isConfirmed) {
       try {
         await api.delete(`${API}/${id}`);
+
         fetchMembers();
-        Swal.fire("Deleted!", "Member removed successfully", "success");
+
+        Swal.fire({
+          icon: "success",
+          title: "Deleted",
+          text: "Member deleted successfully",
+        });
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
     }
   };
 
+  /* ================= EDIT ================= */
+
   const handleEdit = (member) => {
     setFormData({
-      name: member.name,
-      designation: member.designation,
-      phone: member.phone,
-      facebook: member.facebook,
-      instagram: member.instagram,
-      linkedin: member.linkedin,
-      twitter: member.twitter,
+      name: member.name || "",
+      designation: member.designation || "",
+      phone: member.phone || "",
+      facebook: member.facebook || "",
+      instagram: member.instagram || "",
+      linkedin: member.linkedin || "",
+      twitter: member.twitter || "",
     });
 
     setPreview(member.image ? IMG + member.image : null);
+
     setEditId(member._id);
   };
 
   return (
-    <div className="teamadmin">
-      {/* FORM */}
-      <div className="teamadmin-left">
-        <div className="teamadmin-card">
-          <h2>{editId ? "Update Team Member" : "Add Team Member"}</h2>
+    <div className="tmAdmin">
+      {/* ================= FORM ================= */}
 
-          <form onSubmit={handleSubmit}>
-            <div className="form-section-title form-full">
+      <div className="tmAdmin__formSection">
+        <div className="tmAdmin__card">
+          <h2 className="tmAdmin__title">
+            {editId ? "Update Team Member" : "Add Team Member"}
+          </h2>
+
+          <form className="tmAdmin__form" onSubmit={handleSubmit}>
+            {/* BASIC */}
+            <div className="tmAdmin__sectionTitle tmAdmin__full">
               Basic Information
             </div>
 
-            <div className="form-group">
+            <div className="tmAdmin__group">
               <input
                 type="text"
                 name="name"
@@ -172,7 +218,7 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="tmAdmin__group">
               <input
                 type="text"
                 name="designation"
@@ -183,7 +229,7 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-group form-full">
+            <div className="tmAdmin__group tmAdmin__full">
               <input
                 type="text"
                 name="phone"
@@ -194,11 +240,12 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-section-title form-full">
+            {/* SOCIAL */}
+            <div className="tmAdmin__sectionTitle tmAdmin__full">
               Social Links
             </div>
 
-            <div className="form-group">
+            <div className="tmAdmin__group">
               <input
                 type="text"
                 name="facebook"
@@ -208,7 +255,7 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="tmAdmin__group">
               <input
                 type="text"
                 name="instagram"
@@ -218,7 +265,7 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="tmAdmin__group">
               <input
                 type="text"
                 name="linkedin"
@@ -228,7 +275,7 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="tmAdmin__group">
               <input
                 type="text"
                 name="twitter"
@@ -238,129 +285,156 @@ const TeamMemberAdmin = () => {
               />
             </div>
 
-            <div className="form-section-title form-full">
+            {/* IMAGE */}
+            <div className="tmAdmin__sectionTitle tmAdmin__full">
               Profile Image
             </div>
 
-            <div className="form-group form-full">
-              <label className="custom-upload">
-                <input type="file" accept="image/*" onChange={handleImage} />
+            <div className="tmAdmin__full">
+              <label className="tmAdmin__upload">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImage}
+                />
+
                 <span>📁 Choose Image</span>
               </label>
             </div>
 
             {preview && (
-              <div className="preview-box form-full">
-                <img src={preview} alt="preview" className="preview-img" />
+              <div className="tmAdmin__preview tmAdmin__full">
+                <img
+                  src={preview}
+                  alt="preview"
+                  className="tmAdmin__previewImg"
+                />
               </div>
             )}
 
-            <button type="submit" className="submit-btn form-full">
+            <button type="submit" className="tmAdmin__submit tmAdmin__full">
               {editId ? "Update Member" : "Add Member"}
             </button>
           </form>
         </div>
       </div>
 
-      {/* TABLE */}
-  <div className="table-wrapper">
-  <table className="team-table">
+      {/* ================= TABLE ================= */}
 
-    {/* 🔥 COLUMN CONTROL (IMPORTANT) */}
-    <colgroup>
-      <col style={{ width: "90px" }} />
-      <col style={{ width: "180px" }} />
-      <col style={{ width: "180px" }} />
-      <col style={{ width: "140px" }} />
-      <col style={{ width: "160px" }} />
-      <col style={{ width: "120px" }} />
-    </colgroup>
+      <div className="tmAdmin__tableWrapper">
+        <table className="tmAdmin__table">
+          <colgroup>
+            <col style={{ width: "90px" }} />
+            <col style={{ width: "180px" }} />
+            <col style={{ width: "180px" }} />
+            <col style={{ width: "150px" }} />
+            <col style={{ width: "170px" }} />
+            <col style={{ width: "120px" }} />
+          </colgroup>
 
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Designation</th>
-        <th>Phone</th>
-        <th>Social</th>
-        <th className="action-col">Action</th>
-      </tr>
-    </thead>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>Phone</th>
+              <th>Social</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-    <tbody>
-      {teamMembers.length === 0 ? (
-        <tr>
-          <td colSpan="6" className="empty-data">
-            No Team Members Found
-          </td>
-        </tr>
-      ) : (
-        teamMembers.map((m) => (
-          <tr key={m._id}>
-            <td>
-              <img
-                src={IMG + m.image}
-                alt=""
-                className="table-profile"
-              />
-            </td>
+          <tbody>
+            {teamMembers.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="tmAdmin__empty">
+                  No Team Members Found
+                </td>
+              </tr>
+            ) : (
+              teamMembers.map((m) => (
+                <tr key={m._id}>
+                  <td>
+                    <img
+                      src={IMG + m.image}
+                      alt={m.name}
+                      className="tmAdmin__profile"
+                    />
+                  </td>
 
-            <td className="text-ellipsis">{m.name}</td>
-            <td className="text-ellipsis">{m.designation}</td>
-            <td>{m.phone}</td>
+                  <td>{m.name}</td>
 
-            {/* SOCIAL */}
-            <td>
-              <div className="social-icons">
-                {m.facebook && (
-                  <a href={m.facebook} target="_blank" rel="noreferrer">
-                    <FaFacebookF />
-                  </a>
-                )}
-                {m.instagram && (
-                  <a href={m.instagram} target="_blank" rel="noreferrer">
-                    <FaInstagram />
-                  </a>
-                )}
-                {m.linkedin && (
-                  <a href={m.linkedin} target="_blank" rel="noreferrer">
-                    <FaLinkedinIn />
-                  </a>
-                )}
-                {m.twitter && (
-                  <a href={m.twitter} target="_blank" rel="noreferrer">
-                    <FaTwitter />
-                  </a>
-                )}
-              </div>
-            </td>
+                  <td>{m.designation}</td>
 
-            {/* ✅ ACTION FIXED */}
-            <td>
-              <div className="action-buttons">
-                <button
-                  className="edit-btn"
-                  onClick={() => handleEdit(m)}
-                >
-                  <FaEdit />
-                </button>
+                  <td>{m.phone}</td>
 
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(m._id)}
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            </td>
-          </tr>
-        ))
-      )}
-    </tbody>
-  </table>
-</div>
-        </div>
-      
+                  <td>
+                    <div className="tmAdmin__socials">
+                      {m.facebook && (
+                        <a
+                          href={m.facebook}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaFacebookF />
+                        </a>
+                      )}
+
+                      {m.instagram && (
+                        <a
+                          href={m.instagram}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaInstagram />
+                        </a>
+                      )}
+
+                      {m.linkedin && (
+                        <a
+                          href={m.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaLinkedinIn />
+                        </a>
+                      )}
+
+                      {m.twitter && (
+                        <a
+                          href={m.twitter}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FaTwitter />
+                        </a>
+                      )}
+                    </div>
+                  </td>
+
+                  <td>
+                    <div className="tmAdmin__actions">
+                      <button
+                        className="tmAdmin__editBtn"
+                        onClick={() => handleEdit(m)}
+                      >
+                        <FaEdit />
+                      </button>
+
+                      <button
+                        className="tmAdmin__deleteBtn"
+                        onClick={() => handleDelete(m._id)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 

@@ -191,6 +191,7 @@
 .blogview-card-content h3 {
   font-size: 22px;
   margin-bottom: 14px;
+  
 }
 
 .blogview-card-content p {
@@ -296,6 +297,7 @@
 
 .blogview-modal h2 {
   margin-bottom: 10px;
+  color: black;
 }
 
 .blogview-modal p {
