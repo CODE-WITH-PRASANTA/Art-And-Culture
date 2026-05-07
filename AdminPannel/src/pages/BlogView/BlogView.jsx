@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./BlogView.css";
 import API, { BASE_URL } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 import {
   MoreVertical,
   Trash2,
-  UploadCloud,
   CalendarDays,
   User,
-  CheckCircle,
-  XCircle,
   Pencil,
   Save,
   X,
@@ -17,11 +15,14 @@ import {
 } from "lucide-react";
 
 const BlogView = () => {
+
+  const navigate = useNavigate();
+
   const [blogs, setBlogs] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null);
   const [loadingId, setLoadingId] = useState(null);
-
   const [editId, setEditId] = useState(null);
+
   const [editData, setEditData] = useState({
     title: "",
     category: "",
@@ -30,14 +31,17 @@ const BlogView = () => {
 
   const [viewBlog, setViewBlog] = useState(null);
 
-  // ✅ FETCH BLOGS
   const fetchBlogs = async () => {
     try {
       const res = await API.get("/blog");
 
-      if (Array.isArray(res.data)) setBlogs(res.data);
-      else if (Array.isArray(res.data.data)) setBlogs(res.data.data);
-      else setBlogs([]);
+      if (Array.isArray(res.data)) {
+        setBlogs(res.data);
+      } else if (Array.isArray(res.data.data)) {
+        setBlogs(res.data.data);
+      } else {
+        setBlogs([]);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -47,7 +51,6 @@ const BlogView = () => {
     fetchBlogs();
   }, []);
 
-  // ✅ CLOSE MENU
   useEffect(() => {
     const close = () => setActiveMenu(null);
     document.addEventListener("click", close);
@@ -59,7 +62,6 @@ const BlogView = () => {
     setActiveMenu((prev) => (prev === id ? null : id));
   };
 
-  // ✅ DELETE
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this blog?")) return;
 
@@ -75,7 +77,6 @@ const BlogView = () => {
     }
   };
 
-  // ✅ PUBLISH
   const handleTogglePublish = async (blog) => {
     try {
       setLoadingId(blog._id);
@@ -83,7 +84,9 @@ const BlogView = () => {
       const newStatus =
         blog.status === "Published" ? "Draft" : "Published";
 
-      await API.put(`/blog/${blog._id}`, { status: newStatus });
+      await API.put(`/blog/${blog._id}`, {
+        status: newStatus,
+      });
 
       setBlogs((prev) =>
         prev.map((b) =>
@@ -98,21 +101,13 @@ const BlogView = () => {
     }
   };
 
-  // ✅ VIEW
   const handleView = (e, blog) => {
     e.stopPropagation();
     setViewBlog(blog);
   };
 
-  // ✅ EDIT
   const handleEditStart = (blog) => {
-    setEditId(blog._id);
-    setEditData({
-      title: blog.title || "",
-      category: blog.category || "",
-      details: blog.details || "",
-    });
-    setActiveMenu(null);
+    navigate(`/blog/post/${blog._id}`);
   };
 
   const handleSaveEdit = async () => {
@@ -135,13 +130,14 @@ const BlogView = () => {
     }
   };
 
-  // ✅ IMAGE FIX
   const getImageUrl = (img) => {
     if (!img) return "/no-image.png";
     if (img.startsWith("http")) return img;
 
     let path = img.replace(/\\/g, "/").replace(/^\/+/, "");
-    if (!path.startsWith("uploads")) path = `uploads/${path}`;
+    if (!path.startsWith("uploads")) {
+      path = `uploads/${path}`;
+    }
 
     return `${BASE_URL}/${path}`;
   };
@@ -150,32 +146,29 @@ const BlogView = () => {
     html ? html.replace(/<[^>]+>/g, "") : "";
 
   return (
-    <div className="blogview">
 
-      {/* HEADER */}
-      <div className="blogview-header">
-        <button className="blogview-create-btn">
-          <UploadCloud size={18} />
-          Create Blog
-        </button>
-      </div>
+    <div className="blogview blogview-wrapper">
 
-      {/* GRID */}
       <div className="blogview-grid">
+
         {blogs.map((blog) => {
+
           const isEditing = editId === blog._id;
           const cleanText = stripHtml(blog.details);
           const preview = cleanText.slice(0, 120);
 
           return (
+
             <div className="blogview-card" key={blog._id}>
-              
-              {/* IMAGE */}
+
               <div className="blogview-card-image">
+
                 <img
                   src={getImageUrl(blog.image)}
                   alt=""
-                  onError={(e) => (e.target.src = "/no-image.png")}
+                  onError={(e) =>
+                    (e.target.src = "/no-image.png")
+                  }
                 />
 
                 <span className={`blogview-status ${blog.status === "Published" ? "published" : "draft"}`}>
@@ -190,8 +183,10 @@ const BlogView = () => {
                 </button>
 
                 {activeMenu === blog._id && (
-                  <div className="blogview-dropdown" onClick={(e) => e.stopPropagation()}>
-                    
+                  <div
+                    className="blogview-dropdown"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <button onClick={(e) => handleView(e, blog)}>
                       <Eye size={16} /> View
                     </button>
@@ -207,97 +202,56 @@ const BlogView = () => {
                     <button className="delete" onClick={() => handleDelete(blog._id)}>
                       <Trash2 size={16} /> Delete
                     </button>
-
                   </div>
                 )}
+
               </div>
 
-              {/* CONTENT */}
               <div className="blogview-card-content">
 
-                {isEditing ? (
-                  <>
-                    <input
-                      value={editData.title}
-                      onChange={(e) =>
-                        setEditData({ ...editData, title: e.target.value })
-                      }
-                    />
+                <span className="blogview-category">
+                  {blog.category || "General"}
+                </span>
 
-                    <input
-                      value={editData.category}
-                      onChange={(e) =>
-                        setEditData({ ...editData, category: e.target.value })
-                      }
-                    />
+                <h3>{blog.title}</h3>
 
-                    <textarea
-                      value={editData.details}
-                      onChange={(e) =>
-                        setEditData({ ...editData, details: e.target.value })
-                      }
-                    />
+                <p>
+                  {preview}
+                  {cleanText.length > 120 && "..."}
+                </p>
 
-                    <div className="edit-actions">
-                      <button onClick={handleSaveEdit}>
-                        <Save size={16} /> Save
-                      </button>
+                <div className="blogview-card-footer">
 
-                      <button onClick={() => setEditId(null)}>
-                        <X size={16} /> Cancel
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* CATEGORY */}
-                    <span className="blogview-category">
-                      {blog.category || "General"}
+                  <div>
+                    <User size={14} />
+                    <span> {blog.author || "Admin"}</span>
+                  </div>
+
+                  <div>
+                    <CalendarDays size={14} />
+                    <span>
+                      {blog.createdAt
+                        ? new Date(blog.createdAt).toDateString()
+                        : "No Date"}
                     </span>
+                  </div>
 
-                    {/* TITLE */}
-                    <h3>{blog.title}</h3>
-
-                    {/* DESCRIPTION */}
-                    <p>
-                      {preview}
-                      {cleanText.length > 120 && "..."}
-                    </p>
-
-                    {/* FOOTER (ADMIN + DATE) */}
-                    <div className="blogview-card-footer">
-                      <div>
-                        <User size={14} />
-                        <span> {blog.author || "Admin"}</span>
-                      </div>
-
-                      <div>
-                        <CalendarDays size={14} />
-                        <span>
-                          {blog.createdAt
-                            ? new Date(blog.createdAt).toDateString()
-                            : "No Date"}
-                        </span>
-                      </div>
-                    </div>
-                  </>
-                )}
+                </div>
 
               </div>
+
             </div>
+
           );
         })}
+
       </div>
 
-      {/* VIEW MODAL */}
       {viewBlog && (
         <div className="blogview-modal">
           <div className="blogview-modal-content">
 
-            <button
-              className="modal-close"
-              onClick={() => setViewBlog(null)}
-            >
+            <button className="modal-close" onClick={() => setViewBlog(null)}>
               <X size={20} />
             </button>
 
@@ -306,14 +260,6 @@ const BlogView = () => {
             <h2>{viewBlog.title}</h2>
 
             <p>{stripHtml(viewBlog.details)}</p>
-
-            <div className="blogview-card-footer">
-              <span><User size={14} /> {viewBlog.author || "Admin"}</span>
-              <span>
-                <CalendarDays size={14} />
-                {new Date(viewBlog.createdAt).toDateString()}
-              </span>
-            </div>
 
           </div>
         </div>

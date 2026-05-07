@@ -1,7 +1,7 @@
-// TeamMemberAdmin.jsx
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./TeamMember.css";
+import Swal from "sweetalert2";
 
 import {
   FaFacebookF,
@@ -11,6 +11,17 @@ import {
   FaEdit,
   FaTrash,
 } from "react-icons/fa";
+
+/* ================= AXIOS INSTANCE ================= */
+const API_BASE = "http://localhost:5000";
+
+const api = axios.create({
+  baseURL: API_BASE,
+  withCredentials: true,
+});
+
+const API = "/api/team";
+const IMG = `${API_BASE}/uploads/`;
 
 const TeamMemberAdmin = () => {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -23,13 +34,25 @@ const TeamMemberAdmin = () => {
     instagram: "",
     linkedin: "",
     twitter: "",
-    image: null,
   });
 
+  const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
 
-  // HANDLE INPUT
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const fetchMembers = async () => {
+    try {
+      const res = await api.get(API);
+      setTeamMembers(res.data);
+    } catch (err) {
+      console.error("Fetch Error:", err);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -37,39 +60,43 @@ const TeamMemberAdmin = () => {
     });
   };
 
-  // HANDLE IMAGE
   const handleImage = (e) => {
     const file = e.target.files[0];
+    setImage(file);
 
     if (file) {
-      setFormData({
-        ...formData,
-        image: file,
-      });
-
       setPreview(URL.createObjectURL(file));
     }
   };
 
-  // HANDLE SUBMIT
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newMember = {
-      ...formData,
-      preview,
-    };
+    try {
+      const data = new FormData();
 
-    if (editIndex !== null) {
-      const updatedMembers = [...teamMembers];
-      updatedMembers[editIndex] = newMember;
-      setTeamMembers(updatedMembers);
-      setEditIndex(null);
-    } else {
-      setTeamMembers([...teamMembers, newMember]);
+      Object.keys(formData).forEach((key) => {
+        data.append(key, formData[key]);
+      });
+
+      if (image) data.append("image", image);
+
+      if (editId) {
+        await api.put(`${API}/${editId}`, data);
+        Swal.fire("Updated!", "Member updated successfully", "success");
+      } else {
+        await api.post(API, data);
+        Swal.fire("Added!", "Member added successfully", "success");
+      }
+
+      fetchMembers();
+      resetForm();
+    } catch (err) {
+      console.error("Submit Error:", err);
     }
+  };
 
-    // RESET
+  const resetForm = () => {
     setFormData({
       name: "",
       designation: "",
@@ -78,290 +105,262 @@ const TeamMemberAdmin = () => {
       instagram: "",
       linkedin: "",
       twitter: "",
-      image: null,
     });
 
+    setImage(null);
     setPreview(null);
+    setEditId(null);
   };
 
-  // DELETE
-  const handleDelete = (index) => {
-    const updated = teamMembers.filter((_, i) => i !== index);
-    setTeamMembers(updated);
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Delete Member?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff2e2e",
+      cancelButtonColor: "#999",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`${API}/${id}`);
+        fetchMembers();
+        Swal.fire("Deleted!", "Member removed successfully", "success");
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
-  // EDIT
-  const handleEdit = (index) => {
-    const member = teamMembers[index];
+  const handleEdit = (member) => {
+    setFormData({
+      name: member.name,
+      designation: member.designation,
+      phone: member.phone,
+      facebook: member.facebook,
+      instagram: member.instagram,
+      linkedin: member.linkedin,
+      twitter: member.twitter,
+    });
 
-    setFormData(member);
-    setPreview(member.preview);
-    setEditIndex(index);
+    setPreview(member.image ? IMG + member.image : null);
+    setEditId(member._id);
   };
 
   return (
     <div className="teamadmin">
-      {/* =========================
-          FORM SECTION
-      ========================= */}
+      {/* FORM */}
       <div className="teamadmin-left">
         <div className="teamadmin-card">
-          <h2>Post Team Member</h2>
+          <h2>{editId ? "Update Team Member" : "Add Team Member"}</h2>
 
           <form onSubmit={handleSubmit}>
-            {/* NAME */}
-            <div className="form-group">
-              <label>Team Member Name</label>
+            <div className="form-section-title form-full">
+              Basic Information
+            </div>
 
+            <div className="form-group">
               <input
                 type="text"
                 name="name"
-                placeholder="Enter member name"
+                placeholder="Full Name"
                 value={formData.name}
                 onChange={handleChange}
                 required
               />
             </div>
 
-            {/* DESIGNATION */}
             <div className="form-group">
-              <label>Designation</label>
-
               <input
                 type="text"
                 name="designation"
-                placeholder="Enter designation"
+                placeholder="Designation"
                 value={formData.designation}
                 onChange={handleChange}
                 required
               />
             </div>
 
-            {/* PHONE */}
-            <div className="form-group">
-              <label>Phone Number</label>
-
+            <div className="form-group form-full">
               <input
                 type="text"
                 name="phone"
-                placeholder="Enter phone number"
+                placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
                 required
               />
             </div>
 
-            {/* FACEBOOK */}
-            <div className="form-group">
-              <label>Facebook Link</label>
+            <div className="form-section-title form-full">
+              Social Links
+            </div>
 
+            <div className="form-group">
               <input
                 type="text"
                 name="facebook"
-                placeholder="Facebook profile link"
+                placeholder="Facebook URL"
                 value={formData.facebook}
                 onChange={handleChange}
               />
             </div>
 
-            {/* INSTAGRAM */}
             <div className="form-group">
-              <label>Instagram Link</label>
-
               <input
                 type="text"
                 name="instagram"
-                placeholder="Instagram profile link"
+                placeholder="Instagram URL"
                 value={formData.instagram}
                 onChange={handleChange}
               />
             </div>
 
-            {/* LINKEDIN */}
             <div className="form-group">
-              <label>LinkedIn Link</label>
-
               <input
                 type="text"
                 name="linkedin"
-                placeholder="LinkedIn profile link"
+                placeholder="LinkedIn URL"
                 value={formData.linkedin}
                 onChange={handleChange}
               />
             </div>
 
-            {/* TWITTER */}
             <div className="form-group">
-              <label>Twitter Link</label>
-
               <input
                 type="text"
                 name="twitter"
-                placeholder="Twitter profile link"
+                placeholder="Twitter URL"
                 value={formData.twitter}
                 onChange={handleChange}
               />
             </div>
 
-            {/* UPLOAD */}
+            <div className="form-section-title form-full">
+              Profile Image
+            </div>
+
             <div className="form-group form-full">
-              <label>Upload Profile Picture</label>
+              <label className="custom-upload">
+                <input type="file" accept="image/*" onChange={handleImage} />
+                <span>📁 Choose Image</span>
+              </label>
+            </div>
 
-              <div className="upload-box">
-                <label htmlFor="profileUpload" className="upload-label">
-                
-                </label>
-
-                <input
-                  id="profileUpload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImage}
-                  hidden
-                />
-
-                {preview && (
-                  <img
-                    src={preview}
-                    alt="preview"
-                    className="preview-img"
-                  />
-                )}
+            {preview && (
+              <div className="preview-box form-full">
+                <img src={preview} alt="preview" className="preview-img" />
               </div>
-            </div>
+            )}
 
-            {/* BUTTON */}
-            <div className="form-full">
-              <button type="submit" className="submit-btn">
-                {editIndex !== null ? "Update Member" : "Add Member"}
-              </button>
-            </div>
+            <button type="submit" className="submit-btn form-full">
+              {editId ? "Update Member" : "Add Member"}
+            </button>
           </form>
         </div>
       </div>
 
-      {/* =========================
-          TABLE SECTION
-      ========================= */}
-      <div className="teamadmin-right">
-        <div className="teamadmin-table-card">
-          <div className="table-header">
-            <h2>Team Members List</h2>
-          </div>
+      {/* TABLE */}
+  <div className="table-wrapper">
+  <table className="team-table">
 
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Profile</th>
-                  <th>Name</th>
-                  <th>Designation</th>
-                  <th>Phone</th>
-                  <th>Social Media</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
+    {/* 🔥 COLUMN CONTROL (IMPORTANT) */}
+    <colgroup>
+      <col style={{ width: "90px" }} />
+      <col style={{ width: "180px" }} />
+      <col style={{ width: "180px" }} />
+      <col style={{ width: "140px" }} />
+      <col style={{ width: "160px" }} />
+      <col style={{ width: "120px" }} />
+    </colgroup>
 
-              <tbody>
-                {teamMembers.length === 0 ? (
-                  <tr>
-                    <td colSpan="6" className="empty-data">
-                      No Team Members Added
-                    </td>
-                  </tr>
-                ) : (
-                  teamMembers.map((member, index) => (
-                    <tr key={index}>
-                      {/* IMAGE */}
-                      <td>
-                        <img
-                          src={member.preview}
-                          alt="profile"
-                          className="table-profile"
-                        />
-                      </td>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Phone</th>
+        <th>Social</th>
+        <th className="action-col">Action</th>
+      </tr>
+    </thead>
 
-                      {/* NAME */}
-                      <td>{member.name}</td>
+    <tbody>
+      {teamMembers.length === 0 ? (
+        <tr>
+          <td colSpan="6" className="empty-data">
+            No Team Members Found
+          </td>
+        </tr>
+      ) : (
+        teamMembers.map((m) => (
+          <tr key={m._id}>
+            <td>
+              <img
+                src={IMG + m.image}
+                alt=""
+                className="table-profile"
+              />
+            </td>
 
-                      {/* DESIGNATION */}
-                      <td>{member.designation}</td>
+            <td className="text-ellipsis">{m.name}</td>
+            <td className="text-ellipsis">{m.designation}</td>
+            <td>{m.phone}</td>
 
-                      {/* PHONE */}
-                      <td>{member.phone}</td>
-
-                      {/* SOCIAL */}
-                      <td>
-                        <div className="social-icons">
-                          {member.facebook && (
-                            <a
-                              href={member.facebook}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <FaFacebookF />
-                            </a>
-                          )}
-
-                          {member.instagram && (
-                            <a
-                              href={member.instagram}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <FaInstagram />
-                            </a>
-                          )}
-
-                          {member.linkedin && (
-                            <a
-                              href={member.linkedin}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <FaLinkedinIn />
-                            </a>
-                          )}
-
-                          {member.twitter && (
-                            <a
-                              href={member.twitter}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <FaTwitter />
-                            </a>
-                          )}
-                        </div>
-                      </td>
-
-                      {/* ACTION */}
-                      <td>
-                        <div className="action-buttons">
-                          <button
-                            className="edit-btn"
-                            onClick={() => handleEdit(index)}
-                          >
-                            <FaEdit />
-                          </button>
-
-                          <button
-                            className="delete-btn"
-                            onClick={() => handleDelete(index)}
-                          >
-                            <FaTrash />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+            {/* SOCIAL */}
+            <td>
+              <div className="social-icons">
+                {m.facebook && (
+                  <a href={m.facebook} target="_blank" rel="noreferrer">
+                    <FaFacebookF />
+                  </a>
                 )}
-              </tbody>
-            </table>
-          </div>
+                {m.instagram && (
+                  <a href={m.instagram} target="_blank" rel="noreferrer">
+                    <FaInstagram />
+                  </a>
+                )}
+                {m.linkedin && (
+                  <a href={m.linkedin} target="_blank" rel="noreferrer">
+                    <FaLinkedinIn />
+                  </a>
+                )}
+                {m.twitter && (
+                  <a href={m.twitter} target="_blank" rel="noreferrer">
+                    <FaTwitter />
+                  </a>
+                )}
+              </div>
+            </td>
+
+            {/* ✅ ACTION FIXED */}
+            <td>
+              <div className="action-buttons">
+                <button
+                  className="edit-btn"
+                  onClick={() => handleEdit(m)}
+                >
+                  <FaEdit />
+                </button>
+
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(m._id)}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
         </div>
-      </div>
-    </div>
+      
   );
 };
 

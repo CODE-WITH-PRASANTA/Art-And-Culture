@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./CategoryManage.css";
-import API from "../../api/axios"; // adjust path if needed
+import API from "../../api/axios";
 
 const CategoryManage = () => {
+
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  /* ================= FETCH DATA ================= */
   const fetchCategories = async () => {
     try {
       const res = await API.get("/category");
@@ -21,40 +21,30 @@ const CategoryManage = () => {
     fetchCategories();
   }, []);
 
-  /* ================= ADD / UPDATE ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!category.trim()) return;
 
     try {
       if (editId) {
-        // UPDATE
-        await API.put(`/category/${editId}`, {
-          name: category,
-        });
+        await API.put(`/category/${editId}`, { name: category });
       } else {
-        // CREATE
-        await API.post("/category", {
-          name: category,
-        });
+        await API.post("/category", { name: category });
       }
 
       setCategory("");
       setEditId(null);
-      fetchCategories(); // refresh
+      fetchCategories();
     } catch (err) {
       console.log(err);
     }
   };
 
-  /* ================= EDIT ================= */
   const handleEdit = (cat) => {
     setCategory(cat.name);
     setEditId(cat._id);
   };
 
-  /* ================= DELETE ================= */
   const handleDelete = async (id) => {
     try {
       await API.delete(`/category/${id}`);
@@ -65,38 +55,58 @@ const CategoryManage = () => {
   };
 
   return (
-    <div className="CategoryManage">
+
+    <div className="CategoryManage CategoryManage__wrapper">
+
       <div className="CategoryManage__container">
 
-        {/* ================= LEFT FORM ================= */}
+        {/* LEFT FORM */}
         <div className="CategoryManage__formCard">
-          <h2 className="CategoryManage__title">Manage Category</h2>
+
+          <h2 className="CategoryManage__title">
+            Manage Category
+          </h2>
 
           <form onSubmit={handleSubmit} className="CategoryManage__form">
 
             <div className="CategoryManage__formGroup">
+
               <label>Category Name</label>
+
               <input
                 type="text"
                 placeholder="Enter category name"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               />
+
             </div>
 
             <button type="submit" className="CategoryManage__btn">
+
               {editId ? "Update Category" : "Add Category"}
+
             </button>
 
           </form>
+
         </div>
 
-        {/* ================= RIGHT TABLE ================= */}
+        {/* RIGHT TABLE */}
         <div className="CategoryManage__tableCard">
-          <h2 className="CategoryManage__title">Category List</h2>
+
+          <div className="CategoryManage__tableTop">
+
+            <h2 className="CategoryManage__title">
+              Category List
+            </h2>
+
+          </div>
 
           <div className="CategoryManage__tableWrapper">
+
             <table className="CategoryManage__table">
+
               <thead>
                 <tr>
                   <th>SL No</th>
@@ -106,19 +116,29 @@ const CategoryManage = () => {
               </thead>
 
               <tbody>
+
                 {categories.length === 0 ? (
+
                   <tr>
                     <td colSpan="3" className="CategoryManage__empty">
-                      No categories added
+                      🚫 No categories added
                     </td>
                   </tr>
+
                 ) : (
+
                   categories.map((cat, index) => (
+
                     <tr key={cat._id}>
+
                       <td>{index + 1}</td>
-                      <td>{cat.name}</td>
+
+                      <td className="CategoryManage__nameCell">
+                        {cat.name}
+                      </td>
 
                       <td>
+
                         <div className="CategoryManage__action">
 
                           <button
@@ -136,20 +156,29 @@ const CategoryManage = () => {
                           </button>
 
                         </div>
+
                       </td>
 
                     </tr>
+
                   ))
+
                 )}
+
               </tbody>
 
             </table>
+
           </div>
+
         </div>
 
       </div>
+
     </div>
+
   );
+
 };
 
 export default CategoryManage;

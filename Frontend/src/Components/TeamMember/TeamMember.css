@@ -1,0 +1,248 @@
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   SECTION
+========================= */
+.team-section {
+  width: 100%;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #794d3e, #721f0c);
+  text-align: center;
+}
+
+/* TITLE */
+.team-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 50px;
+  background: linear-gradient(135deg, #aea7a2, #ff2d55);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   SLIDER
+========================= */
+.team-slider {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* TRACK */
+.team-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+/* =========================
+   SLIDES (3 CARDS DEFAULT)
+========================= */
+.team-slide {
+  flex: 0 0 33.333%;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================
+   CARD
+========================= */
+.team-card {
+  width: 100%;
+  max-width: 320px;
+  padding: 25px 20px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================
+   IMAGE
+========================= */
+.team-img-box {
+  width: 110px;
+  height: 110px;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 3px solid #ff6a00;
+}
+
+.team-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+   INFO
+========================= */
+.team-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.team-info p {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* =========================
+   SOCIAL
+========================= */
+.team-social {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.team-social a {
+  width: 36px;
+  height: 36px;
+  background: #f3f3f3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.team-social a:hover {
+  background: linear-gradient(135deg, #ff6a00, #ff2d55);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* =========================
+   DOTS
+========================= */
+.team-dots {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff6a00, #ff2d55);
+}
+
+/* =========================
+   RESPONSIVE BREAKPOINTS
+========================= */
+
+/* XL SCREENS */
+@media (max-width: 1400px) {
+  .team-title {
+    font-size: 32px;
+  }
+}
+
+/* LAPTOP */
+@media (max-width: 1100px) {
+  .team-slide {
+    flex: 0 0 33.333%;
+  }
+}
+
+/* TABLET (2 CARDS) */
+@media (max-width: 900px) {
+  .team-slide {
+    flex: 0 0 50%;
+  }
+
+  .team-title {
+    font-size: 28px;
+  }
+
+  .team-img-box {
+    width: 95px;
+    height: 95px;
+  }
+}
+
+/* SMALL TABLET */
+@media (max-width: 700px) {
+  .team-card {
+    padding: 20px;
+  }
+}
+
+/* MOBILE (1 CARD) */
+@media (max-width: 500px) {
+  .team-section {
+    padding: 60px 12px;
+  }
+
+  .team-slide {
+    flex: 0 0 100%;
+  }
+
+  .team-title {
+    font-size: 22px;
+  }
+
+  .team-img-box {
+    width: 80px;
+    height: 80px;
+  }
+
+  .team-info h3 {
+    font-size: 16px;
+  }
+
+  .team-info p {
+    font-size: 12px;
+  }
+
+  .team-social a {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 360px) {
+  .team-img-box {
+    width: 70px;
+    height: 70px;
+  }
+
+  .team-title {
+    font-size: 20px;
+  }
+}
