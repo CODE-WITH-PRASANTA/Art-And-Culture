@@ -198,7 +198,6 @@ const Navbar = () => {
       <Link to="/"><FaHome /> Home</Link>
       <Link to="/shop"><MdCategory /> Shop</Link>
       <Link to="/blog"><FaBlog /> Blog</Link>
-      <Link to="/best-sellers"><FaFire /> Best Sellers</Link>
       <Link to="/Pooja-essentials"><MdOutlineLocalFlorist /> Pooja Essentials</Link>
       <Link to="/about"><FaUserCircle /> About</Link>
       <Link to="/contact"><AiFillHeart /> Contact</Link>
