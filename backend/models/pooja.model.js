@@ -2,55 +2,79 @@ const mongoose = require("mongoose");
 
 const poojaSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
       trim: true,
     },
-    slug: {
+
+    description: {
       type: String,
+      required: true,
       trim: true,
     },
+
+    image: {
+      type: String,
+      required: true,
+    },
+
     category: {
       type: String,
-      default: "",
+      default: "Pooja",
     },
+
     price: {
       type: Number,
       required: true,
+      min: 0,
     },
-    salePrice: {
+
+    oldPrice: {
       type: Number,
       default: 0,
+      min: 0,
     },
+
     stock: {
       type: Number,
       default: 0,
+      min: 0,
     },
-    status: {
-      type: String,
-      enum: ["Active", "Draft"],
-      default: "Active",
-    },
-    type: {
-      type: String,
-      enum: ["Featured", "Normal"],
-      default: "Normal",
-    },
-    shortDesc: {
-      type: String,
-    },
-    image: {
-      type: String,
-    },
+
     rating: {
       type: Number,
-      min: 1,
+      default: 0,
+      min: 0,
       max: 5,
-      default: 5,
+    },
+
+    material: {
+      type: String,
+      default: "",
+    },
+
+    purpose: {
+      type: String,
+      default: "",
+    },
+
+    size: {
+      type: String,
+      default: "",
+    },
+
+    inStock: {
+      type: Boolean,
+      default: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-module.exports = mongoose.model("Pooja", poojaSchema);
+module.exports = mongoose.model(
+  "Pooja",
+  poojaSchema
+);
