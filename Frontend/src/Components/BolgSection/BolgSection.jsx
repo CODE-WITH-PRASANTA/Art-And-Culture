@@ -1,133 +1,120 @@
-// BolgSection.jsx
-import React, { useState } from "react";
-import {
-  FiBookmark,
-  FiShare2,
-  FiClock,
-  FiMessageCircle,
-  FiLoader,
-} from "react-icons/fi";
-import { AiOutlineLike } from "react-icons/ai";
+import React, { useState, useEffect } from "react";
 import "./BolgSection.css";
-// image imports (you provided these paths)
-import blog1 from "../../assets/01.webp";
-import blog2 from "../../assets/02.webp";
-import blog3 from "../../assets/03.webp";
-import blog4 from "../../assets/04.webp";
-import blog5 from "../../assets/05.webp";
-import blog6 from "../../assets/06.webp";
+import API, { BASE_URL } from "../../api/axios";
 
 const BolgSection = () => {
-  // Use the imported images
-  const images = [blog1, blog2, blog3, blog4, blog5, blog6];
-
-  const dates = [
-    "26 Jan 2021",
-    "17 July 2021",
-    "10 Aug 2021",
-    "02 Sep 2021",
-    "18 Sep 2021",
-    "03 Oct 2021",
-  ];
-
-  const title = "Let’s start bring sale on this saummer vacation.";
-  const excerpt =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
+  const [blogs, setBlogs] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const handleLoadMore = () =>
-    setVisibleCount((prev) => Math.min(images.length, prev + 3));
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await API.get("/blog");
+
+        let data = [];
+
+        if (Array.isArray(res.data)) data = res.data;
+        else if (Array.isArray(res.data?.data)) data = res.data.data;
+        else if (Array.isArray(res.data?.blogs)) data = res.data.blogs;
+
+        setBlogs(data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to fetch blogs");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // ✅ FIX IMAGE PATH
+  const getImageUrl = (img) => {
+    if (!img) return "/no-image.png";
+    if (img.startsWith("http")) return img;
+    return `${BASE_URL}/${img.replace(/\\/g, "/").replace(/^\/+/, "")}`;
+  };
+
+  // ✅ CLEAN HTML TEXT (REMOVE <p>, <div>, &nbsp;, etc.)
+  const stripHtml = (html) => {
+    if (!html) return "";
+
+    let text = html.replace(/<[^>]+>/g, ""); // remove tags
+
+    text = text
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">");
+
+    text = text.replace(/\s+/g, " ").trim(); // clean spaces
+
+    return text;
+  };
 
   return (
-    <section className="blogsection-root" aria-labelledby="blogsection-heading">
-      <nav className="blogsection-breadcrumb" aria-label="Breadcrumb">
-        <span>Home</span>
-        <span className="sep">/</span>
-        <span>Pages</span>
-        <span className="sep">/</span>
-        <span>Blog Page</span>
-      </nav>
+    <div className="blog-container">
+      <h2 className="blog-heading">Latest Blogs</h2>
 
-      <header className="blogsection-hero">
-        <h2 className="blogsection-bg-large" aria-hidden>
-          Latest News
-        </h2>
+      {loading && <p className="blog-msg">Loading blogs...</p>}
+      {!loading && error && <p className="blog-error">{error}</p>}
+      {!loading && !error && blogs.length === 0 && (
+        <p className="blog-msg">No Blogs Found</p>
+      )}
 
-        <div className="blogsection-hero-row">
-          <div className="blogsection-hero-title">New Updates</div>
-    
-        </div>
-      </header>
+      <div className="blog-grid">
+        {blogs.slice(0, visibleCount).map((blog, index) => {
+          const cleanText = stripHtml(blog.details || "");
+          const previewText = cleanText.slice(0, 120);
 
-      <div className="blogsection-grid">
-        {images.slice(0, visibleCount).map((src, i) => (
-          <article
-            key={i}
-            className="blogsection-card"
-            style={{ ["--i"]: i }}
-            aria-labelledby={`blog-title-${i}`}
-          >
-            <div className="blogsection-card-inner">
-              <figure className="blogsection-media">
-                <img src={src} alt={`Blog ${i + 1}`} loading="lazy" />
-                <div className="blogsection-media-actions">
-                  <button className="blogsection-icon-btn" aria-label="Bookmark">
-                    <FiBookmark />
-                  </button>
-                  <button className="blogsection-icon-btn" aria-label="Share">
-                    <FiShare2 />
-                  </button>
-                </div>
-                <div className="blogsection-media-gradient" />
-              </figure>
+          return (
+            <div className="blog-card" key={blog._id || index}>
+              
+              {/* IMAGE */}
+              <div className="blog-image">
+                <img
+                  src={getImageUrl(blog.image)}
+                  alt={blog.title || "blog"}
+                  onError={(e) => (e.target.src = "/no-image.png")}
+                />
+              </div>
 
-              <div className="blogsection-body">
-                <div className="blogsection-date">{dates[i]}</div>
+              <div className="blog-content">
+                <p className="blog-date">
+                  {blog.createdAt
+                    ? new Date(blog.createdAt).toDateString()
+                    : "No Date"}
+                </p>
 
-                <h3 className="blogsection-title" id={`blog-title-${i}`}>
-                  {title}
+                <h3 className="blog-title">
+                  {blog.title || "No Title"}
                 </h3>
 
-                <p className="blogsection-excerpt">{excerpt}</p>
-
-                <div className="blogsection-card-footer">
-                  <a className="blogsection-cta" href="#" onClick={(e) => e.preventDefault()}>
-                    Continue Reading..
-                  </a>
-
-                  <div className="blogsection-mini-stats">
-                    <span className="stat">
-                      <AiOutlineLike />
-                      <small>1.2k</small>
-                    </span>
-                    <span className="stat">
-                      <FiMessageCircle />
-                      <small>24</small>
-                    </span>
-                  </div>
-                </div>
+                {/* ✅ CLEAN DESCRIPTION (NO HTML TAGS) */}
+                <p className="blog-desc">
+                  {previewText || "No content"}
+                  {cleanText.length > 120 && "..."}
+                </p>
               </div>
             </div>
-          </article>
-        ))}
+          );
+        })}
       </div>
 
-      <div className="blogsection-loadmore-container">
-        {visibleCount < images.length ? (
+      {blogs.length > visibleCount && (
+        <div className="load-more-wrap">
           <button
-            className="blogsection-loadmore-btn"
-            onClick={handleLoadMore}
-            aria-label="Load more blog posts"
+            className="load-btn"
+            onClick={() => setVisibleCount((prev) => prev + 3)}
           >
-            <FiLoader className="btn-icon" />
-            <span>Load More Blogs</span>
+            Load More
           </button>
-        ) : (
-          <div className="blogsection-end-note">All posts loaded — thanks for reading ✨</div>
-        )}
-      </div>
-    </section>
+        </div>
+      )}
+    </div>
   );
 };
 

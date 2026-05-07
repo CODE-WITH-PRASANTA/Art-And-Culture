@@ -163,233 +163,91 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="navbar-header" role="banner">
-        {/* TOP NAV */}
-        <div className="navbar-top navbar-container">
-          {/* --- TOP ROW: logo (left) + mobile icons (right) --- */}
-          <div className="navbar-top-row">
-            <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-              <img src={logo} alt="Brand Logo" />
-            </Link>
+<header className="navbar-header">
+  <div className="navbar-single-row navbar-container">
 
-            {/* mobile-only right bar (visible on smaller screens) */}
-            <div className="navbar-right-bar navbar-right-bar--mobile">
-              <button
-                className="topbar-hamburger"
-                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-                onClick={toggleMobileMenu}
-              >
-                {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-              </button>
+    {/* LEFT: Logo */}
+    <Link to="/" className="navbar-logo">
+      <img src={logo} alt="Logo" />
+    </Link>
 
-              <Link to="/wishlist" className="icon-link" aria-label="Wishlist">
-                <AiFillHeart />
-              </Link>
-              <Link to="/account" className="icon-link" aria-label="Account">
-                <FaUserCircle />
-              </Link>
-              <Link to="/cart" className="icon-link" aria-label="Cart">
-                <FaShoppingCart />
-              </Link>
-            </div>
-          </div>
+    {/* CATEGORY */}
+    <button
+      ref={catBtnRef}
+      className={`navbar-category-btn ${openCat ? "open" : ""}`}
+      onClick={() => setOpenCat(!openCat)}
+    >
+      <FaBars /> Categories
+    </button>
+    {/* CATEGORY DROPDOWN */}
+<div
+  ref={dropdownRef}
+  className={`navbar-category-dropdown ${openCat ? "show" : ""}`}
+>
+  <ul>
+    <li><Link to="/category/idols">🪔 Brass Idols</Link></li>
+    <li><Link to="/category/pooja">🌸 Pooja Items</Link></li>
+    <li><Link to="/category/decor">🏺 Temple Decor</Link></li>
+    <li><Link to="/category/handicraft">🎨 Handicrafts</Link></li>
+    <li><Link to="/category/offers">🔥 Special Offers</Link></li>
+  </ul>
+</div>
 
-          {/* --- SEARCH (center on desktop, below top-row on mobile) --- */}
-          <form
-            className="navbar-search"
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log("search:", query);
-            }}
-            role="search"
-            aria-label="Site search"
-          >
-            <input
-              type="text"
-              placeholder="Search..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              aria-label="Search"
-            />
-            <button type="submit" aria-label="Search button">
-              <FiSearch />
-            </button>
-          </form>
+    {/* CENTER: NAV LINKS */}
+    <nav className="navbar-links">
+      <Link to="/"><FaHome /> Home</Link>
+      <Link to="/shop"><MdCategory /> Shop</Link>
+      <Link to="/blog"><FaBlog /> Blog</Link>
+      <Link to="/best-sellers"><FaFire /> Best Sellers</Link>
+      <Link to="/Pooja-essentials"><MdOutlineLocalFlorist /> Pooja Essentials</Link>
+      <Link to="/about"><FaUserCircle /> About</Link>
+      <Link to="/contact"><AiFillHeart /> Contact</Link>
+    </nav>
 
-          {/* --- Desktop-only right bar (placed in its own column on desktop) --- */}
-          <div className="navbar-right-bar navbar-right-bar--desktop">
-            <button
-              className="topbar-hamburger"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              onClick={toggleMobileMenu}
-            >
-              {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-            </button>
+    {/* SEARCH */}
+    <form className="navbar-search">
+      <input
+        type="text"
+        placeholder="Search..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <button type="submit">
+        <FiSearch />
+      </button>
+    </form>
 
-            <Link to="/wishlist" className="icon-link" aria-label="Wishlist">
-              <AiFillHeart />
-            </Link>
-            <Link to="/account" className="icon-link" aria-label="Account">
-              <FaUserCircle />
-            </Link>
-            <Link to="/cart" className="icon-link" aria-label="Cart">
-              <FaShoppingCart />
-            </Link>
-          </div>
-        </div>
+    {/* RIGHT ICONS */}
+    <div className="navbar-actions">
 
-        <hr className="navbar-divider" />
+      <Link to="/wishlist" className="icon-link">
+        <AiFillHeart />
+      </Link>
 
-        {/* BOTTOM NAV */}
-        <div className="navbar-bottom navbar-container">
-          {/* Category Button */}
-          <button
-            ref={catBtnRef}
-            className={`navbar-category-btn ${openCat ? "open" : ""}`}
-            onClick={() => setOpenCat(!openCat)}
-            aria-haspopup="true"
-            aria-expanded={openCat}
-          >
-            <FaBars /> &nbsp; Categories
-          </button>
+      <Link to="/account" className="icon-link">
+        <FaUserCircle />
+      </Link>
 
-          {/* Links */}
-          <nav className="navbar-links" aria-label="Primary">
-            <Link to="/"><FaHome /> Home</Link>
-            <Link to="/shop"><MdCategory /> Shop</Link>
-            <Link to="/blog"><FaBlog /> Blog</Link>
-            <Link to="/best-sellers"><FaFire /> Best Sellers</Link>
-            <Link to="/Pooja-essentials"><MdOutlineLocalFlorist /> Pooja Essentials</Link>
-            <Link to="/about"><FaUserCircle /> About</Link>
-            <Link to="/contact"><AiFillHeart /> Contact</Link>
-          </nav>
+      <Link to="/cart" className="icon-link">
+        <FaShoppingCart />
+      </Link>
 
-          {/* Quote Button */}
-          <div className="quote-box-wrapper">
-            <button
-              className="quote-box-icon-btn"
-              onClick={() => setOpenQuotePanel(true)}
-              aria-label="Open info panel"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect y="4" width="24" height="2" rx="1" fill="currentColor" />
-                <rect y="11" width="24" height="2" rx="1" fill="currentColor" />
-                <rect y="18" width="24" height="2" rx="1" fill="currentColor" />
-              </svg>
-            </button>
+      {/* TOGGLE PANEL */}
+      <button
+        className="quote-box-icon-btn"
+        onClick={() => setOpenQuotePanel(true)}
+      >
+        <FaBars />
+      </button>
 
-            <Link to="/get-quote" className="navbar-quote-btn">
-              Get Free Quotes
-            </Link>
-          </div>
-        </div>
+      {/* QUOTE BUTTON */}
+      <Link to="/get-quote" className="navbar-quote-btn">
+        Get Free Quotes
+      </Link>
 
-        {/* CATEGORY DROPDOWN */}
-        <div
-          ref={dropdownRef}
-          className={`navbar-category-dropdown ${openCat ? "show" : ""}`}
-        >
-          <ul>
-            <li><a href="/category/statues">God Murtis</a></li>
-            <li><a href="/category/pooja">Pooja Items</a></li>
-            <li><a href="/category/brass">Brass Idols</a></li>
-            <li><a href="/category/handicraft">Handicraft</a></li>
-            <li><a href="/category/temple">Temple Decor</a></li>
-            <li><a href="/category/jewelry">Spiritual Jewelry</a></li>
-          </ul>
-        </div>
-
-        {/* MOBILE SIDEDRAWER */}
-        <aside className={`mobile-drawer ${mobileMenuOpen ? "open" : ""}`} aria-hidden={!mobileMenuOpen}>
-          <div className="drawer-inner">
-            <div className="drawer-top">
-              <Link to="/" onClick={closeMobileMenu} className="drawer-logo">
-                <img src={logo} alt="Logo" />
-              </Link>
-              <button className="drawer-close" onClick={closeMobileMenu} aria-label="Close menu"><FaTimes /></button>
-            </div>
-
-            <div className="drawer-search">
-              <form onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="search"
-                  placeholder="Search..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-                <button aria-label="Search"><FiSearch /></button>
-              </form>
-            </div>
-
-            {/* Tab Navigation */}
-            <div className="drawer-tabs">
-              <button
-                className={`drawer-tab ${activeTab === "main" ? "active" : ""}`}
-                onClick={() => handleTabClick("main")}
-              >
-                Main Menu
-              </button>
-              <button
-                className={`drawer-tab ${activeTab === "categories" ? "active" : ""}`}
-                onClick={() => handleTabClick("categories")}
-              >
-                Categories
-              </button>
-            </div>
-
-            {/* Tab Content */}
-            <div className="drawer-content">
-              {/* Main Menu Content */}
-              <div className={`drawer-tab-pane ${activeTab === "main" ? "active" : ""}`}>
-                <nav className="drawer-links">
-                  <Link to="/" onClick={closeMobileMenu}><FaHome /> Home</Link>
-                  <Link to="/shop" onClick={closeMobileMenu}><MdCategory /> Shop</Link>
-                  <Link to="/blog" onClick={closeMobileMenu}><FaBlog /> Blog</Link>
-                  <Link to="/best-sellers" onClick={closeMobileMenu}><FaFire /> Best Sellers</Link>
-                  <Link to="/sale" onClick={closeMobileMenu}><MdLocalOffer /> Sale</Link>
-                  <Link to="/about" onClick={closeMobileMenu}><FaUserCircle /> About</Link>
-                  <Link to="/contact" onClick={closeMobileMenu}><AiFillHeart /> Contact</Link>
-
-                  <Link to="/get-quote" className="drawer-quote" onClick={closeMobileMenu}>Get Free Quotes</Link>
-                </nav>
-              </div>
-
-              {/* Categories Content */}
-              <div className={`drawer-tab-pane ${activeTab === "categories" ? "active" : ""}`}>
-                <nav className="drawer-links">
-                  <Link to="/category/statues" onClick={closeMobileMenu}>God Murtis</Link>
-                  <Link to="/category/pooja" onClick={closeMobileMenu}>Pooja Items</Link>
-                  <Link to="/category/brass" onClick={closeMobileMenu}>Brass Idols</Link>
-                  <Link to="/category/handicraft" onClick={closeMobileMenu}>Handicraft</Link>
-                  <Link to="/category/temple" onClick={closeMobileMenu}>Temple Decor</Link>
-                  <Link to="/category/jewelry" onClick={closeMobileMenu}>Spiritual Jewelry</Link>
-
-                  <Link to="/get-quote" className="drawer-quote" onClick={closeMobileMenu}>Get Free Quotes</Link>
-                </nav>
-              </div>
-            </div>
-
-            <div className="drawer-footer">
-              <Link to="/wishlist" aria-label="Wishlist" onClick={closeMobileMenu}><AiFillHeart /></Link>
-              <Link to="/account" aria-label="Account" onClick={closeMobileMenu}><FaUserCircle /></Link>
-              <Link to="/cart" aria-label="Cart" onClick={closeMobileMenu}><FaShoppingCart /></Link>
-            </div>
-          </div>
-
-          {/* scrim to close drawer when clicking outside (mobile) */}
-          <button
-            className="drawer-scrim"
-            onClick={closeMobileMenu}
-            aria-hidden={!mobileMenuOpen}
-          />
-        </aside>
-      </header>
+    </div>
+  </div>
+</header>
 
       {/* render the overlay + panel into document.body via portal for bulletproof stacking */}
       {portalNode ? ReactDOM.createPortal(panel, portalNode) : null}
