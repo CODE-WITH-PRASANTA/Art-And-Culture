@@ -71,8 +71,8 @@ const ShopListPage = () => {
 
   // EDIT
   const handleEdit = (id) => {
-    window.location.href = `/edit-product/${id}`;
-  };
+  window.location.href = `/sub/view/${id}`;
+};
 
   // VIEW
   const handleView = (id) => {
@@ -146,7 +146,7 @@ const ShopListPage = () => {
                 <img
                   src={
                     item.images && item.images.length > 0
-                      ? `${IMG_URL}${item.images[0]}`
+                      ?`http://localhost:5000${item.images[0]}`
                       : "/no-image.png"
                   }
                   alt={item.title}

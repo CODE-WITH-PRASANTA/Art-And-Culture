@@ -1,19 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const { upload, convertToWebp } = require("../middlewares/upload");
-
 const {
   createProduct,
   getProducts,
+  getSingleProduct,
   deleteProduct,
   updateProduct,
   toggleStatus,
 } = require("../controllers/product.controller");
 
-/* ================= ROUTES ================= */
+const {
+  upload,
+  convertToWebp,
+} = require("../middlewares/upload");
 
-// CREATE
+/* ================= CREATE PRODUCT ================= */
 router.post(
   "/",
   upload.array("images", 5),
@@ -21,13 +23,16 @@ router.post(
   createProduct
 );
 
-// GET ALL
+/* ================= GET ALL PRODUCTS ================= */
 router.get("/", getProducts);
 
-// DELETE
-router.delete("/:id", deleteProduct);
+/* ================= TOGGLE STATUS ================= */
+router.put("/toggle/:id", toggleStatus);
 
-// UPDATE
+/* ================= GET SINGLE PRODUCT ================= */
+router.get("/:id", getSingleProduct);
+
+/* ================= UPDATE PRODUCT ================= */
 router.put(
   "/:id",
   upload.array("images", 5),
@@ -35,7 +40,7 @@ router.put(
   updateProduct
 );
 
-// TOGGLE STATUS 🔥
-router.put("/toggle/:id", toggleStatus);
+/* ================= DELETE PRODUCT ================= */
+router.delete("/:id", deleteProduct);
 
 module.exports = router;
