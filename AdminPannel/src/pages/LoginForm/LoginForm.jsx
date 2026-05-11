@@ -5,7 +5,9 @@ import React, {
 
 import "./LoginForm.css";
 
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+} from "react-router-dom";
 
 import {
   FaUserShield,
@@ -44,14 +46,15 @@ const LoginForm = () => {
   // ================= PAGE LOAD =================
 
   useEffect(() => {
-    // ALWAYS CLEAR OLD LOGIN
-    localStorage.removeItem(
-      "adminAuth"
-    );
+    // IF ALREADY LOGGED IN
+    const isAuthenticated =
+      localStorage.getItem(
+        "adminAuth"
+      ) === "true";
 
-    localStorage.removeItem(
-      "adminUser"
-    );
+    if (isAuthenticated) {
+      navigate("/admin");
+    }
 
     const timer = setTimeout(() => {
       setAnimate(true);
@@ -59,7 +62,7 @@ const LoginForm = () => {
 
     return () =>
       clearTimeout(timer);
-  }, []);
+  }, [navigate]);
 
   // ================= HANDLE INPUT =================
 
@@ -85,7 +88,7 @@ const LoginForm = () => {
     setError("");
 
     setTimeout(() => {
-      // LOGIN CREDENTIALS
+      // ================= LOGIN CREDENTIALS =================
 
       const validUsername =
         "ArtAndCultucre";
@@ -93,7 +96,7 @@ const LoginForm = () => {
       const validPassword =
         "123456";
 
-      // CHECK LOGIN
+      // ================= CHECK LOGIN =================
 
       if (
         formData.username ===
@@ -120,10 +123,12 @@ const LoginForm = () => {
 
         setLoginSuccess(true);
 
-        // REDIRECT TO ADMIN PANEL
+        // REDIRECT
 
         setTimeout(() => {
-          navigate("/admin");
+          navigate(
+            "/admin/dashboard"
+          );
         }, 1800);
       } else {
         setError(
@@ -163,15 +168,11 @@ const LoginForm = () => {
         <div className="LoginForm-left">
           <div className="LoginForm-overlay"></div>
 
-          {/* FLOATING PARTICLES */}
-
           <span className="LoginForm-particle particle1"></span>
 
           <span className="LoginForm-particle particle2"></span>
 
           <span className="LoginForm-particle particle3"></span>
-
-          {/* IMAGE */}
 
           <div className="LoginForm-animatedImage">
             <img
@@ -179,8 +180,6 @@ const LoginForm = () => {
               alt="admin"
             />
           </div>
-
-          {/* CONTENT */}
 
           <div className="LoginForm-leftContent">
             <h1>
@@ -212,8 +211,6 @@ const LoginForm = () => {
             }
           >
             {loginSuccess ? (
-              /* ================= SUCCESS ================= */
-
               <div className="LoginForm-successBox">
                 <FaCheckCircle />
 
@@ -228,13 +225,13 @@ const LoginForm = () => {
               </div>
             ) : (
               <>
-                {/* ================= LOGO ================= */}
+                {/* LOGO */}
 
                 <div className="LoginForm-logo">
                   <FaUserShield />
                 </div>
 
-                {/* ================= TITLE ================= */}
+                {/* TITLE */}
 
                 <h2>
                   Welcome Back
@@ -245,7 +242,7 @@ const LoginForm = () => {
                   to Admin Dashboard
                 </p>
 
-                {/* ================= ERROR ================= */}
+                {/* ERROR */}
 
                 {error && (
                   <div className="LoginForm-error">
@@ -253,7 +250,7 @@ const LoginForm = () => {
                   </div>
                 )}
 
-                {/* ================= USERNAME ================= */}
+                {/* USERNAME */}
 
                 <div className="LoginForm-inputGroup">
                   <FaUserShield className="LoginForm-inputIcon" />
@@ -272,7 +269,7 @@ const LoginForm = () => {
                   />
                 </div>
 
-                {/* ================= PASSWORD ================= */}
+                {/* PASSWORD */}
 
                 <div className="LoginForm-inputGroup">
                   <FaLock className="LoginForm-inputIcon" />
@@ -311,7 +308,7 @@ const LoginForm = () => {
                   </button>
                 </div>
 
-                {/* ================= LOGIN BUTTON ================= */}
+                {/* BUTTON */}
 
                 <button
                   type="submit"
@@ -327,7 +324,7 @@ const LoginForm = () => {
                     : "Login"}
                 </button>
 
-                {/* ================= DEMO ================= */}
+                {/* DEMO */}
 
                 <div className="LoginForm-demoCredentials">
                   <h4>
