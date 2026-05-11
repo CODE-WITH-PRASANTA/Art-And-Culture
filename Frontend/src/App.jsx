@@ -21,6 +21,7 @@ import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./Components/Termandcondition/Termandcondition";
 import OrderHistory from "./Pages/OrderHistory/OrderHistory";
 import CheckOut from "./Pages/CheckOut/CheckOut";
+import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/orderconfirm" element={<OrderConfirm />} />
           <Route path="/ordershistory" element={<OrderHistory />} />
+          <Route path="/poojadetails" element={<PoojaDetails/>}/>
         </Routes>
       </main>
 

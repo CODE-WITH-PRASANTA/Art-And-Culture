@@ -1,0 +1,285 @@
+/* Switchbar.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.switchbar {
+  width: 100%;
+  padding: 50px 5%;
+  background: #f8f5f1;
+}
+
+/* =========================
+   TOP TABS
+========================= */
+
+.switchbar__tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  padding: 18px 25px;
+  border-radius: 20px;
+  overflow-x: auto;
+  margin-bottom: 35px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+.switchbar__tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.switchbar__tabs::-webkit-scrollbar-thumb {
+  background: #d4a548;
+  border-radius: 20px;
+}
+
+.switchbar__tab {
+  border: none;
+  background: transparent;
+  padding: 16px 22px;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.switchbar__tab:hover {
+  background: #faf4e8;
+}
+
+.switchbar__tabActive {
+  color: #d09a37;
+  background: #fff8eb;
+  border-bottom: 3px solid #d09a37;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.switchbar__content {
+  width: 100%;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.switchbar__heading {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  padding: 35px 40px;
+  border-bottom: 1px solid #ececec;
+
+  color: #d09a37;
+}
+
+.switchbar__heading svg {
+  font-size: 28px;
+}
+
+.switchbar__heading h2 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+/* =========================
+   BODY
+========================= */
+
+.switchbar__body {
+  padding: 40px;
+}
+
+.switchbar__body p {
+  font-size: 22px;
+  line-height: 1.9;
+  color: #666;
+  margin-bottom: 28px;
+}
+
+.switchbar__body strong {
+  color: #444;
+}
+
+.switchbar__body h3 {
+  font-size: 30px;
+  color: #555;
+  margin-bottom: 20px;
+  margin-top: 25px;
+}
+
+.switchbar__body ul {
+  padding-left: 30px;
+}
+
+.switchbar__body li {
+  font-size: 22px;
+  color: #666;
+  line-height: 2;
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.switchbar__faqTitle {
+  font-size: 48px;
+  font-weight: 700;
+  color: #222;
+
+  padding: 40px;
+  border-bottom: 1px solid #ececec;
+}
+
+.switchbar__faqWrapper {
+  padding: 10px 40px 40px;
+}
+
+.switchbar__faqItem {
+  border-bottom: 1px solid #ececec;
+}
+
+.switchbar__faqQuestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 28px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.switchbar__faqQuestion:hover {
+  color: #d09a37;
+}
+
+.switchbar__faqLeft {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.switchbar__faqLeft svg {
+  font-size: 24px;
+}
+
+.switchbar__faqLeft span {
+  font-size: 28px;
+  color: #333;
+}
+
+.switchbar__faqAnswer {
+  padding-bottom: 28px;
+  padding-left: 42px;
+
+  font-size: 21px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+
+  .switchbar__heading h2,
+  .switchbar__faqTitle {
+    font-size: 34px;
+  }
+
+  .switchbar__body p,
+  .switchbar__body li,
+  .switchbar__faqLeft span {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .switchbar {
+    padding: 40px 20px;
+  }
+
+  .switchbar__tabs {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .switchbar__tab {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+
+  .switchbar__heading {
+    padding: 25px 20px;
+  }
+
+  .switchbar__body {
+    padding: 25px 20px;
+  }
+
+  .switchbar__heading h2,
+  .switchbar__faqTitle {
+    font-size: 28px;
+  }
+
+  .switchbar__body p,
+  .switchbar__body li,
+  .switchbar__faqLeft span,
+  .switchbar__faqAnswer {
+    font-size: 16px;
+  }
+
+  .switchbar__faqWrapper {
+    padding: 0 20px 20px;
+  }
+
+  .switchbar__faqQuestion {
+    padding: 22px 0;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .switchbar__tab {
+    min-width: max-content;
+  }
+
+  .switchbar__heading h2,
+  .switchbar__faqTitle {
+    font-size: 22px;
+  }
+
+  .switchbar__faqLeft {
+    align-items: flex-start;
+  }
+
+  .switchbar__faqLeft span {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
