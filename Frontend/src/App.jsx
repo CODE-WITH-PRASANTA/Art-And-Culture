@@ -23,6 +23,7 @@ import OrderHistory from "./Pages/OrderHistory/OrderHistory";
 import CheckOut from "./Pages/CheckOut/CheckOut";
 import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
+import Carts from "./Pages/Carts/Carts";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path="/ordershistory" element={<OrderHistory />} />
           <Route path="/poojadetails" element={<PoojaDetails/>}/>
           <Route path="/shopdetails" element={<ShopDetails/>}/>
+          <Route path="/cart" element={<Carts/>}/>
         </Routes>
       </main>
 
