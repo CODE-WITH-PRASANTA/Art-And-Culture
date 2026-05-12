@@ -23,9 +23,27 @@ const Navbar = () => {
   const [openQuotePanel, setOpenQuotePanel] = useState(false);
     const [openCart, setOpenCart] = useState(false);
   const [qty, setQty] = useState(1);
+  {/* =========================
+ADD THIS STATE ON TOP
+INSIDE NAVBAR COMPONENT
+========================= */}
+
+const [showLogin, setShowLogin] = useState(false);
 
   const dropdownRef = useRef(null);
   const catBtnRef = useRef(null);
+  {/* =========================
+ADD THIS STATE ON TOP
+INSIDE NAVBAR COMPONENT
+========================= */}
+
+
+  {/* =========================
+ADD THIS STATE ON TOP
+INSIDE NAVBAR COMPONENT
+========================= */}
+
+
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -226,9 +244,171 @@ const Navbar = () => {
         <AiFillHeart />
       </Link>
 
-      <Link to="/account" className="icon-link">
-        <FaUserCircle />
-      </Link>
+     <button
+  className="icon-link navbarAccountBtn"
+  onClick={() => setShowLogin(true)}
+>
+  <FaUserCircle />
+</button>
+
+{/* =========================
+LOGIN MODAL
+========================= */}
+
+{showLogin && (
+  <div
+    className="accountLoginOverlay"
+    onClick={() => setShowLogin(false)}
+  >
+    <div
+      className="accountLoginModal"
+      onClick={(e) => e.stopPropagation()}
+    >
+
+      {/* CLOSE BTN */}
+
+      <button
+        className="accountLoginClose"
+        onClick={() => setShowLogin(false)}
+      >
+        <FaTimes />
+      </button>
+
+      {/* =========================
+      LEFT SIDE
+      ========================= */}
+
+      <div className="accountLoginLeft">
+
+        <div className="accountLoginBrand">
+
+          <h1>svastika</h1>
+
+          <span>Powered by Premium Access</span>
+
+          <p>
+            Unlock coupons, profile access,
+            wishlist and premium shopping
+            experience with secure login.
+          </p>
+
+        </div>
+
+        <div className="accountLoginCards">
+
+          <div className="accountLoginCard">
+
+            <div className="accountLoginIcon">
+              ✨
+            </div>
+
+            <h3>Easy Returns</h3>
+
+            <p>
+              Enjoy 7 days easy return with
+              trusted customer support.
+            </p>
+
+          </div>
+
+          <div className="accountLoginCard">
+
+            <div className="accountLoginIcon">
+              🚚
+            </div>
+
+            <h3>Free Delivery</h3>
+
+            <p>
+              Fast and secure delivery all
+              across India with COD.
+            </p>
+
+          </div>
+
+          <div className="accountLoginCard">
+
+            <div className="accountLoginIcon">
+              💛
+            </div>
+
+            <h3>Happy Users</h3>
+
+            <p>
+              Trusted by thousands of happy
+              premium customers.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* =========================
+      RIGHT SIDE
+      ========================= */}
+
+      <div className="accountLoginRight">
+
+        <div className="accountLoginForm">
+
+          <h2>Login</h2>
+
+          <p className="accountLoginText">
+            Enter Mobile Number
+          </p>
+
+          {/* INPUT */}
+
+          <div className="accountLoginInputBox">
+
+            <div className="accountLoginCountry">
+              🇮🇳 +91
+            </div>
+
+            <input
+              type="tel"
+              placeholder="Enter Mobile Number"
+            />
+
+          </div>
+
+          {/* CHECKBOX */}
+
+          <label className="accountLoginCheck">
+
+            <input type="checkbox" />
+
+            <span>
+              Notify me for updates &
+              exclusive offers
+            </span>
+
+          </label>
+
+          {/* BUTTON */}
+
+          <button className="accountLoginBtn">
+            Continue
+          </button>
+
+          <p className="accountLoginTerms">
+            By continuing you agree to
+            Terms & Privacy Policy
+          </p>
+
+          <button className="accountLoginHelp">
+            Trouble logging in?
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+)}
 
 {/* =========================
    CART BUTTON
