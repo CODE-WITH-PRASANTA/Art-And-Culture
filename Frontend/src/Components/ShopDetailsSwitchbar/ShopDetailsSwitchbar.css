@@ -1,5 +1,5 @@
 /* =========================================
-   Switchbar.css
+   shopdetailsswitchbar.css
 ========================================= */
 
 * {
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.switchbar {
+.shopdetailsswitchbar {
   width: 100%;
   background: #f8f5f1;
 }
@@ -17,7 +17,7 @@
    TOP TABS
 ========================================= */
 
-.switchbar__tabs {
+.shopdetailsswitchbar__tabs {
   width: 100%;
   display: flex;
   align-items: center;
@@ -36,16 +36,16 @@
   scrollbar-width: thin;
 }
 
-.switchbar__tabs::-webkit-scrollbar {
+.shopdetailsswitchbar__tabs::-webkit-scrollbar {
   height: 4px;
 }
 
-.switchbar__tabs::-webkit-scrollbar-thumb {
+.shopdetailsswitchbar__tabs::-webkit-scrollbar-thumb {
   background: #d4a548;
   border-radius: 20px;
 }
 
-.switchbar__tab {
+.shopdetailsswitchbar__tab {
   border: none;
   background: transparent;
 
@@ -66,15 +66,15 @@
   white-space: nowrap;
 }
 
-.switchbar__tab svg {
+.shopdetailsswitchbar__tab svg {
   font-size: 16px;
 }
 
-.switchbar__tab:hover {
+.shopdetailsswitchbar__tab:hover {
   background: #faf4e8;
 }
 
-.switchbar__tabActive {
+.shopdetailsswitchbar__tabActive {
   color: #c89028;
   background: #fff8eb;
   border-bottom: 2px solid #c89028;
@@ -84,7 +84,7 @@
    CONTENT
 ========================================= */
 
-.switchbar__content {
+.shopdetailsswitchbar__content {
   width: 100%;
 
   background: #fff;
@@ -99,7 +99,7 @@
    HEADING
 ========================================= */
 
-.switchbar__heading {
+.shopdetailsswitchbar__heading {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -111,11 +111,11 @@
   color: #d09a37;
 }
 
-.switchbar__heading svg {
+.shopdetailsswitchbar__heading svg {
   font-size: 22px;
 }
 
-.switchbar__heading h2 {
+.shopdetailsswitchbar__heading h2 {
   font-size: clamp(22px, 2vw, 30px);
   font-weight: 700;
   color: #333;
@@ -125,22 +125,22 @@
    BODY
 ========================================= */
 
-.switchbar__body {
+.shopdetailsswitchbar__body {
   padding: 30px;
 }
 
-.switchbar__body p {
+.shopdetailsswitchbar__body p {
   font-size: 16px;
   line-height: 1.9;
   color: #666;
   margin-bottom: 20px;
 }
 
-.switchbar__body strong {
+.shopdetailsswitchbar__body strong {
   color: #444;
 }
 
-.switchbar__body h3 {
+.shopdetailsswitchbar__body h3 {
   font-size: 22px;
   color: #444;
   margin-bottom: 14px;
@@ -148,11 +148,11 @@
   font-weight: 600;
 }
 
-.switchbar__body ul {
+.shopdetailsswitchbar__body ul {
   padding-left: 20px;
 }
 
-.switchbar__body li {
+.shopdetailsswitchbar__body li {
   font-size: 16px;
   color: #666;
   line-height: 1.9;
@@ -163,7 +163,7 @@
    FAQ
 ========================================= */
 
-.switchbar__faqTitle {
+.shopdetailsswitchbar__faqTitle {
   font-size: clamp(24px, 2vw, 34px);
   font-weight: 700;
   color: #222;
@@ -173,15 +173,15 @@
   border-bottom: 1px solid #ececec;
 }
 
-.switchbar__faqWrapper {
+.shopdetailsswitchbar__faqWrapper {
   padding: 10px 30px 30px;
 }
 
-.switchbar__faqItem {
+.shopdetailsswitchbar__faqItem {
   border-bottom: 1px solid #ececec;
 }
 
-.switchbar__faqQuestion {
+.shopdetailsswitchbar__faqQuestion {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -194,29 +194,29 @@
   transition: 0.3s ease;
 }
 
-.switchbar__faqQuestion:hover {
+.shopdetailsswitchbar__faqQuestion:hover {
   color: #d09a37;
 }
 
-.switchbar__faqLeft {
+.shopdetailsswitchbar__faqLeft {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.switchbar__faqLeft svg {
+.shopdetailsswitchbar__faqLeft svg {
   font-size: 18px;
   color: #c89028;
 }
 
-.switchbar__faqLeft span {
+.shopdetailsswitchbar__faqLeft span {
   font-size: 18px;
   color: #333;
   line-height: 1.6;
   font-weight: 500;
 }
 
-.switchbar__faqAnswer {
+.shopdetailsswitchbar__faqAnswer {
   padding-bottom: 22px;
   padding-left: 32px;
 
@@ -231,32 +231,32 @@
 
 @media (max-width: 992px) {
 
-  .switchbar__heading {
+  .shopdetailsswitchbar__heading {
     padding: 22px 24px;
   }
 
-  .switchbar__body {
+  .shopdetailsswitchbar__body {
     padding: 24px;
   }
 
-  .switchbar__faqTitle {
+  .shopdetailsswitchbar__faqTitle {
     padding: 24px;
   }
 
-  .switchbar__faqWrapper {
+  .shopdetailsswitchbar__faqWrapper {
     padding: 10px 24px 24px;
   }
 
-  .switchbar__body p,
-  .switchbar__body li {
+  .shopdetailsswitchbar__body p,
+  .shopdetailsswitchbar__body li {
     font-size: 15px;
   }
 
-  .switchbar__faqLeft span {
+  .shopdetailsswitchbar__faqLeft span {
     font-size: 17px;
   }
 
-  .switchbar__faqAnswer {
+  .shopdetailsswitchbar__faqAnswer {
     font-size: 14px;
   }
 }
@@ -267,80 +267,80 @@
 
 @media (max-width: 768px) {
 
-  .switchbar {
+  .shopdetailsswitchbar {
     padding: 0;
   }
 
-  .switchbar__tabs {
+  .shopdetailsswitchbar__tabs {
     padding: 12px;
     gap: 8px;
     border-radius: 14px;
     margin-bottom: 18px;
   }
 
-  .switchbar__tab {
+  .shopdetailsswitchbar__tab {
     font-size: 13px;
     padding: 10px 14px;
     gap: 6px;
   }
 
-  .switchbar__tab svg {
+  .shopdetailsswitchbar__tab svg {
     font-size: 14px;
   }
 
-  .switchbar__heading {
+  .shopdetailsswitchbar__heading {
     padding: 20px 18px;
     gap: 10px;
   }
 
-  .switchbar__heading svg {
+  .shopdetailsswitchbar__heading svg {
     font-size: 18px;
   }
 
-  .switchbar__heading h2 {
+  .shopdetailsswitchbar__heading h2 {
     font-size: 22px;
   }
 
-  .switchbar__body {
+  .shopdetailsswitchbar__body {
     padding: 20px 18px;
   }
 
-  .switchbar__body p,
-  .switchbar__body li {
+  .shopdetailsswitchbar__body p,
+  .shopdetailsswitchbar__body li {
     font-size: 14px;
     line-height: 1.8;
   }
 
-  .switchbar__body h3 {
+  .shopdetailsswitchbar__body h3 {
     font-size: 18px;
   }
 
-  .switchbar__faqTitle {
+  .shopdetailsswitchbar__faqTitle {
     font-size: 24px;
     padding: 20px 18px;
   }
 
-  .switchbar__faqWrapper {
+  .shopdetailsswitchbar__faqWrapper {
     padding: 0 18px 20px;
   }
 
-  .switchbar__faqQuestion {
+  .shopdetailsswitchbar__faqQuestion {
     padding: 18px 0;
   }
 
-  .switchbar__faqLeft {
+  .shopdetailsswitchbar__faqLeft {
     gap: 10px;
   }
 
-  .switchbar__faqLeft svg {
+  .shopdetailsswitchbar__faqLeft svg {
     font-size: 16px;
   }
 
-  .switchbar__faqLeft span {
+  .shopdetailsswitchbar__faqLeft span {
     font-size: 15px;
   }
 
-  .switchbar__faqAnswer {
+  .shopdetailsswitchbar__faqAnswer {
     font-size: 14px;
     padding-left: 24px;
     padding-bottom: 18px;
@@ -353,35 +353,35 @@
 
 @media (max-width: 480px) {
 
-  .switchbar__tabs {
+  .shopdetailsswitchbar__tabs {
     padding: 10px;
   }
 
-  .switchbar__tab {
+  .shopdetailsswitchbar__tab {
     min-width: max-content;
     font-size: 12px;
     padding: 9px 12px;
   }
 
-  .switchbar__heading h2 {
+  .shopdetailsswitchbar__heading h2 {
     font-size: 20px;
   }
 
-  .switchbar__faqTitle {
+  .shopdetailsswitchbar__faqTitle {
     font-size: 22px;
   }
 
-  .switchbar__body p,
-  .switchbar__body li,
-  .switchbar__faqAnswer {
+  .shopdetailsswitchbar__body p,
+  .shopdetailsswitchbar__body li,
+  .shopdetailsswitchbar__faqAnswer {
     font-size: 13px;
   }
 
-  .switchbar__faqLeft {
+  .shopdetailsswitchbar__faqLeft {
     align-items: flex-start;
   }
 
-  .switchbar__faqLeft span {
+  .shopdetailsswitchbar__faqLeft span {
     font-size: 14px;
     line-height: 1.5;
   }

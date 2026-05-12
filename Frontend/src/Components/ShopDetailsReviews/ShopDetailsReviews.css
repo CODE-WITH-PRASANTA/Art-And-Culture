@@ -18,7 +18,7 @@
    TOP
 ========================================= */
 
-.review__top {
+.shopdetailsreviews_top {
   display: flex;
   justify-content: space-between;
   gap: 24px;
@@ -26,39 +26,39 @@
   flex-wrap: wrap;
 }
 
-.review__heading {
+.shopdetailsreviews_heading {
   font-size: clamp(28px, 3vw, 42px);
   color: #222;
   margin-bottom: 14px;
   line-height: 1.3;
 }
 
-.review__ratingRow {
+.shopdetailsreviews_ratingRow {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.review__rating {
+.shopdetailsreviews_rating {
   font-size: 28px;
   font-weight: 700;
   color: #111;
 }
 
-.review__count {
+.shopdetailsreviews_count {
   font-size: 16px;
   color: #666;
 }
 
-.review__topButtons {
+.shopdetailsreviews_topButtons {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.review__writeBtn,
-.review__questionBtn {
+.shopdetailsreviews_writeBtn,
+.shopdetailsreviews_questionBtn {
   width: 280px;
   height: 54px;
 
@@ -71,20 +71,20 @@
   transition: 0.3s ease;
 }
 
-.review__writeBtn {
+.shopdetailsreviews_writeBtn {
   background: #d0a247;
   color: #fff;
   border: none;
 }
 
-.review__questionBtn {
+.shopdetailsreviews_questionBtn {
   background: transparent;
   border: 1px solid #333;
   color: #222;
 }
 
-.review__writeBtn:hover,
-.review__questionBtn:hover {
+.shopdetailsreviews_writeBtn:hover,
+.shopdetailsreviews_questionBtn:hover {
   transform: translateY(-2px);
 }
 
@@ -92,11 +92,11 @@
    PREVIEW IMAGE
 ========================================= */
 
-.review__previewImage {
+.shopdetailsreviews_previewImage {
   margin-bottom: 30px;
 }
 
-.review__previewImage img {
+.shopdetailsreviews_previewImage img {
   width: 130px;
   height: 130px;
 
@@ -108,7 +108,7 @@
    TABS
 ========================================= */
 
-.review__tabsRow {
+.shopdetailsreviews_tabsRow {
   display: flex;
   justify-content: space-between;
   gap: 18px;
@@ -121,13 +121,13 @@
   flex-wrap: wrap;
 }
 
-.review__tabs {
+.shopdetailsreviews_tabs {
   display: flex;
   gap: 18px;
   flex-wrap: wrap;
 }
 
-.review__tab {
+.shopdetailsreviews_tab {
   background: transparent;
   border: none;
 
@@ -142,11 +142,11 @@
   transition: 0.3s ease;
 }
 
-.review__tab:hover {
+.shopdetailsreviews_tab:hover {
   color: #111;
 }
 
-.review__tabActive {
+.shopdetailsreviews_tabActive {
   color: #111;
   border-bottom: 2px solid #111;
 }
@@ -155,14 +155,14 @@
    FILTER
 ========================================= */
 
-.review__filterArea {
+.shopdetailsreviews_filterArea {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.review__iconBtn {
+.shopdetailsreviews_iconBtn {
   width: 48px;
   height: 48px;
 
@@ -176,11 +176,11 @@
   cursor: pointer;
 }
 
-.review__dropdownWrapper {
+.shopdetailsreviews_dropdownWrapper {
   position: relative;
 }
 
-.review__dropdownBtn {
+.shopdetailsreviews_dropdownBtn {
   min-width: 190px;
   height: 48px;
 
@@ -199,7 +199,7 @@
   cursor: pointer;
 }
 
-.review__dropdownMenu {
+.shopdetailsreviews_dropdownMenu {
   position: absolute;
   top: 58px;
   left: 0;
@@ -215,17 +215,17 @@
   z-index: 10;
 }
 
-.review__dropdownItem {
+.shopdetailsreviews_dropdownItem {
   padding: 14px 16px;
   font-size: 15px;
   cursor: pointer;
 }
 
-.review__dropdownItem:hover {
+.shopdetailsreviews_dropdownItem:hover {
   background: #f4f4f4;
 }
 
-.review__dropdownItemActive {
+.shopdetailsreviews_dropdownItemActive {
   background: #2a6bcc;
   color: #fff;
 }
@@ -234,18 +234,18 @@
    REVIEW CARD
 ========================================= */
 
-.review__reviewWrapper {
+.shopdetailsreviews_reviewWrapper {
   display: flex;
   flex-direction: column;
   gap: 35px;
 }
 
-.review__card {
+.shopdetailsreviews_card {
   border-bottom: 1px solid #ddd;
   padding-bottom: 30px;
 }
 
-.review__stars {
+.shopdetailsreviews_stars {
   display: flex;
   gap: 6px;
 
@@ -255,7 +255,7 @@
   margin-bottom: 18px;
 }
 
-.review__userRow {
+.shopdetailsreviews_userRow {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -263,7 +263,7 @@
   margin-bottom: 18px;
 }
 
-.review__avatar {
+.shopdetailsreviews_avatar {
   width: 58px;
   height: 58px;
 
@@ -278,19 +278,19 @@
   font-weight: 700;
 }
 
-.review__nameRow {
+.shopdetailsreviews_nameRow {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.review__nameRow h3 {
+.shopdetailsreviews_nameRow h3 {
   font-size: 22px;
   color: #111;
 }
 
-.review__nameRow span {
+.shopdetailsreviews_nameRow span {
   padding: 5px 12px;
 
   border: 1px solid #111;
@@ -299,20 +299,20 @@
   font-size: 12px;
 }
 
-.review__date {
+.shopdetailsreviews_date {
   font-size: 14px;
   color: #777;
   margin-top: 6px;
 }
 
-.review__title {
+.shopdetailsreviews_title {
   font-size: clamp(22px, 2vw, 32px);
   margin-bottom: 14px;
   color: #111;
   line-height: 1.4;
 }
 
-.review__text {
+.shopdetailsreviews_text {
   font-size: 16px;
   color: #444;
   line-height: 1.9;
@@ -320,7 +320,7 @@
   margin-bottom: 22px;
 }
 
-.review__image {
+.shopdetailsreviews_image {
   width: 170px;
   height: 170px;
 
@@ -332,7 +332,7 @@
    POPUP
 ========================================= */
 
-.review__popupOverlay {
+.shopdetailsreviews_popupOverlay {
   position: fixed;
   inset: 0;
 
@@ -346,7 +346,7 @@
   padding: 20px;
 }
 
-.review__popup {
+.shopdetailsreviews_popup {
   width: 100%;
   max-width: 700px;
 
@@ -373,7 +373,7 @@
   }
 }
 
-.review__closeBtn {
+.shopdetailsreviews_closeBtn {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -385,7 +385,7 @@
   cursor: pointer;
 }
 
-.review__popupTitle {
+.shopdetailsreviews_popupTitle {
   text-align: center;
 
   font-size: clamp(26px, 2vw, 38px);
@@ -394,7 +394,7 @@
   color: #333;
 }
 
-.review__popupSubtitle {
+.shopdetailsreviews_popupSubtitle {
   text-align: center;
 
   font-size: 16px;
@@ -403,11 +403,11 @@
   margin-bottom: 35px;
 }
 
-.review__formGroup {
+.shopdetailsreviews_formGroup {
   margin-bottom: 22px;
 }
 
-.review__formGroup label {
+.shopdetailsreviews_formGroup label {
   display: block;
 
   font-size: 16px;
@@ -418,7 +418,7 @@
   color: #444;
 }
 
-.review__formGroup textarea {
+.shopdetailsreviews_formGroup textarea {
   width: 100%;
   height: 140px;
 
@@ -431,7 +431,7 @@
   resize: none;
 }
 
-.review__formGroup input {
+.shopdetailsreviews_formGroup input {
   width: 100%;
   height: 54px;
 
@@ -443,7 +443,7 @@
   font-size: 15px;
 }
 
-.review__submitBtn {
+.shopdetailsreviews_submitBtn {
   width: 180px;
   height: 52px;
 
@@ -466,11 +466,11 @@
    REVIEW POPUP
 ========================================= */
 
-.review__reviewPopup {
+.shopdetailsreviews_reviewPopup {
   text-align: center;
 }
 
-.review__popupImage {
+.shopdetailsreviews_popupImage {
   width: 180px;
   height: 180px;
 
@@ -480,14 +480,14 @@
   margin-bottom: 24px;
 }
 
-.review__popupProduct {
+.shopdetailsreviews_popupProduct {
   font-size: clamp(22px, 2vw, 32px);
 
   margin-bottom: 30px;
   color: #333;
 }
 
-.review__popupStars {
+.shopdetailsreviews_popupStars {
   display: flex;
   justify-content: center;
   gap: 14px;
@@ -498,16 +498,16 @@
   margin-bottom: 18px;
 }
 
-.review__popupStars svg {
+.shopdetailsreviews_popupStars svg {
   cursor: pointer;
   transition: 0.3s ease;
 }
 
-.review__popupStars svg:hover {
+.shopdetailsreviews_popupStars svg:hover {
   transform: scale(1.08);
 }
 
-.review__popupLabel {
+.shopdetailsreviews_popupLabel {
   display: flex;
   justify-content: space-between;
 
@@ -524,25 +524,25 @@
 
 @media (max-width: 992px) {
 
-  .review__top {
+  .shopdetailsreviews_top {
     flex-direction: column;
   }
 
-  .review__topButtons {
+  .shopdetailsreviews_topButtons {
     width: 100%;
   }
 
-  .review__writeBtn,
-  .review__questionBtn {
+  .shopdetailsreviews_writeBtn,
+  .shopdetailsreviews_questionBtn {
     width: 100%;
   }
 
-  .review__tabsRow {
+  .shopdetailsreviews_tabsRow {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .review__popup {
+  .shopdetailsreviews_popup {
     padding: 35px 24px;
   }
 }
@@ -557,62 +557,62 @@
     padding: 40px 18px;
   }
 
-  .review__heading {
+  .shopdetailsreviews_heading {
     font-size: 30px;
   }
 
-  .review__rating {
+  .shopdetailsreviews_rating {
     font-size: 24px;
   }
 
-  .review__count {
+  .shopdetailsreviews_count {
     font-size: 14px;
   }
 
-  .review__tab {
+  .shopdetailsreviews_tab {
     font-size: 15px;
   }
 
-  .review__filterArea {
+  .shopdetailsreviews_filterArea {
     width: 100%;
   }
 
-  .review__dropdownBtn {
+  .shopdetailsreviews_dropdownBtn {
     min-width: 170px;
     font-size: 14px;
   }
 
-  .review__title {
+  .shopdetailsreviews_title {
     font-size: 24px;
   }
 
-  .review__text {
+  .shopdetailsreviews_text {
     font-size: 15px;
   }
 
-  .review__image {
+  .shopdetailsreviews_image {
     width: 140px;
     height: 140px;
   }
 
-  .review__nameRow h3 {
+  .shopdetailsreviews_nameRow h3 {
     font-size: 18px;
   }
 
-  .review__popupImage {
+  .shopdetailsreviews_popupImage {
     width: 140px;
     height: 140px;
   }
 
-  .review__popupProduct {
+  .shopdetailsreviews_popupProduct {
     font-size: 22px;
   }
 
-  .review__popupLabel {
+  .shopdetailsreviews_popupLabel {
     font-size: 14px;
   }
 
-  .review__popupStars {
+  .shopdetailsreviews_popupStars {
     font-size: 34px;
     gap: 10px;
   }
@@ -628,44 +628,44 @@
     padding: 35px 14px;
   }
 
-  .review__heading {
+  .shopdetailsreviews_heading {
     font-size: 26px;
   }
 
-  .review__tabs {
+  .shopdetailsreviews_tabs {
     gap: 12px;
   }
 
-  .review__tab {
+  .shopdetailsreviews_tab {
     font-size: 14px;
   }
 
-  .review__title {
+  .shopdetailsreviews_title {
     font-size: 20px;
   }
 
-  .review__text {
+  .shopdetailsreviews_text {
     font-size: 14px;
   }
 
-  .review__image {
+  .shopdetailsreviews_image {
     width: 120px;
     height: 120px;
   }
 
-  .review__popup {
+  .shopdetailsreviews_popup {
     padding: 30px 18px;
   }
 
-  .review__popupTitle {
+  .shopdetailsreviews_popupTitle {
     font-size: 24px;
   }
 
-  .review__popupSubtitle {
+  .shopdetailsreviews_popupSubtitle {
     font-size: 14px;
   }
 
-  .review__submitBtn {
+  .shopdetailsreviews_submitBtn {
     width: 100%;
   }
 }
