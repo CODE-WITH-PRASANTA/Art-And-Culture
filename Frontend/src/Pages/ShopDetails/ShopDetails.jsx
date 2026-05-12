@@ -11,24 +11,23 @@ const ShopDetails = () => {
   return (
     <div className="shopDetailsPage">
 
-      {/* TOP SECTION */}
+      {/* ================= TOP SECTION ================= */}
 
       <div className="shopDetailsPage__top">
 
-        {/* LEFT */}
-
-        <div className="poojaDetailsPage__left">
+        {/* LEFT SIDE */}
+        <div className="shopDetailsPage__left">
           <ShopDetailsHome />
         </div>
 
-        {/* RIGHT */}
-        <div className="poojaDetailsPage__right">
+        {/* RIGHT SIDE */}
+        <div className="shopDetailsPage__right">
           <ShopDetailsAddToCart />
         </div>
 
       </div>
 
-      {/* BOTTOM */}
+      {/* ================= BOTTOM SECTION ================= */}
 
       <div className="shopDetailsPage__bottom">
 
