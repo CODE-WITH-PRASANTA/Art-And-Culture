@@ -1,69 +1,70 @@
 import React from "react";
 import "./Teachersection.css";
-import imgLarge from "../../assets/T-1.webp"; // left big image (Katie)
-import imgJessica from "../../assets/T-2.webp";        // Jessica image
-import imgNomina from "../../assets/T-3.webp";     // Nomina image
 
-export default function QualifiedTeachers() {
+const Teachersection = () => {
   return (
-    <section className="qt-root">
-      <div className="qt-inner">
-        <div className="qt-header">
-          <div className="qt-dots" aria-hidden="true">
-            <span className="dot dot-yellow" />
-            <span className="dot dot-purple" />
-            <span className="dot dot-red" />
-          </div>
+    <section className="teacherSection">
 
-          <h1 className="qt-title">Qualified Teachers</h1>
-          <p className="qt-sub">We are constantly expanding the range of services offered</p>
-        </div>
+      {/* TOP QUOTE */}
+      <div className="teacherSection__quoteWrapper">
 
-        <div className="qt-row">
-          {/* Big left profile */}
-          <div className="qt-left-card">
-            <div className="left-image-wrap">
-              <img src={imgLarge} alt="Katie Willmore" />
-            </div>
+        <span className="teacherSection__quoteIcon teacherSection__quoteIcon--left">
+          “
+        </span>
 
-            <div className="left-info">
-              <h2 className="left-name">Katie<br/>Willmore</h2>
-              <p className="left-role">Principal And Manager</p>
-              <div className="left-line" />
-              <p className="left-phone">+44 (0) 207 689 7888</p>
+        <h2 className="teacherSection__quote">
+          What surrounds us shapes us,
+          not by what it is,
+          <br />
+          but by what it makes us feel.
+        </h2>
 
-              <div className="left-socials">
-                <button aria-label="facebook" className="social f">f</button>
-                <button aria-label="twitter" className="social t">t</button>
-              </div>
-            </div>
+        <span className="teacherSection__quoteIcon teacherSection__quoteIcon--right">
+          ”
+        </span>
 
-            {/* semicircle decorative background */}
-            <div className="left-decor" aria-hidden="true"/>
-          </div>
-
-          {/* two smaller image cards to the right */}
-          <div className="qt-right-stack">
-            <ImageCard name="Jessica Levis" img={imgJessica} />
-            <ImageCard name="Nomina Leione" img={imgNomina} />
-          </div>
-        </div>
       </div>
+
+      {/* CONTENT */}
+      <div className="teacherSection__container">
+
+        {/* SMALL TAG */}
+        <span className="teacherSection__tag">
+          OUR STORY
+        </span>
+
+        {/* TITLE */}
+        <h1 className="teacherSection__title">
+          Experience Our Journey
+        </h1>
+
+        {/* DESCRIPTION */}
+        <p className="teacherSection__description">
+          Every detail tells a story of craftsmanship,
+          emotion, and timeless elegance. Discover the
+          inspiration behind our philosophy and how we
+          create experiences that transform spaces into
+          meaningful environments.
+        </p>
+
+        {/* VIDEO SECTION */}
+        <div className="teacherSection__videoWrapper">
+
+          <iframe
+            className="teacherSection__video"
+            src="https://www.youtube.com/embed/ScMzIvxBSi4"
+            title="Luxury Story Video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+
+        </div>
+
+      </div>
+
     </section>
   );
-}
+};
 
-function ImageCard({ name, img }) {
-  return (
-    <div className="card-wrap" role="button" tabIndex={0} aria-label={name}>
-      <div className="card">
-        <div className="card-media">
-          <img src={img} alt={name} />
-          <div className="card-overlay" />
-        </div>
-
-        <div className="card-name">{name}</div>
-      </div>
-    </div>
-  );
-}
+export default Teachersection;

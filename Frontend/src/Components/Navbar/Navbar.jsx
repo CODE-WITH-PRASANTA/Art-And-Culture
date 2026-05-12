@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
+
 // Icons
 import { AiFillHeart } from "react-icons/ai";
-import { FaUserCircle, FaShoppingCart,FaEnvelope,FaPhone, FaBars, FaTimes } from "react-icons/fa";
+import { FaUserCircle, FaShoppingCart,FaEnvelope,FaPhone, FaBars, FaTimes, FaMinus, FaPlus } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { MdCategory, MdLocalOffer , MdOutlineLocalFlorist } from "react-icons/md";
 import { FaHome, FaBlog, FaFire } from "react-icons/fa";
@@ -20,6 +21,8 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("main"); // "main" or "categories"
   const [openQuotePanel, setOpenQuotePanel] = useState(false);
+    const [openCart, setOpenCart] = useState(false);
+  const [qty, setQty] = useState(1);
 
   const dropdownRef = useRef(null);
   const catBtnRef = useRef(null);
@@ -227,9 +230,172 @@ const Navbar = () => {
         <FaUserCircle />
       </Link>
 
-      <Link to="/cart" className="icon-link">
-        <FaShoppingCart />
-      </Link>
+{/* =========================
+   CART BUTTON
+=========================  */}
+
+<button
+  className="icon-link cartnav__btn"
+  onClick={() => setOpenCart(true)}
+>
+  <FaShoppingCart />
+</button>
+
+
+{/* =========================
+   CART DRAWER
+=========================  */}
+
+{/* OVERLAY */}
+
+<div
+  className={`cartdrawer__overlay ${
+    openCart ? "cartdrawer__overlayActive" : ""
+  }`}
+  onClick={() => setOpenCart(false)}
+></div>
+
+{/* DRAWER */}
+
+<div
+  className={`cartdrawer ${
+    openCart ? "cartdrawerActive" : ""
+  }`}
+>
+
+  {/* TOP */}
+
+  <div className="cartdrawer__top">
+
+    <h2>Shopping Cart</h2>
+
+    <button
+      className="cartdrawer__close"
+      onClick={() => setOpenCart(false)}
+    >
+      <FaTimes />
+    </button>
+
+  </div>
+
+  {/* BODY */}
+
+  <div className="cartdrawer__body">
+
+    <div className="cartdrawer__item">
+
+      <img
+        src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=1200&auto=format&fit=crop"
+        alt=""
+      />
+
+      <div className="cartdrawer__content">
+
+        <h3>
+          Brass Floral Meenakari Pooja Thali
+          (10 Inch)
+        </h3>
+
+        <h4>₹ 5,899.00</h4>
+
+        <div className="cartdrawer__bottomRow">
+
+          {/* QTY */}
+
+          <div className="cartdrawer__qtyBox">
+
+            <button
+              onClick={() =>
+                setQty(qty > 1 ? qty - 1 : 1)
+              }
+            >
+              <FaMinus />
+            </button>
+
+            <span>{qty}</span>
+
+            <button onClick={() => setQty(qty + 1)}>
+              <FaPlus />
+            </button>
+
+          </div>
+
+          <button className="cartdrawer__remove">
+            Remove
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  {/* FOOTER */}
+
+  <div className="cartdrawer__footer">
+
+    <div className="cartdrawer__gift">
+
+      <input type="checkbox" />
+
+      <p>
+        Add Gift wrap for <span>₹ 64.00</span>
+      </p>
+
+    </div>
+
+    <div className="cartdrawer__subtotal">
+
+      <span>Subtotal</span>
+
+      <h3>₹ 5,899.00</h3>
+
+    </div>
+
+    <button className="cartdrawer__buyBtn">
+      BUY NOW
+    </button>
+
+    <Link
+      to="/cart"
+      className="cartdrawer__viewcart"
+      onClick={() => setOpenCart(false)}
+    >
+      VIEW CART
+    </Link>
+
+    {/* FEATURES */}
+
+    <div className="cartdrawer__features">
+
+      <div className="cartdrawer__feature">
+        <div className="cartdrawer__featureIcon">
+          📦
+        </div>
+        <p>7 Days Easy Returns</p>
+      </div>
+
+      <div className="cartdrawer__feature">
+        <div className="cartdrawer__featureIcon">
+          ❤️
+        </div>
+        <p>24/7 Support</p>
+      </div>
+
+      <div className="cartdrawer__feature">
+        <div className="cartdrawer__featureIcon">
+          💳
+        </div>
+        <p>Secure Payments</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
       {/* TOGGLE PANEL */}
       <button

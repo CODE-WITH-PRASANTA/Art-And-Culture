@@ -22,6 +22,7 @@ import Terms from "./Components/Termandcondition/Termandcondition";
 import OrderHistory from "./Pages/OrderHistory/OrderHistory";
 import CheckOut from "./Pages/CheckOut/CheckOut";
 import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
+import Carts from "./Pages/Carts/Carts";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path="/orderconfirm" element={<OrderConfirm />} />
           <Route path="/ordershistory" element={<OrderHistory />} />
           <Route path="/poojadetails" element={<PoojaDetails/>}/>
+          <Route path="/cart" element={<Carts/>}/>
         </Routes>
       </main>
 
