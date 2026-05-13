@@ -83,7 +83,6 @@ const Icon = ({ name, size = 18, className = "" }) => {
 ===================================================== */
 
 const FestiveGrid = () => {
-
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
@@ -369,13 +368,11 @@ const FestiveGrid = () => {
 
         <div className="festivegrid-list">
           {filtered.map((p) => (
-           <article
-  key={p._id}
-  className="festivegrid-product-row"
-  onClick={() =>
-    navigate(`/poojadetails/${p._id}`)
-  }
->
+            <article
+              key={p._id}
+              className="festivegrid-product-row"
+              onClick={() => navigate(`/poojadetails/${p._id}`)}
+            >
               {/* IMAGE */}
 
               <div className="festivegrid-product-media">

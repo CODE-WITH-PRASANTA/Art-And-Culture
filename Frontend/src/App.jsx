@@ -22,6 +22,7 @@ import Terms from "./Components/Termandcondition/Termandcondition";
 import OrderHistory from "./Pages/OrderHistory/OrderHistory";
 import CheckOut from "./Pages/CheckOut/CheckOut";
 import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
+import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
           <Route path="/ordershistory" element={<OrderHistory />} />
           <Route path="/poojadetails/:id" element={<PoojaDetails />} />
           <Route path="/cart" element={<Carts />} />
+          <Route path="/shopdetails" element={<ShopDetails/>}/>
+          <Route path="/cart" element={<Carts/>}/>
         </Routes>
       </main>
 

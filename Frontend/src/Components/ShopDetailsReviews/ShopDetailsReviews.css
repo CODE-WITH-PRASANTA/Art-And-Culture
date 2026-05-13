@@ -1,0 +1,671 @@
+/* =========================================
+   Review.css
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.review {
+  width: 100%;
+  padding: 50px 4%;
+  background: #f8f5f1;
+}
+
+/* =========================================
+   TOP
+========================================= */
+
+.shopdetailsreviews_top {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.shopdetailsreviews_heading {
+  font-size: clamp(28px, 3vw, 42px);
+  color: #222;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.shopdetailsreviews_ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.shopdetailsreviews_rating {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+}
+
+.shopdetailsreviews_count {
+  font-size: 16px;
+  color: #666;
+}
+
+.shopdetailsreviews_topButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shopdetailsreviews_writeBtn,
+.shopdetailsreviews_questionBtn {
+  width: 280px;
+  height: 54px;
+
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.shopdetailsreviews_writeBtn {
+  background: #d0a247;
+  color: #fff;
+  border: none;
+}
+
+.shopdetailsreviews_questionBtn {
+  background: transparent;
+  border: 1px solid #333;
+  color: #222;
+}
+
+.shopdetailsreviews_writeBtn:hover,
+.shopdetailsreviews_questionBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   PREVIEW IMAGE
+========================================= */
+
+.shopdetailsreviews_previewImage {
+  margin-bottom: 30px;
+}
+
+.shopdetailsreviews_previewImage img {
+  width: 130px;
+  height: 130px;
+
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* =========================================
+   TABS
+========================================= */
+
+.shopdetailsreviews_tabsRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+
+  margin-bottom: 35px;
+
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 14px;
+
+  flex-wrap: wrap;
+}
+
+.shopdetailsreviews_tabs {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.shopdetailsreviews_tab {
+  background: transparent;
+  border: none;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  padding-bottom: 12px;
+  color: #777;
+
+  transition: 0.3s ease;
+}
+
+.shopdetailsreviews_tab:hover {
+  color: #111;
+}
+
+.shopdetailsreviews_tabActive {
+  color: #111;
+  border-bottom: 2px solid #111;
+}
+
+/* =========================================
+   FILTER
+========================================= */
+
+.shopdetailsreviews_filterArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.shopdetailsreviews_iconBtn {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #d0a247;
+  color: #fff;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.shopdetailsreviews_dropdownWrapper {
+  position: relative;
+}
+
+.shopdetailsreviews_dropdownBtn {
+  min-width: 190px;
+  height: 48px;
+
+  border-radius: 10px;
+  border: 1px solid #333;
+
+  background: #fff;
+
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.shopdetailsreviews_dropdownMenu {
+  position: absolute;
+  top: 58px;
+  left: 0;
+
+  width: 100%;
+
+  background: #fff;
+  border: 1px solid #ccc;
+
+  border-radius: 10px;
+  overflow: hidden;
+
+  z-index: 10;
+}
+
+.shopdetailsreviews_dropdownItem {
+  padding: 14px 16px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.shopdetailsreviews_dropdownItem:hover {
+  background: #f4f4f4;
+}
+
+.shopdetailsreviews_dropdownItemActive {
+  background: #2a6bcc;
+  color: #fff;
+}
+
+/* =========================================
+   REVIEW CARD
+========================================= */
+
+.shopdetailsreviews_reviewWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.shopdetailsreviews_card {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 30px;
+}
+
+.shopdetailsreviews_stars {
+  display: flex;
+  gap: 6px;
+
+  color: #d0a247;
+  font-size: 22px;
+
+  margin-bottom: 18px;
+}
+
+.shopdetailsreviews_userRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+.shopdetailsreviews_avatar {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+  background: #efe7dd;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.shopdetailsreviews_nameRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.shopdetailsreviews_nameRow h3 {
+  font-size: 22px;
+  color: #111;
+}
+
+.shopdetailsreviews_nameRow span {
+  padding: 5px 12px;
+
+  border: 1px solid #111;
+  border-radius: 30px;
+
+  font-size: 12px;
+}
+
+.shopdetailsreviews_date {
+  font-size: 14px;
+  color: #777;
+  margin-top: 6px;
+}
+
+.shopdetailsreviews_title {
+  font-size: clamp(22px, 2vw, 32px);
+  margin-bottom: 14px;
+  color: #111;
+  line-height: 1.4;
+}
+
+.shopdetailsreviews_text {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.9;
+
+  margin-bottom: 22px;
+}
+
+.shopdetailsreviews_image {
+  width: 170px;
+  height: 170px;
+
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* =========================================
+   POPUP
+========================================= */
+
+.shopdetailsreviews_popupOverlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+  padding: 20px;
+}
+
+.shopdetailsreviews_popup {
+  width: 100%;
+  max-width: 700px;
+
+  background: #fff;
+  border-radius: 20px;
+
+  padding: 40px 30px;
+
+  position: relative;
+
+  animation: popupAnim 0.3s ease;
+}
+
+@keyframes popupAnim {
+
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.shopdetailsreviews_closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  background: transparent;
+  border: none;
+
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.shopdetailsreviews_popupTitle {
+  text-align: center;
+
+  font-size: clamp(26px, 2vw, 38px);
+
+  margin-bottom: 18px;
+  color: #333;
+}
+
+.shopdetailsreviews_popupSubtitle {
+  text-align: center;
+
+  font-size: 16px;
+  color: #555;
+
+  margin-bottom: 35px;
+}
+
+.shopdetailsreviews_formGroup {
+  margin-bottom: 22px;
+}
+
+.shopdetailsreviews_formGroup label {
+  display: block;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  margin-bottom: 10px;
+
+  color: #444;
+}
+
+.shopdetailsreviews_formGroup textarea {
+  width: 100%;
+  height: 140px;
+
+  border-radius: 12px;
+  border: 1px solid #999;
+
+  padding: 16px;
+  font-size: 15px;
+
+  resize: none;
+}
+
+.shopdetailsreviews_formGroup input {
+  width: 100%;
+  height: 54px;
+
+  border-radius: 12px;
+  border: 1px solid #999;
+
+  padding: 0 16px;
+
+  font-size: 15px;
+}
+
+.shopdetailsreviews_submitBtn {
+  width: 180px;
+  height: 52px;
+
+  border-radius: 12px;
+  border: none;
+
+  background: #d0a247;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: block;
+  margin: 30px auto 0;
+}
+
+/* =========================================
+   REVIEW POPUP
+========================================= */
+
+.shopdetailsreviews_reviewPopup {
+  text-align: center;
+}
+
+.shopdetailsreviews_popupImage {
+  width: 180px;
+  height: 180px;
+
+  object-fit: cover;
+  border-radius: 18px;
+
+  margin-bottom: 24px;
+}
+
+.shopdetailsreviews_popupProduct {
+  font-size: clamp(22px, 2vw, 32px);
+
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.shopdetailsreviews_popupStars {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+
+  font-size: 42px;
+  color: #d0a247;
+
+  margin-bottom: 18px;
+}
+
+.shopdetailsreviews_popupStars svg {
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.shopdetailsreviews_popupStars svg:hover {
+  transform: scale(1.08);
+}
+
+.shopdetailsreviews_popupLabel {
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 320px;
+  margin: auto;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+
+  .shopdetailsreviews_top {
+    flex-direction: column;
+  }
+
+  .shopdetailsreviews_topButtons {
+    width: 100%;
+  }
+
+  .shopdetailsreviews_writeBtn,
+  .shopdetailsreviews_questionBtn {
+    width: 100%;
+  }
+
+  .shopdetailsreviews_tabsRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .shopdetailsreviews_popup {
+    padding: 35px 24px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .review {
+    padding: 40px 18px;
+  }
+
+  .shopdetailsreviews_heading {
+    font-size: 30px;
+  }
+
+  .shopdetailsreviews_rating {
+    font-size: 24px;
+  }
+
+  .shopdetailsreviews_count {
+    font-size: 14px;
+  }
+
+  .shopdetailsreviews_tab {
+    font-size: 15px;
+  }
+
+  .shopdetailsreviews_filterArea {
+    width: 100%;
+  }
+
+  .shopdetailsreviews_dropdownBtn {
+    min-width: 170px;
+    font-size: 14px;
+  }
+
+  .shopdetailsreviews_title {
+    font-size: 24px;
+  }
+
+  .shopdetailsreviews_text {
+    font-size: 15px;
+  }
+
+  .shopdetailsreviews_image {
+    width: 140px;
+    height: 140px;
+  }
+
+  .shopdetailsreviews_nameRow h3 {
+    font-size: 18px;
+  }
+
+  .shopdetailsreviews_popupImage {
+    width: 140px;
+    height: 140px;
+  }
+
+  .shopdetailsreviews_popupProduct {
+    font-size: 22px;
+  }
+
+  .shopdetailsreviews_popupLabel {
+    font-size: 14px;
+  }
+
+  .shopdetailsreviews_popupStars {
+    font-size: 34px;
+    gap: 10px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .review {
+    padding: 35px 14px;
+  }
+
+  .shopdetailsreviews_heading {
+    font-size: 26px;
+  }
+
+  .shopdetailsreviews_tabs {
+    gap: 12px;
+  }
+
+  .shopdetailsreviews_tab {
+    font-size: 14px;
+  }
+
+  .shopdetailsreviews_title {
+    font-size: 20px;
+  }
+
+  .shopdetailsreviews_text {
+    font-size: 14px;
+  }
+
+  .shopdetailsreviews_image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .shopdetailsreviews_popup {
+    padding: 30px 18px;
+  }
+
+  .shopdetailsreviews_popupTitle {
+    font-size: 24px;
+  }
+
+  .shopdetailsreviews_popupSubtitle {
+    font-size: 14px;
+  }
+
+  .shopdetailsreviews_submitBtn {
+    width: 100%;
+  }
+}
