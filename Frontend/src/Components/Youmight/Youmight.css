@@ -80,12 +80,14 @@
 
 .youmight__slider {
   display: flex;
-  gap: 20px;
+  gap: 24px;
 
   overflow-x: auto;
   scroll-behavior: smooth;
 
   scrollbar-width: none;
+
+  padding-bottom: 10px;
 }
 
 .youmight__slider::-webkit-scrollbar {
@@ -97,8 +99,14 @@
 ========================================= */
 
 .youmight__card {
-  min-width: 300px;
+  min-width: 320px;
+  max-width: 320px;
+  width: 320px;
+
+  flex-shrink: 0;
+
   background: transparent;
+
   transition: 0.35s ease;
 }
 
@@ -107,19 +115,29 @@
 }
 
 /* =========================================
-   IMAGE
+   IMAGE WRAPPER
 ========================================= */
 
 .youmight__imageWrapper {
   position: relative;
+
+  width: 100%;
+  height: 340px;
+
   overflow: hidden;
-  border-radius: 18px;
-  background: #fff;
+
+  border-radius: 24px;
+
+  background: #f2e2b9;
 }
+
+/* =========================================
+   IMAGE
+========================================= */
 
 .youmight__image {
   width: 100%;
-  height: 340px;
+  height: 100%;
 
   object-fit: cover;
   display: block;
@@ -148,6 +166,8 @@
 
   font-size: 13px;
   font-weight: 600;
+
+  z-index: 10;
 }
 
 /* =========================================
@@ -167,6 +187,8 @@
   transform: translateX(16px);
 
   transition: 0.35s ease;
+
+  z-index: 10;
 }
 
 .youmight__card:hover .youmight__icons {
@@ -213,16 +235,17 @@
 
 .youmight__quickBtn {
   position: absolute;
-  bottom: -80px;
+
   left: 50%;
+  bottom: 42px;
 
   transform: translateX(-50%);
 
-  width: 82%;
-  height: 54px;
+  width: calc(100% - 56px);
+  height: 58px;
 
   border: none;
-  border-radius: 14px;
+  border-radius: 16px;
 
   background: #fff;
   color: #222;
@@ -232,18 +255,73 @@
 
   cursor: pointer;
 
+  z-index: 12;
+
+  opacity: 0;
+  visibility: hidden;
+
   transition: 0.35s ease;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .youmight__card:hover .youmight__quickBtn {
-  bottom: 18px;
+  opacity: 1;
+  visibility: visible;
+  bottom: 54px;
 }
 
 .youmight__quickBtn:hover {
   background: #c89028;
   color: #fff;
+}
+
+/* =========================================
+   DOTS
+========================================= */
+
+.youmight__dots {
+  position: absolute;
+
+  left: 50%;
+  bottom: 16px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  z-index: 20;
+}
+
+.youmight__dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  transition: 0.3s ease;
+}
+
+.youmight__dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.youmight__dotActive {
+  width: 24px;
+  height: 9px;
+
+  border-radius: 20px;
+
+  background: #fff;
 }
 
 /* =========================================
@@ -254,13 +332,26 @@
   padding-top: 18px;
 }
 
+/* =========================================
+   TITLE
+========================================= */
+
 .youmight__title {
   font-size: 20px;
   line-height: 1.6;
   color: #1f1f1f;
 
   margin-bottom: 14px;
+
   font-weight: 500;
+
+  min-height: 64px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
 }
 
 /* =========================================
@@ -273,6 +364,7 @@
   gap: 8px;
 
   margin-bottom: 14px;
+
   flex-wrap: wrap;
 }
 
@@ -322,16 +414,17 @@
 ========================================= */
 
 @media (max-width: 1200px) {
-
   .youmight__heading {
     font-size: 36px;
   }
 
   .youmight__card {
     min-width: 280px;
+    max-width: 280px;
+    width: 280px;
   }
 
-  .youmight__image {
+  .youmight__imageWrapper {
     height: 300px;
   }
 }
@@ -341,7 +434,6 @@
 ========================================= */
 
 @media (max-width: 768px) {
-
   .youmight {
     padding: 40px 18px;
   }
@@ -357,15 +449,18 @@
   }
 
   .youmight__card {
-    min-width: 250px;
+    min-width: 260px;
+    max-width: 260px;
+    width: 260px;
   }
 
-  .youmight__image {
+  .youmight__imageWrapper {
     height: 280px;
   }
 
   .youmight__title {
     font-size: 17px;
+    min-height: 56px;
   }
 
   .youmight__price {
@@ -389,8 +484,10 @@
   }
 
   .youmight__quickBtn {
-    height: 48px;
+    height: 50px;
     font-size: 14px;
+
+    width: calc(100% - 40px);
   }
 
   .youmight__discount {
@@ -404,25 +501,27 @@
 ========================================= */
 
 @media (max-width: 480px) {
-
   .youmight {
     padding: 35px 14px;
   }
 
   .youmight__card {
     min-width: 100%;
+    max-width: 100%;
+    width: 100%;
   }
 
   .youmight__heading {
     font-size: 24px;
   }
 
-  .youmight__image {
+  .youmight__imageWrapper {
     height: 260px;
   }
 
   .youmight__title {
     font-size: 16px;
+    min-height: auto;
   }
 
   .youmight__price {
@@ -440,9 +539,15 @@
   }
 
   .youmight__quickBtn {
-    width: 85%;
+    width: calc(100% - 30px);
     height: 46px;
     font-size: 13px;
+
+    bottom: 44px;
+  }
+
+  .youmight__card:hover .youmight__quickBtn {
+    bottom: 52px;
   }
 
   .youmight__icon {
@@ -459,5 +564,9 @@
   .youmight__icons {
     top: 12px;
     right: 12px;
+  }
+
+  .youmight__dots {
+    bottom: 12px;
   }
 }

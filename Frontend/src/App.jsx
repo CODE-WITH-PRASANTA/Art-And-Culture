@@ -36,7 +36,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
-         <Route path="/blog/:id" element={<BlogDetailsSection />} />
+          <Route path="/blog/:id" element={<BlogDetailsSection />} />
 
           <Route path="/best-sellers" element={<BestSelling />} />
 
@@ -55,8 +55,8 @@ function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/orderconfirm" element={<OrderConfirm />} />
           <Route path="/ordershistory" element={<OrderHistory />} />
-          <Route path="/poojadetails" element={<PoojaDetails/>}/>
-          <Route path="/cart" element={<Carts/>}/>
+          <Route path="/poojadetails/:id" element={<PoojaDetails />} />
+          <Route path="/cart" element={<Carts />} />
         </Routes>
       </main>
 
