@@ -696,6 +696,127 @@ select {
 }
 
 /* =====================================================
+   IMAGE SLIDER
+===================================================== */
+
+.festivegrid-product-media {
+  position: relative;
+}
+
+.festivegrid-product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* DOTS */
+
+.festivegrid-imageDots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 8px;
+
+  z-index: 5;
+}
+
+.festivegrid-imageDot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(255,255,255,0.5);
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.festivegrid-imageDot.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* =====================================================
+   STOCK
+===================================================== */
+
+.festivegrid-stock {
+  margin-left: 12px;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.festivegrid-stock.in-stock {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.festivegrid-stock.out-stock {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* =====================================================
+   EXTRA INFO
+===================================================== */
+
+.festivegrid-extraInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  margin-top: 14px;
+  margin-bottom: 18px;
+
+  font-size: 14px;
+  color: #475569;
+}
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.festivegrid-desc {
+  margin-top: 14px;
+
+  line-height: 1.8;
+
+  color: #64748b;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+  .festivegrid-extraInfo {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .festivegrid-stock {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
+/* =====================================================
    BACKDROP
 ===================================================== */
 

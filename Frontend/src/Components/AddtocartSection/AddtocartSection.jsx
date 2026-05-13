@@ -1,6 +1,10 @@
 // AddtocartSection.jsx
 
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import "./AddtocartSection.css";
 
 import {
@@ -19,7 +23,20 @@ import {
   FaBoxOpen,
 } from "react-icons/fa";
 
+import {
+  useParams,
+} from "react-router-dom";
+
+import API from "../../api/axios";
+
 const AddtocartSection = () => {
+  const { id } = useParams();
+
+  const [product, setProduct] =
+    useState(null);
+
+  const [loading, setLoading] =
+    useState(true);
 
   const [quantity, setQuantity] =
     useState(1);
@@ -30,10 +47,44 @@ const AddtocartSection = () => {
   const [showCoupons, setShowCoupons] =
     useState(false);
 
-  // QUANTITY
+  /* =====================================================
+     FETCH PRODUCT
+  ===================================================== */
+
+  useEffect(() => {
+    fetchProduct();
+  }, [id]);
+
+  const fetchProduct = async () => {
+    try {
+      const res = await API.get(
+        `/pooja/${id}`
+      );
+
+      if (res.data.success) {
+        setProduct(res.data.data);
+      }
+    } catch (error) {
+      console.log(
+        "FETCH PRODUCT ERROR :",
+        error
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* =====================================================
+     QUANTITY
+  ===================================================== */
 
   const increaseQty = () => {
-    setQuantity(quantity + 1);
+    if (
+      product?.stock &&
+      quantity < product.stock
+    ) {
+      setQuantity(quantity + 1);
+    }
   };
 
   const decreaseQty = () => {
@@ -42,7 +93,9 @@ const AddtocartSection = () => {
     }
   };
 
-  // ADD TO CART
+  /* =====================================================
+     ADD TO CART
+  ===================================================== */
 
   const handleAddToCart = () => {
     alert(
@@ -50,13 +103,17 @@ const AddtocartSection = () => {
     );
   };
 
-  // BUY NOW
+  /* =====================================================
+     BUY NOW
+  ===================================================== */
 
   const handleBuyNow = () => {
     alert("Proceeding to checkout");
   };
 
-  // COPY COUPON
+  /* =====================================================
+     COPY COUPON
+  ===================================================== */
 
   const handleCopyCoupon = () => {
     navigator.clipboard.writeText(
@@ -68,49 +125,108 @@ const AddtocartSection = () => {
     );
   };
 
+  /* =====================================================
+     LOADING
+  ===================================================== */
+
+  if (loading) {
+    return (
+      <div className="addtocartSection__loading">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="addtocartSection__loading">
+        Product Not Found
+      </div>
+    );
+  }
+
+  /* =====================================================
+     PRICE
+  ===================================================== */
+
+  const discountPrice = Math.round(
+    product.price -
+      product.price * 0.05
+  );
+
+  const saveAmount =
+    product.price - discountPrice;
+
+  /* =====================================================
+     STARS
+  ===================================================== */
+
+  const renderStars = () => {
+    const fullStars = Math.floor(
+      product.rating || 0
+    );
+
+    const emptyStars =
+      5 - fullStars;
+
+    return (
+      <>
+        {[...Array(fullStars)].map(
+          (_, i) => (
+            <FaStar key={i} />
+          )
+        )}
+
+        {[...Array(emptyStars)].map(
+          (_, i) => (
+            <FaRegStar
+              key={i}
+            />
+          )
+        )}
+      </>
+    );
+  };
+
   return (
     <>
       <section className="addtocartSection">
-
-        {/* TOP */}
+        {/* =====================================================
+            TOP
+        ===================================================== */}
 
         <div className="addtocartSection__top">
-
           <div>
-
             <h1 className="addtocartSection__title">
-              Brass Floral Meenakari
-              Pooja Thali (10 Inch)
+              {product.title}
             </h1>
 
             {/* RATING */}
 
             <div className="addtocartSection__ratingRow">
-
               <span className="addtocartSection__rating">
-                5.0
+                {product.rating ||
+                  "0"}
               </span>
 
               <div className="addtocartSection__stars">
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaRegStar />
+                {renderStars()}
               </div>
 
               <span className="addtocartSection__reviews">
-                (6)
+                ({product.stock || 0}
+                {" "}In Stock)
               </span>
-
             </div>
 
             {/* PRICE */}
 
             <h2 className="addtocartSection__price">
-              ₹ 5,899.00
+              ₹
+              {Number(
+                product.price
+              ).toLocaleString()}
             </h2>
-
           </div>
 
           {/* WISHLIST */}
@@ -118,25 +234,25 @@ const AddtocartSection = () => {
           <button className="addtocartSection__wishlist">
             <FaHeart />
           </button>
-
         </div>
 
-        {/* QUANTITY */}
+        {/* =====================================================
+            QUANTITY
+        ===================================================== */}
 
         <div className="addtocartSection__quantityArea">
-
           <h3 className="addtocartSection__quantityTitle">
             Quantity
           </h3>
 
           <div className="addtocartSection__actionRow">
-
             {/* QUANTITY BOX */}
 
             <div className="addtocartSection__quantityBox">
-
               <button
-                onClick={decreaseQty}
+                onClick={
+                  decreaseQty
+                }
                 className="addtocartSection__qtyBtn"
               >
                 <FaMinus />
@@ -147,60 +263,56 @@ const AddtocartSection = () => {
               </span>
 
               <button
-                onClick={increaseQty}
+                onClick={
+                  increaseQty
+                }
                 className="addtocartSection__qtyBtn"
               >
                 <FaPlus />
               </button>
-
             </div>
 
             {/* ADD TO CART */}
 
             <button
               className="addtocartSection__cartBtn"
-              onClick={handleAddToCart}
+              onClick={
+                handleAddToCart
+              }
             >
               ADD TO CART
             </button>
-
           </div>
 
           {/* BUY NOW */}
 
           <button
             className="addtocartSection__buyBtn"
-            onClick={handleBuyNow}
+            onClick={
+              handleBuyNow
+            }
           >
             BUY NOW
           </button>
-
         </div>
 
-        {/* DELIVERY */}
+        {/* =====================================================
+            DELIVERY
+        ===================================================== */}
 
         <div className="addtocartSection__deliverySection">
-
           <div className="addtocartSection__deliveryTitle">
-
             <FaMapMarkerAlt />
-
             Estimated Delivery Time
-
           </div>
 
           <div className="addtocartSection__deliveryGrid">
-
-            {/* CARD */}
-
             <div className="addtocartSection__deliveryCard">
-
               <div className="addtocartSection__deliveryIcon">
                 <FaTruck />
               </div>
 
               <div>
-
                 <h4>
                   Mumbai
                   <span>
@@ -209,68 +321,58 @@ const AddtocartSection = () => {
                 </h4>
 
                 <p>
-                  May 13 - May 14
+                  May 13 -
+                  May 14
                 </p>
-
               </div>
-
             </div>
 
-            {/* CARD */}
-
             <div className="addtocartSection__deliveryCard">
-
               <div className="addtocartSection__deliveryIcon">
                 <FaTruck />
               </div>
 
               <div>
-
                 <h4>
-                  All Over India
+                  All Over
+                  India
                 </h4>
 
                 <p>
-                  May 15 - May 18
+                  May 15 -
+                  May 18
                 </p>
-
               </div>
-
             </div>
-
           </div>
         </div>
 
-        {/* COUPON */}
+        {/* =====================================================
+            COUPON
+        ===================================================== */}
 
         <div className="addtocartSection__couponWrapper">
-
-          {/* TOP BAR */}
-
           <div className="addtocartSection__couponTop">
-
             <div className="addtocartSection__couponLeft">
-
               <div className="addtocartSection__couponIcon">
                 %
               </div>
 
               <div className="addtocartSection__couponContent">
-
                 <h3>
                   Get this for
-                  <span> ₹5,324</span>
+                  <span>
+                    ₹
+                    {discountPrice.toLocaleString()}
+                  </span>
                 </h3>
 
                 <div className="addtocartSection__saveTag">
-                  Save ₹575
+                  Save ₹
+                  {saveAmount.toLocaleString()}
                 </div>
-
               </div>
-
             </div>
-
-            {/* TOGGLE */}
 
             <button
               className="addtocartSection__couponToggle"
@@ -287,21 +389,14 @@ const AddtocartSection = () => {
               <span>
                 2
               </span>
-
             </button>
-
           </div>
 
           {/* DROPDOWN */}
 
           {showCoupons && (
-
             <div className="addtocartSection__couponDropdown">
-
-              {/* CARD 1 */}
-
               <div className="addtocartSection__couponCard addtocartSection__couponCardActive">
-
                 <div className="addtocartSection__couponBadge">
                   BEST OFFER
                 </div>
@@ -311,20 +406,18 @@ const AddtocartSection = () => {
                 </h2>
 
                 <p>
-                  Extra 5% OFF on all
-                  Online Payments
+                  Extra 5% OFF
+                  on all Online
+                  Payments
                 </p>
 
                 <div className="addtocartSection__couponApps">
-                  GPay • Paytm • PhonePe
+                  GPay • Paytm •
+                  PhonePe
                 </div>
-
               </div>
 
-              {/* CARD 2 */}
-
               <div className="addtocartSection__couponCard">
-
                 <div className="addtocartSection__couponBadge addtocartSection__couponBadgeOrange">
                   NEW CUSTOMERS
                 </div>
@@ -334,19 +427,17 @@ const AddtocartSection = () => {
                 </h2>
 
                 <p>
-                  5% OFF On Your First
+                  5% OFF On
+                  Your First
                   Order Only
                 </p>
 
                 <div className="addtocartSection__couponBottom">
-
                   <div className="addtocartSection__couponCode">
-
                     CODE:
                     <span>
                       WELCOME5
                     </span>
-
                   </div>
 
                   <button
@@ -357,175 +448,154 @@ const AddtocartSection = () => {
                   >
                     Copy
                   </button>
-
                 </div>
-
               </div>
-
             </div>
           )}
         </div>
 
-        {/* BULK DISCOUNT */}
+        {/* =====================================================
+            BULK DISCOUNT
+        ===================================================== */}
 
         <div className="addtocartSection__bulkSection">
-
           <h2 className="addtocartSection__bulkTitle">
             Bulk Discounts
             (Min. Quantity)
           </h2>
 
-          {/* ITEM */}
-
           <div className="addtocartSection__bulkItem">
-
             <div>
-
               <span className="addtocartSection__popular">
                 Most popular
               </span>
 
               <h3>
-                Buy 2 get 5% off
+                Buy 2 get 5%
+                off
               </h3>
 
               <p>
-                on each product
+                on each
+                product
               </p>
-
             </div>
 
             <button>
-              GRAB THIS DEAL
+              GRAB THIS
+              DEAL
             </button>
-
           </div>
-
-          {/* ITEM */}
 
           <div className="addtocartSection__bulkItem">
-
             <div>
-
               <h3>
-                Buy 3 get 8% off
+                Buy 3 get 8%
+                off
               </h3>
 
               <p>
-                on each product
+                on each
+                product
               </p>
-
             </div>
 
             <button>
-              GRAB THIS DEAL
+              GRAB THIS
+              DEAL
             </button>
-
           </div>
-
-          {/* ITEM */}
 
           <div className="addtocartSection__bulkItem addtocartSection__disabled">
-
             <div>
-
               <h3>
-                Buy 10 get 10% off
+                Buy 10 get
+                10% off
               </h3>
 
               <p>
-                on each product
+                on each
+                product
               </p>
-
             </div>
 
             <button>
-              GRAB THIS DEAL
+              GRAB THIS
+              DEAL
             </button>
-
           </div>
-
         </div>
 
-        {/* ENQUIRE */}
+        {/* =====================================================
+            ENQUIRE
+        ===================================================== */}
 
         <div className="addtocartSection__enquire">
-
           <div className="addtocartSection__enquireLeft">
-
             <div className="addtocartSection__enquireIcon">
               📦
             </div>
 
             <h3>
-              Looking for Bulk Pricing
+              Looking for
+              Bulk Pricing
               (30+ Qty)?
             </h3>
-
           </div>
 
           <button>
             Enquire Now
           </button>
-
         </div>
 
-        {/* SHIPPING */}
+        {/* =====================================================
+            SHIPPING
+        ===================================================== */}
 
         <div className="addtocartSection__serviceGrid">
-
           <div className="addtocartSection__serviceCard">
-
             <div className="addtocartSection__serviceIcon">
               <FaTruck />
             </div>
 
             <div>
-
               <h4>
-                Free Shipping
+                Free
+                Shipping
               </h4>
-
             </div>
-
           </div>
 
           <div className="addtocartSection__serviceCard">
-
             <div className="addtocartSection__serviceIcon">
               <FaExchangeAlt />
             </div>
 
             <div>
-
               <h4>
-                7 Days Easy Returns
+                7 Days Easy
+                Returns
               </h4>
-
             </div>
-
           </div>
 
           <div className="addtocartSection__serviceCard">
-
             <div className="addtocartSection__serviceIcon">
               <FaMapMarkerAlt />
             </div>
 
             <div>
-
               <h4>
                 Trusted by
                 3,00,000+
               </h4>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* NEED HELP */}
+        {/* =====================================================
+            NEED HELP
+        ===================================================== */}
 
         <div
           className="addtocartSection__help"
@@ -533,128 +603,108 @@ const AddtocartSection = () => {
             setShowPopup(true)
           }
         >
-
           <div className="addtocartSection__helpLeft">
-
             <div className="addtocartSection__helpIcon">
               <FaHeadphones />
             </div>
 
             <div>
-
               <h3>
                 Need Help?
               </h3>
 
               <p>
-                Get assistance or bulk
-                order discounts
+                Get
+                assistance or
+                bulk order
+                discounts
               </p>
-
             </div>
-
           </div>
 
           <FaChevronRight />
-
         </div>
 
-        {/* SKU */}
+        {/* =====================================================
+            SKU
+        ===================================================== */}
 
         <div className="addtocartSection__sku">
+          <span>SKU:</span>
 
-          <span>
-            SKU:
-          </span>
-
-          SVS-PE-THL-4
-
+          {product._id}
         </div>
-
       </section>
 
-      {/* POPUP */}
+      {/* =====================================================
+          POPUP
+      ===================================================== */}
 
       {showPopup && (
-
         <div className="addtocartSection__popupOverlay">
-
           <div className="addtocartSection__popup">
-
-            {/* HEADER */}
-
             <div className="addtocartSection__popupHeader">
-
               <h2>
-                How can we help you?
+                How can we
+                help you?
               </h2>
 
               <button
                 onClick={() =>
-                  setShowPopup(false)
+                  setShowPopup(
+                    false
+                  )
                 }
               >
                 <FaTimes />
               </button>
-
             </div>
 
-            {/* CONTENT */}
-
             <div className="addtocartSection__popupContent">
-
-              {/* CARD */}
-
               <div className="addtocartSection__popupCard">
-
                 <div className="addtocartSection__popupIcon">
                   <FaBoxOpen />
                 </div>
 
                 <div>
-
                   <h3>
-                    Bulk Order Inquiry
+                    Bulk Order
+                    Inquiry
                   </h3>
 
                   <p>
-                    Get special discounts
-                    for orders above 30
+                    Get
+                    special
+                    discounts
+                    for orders
+                    above 30
                     pieces
                   </p>
-
                 </div>
-
               </div>
 
-              {/* CARD */}
-
               <div className="addtocartSection__popupCard">
-
                 <div className="addtocartSection__popupIcon">
                   <FaQuestionCircle />
                 </div>
 
                 <div>
-
                   <h3>
-                    General Help
+                    General
+                    Help
                   </h3>
 
                   <p>
-                    Questions about size,
-                    delivery, or other
+                    Questions
+                    about size,
+                    delivery,
+                    or other
                     details
                   </p>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
       )}
     </>

@@ -8,6 +8,8 @@ const path = require("path");
 
 const fs = require("fs");
 
+const sharp = require("sharp");
+
 const {
   createPooja,
   getAllPooja,
@@ -17,7 +19,7 @@ const {
 } = require("../controllers/pooja.controller");
 
 /* =========================================================
-   CREATE UPLOAD FOLDER
+   UPLOAD FOLDER
 ========================================================= */
 
 const uploadDir = path.join(
@@ -32,24 +34,10 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 /* =========================================================
-   MULTER STORAGE
+   MULTER MEMORY STORAGE
 ========================================================= */
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadDir);
-  },
-
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      Date.now() +
-        "-" +
-        Math.round(Math.random() * 1e9) +
-        path.extname(file.originalname)
-    );
-  },
-});
+const storage = multer.memoryStorage();
 
 /* =========================================================
    FILE FILTER
@@ -87,10 +75,68 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
+
   limits: {
     fileSize: 5 * 1024 * 1024,
   },
 });
+
+/* =========================================================
+   WEBP CONVERT MIDDLEWARE
+========================================================= */
+
+const convertToWebp = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return next();
+    }
+
+    const processedFiles = [];
+
+    for (const file of req.files) {
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.round(Math.random() * 1e9) +
+        ".webp";
+
+      const outputPath = path.join(
+        uploadDir,
+        fileName
+      );
+
+      await sharp(file.buffer)
+        .resize({
+          width: 1200,
+          withoutEnlargement: true,
+        })
+        .webp({
+          quality: 80,
+        })
+        .toFile(outputPath);
+
+      processedFiles.push({
+        filename: fileName,
+        path: `/uploads/pooja/${fileName}`,
+      });
+    }
+
+    req.convertedImages = processedFiles;
+
+    next();
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Image conversion failed",
+    });
+  }
+};
 
 /* =========================================================
    ROUTES
@@ -99,7 +145,8 @@ const upload = multer({
 // CREATE
 router.post(
   "/create",
-  upload.single("image"),
+  upload.array("images", 5),
+  convertToWebp,
   createPooja
 );
 
@@ -112,7 +159,8 @@ router.get("/:id", getSinglePooja);
 // UPDATE
 router.put(
   "/update/:id",
-  upload.single("image"),
+  upload.array("images", 5),
+  convertToWebp,
   updatePooja
 );
 

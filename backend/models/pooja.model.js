@@ -1,5 +1,20 @@
 const mongoose = require("mongoose");
 
+const faqSchema = new mongoose.Schema(
+  {
+    question: {
+      type: String,
+      default: "",
+    },
+
+    answer: {
+      type: String,
+      default: "",
+    },
+  },
+  { _id: false }
+);
+
 const poojaSchema = new mongoose.Schema(
   {
     title: {
@@ -11,13 +26,15 @@ const poojaSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
-      trim: true,
     },
 
-    image: {
-      type: String,
-      required: true,
-    },
+    /* MULTIPLE IMAGES */
+
+    images: [
+      {
+        type: String,
+      },
+    ],
 
     category: {
       type: String,
@@ -49,20 +66,22 @@ const poojaSchema = new mongoose.Schema(
       max: 5,
     },
 
+    size: {
+      type: String,
+      default: "",
+    },
+
+    weight: {
+      type: String,
+      default: "",
+    },
+
     material: {
       type: String,
       default: "",
     },
 
-    purpose: {
-      type: String,
-      default: "",
-    },
-
-    size: {
-      type: String,
-      default: "",
-    },
+    faqs: [faqSchema],
 
     inStock: {
       type: Boolean,
