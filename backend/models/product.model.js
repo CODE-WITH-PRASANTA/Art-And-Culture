@@ -3,22 +3,56 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema(
   {
     title: String,
+
     use: String,
+
     rating: Number,
+
     stock: Number,
+
     shipping: String,
+
     categoryType: String,
+
     helpline: String,
+
     price: Number,
+
     discount: Number,
+
+    sku: String,
+
+    expressDelivery: String,
+
+    indiaDelivery: String,
+
+    aboutProduct: String,
+
+    productMaterial: String,
 
     sizes: {
       height: String,
       width: String,
       weight: String,
+      diameter: String,
+      inches: String,
     },
 
-    details: String,
+    weightDetails: {
+      thali: String,
+      diya: String,
+      incenseHolder: String,
+      bell: String,
+      bowl: String,
+      kalash: String,
+    },
+
+    quantityDiscounts: [
+      {
+        quantity: String,
+        discount: String,
+      },
+    ],
 
     faqs: [
       {
@@ -29,15 +63,18 @@ const productSchema = new mongoose.Schema(
 
     images: [String],
 
-    // ✅ IMPORTANT (used in frontend)
     status: {
       type: String,
       default: "Published",
     },
   },
+
   {
-    timestamps: true, // ✅ FIX (createdAt, updatedAt)
+    timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model(
+  "Product",
+  productSchema
+);

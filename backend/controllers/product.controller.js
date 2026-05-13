@@ -2,36 +2,129 @@ const Product = require("../models/product.model");
 
 /* ================= CREATE PRODUCT ================= */
 exports.createProduct = async (req, res) => {
+
   try {
 
     let sizes = {};
     let faqs = [];
+    let weightDetails = {};
+    let quantityDiscounts = [];
+
+    /* ================= PARSE JSON ================= */
 
     try {
+
       sizes = req.body.sizes
         ? JSON.parse(req.body.sizes)
         : {};
-    } catch {}
+
+    } catch (err) {
+
+      console.log("Sizes Parse Error");
+
+    }
 
     try {
+
       faqs = req.body.faqs
         ? JSON.parse(req.body.faqs)
         : [];
-    } catch {}
+
+    } catch (err) {
+
+      console.log("FAQ Parse Error");
+
+    }
+
+    try {
+
+      weightDetails =
+        req.body.weightDetails
+          ? JSON.parse(
+              req.body.weightDetails
+            )
+          : {};
+
+    } catch (err) {
+
+      console.log(
+        "Weight Details Parse Error"
+      );
+
+    }
+
+    try {
+
+      quantityDiscounts =
+        req.body.quantityDiscounts
+          ? JSON.parse(
+              req.body.quantityDiscounts
+            )
+          : [];
+
+    } catch (err) {
+
+      console.log(
+        "Quantity Discounts Parse Error"
+      );
+
+    }
+
+    /* ================= CREATE PRODUCT ================= */
 
     const newProduct = new Product({
-      ...req.body,
 
-      price: Number(req.body.price) || 0,
-      discount: Number(req.body.discount) || 0,
-      rating: Number(req.body.rating) || 0,
-      stock: Number(req.body.stock) || 0,
+      title: req.body.title || "",
+
+      use: req.body.use || "",
+
+      rating:
+        Number(req.body.rating) || 0,
+
+      stock:
+        Number(req.body.stock) || 0,
+
+      shipping:
+        req.body.shipping || "",
+
+      categoryType:
+        req.body.categoryType ||
+        "Normal",
+
+      helpline:
+        req.body.helpline || "",
+
+      price:
+        Number(req.body.price) || 0,
+
+      discount:
+        Number(req.body.discount) || 0,
+
+      sku: req.body.sku || "",
+
+      expressDelivery:
+        req.body.expressDelivery || "",
+
+      indiaDelivery:
+        req.body.indiaDelivery || "",
+
+      aboutProduct:
+        req.body.aboutProduct || "",
+
+      productMaterial:
+        req.body.productMaterial || "",
 
       sizes,
+
+      weightDetails,
+
+      quantityDiscounts,
+
       faqs,
 
       images:
-        req.files && req.files.length > 0
+        req.files &&
+        req.files.length > 0
           ? req.files.map(
               (file) =>
                 `/uploads/products/${file.filename}`
@@ -45,58 +138,80 @@ exports.createProduct = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Product created successfully",
+      message:
+        "Product created successfully",
       data: newProduct,
     });
 
   } catch (err) {
 
-    console.error("❌ CREATE ERROR:", err);
+    console.error(
+      "❌ CREATE PRODUCT ERROR:",
+      err
+    );
 
     res.status(500).json({
       success: false,
-      message: err.message,
+      message:
+        err.message ||
+        "Failed to create product",
     });
+
   }
 };
 
 /* ================= GET ALL PRODUCTS ================= */
 exports.getProducts = async (req, res) => {
+
   try {
 
-    const products = await Product.find().sort({
-      createdAt: -1,
-    });
+    const products = await Product.find()
+      .sort({
+        createdAt: -1,
+      });
 
-    res.json({
+    res.status(200).json({
       success: true,
       data: products,
     });
 
   } catch (err) {
 
-    console.error("❌ GET ERROR:", err);
+    console.error(
+      "❌ GET PRODUCTS ERROR:",
+      err
+    );
 
     res.status(500).json({
       success: false,
-      message: err.message,
+      message:
+        err.message ||
+        "Failed to fetch products",
     });
+
   }
 };
 
 /* ================= GET SINGLE PRODUCT ================= */
-exports.getSingleProduct = async (req, res) => {
+exports.getSingleProduct = async (
+  req,
+  res
+) => {
+
   try {
 
-    const product = await Product.findById(
-      req.params.id
-    );
+    const product =
+      await Product.findById(
+        req.params.id
+      );
 
     if (!product) {
+
       return res.status(404).json({
         success: false,
         message: "Product not found",
       });
+
     }
 
     res.status(200).json({
@@ -113,128 +228,280 @@ exports.getSingleProduct = async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: err.message,
-    });
-  }
-};
-
-/* ================= DELETE PRODUCT ================= */
-exports.deleteProduct = async (req, res) => {
-  try {
-
-    await Product.findByIdAndDelete(
-      req.params.id
-    );
-
-    res.json({
-      success: true,
-      message: "Product deleted",
+      message:
+        err.message ||
+        "Failed to fetch product",
     });
 
-  } catch (err) {
-
-    console.error("❌ DELETE ERROR:", err);
-
-    res.status(500).json({
-      success: false,
-      message: err.message,
-    });
   }
 };
 
 /* ================= UPDATE PRODUCT ================= */
-exports.updateProduct = async (req, res) => {
+exports.updateProduct = async (
+  req,
+  res
+) => {
+
   try {
 
     let sizes = {};
     let faqs = [];
+    let weightDetails = {};
+    let quantityDiscounts = [];
+
+    /* ================= PARSE JSON ================= */
 
     try {
+
       sizes = req.body.sizes
         ? JSON.parse(req.body.sizes)
         : {};
-    } catch {}
+
+    } catch (err) {
+
+      console.log("Sizes Parse Error");
+
+    }
 
     try {
+
       faqs = req.body.faqs
         ? JSON.parse(req.body.faqs)
         : [];
-    } catch {}
+
+    } catch (err) {
+
+      console.log("FAQ Parse Error");
+
+    }
+
+    try {
+
+      weightDetails =
+        req.body.weightDetails
+          ? JSON.parse(
+              req.body.weightDetails
+            )
+          : {};
+
+    } catch (err) {
+
+      console.log(
+        "Weight Details Parse Error"
+      );
+
+    }
+
+    try {
+
+      quantityDiscounts =
+        req.body.quantityDiscounts
+          ? JSON.parse(
+              req.body.quantityDiscounts
+            )
+          : [];
+
+    } catch (err) {
+
+      console.log(
+        "Quantity Discounts Parse Error"
+      );
+
+    }
+
+    /* ================= FIND PRODUCT ================= */
 
     const existingProduct =
-      await Product.findById(req.params.id);
+      await Product.findById(
+        req.params.id
+      );
 
     if (!existingProduct) {
+
       return res.status(404).json({
         success: false,
         message: "Product not found",
       });
+
     }
 
-    const updatedImages =
-      req.files && req.files.length > 0
+    /* ================= IMAGE UPDATE ================= */
+
+    const newImages =
+      req.files &&
+      req.files.length > 0
         ? req.files.map(
             (file) =>
               `/uploads/products/${file.filename}`
           )
+        : [];
+
+    const updatedImages =
+      newImages.length > 0
+        ? newImages
         : existingProduct.images;
 
-    const updated =
+    /* ================= UPDATE ================= */
+
+    const updatedProduct =
       await Product.findByIdAndUpdate(
         req.params.id,
+
         {
-          ...req.body,
+          title:
+            req.body.title || "",
+
+          use:
+            req.body.use || "",
+
+          rating:
+            Number(req.body.rating) ||
+            0,
+
+          stock:
+            Number(req.body.stock) || 0,
+
+          shipping:
+            req.body.shipping || "",
+
+          categoryType:
+            req.body.categoryType ||
+            "Normal",
+
+          helpline:
+            req.body.helpline || "",
 
           price:
             Number(req.body.price) || 0,
 
           discount:
-            Number(req.body.discount) || 0,
+            Number(req.body.discount) ||
+            0,
 
-          rating:
-            Number(req.body.rating) || 0,
+          sku:
+            req.body.sku || "",
 
-          stock:
-            Number(req.body.stock) || 0,
+          expressDelivery:
+            req.body.expressDelivery ||
+            "",
+
+          indiaDelivery:
+            req.body.indiaDelivery ||
+            "",
+
+          aboutProduct:
+            req.body.aboutProduct ||
+            "",
+
+          productMaterial:
+            req.body.productMaterial ||
+            "",
 
           sizes,
+
+          weightDetails,
+
+          quantityDiscounts,
+
           faqs,
 
           images: updatedImages,
         },
-        { new: true }
+
+        {
+          new: true,
+        }
       );
 
-    res.json({
+    res.status(200).json({
       success: true,
-      message: "Product updated",
-      data: updated,
+      message:
+        "Product updated successfully",
+      data: updatedProduct,
     });
 
   } catch (err) {
 
-    console.error("❌ UPDATE ERROR:", err);
+    console.error(
+      "❌ UPDATE PRODUCT ERROR:",
+      err
+    );
 
     res.status(500).json({
       success: false,
-      message: err.message,
+      message:
+        err.message ||
+        "Failed to update product",
     });
+
   }
 };
 
-/* ================= TOGGLE STATUS ================= */
-exports.toggleStatus = async (req, res) => {
+/* ================= DELETE PRODUCT ================= */
+exports.deleteProduct = async (
+  req,
+  res
+) => {
+
   try {
 
-    const product = await Product.findById(
-      req.params.id
-    );
+    const deletedProduct =
+      await Product.findByIdAndDelete(
+        req.params.id
+      );
 
-    if (!product) {
+    if (!deletedProduct) {
+
       return res.status(404).json({
         success: false,
         message: "Product not found",
       });
+
+    }
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Product deleted successfully",
+    });
+
+  } catch (err) {
+
+    console.error(
+      "❌ DELETE PRODUCT ERROR:",
+      err
+    );
+
+    res.status(500).json({
+      success: false,
+      message:
+        err.message ||
+        "Failed to delete product",
+    });
+
+  }
+};
+
+/* ================= TOGGLE STATUS ================= */
+exports.toggleStatus = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const product =
+      await Product.findById(
+        req.params.id
+      );
+
+    if (!product) {
+
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+
     }
 
     product.status =
@@ -244,19 +511,26 @@ exports.toggleStatus = async (req, res) => {
 
     await product.save();
 
-    res.json({
+    res.status(200).json({
       success: true,
-      message: "Status updated",
+      message:
+        "Product status updated",
       data: product,
     });
 
   } catch (err) {
 
-    console.error("❌ TOGGLE ERROR:", err);
+    console.error(
+      "❌ TOGGLE STATUS ERROR:",
+      err
+    );
 
     res.status(500).json({
       success: false,
-      message: err.message,
+      message:
+        err.message ||
+        "Failed to update status",
     });
+
   }
 };

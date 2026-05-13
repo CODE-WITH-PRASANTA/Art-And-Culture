@@ -1,6 +1,10 @@
-// shopdetailsaddtocart.jsx
+// ShopDetailsAddToCart.jsx
 
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import "./ShopDetailsAddToCart.css";
 
 import {
@@ -19,7 +23,17 @@ import {
   FaBoxOpen,
 } from "react-icons/fa";
 
+import API from "../../api/axios";
+
+import { useParams } from "react-router-dom";
+
 const ShopDetailsAddToCart = () => {
+
+  /* ================= PRODUCT ID ================= */
+
+  const { id } = useParams();
+
+  /* ================= STATES ================= */
 
   const [quantity, setQuantity] =
     useState(1);
@@ -30,35 +44,88 @@ const ShopDetailsAddToCart = () => {
   const [showCoupons, setShowCoupons] =
     useState(false);
 
-  // QUANTITY
+  const [product, setProduct] =
+    useState(null);
 
-  const increaseQty = () => {
-    setQuantity(quantity + 1);
-  };
+  const [loading, setLoading] =
+    useState(true);
 
-  const decreaseQty = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  /* ================= FETCH PRODUCT ================= */
+
+ useEffect(() => {
+
+  if (!id) {
+    setLoading(false);
+    return;
+  }
+
+  const fetchProduct = async () => {
+
+    try {
+
+      const res = await API.get(
+        `/products/${id}`
+      );
+
+      setProduct(res.data.data);
+
+    } catch (error) {
+
+      console.error(
+        "Failed to fetch product",
+        error
+      );
+
+    } finally {
+
+      setLoading(false);
+
     }
   };
 
-  // ADD TO CART
+  fetchProduct();
+
+}, [id]);
+
+  /* ================= QUANTITY ================= */
+
+  const increaseQty = () => {
+
+    setQuantity(quantity + 1);
+
+  };
+
+  const decreaseQty = () => {
+
+    if (quantity > 1) {
+
+      setQuantity(quantity - 1);
+
+    }
+  };
+
+  /* ================= ADD TO CART ================= */
 
   const handleAddToCart = () => {
+
     alert(
       `${quantity} item added to cart`
     );
+
   };
 
-  // BUY NOW
+  /* ================= BUY NOW ================= */
 
   const handleBuyNow = () => {
+
     alert("Proceeding to checkout");
+
   };
 
-  // COPY COUPON
+  /* ================= COPY COUPON ================= */
 
   const handleCopyCoupon = () => {
+
     navigator.clipboard.writeText(
       "WELCOME5"
     );
@@ -66,21 +133,65 @@ const ShopDetailsAddToCart = () => {
     alert(
       "Coupon copied successfully"
     );
+
   };
+
+  /* ================= LOADING ================= */
+
+  if (loading) {
+
+    return (
+      <div className="shopdetailsaddtocart__loading">
+
+        Loading...
+
+      </div>
+    );
+
+  }
+
+  /* ================= NO PRODUCT ================= */
+
+  if (!product) {
+
+    return (
+      <div className="shopdetailsaddtocart__loading">
+
+        Product Not Found
+
+      </div>
+    );
+
+  }
+
+  /* ================= PRICE ================= */
+
+  const finalPrice =
+    product.discount > 0
+      ? product.price -
+        (
+          product.price *
+          product.discount
+        ) /
+          100
+      : product.price;
 
   return (
     <>
       <section className="shopdetailsaddtocart">
 
-        {/* TOP */}
+        {/* ================= TOP ================= */}
 
         <div className="shopdetailsaddtocart__top">
 
           <div>
 
+            {/* TITLE */}
+
             <h1 className="shopdetailsaddtocart__title">
-              Brass Floral Meenakari
-              Pooja Thali (10 Inch)
+
+              {product.title}
+
             </h1>
 
             {/* RATING */}
@@ -88,19 +199,25 @@ const ShopDetailsAddToCart = () => {
             <div className="shopdetailsaddtocart__ratingRow">
 
               <span className="shopdetailsaddtocart__rating">
-                5.0
+
+                {product.rating || 0}
+
               </span>
 
               <div className="shopdetailsaddtocart__stars">
+
                 <FaStar />
                 <FaStar />
                 <FaStar />
                 <FaStar />
                 <FaRegStar />
+
               </div>
 
               <span className="shopdetailsaddtocart__reviews">
-                (6)
+
+                ({product.stock || 0})
+
               </span>
 
             </div>
@@ -108,7 +225,9 @@ const ShopDetailsAddToCart = () => {
             {/* PRICE */}
 
             <h2 className="shopdetailsaddtocart__price">
-              ₹ 5,899.00
+
+              ₹ {finalPrice}
+
             </h2>
 
           </div>
@@ -116,17 +235,21 @@ const ShopDetailsAddToCart = () => {
           {/* WISHLIST */}
 
           <button className="shopdetailsaddtocart__wishlist">
+
             <FaHeart />
+
           </button>
 
         </div>
 
-        {/* QUANTITY */}
+        {/* ================= QUANTITY ================= */}
 
         <div className="shopdetailsaddtocart__quantityArea">
 
           <h3 className="shopdetailsaddtocart__quantityTitle">
+
             Quantity
+
           </h3>
 
           <div className="shopdetailsaddtocart__actionRow">
@@ -139,18 +262,24 @@ const ShopDetailsAddToCart = () => {
                 onClick={decreaseQty}
                 className="shopdetailsaddtocart__qtyBtn"
               >
+
                 <FaMinus />
+
               </button>
 
               <span className="shopdetailsaddtocart__qtyValue">
+
                 {quantity}
+
               </span>
 
               <button
                 onClick={increaseQty}
                 className="shopdetailsaddtocart__qtyBtn"
               >
+
                 <FaPlus />
+
               </button>
 
             </div>
@@ -161,7 +290,9 @@ const ShopDetailsAddToCart = () => {
               className="shopdetailsaddtocart__cartBtn"
               onClick={handleAddToCart}
             >
+
               ADD TO CART
+
             </button>
 
           </div>
@@ -172,12 +303,14 @@ const ShopDetailsAddToCart = () => {
             className="shopdetailsaddtocart__buyBtn"
             onClick={handleBuyNow}
           >
+
             BUY NOW
+
           </button>
 
         </div>
 
-        {/* DELIVERY */}
+        {/* ================= DELIVERY ================= */}
 
         <div className="shopdetailsaddtocart__deliverySection">
 
@@ -191,37 +324,47 @@ const ShopDetailsAddToCart = () => {
 
           <div className="shopdetailsaddtocart__deliveryGrid">
 
-            {/* CARD */}
+            {/* EXPRESS */}
 
             <div className="shopdetailsaddtocart__deliveryCard">
 
               <div className="shopdetailsaddtocart__deliveryIcon">
+
                 <FaTruck />
+
               </div>
 
               <div>
 
                 <h4>
+
                   Mumbai
+
                   <span>
                     ⚡ Express
                   </span>
+
                 </h4>
 
                 <p>
-                  May 13 - May 14
+
+                  {product.expressDelivery ||
+                    "2-3 Days"}
+
                 </p>
 
               </div>
 
             </div>
 
-            {/* CARD */}
+            {/* INDIA */}
 
             <div className="shopdetailsaddtocart__deliveryCard">
 
               <div className="shopdetailsaddtocart__deliveryIcon">
+
                 <FaTruck />
+
               </div>
 
               <div>
@@ -231,7 +374,10 @@ const ShopDetailsAddToCart = () => {
                 </h4>
 
                 <p>
-                  May 15 - May 18
+
+                  {product.indiaDelivery ||
+                    "5-7 Days"}
+
                 </p>
 
               </div>
@@ -239,31 +385,41 @@ const ShopDetailsAddToCart = () => {
             </div>
 
           </div>
+
         </div>
 
-        {/* COUPON */}
+        {/* ================= COUPON ================= */}
 
         <div className="shopdetailsaddtocart__couponWrapper">
-
-          {/* TOP BAR */}
 
           <div className="shopdetailsaddtocart__couponTop">
 
             <div className="shopdetailsaddtocart__couponLeft">
 
               <div className="shopdetailsaddtocart__couponIcon">
+
                 %
+
               </div>
 
               <div className="shopdetailsaddtocart__couponContent">
 
                 <h3>
+
                   Get this for
-                  <span> ₹5,324</span>
+
+                  <span>
+                    ₹ {finalPrice}
+                  </span>
+
                 </h3>
 
                 <div className="shopdetailsaddtocart__saveTag">
-                  Save ₹575
+
+                  Save ₹
+                  {product.price -
+                    finalPrice}
+
                 </div>
 
               </div>
@@ -280,6 +436,7 @@ const ShopDetailsAddToCart = () => {
                 )
               }
             >
+
               {showCoupons
                 ? "Hide Coupons"
                 : "View Coupons"}
@@ -298,12 +455,14 @@ const ShopDetailsAddToCart = () => {
 
             <div className="shopdetailsaddtocart__couponDropdown">
 
-              {/* CARD 1 */}
+              {/* CARD */}
 
-              <div className="shopdetailsaddtocart__couponCard shopdetailsaddtocart__couponCardActive">
+              <div className="shopdetailsaddtocart__couponCard">
 
                 <div className="shopdetailsaddtocart__couponBadge">
+
                   BEST OFFER
+
                 </div>
 
                 <h2>
@@ -311,22 +470,25 @@ const ShopDetailsAddToCart = () => {
                 </h2>
 
                 <p>
-                  Extra 5% OFF on all
-                  Online Payments
+                  Extra 5% OFF on all Online Payments
                 </p>
 
                 <div className="shopdetailsaddtocart__couponApps">
+
                   GPay • Paytm • PhonePe
+
                 </div>
 
               </div>
 
-              {/* CARD 2 */}
+              {/* CARD */}
 
               <div className="shopdetailsaddtocart__couponCard">
 
                 <div className="shopdetailsaddtocart__couponBadge shopdetailsaddtocart__couponBadgeOrange">
+
                   NEW CUSTOMERS
+
                 </div>
 
                 <h2>
@@ -334,8 +496,7 @@ const ShopDetailsAddToCart = () => {
                 </h2>
 
                 <p>
-                  5% OFF On Your First
-                  Order Only
+                  5% OFF On Your First Order
                 </p>
 
                 <div className="shopdetailsaddtocart__couponBottom">
@@ -343,6 +504,7 @@ const ShopDetailsAddToCart = () => {
                   <div className="shopdetailsaddtocart__couponCode">
 
                     CODE:
+
                     <span>
                       WELCOME5
                     </span>
@@ -355,7 +517,9 @@ const ShopDetailsAddToCart = () => {
                       handleCopyCoupon
                     }
                   >
+
                     Copy
+
                   </button>
 
                 </div>
@@ -364,120 +528,105 @@ const ShopDetailsAddToCart = () => {
 
             </div>
           )}
+
         </div>
 
-        {/* BULK DISCOUNT */}
+        {/* ================= BULK DISCOUNT ================= */}
 
         <div className="shopdetailsaddtocart__bulkSection">
 
           <h2 className="shopdetailsaddtocart__bulkTitle">
+
             Bulk Discounts
             (Min. Quantity)
+
           </h2>
 
-          {/* ITEM */}
+          {product.quantityDiscounts &&
+            product.quantityDiscounts.map(
+              (item, index) => (
 
-          <div className="shopdetailsaddtocart__bulkItem">
+                <div
+                  key={index}
+                  className="shopdetailsaddtocart__bulkItem"
+                >
 
-            <div>
+                  <div>
 
-              <span className="shopdetailsaddtocart__popular">
-                Most popular
-              </span>
+                    {index === 0 && (
 
-              <h3>
-                Buy 2 get 5% off
-              </h3>
+                      <span className="shopdetailsaddtocart__popular">
 
-              <p>
-                on each product
-              </p>
+                        Most popular
 
-            </div>
+                      </span>
+                    )}
 
-            <button>
-              GRAB THIS DEAL
-            </button>
+                    <h3>
 
-          </div>
+                      Buy {item.quantity}
+                      {" "}get{" "}
+                      {item.discount}% off
 
-          {/* ITEM */}
+                    </h3>
 
-          <div className="shopdetailsaddtocart__bulkItem">
+                    <p>
+                      on each product
+                    </p>
 
-            <div>
+                  </div>
 
-              <h3>
-                Buy 3 get 8% off
-              </h3>
+                  <button>
 
-              <p>
-                on each product
-              </p>
+                    GRAB THIS DEAL
 
-            </div>
+                  </button>
 
-            <button>
-              GRAB THIS DEAL
-            </button>
-
-          </div>
-
-          {/* ITEM */}
-
-          <div className="shopdetailsaddtocart__bulkItem shopdetailsaddtocart__disabled">
-
-            <div>
-
-              <h3>
-                Buy 10 get 10% off
-              </h3>
-
-              <p>
-                on each product
-              </p>
-
-            </div>
-
-            <button>
-              GRAB THIS DEAL
-            </button>
-
-          </div>
+                </div>
+              )
+            )}
 
         </div>
 
-        {/* ENQUIRE */}
+        {/* ================= ENQUIRE ================= */}
 
         <div className="shopdetailsaddtocart__enquire">
 
           <div className="shopdetailsaddtocart__enquireLeft">
 
             <div className="shopdetailsaddtocart__enquireIcon">
+
               📦
+
             </div>
 
             <h3>
+
               Looking for Bulk Pricing
               (30+ Qty)?
+
             </h3>
 
           </div>
 
           <button>
+
             Enquire Now
+
           </button>
 
         </div>
 
-        {/* SHIPPING */}
+        {/* ================= SHIPPING ================= */}
 
         <div className="shopdetailsaddtocart__serviceGrid">
 
           <div className="shopdetailsaddtocart__serviceCard">
 
             <div className="shopdetailsaddtocart__serviceIcon">
+
               <FaTruck />
+
             </div>
 
             <div>
@@ -493,7 +642,9 @@ const ShopDetailsAddToCart = () => {
           <div className="shopdetailsaddtocart__serviceCard">
 
             <div className="shopdetailsaddtocart__serviceIcon">
+
               <FaExchangeAlt />
+
             </div>
 
             <div>
@@ -509,14 +660,15 @@ const ShopDetailsAddToCart = () => {
           <div className="shopdetailsaddtocart__serviceCard">
 
             <div className="shopdetailsaddtocart__serviceIcon">
+
               <FaMapMarkerAlt />
+
             </div>
 
             <div>
 
               <h4>
-                Trusted by
-                3,00,000+
+                Trusted by 3,00,000+
               </h4>
 
             </div>
@@ -525,7 +677,7 @@ const ShopDetailsAddToCart = () => {
 
         </div>
 
-        {/* NEED HELP */}
+        {/* ================= HELP ================= */}
 
         <div
           className="shopdetailsaddtocart__help"
@@ -537,7 +689,9 @@ const ShopDetailsAddToCart = () => {
           <div className="shopdetailsaddtocart__helpLeft">
 
             <div className="shopdetailsaddtocart__helpIcon">
+
               <FaHeadphones />
+
             </div>
 
             <div>
@@ -547,8 +701,7 @@ const ShopDetailsAddToCart = () => {
               </h3>
 
               <p>
-                Get assistance or bulk
-                order discounts
+                Get assistance or bulk order discounts
               </p>
 
             </div>
@@ -559,7 +712,7 @@ const ShopDetailsAddToCart = () => {
 
         </div>
 
-        {/* SKU */}
+        {/* ================= SKU ================= */}
 
         <div className="shopdetailsaddtocart__sku">
 
@@ -567,13 +720,13 @@ const ShopDetailsAddToCart = () => {
             SKU:
           </span>
 
-          SVS-PE-THL-4
+          {product.sku || "N/A"}
 
         </div>
 
       </section>
 
-      {/* POPUP */}
+      {/* ================= POPUP ================= */}
 
       {showPopup && (
 
@@ -586,7 +739,9 @@ const ShopDetailsAddToCart = () => {
             <div className="shopdetailsaddtocart__popupHeader">
 
               <h2>
+
                 How can we help you?
+
               </h2>
 
               <button
@@ -594,7 +749,9 @@ const ShopDetailsAddToCart = () => {
                   setShowPopup(false)
                 }
               >
+
                 <FaTimes />
+
               </button>
 
             </div>
@@ -603,12 +760,12 @@ const ShopDetailsAddToCart = () => {
 
             <div className="shopdetailsaddtocart__popupContent">
 
-              {/* CARD */}
-
               <div className="shopdetailsaddtocart__popupCard">
 
                 <div className="shopdetailsaddtocart__popupIcon">
+
                   <FaBoxOpen />
+
                 </div>
 
                 <div>
@@ -618,21 +775,19 @@ const ShopDetailsAddToCart = () => {
                   </h3>
 
                   <p>
-                    Get special discounts
-                    for orders above 30
-                    pieces
+                    Get discounts for orders above 30 pieces
                   </p>
 
                 </div>
 
               </div>
 
-              {/* CARD */}
-
               <div className="shopdetailsaddtocart__popupCard">
 
                 <div className="shopdetailsaddtocart__popupIcon">
+
                   <FaQuestionCircle />
+
                 </div>
 
                 <div>
@@ -642,9 +797,7 @@ const ShopDetailsAddToCart = () => {
                   </h3>
 
                   <p>
-                    Questions about size,
-                    delivery, or other
-                    details
+                    Questions about size, delivery, or product details
                   </p>
 
                 </div>

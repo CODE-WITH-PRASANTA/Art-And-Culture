@@ -1,6 +1,10 @@
-// shopdetailsyoumight.jsx
+// ShopDetailsYoumight.jsx
 
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import "./ShopDetailsYoumight.css";
 
 import {
@@ -12,96 +16,110 @@ import {
   FaRegStar,
 } from "react-icons/fa";
 
-import product1 from "../../assets/poojaph1.webp";
-import product2 from "../../assets/poojaph2.webp";
-import product3 from "../../assets/poojaph3.webp";
-import product4 from "../../assets/poojaph4.webp";
+import {
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+
+import API, {
+  IMG_URL,
+} from "../../api/axios";
 
 const ShopDetailsYoumight = () => {
 
-  const products = [
-    {
-      id: 1,
-      image: product1,
-      discount: "-6%",
-      title:
-        "German Silver Pooja Thali Set with Ghungroo (12 Inch)",
-      price: "₹ 7,449.00",
-      oldPrice: "₹ 7,999.00",
-      reviews: "1 review",
-    },
+  /* ================= NAVIGATE ================= */
 
-    {
-      id: 2,
-      image: product2,
-      discount: "-21%",
-      title:
-        "Divine Brass Ganesha Diya (4.5 Inch)",
-      price: "₹ 2,749.00",
-      oldPrice: "₹ 3,499.00",
-      reviews: "1 review",
-    },
+  const navigate = useNavigate();
 
-    {
-      id: 3,
-      image: product3,
-      discount: "-45%",
-      title:
-        "Brass Om Engraved Pooja Thali Set (10 Inch)",
-      price: "₹ 3,549.00",
-      oldPrice: "₹ 6,499.00",
-      reviews: "1 review",
-    },
+  /* ================= PRODUCT ID ================= */
 
-    {
-      id: 4,
-      image: product4,
-      discount: "-19%",
-      title:
-        "Brass Designer Meenakari Pooja Thali (10 Inch)",
-      price: "₹ 4,449.00",
-      oldPrice: "₹ 5,499.00",
-      reviews: "1 review",
-    },
+  const { id } = useParams();
 
-    {
-      id: 5,
-      image: product1,
-      discount: "-32%",
-      title:
-        "Luxury Brass Pooja Decor Set",
-      price: "₹ 5,249.00",
-      oldPrice: "₹ 7,299.00",
-      reviews: "2 reviews",
-    },
+  /* ================= STATES ================= */
 
-    {
-      id: 6,
-      image: product3,
-      discount: "-15%",
-      title:
-        "Traditional Floral Brass Plate",
-      price: "₹ 3,999.00",
-      oldPrice: "₹ 4,999.00",
-      reviews: "3 reviews",
-    },
-  ];
+  const [products, setProducts] =
+    useState([]);
 
   const [wishlist, setWishlist] =
     useState([]);
 
+  const [loading, setLoading] =
+    useState(true);
+
+  /* ================= FETCH PRODUCTS ================= */
+
+  useEffect(() => {
+
+    const fetchProducts = async () => {
+
+      try {
+
+        const res = await API.get(
+          "/products"
+        );
+
+        if (
+          res.data.success
+        ) {
+
+          /* REMOVE CURRENT PRODUCT */
+
+          const filteredProducts =
+            res.data.data.filter(
+              (item) =>
+                item._id !== id
+            );
+
+          setProducts(
+            filteredProducts
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Failed to fetch products",
+          error
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
+
+    fetchProducts();
+
+  }, [id]);
+
+  /* ================= WISHLIST ================= */
+
   const toggleWishlist = (id) => {
 
-    if (wishlist.includes(id)) {
+    if (
+      wishlist.includes(id)
+    ) {
+
       setWishlist(
         wishlist.filter(
-          (item) => item !== id
+          (item) =>
+            item !== id
         )
       );
+
     } else {
-      setWishlist([...wishlist, id]);
+
+      setWishlist([
+        ...wishlist,
+        id,
+      ]);
+
     }
   };
+
+  /* ================= SLIDER ================= */
 
   const scrollLeft = () => {
 
@@ -113,6 +131,7 @@ const ShopDetailsYoumight = () => {
         left: -400,
         behavior: "smooth",
       });
+
   };
 
   const scrollRight = () => {
@@ -125,20 +144,43 @@ const ShopDetailsYoumight = () => {
         left: 400,
         behavior: "smooth",
       });
+
   };
+
+  /* ================= LOADING ================= */
+
+  if (loading) {
+
+    return (
+      <div
+        style={{
+          textAlign:
+            "center",
+          padding: "20px",
+        }}
+      >
+
+        Loading...
+
+      </div>
+    );
+
+  }
 
   return (
     <section className="shopdetailsyoumight">
 
-      {/* TOP */}
+      {/* ================= TOP ================= */}
 
       <div className="shopdetailsyoumight__top">
 
         <h2 className="shopdetailsyoumight__heading">
+
           You Might Also Like
+
         </h2>
 
-        {/* ARROWS */}
+        {/* ================= ARROWS ================= */}
 
         <div className="shopdetailsyoumight__arrowRow">
 
@@ -146,134 +188,212 @@ const ShopDetailsYoumight = () => {
             className="shopdetailsyoumight__arrow"
             onClick={scrollLeft}
           >
+
             <FaChevronLeft />
+
           </button>
 
           <button
             className="shopdetailsyoumight__arrow"
             onClick={scrollRight}
           >
+
             <FaChevronRight />
+
           </button>
 
         </div>
+
       </div>
 
-      {/* PRODUCTS */}
+      {/* ================= PRODUCTS ================= */}
 
       <div
         className="shopdetailsyoumight__slider"
         id="shopdetailsyoumight__slider"
       >
 
-        {products.map((item) => (
+        {products.map(
+          (item) => {
 
-          <div
-            className="shopdetailsyoumight__card"
-            key={item.id}
-          >
+            const price =
+              item.price || 0;
 
-            {/* IMAGE */}
+            const discount =
+              item.discount || 0;
 
-            <div className="shopdetailsyoumight__imageWrapper">
+            const finalPrice =
+              discount > 0
+                ? price -
+                  (
+                    price *
+                    discount
+                  ) /
+                    100
+                : price;
 
-              <img
-                src={item.image}
-                alt={item.title}
-                className="shopdetailsyoumight__image"
-              />
+            return (
 
-              {/* DISCOUNT */}
+              <div
+                className="shopdetailsyoumight__card"
+                key={item._id}
+              >
 
-              <span className="shopdetailsyoumight__discount">
-                {item.discount}
-              </span>
+                {/* ================= IMAGE ================= */}
 
-              {/* SIDE ICONS */}
+                <div className="shopdetailsyoumight__imageWrapper">
 
-              <div className="shopdetailsyoumight__icons">
+                  <img
+                    src={
+                      item.images?.[0]
+                        ? `${IMG_URL}${item.images[0]}`
+                        : "/no-image.png"
+                    }
+                    alt={
+                      item.title
+                    }
+                    className="shopdetailsyoumight__image"
+                    onClick={() =>
+                      navigate(
+                        `/shopdetails/${item._id}`
+                      )
+                    }
+                  />
 
-                <button
-                  className={`shopdetailsyoumight__icon ${
-                    wishlist.includes(
-                      item.id
-                    )
-                      ? "shopdetailsyoumight__iconActive"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    toggleWishlist(
-                      item.id
-                    )
-                  }
-                >
-                  <FaHeart />
-                </button>
+                  {/* ================= DISCOUNT ================= */}
 
-                <button className="shopdetailsyoumight__icon">
-                  <FaEye />
-                </button>
+                  {discount >
+                    0 && (
 
-              </div>
+                    <span className="shopdetailsyoumight__discount">
 
-              {/* QUICK ADD */}
+                      -{discount}%
 
-              <button className="shopdetailsyoumight__quickBtn">
-                QUICK ADD
-              </button>
+                    </span>
+                  )}
 
-            </div>
+                  {/* ================= SIDE ICONS ================= */}
 
-            {/* CONTENT */}
+                  <div className="shopdetailsyoumight__icons">
 
-            <div className="shopdetailsyoumight__content">
+                    <button
+                      className={`shopdetailsyoumight__icon ${
+                        wishlist.includes(
+                          item._id
+                        )
+                          ? "shopdetailsyoumight__iconActive"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        toggleWishlist(
+                          item._id
+                        )
+                      }
+                    >
 
-              <h3 className="shopdetailsyoumight__title">
-                {item.title}
-              </h3>
+                      <FaHeart />
 
-              {/* RATING */}
+                    </button>
 
-              <div className="shopdetailsyoumight__rating">
+                    <button className="shopdetailsyoumight__icon">
 
-                <span>
-                  5.0
-                </span>
+                      <FaEye />
 
-                <div className="shopdetailsyoumight__stars">
+                    </button>
 
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaRegStar />
+                  </div>
+
+                  {/* ================= QUICK ADD ================= */}
+
+                  <button className="shopdetailsyoumight__quickBtn">
+
+                    QUICK ADD
+
+                  </button>
 
                 </div>
 
-                <p>
-                  {item.reviews}
-                </p>
+                {/* ================= CONTENT ================= */}
+
+                <div className="shopdetailsyoumight__content">
+
+                  {/* ================= TITLE ================= */}
+
+                  <h3
+                    className="shopdetailsyoumight__title"
+                    onClick={() =>
+                      navigate(
+                        `/shopdetails/${item._id}`
+                      )
+                    }
+                  >
+
+                    {item.title}
+
+                  </h3>
+
+                  {/* ================= RATING ================= */}
+
+                  <div className="shopdetailsyoumight__rating">
+
+                    <span>
+
+                      {item.rating ||
+                        0}
+
+                    </span>
+
+                    <div className="shopdetailsyoumight__stars">
+
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaRegStar />
+
+                    </div>
+
+                    <p>
+
+                      1 review
+
+                    </p>
+
+                  </div>
+
+                  {/* ================= PRICE ================= */}
+
+                  <div className="shopdetailsyoumight__priceRow">
+
+                    <span className="shopdetailsyoumight__price">
+
+                      ₹
+                      {finalPrice}
+
+                    </span>
+
+                    {discount >
+                      0 && (
+
+                      <span className="shopdetailsyoumight__oldPrice">
+
+                        ₹
+                        {price}
+
+                      </span>
+                    )}
+
+                  </div>
+
+                </div>
 
               </div>
+            );
+          }
+        )}
 
-              {/* PRICE */}
-
-              <div className="shopdetailsyoumight__priceRow">
-
-                <span className="shopdetailsyoumight__price">
-                  {item.price}
-                </span>
-
-                <span className="shopdetailsyoumight__oldPrice">
-                  {item.oldPrice}
-                </span>
-
-              </div>
-
-            </div>
-          </div>
-        ))}
       </div>
+
     </section>
   );
 };

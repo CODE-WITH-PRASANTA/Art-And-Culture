@@ -1,6 +1,10 @@
 // ShopDetailsSwitchbar.jsx
 
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import "./ShopDetailsSwitchbar.css";
 
 import {
@@ -12,78 +16,103 @@ import {
   FaMinus,
 } from "react-icons/fa";
 
+import API from "../../api/axios";
+
+import { useParams } from "react-router-dom";
+
 const ShopDetailsSwitchbar = () => {
+
+  /* ================= PRODUCT ID ================= */
+
+  const { id } = useParams();
+
+  /* ================= STATES ================= */
 
   const [activeTab, setActiveTab] =
     useState("about");
 
   const [openFaq, setOpenFaq] =
-    useState(2);
+    useState(0);
 
-  const faqData = [
-    {
-      question:
-        "How long does it take to receive my order?",
-      answer:
-        "Orders are usually delivered within 3-7 business days depending on your location.",
-    },
+  const [product, setProduct] =
+    useState(null);
 
-    {
-      question:
-        "How do I track my order status?",
-      answer:
-        "After dispatch, you will receive a tracking link via SMS and email.",
-    },
+  const [loading, setLoading] =
+    useState(true);
 
-    {
-      question:
-        "What is your return policy?",
-      answer:
-        "We offer easy 7-day returns for damaged or defective products.",
-    },
+  /* ================= FETCH PRODUCT ================= */
 
-    {
-      question:
-        "Can I change my shipping address after placing an order?",
-      answer:
-        "Yes, address changes are possible before your order is shipped.",
-    },
+useEffect(() => {
 
-    {
-      question:
-        "Is my payment information stored securely?",
-      answer:
-        "Yes, all payment transactions are encrypted and 100% secure.",
-    },
+  if (!id) {
+    setLoading(false);
+    return;
+  }
 
-    {
-      question:
-        "Are the products handmade or machine-made?",
-      answer:
-        "Most of our brass pooja products are handcrafted by skilled artisans.",
-    },
+  const fetchProduct = async () => {
 
-    {
-      question:
-        "What payment methods do you accept?",
-      answer:
-        "We accept UPI, Cards, Net Banking, Wallets, and Cash on Delivery.",
-    },
+    try {
 
-    {
-      question:
-        "I want to order in bulk; can I get a discount?",
-      answer:
-        "Yes, bulk order discounts are available for large quantity purchases.",
-    },
-  ];
+      const res = await API.get(
+        `/products/${id}`
+      );
+
+      setProduct(res.data.data);
+
+    } catch (error) {
+
+      console.error(
+        "Failed to fetch product",
+        error
+      );
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
+
+  fetchProduct();
+
+}, [id]);
+
+  /* ================= LOADING ================= */
+
+  if (loading) {
+
+    return (
+      <div className="shopdetailsswitchbar__loading">
+
+        Loading...
+
+      </div>
+    );
+
+  }
+
+  /* ================= NO PRODUCT ================= */
+
+  if (!product) {
+
+    return (
+      <div className="shopdetailsswitchbar__loading">
+
+        Product Not Found
+
+      </div>
+    );
+
+  }
 
   return (
     <section className="shopdetailsswitchbar">
 
-      {/* TOP NAVIGATION */}
+      {/* ================= TOP NAVIGATION ================= */}
 
       <div className="shopdetailsswitchbar__tabs">
+
+        {/* ABOUT */}
 
         <button
           className={`shopdetailsswitchbar__tab ${
@@ -95,9 +124,14 @@ const ShopDetailsSwitchbar = () => {
             setActiveTab("about")
           }
         >
+
           <FaRegFileAlt />
+
           About the Product
+
         </button>
+
+        {/* SIZE */}
 
         <button
           className={`shopdetailsswitchbar__tab ${
@@ -109,9 +143,14 @@ const ShopDetailsSwitchbar = () => {
             setActiveTab("size")
           }
         >
+
           <FaCube />
+
           Size & Weight
+
         </button>
+
+        {/* MATERIAL */}
 
         <button
           className={`shopdetailsswitchbar__tab ${
@@ -123,9 +162,14 @@ const ShopDetailsSwitchbar = () => {
             setActiveTab("material")
           }
         >
+
           <FaLayerGroup />
+
           Product Material
+
         </button>
+
+        {/* FAQ */}
 
         <button
           className={`shopdetailsswitchbar__tab ${
@@ -137,232 +181,336 @@ const ShopDetailsSwitchbar = () => {
             setActiveTab("faq")
           }
         >
+
           <FaQuestionCircle />
+
           FAQs
+
         </button>
 
       </div>
 
-      {/* ABOUT */}
+      {/* ================= ABOUT ================= */}
 
       {activeTab === "about" && (
+
         <div className="shopdetailsswitchbar__content">
 
           <div className="shopdetailsswitchbar__heading">
+
             <FaRegFileAlt />
+
             <h2>
               About the Product
             </h2>
-          </div>
-
-          <div className="shopdetailsswitchbar__body">
-
-            <p>
-              Immerse yourself in the rich
-              traditions of Indian rituals
-              with our Floral Intricate
-              <strong>
-                {" "}
-                Meenakari Work Brass
-                Pooja Thali Set.
-              </strong>
-            </p>
-
-            <p>
-              <strong>
-                Brass Floral Intricate
-                Thali:
-              </strong>{" "}
-              The stunning centerpiece of
-              this set is adorned with
-              intricate floral patterns
-              symbolizing purity and divine
-              blessings.
-            </p>
-
-            <p>
-              <strong>
-                Brass Diya:
-              </strong>{" "}
-              Illuminate your sacred space
-              with the mesmerizing glow of
-              the brass diya.
-            </p>
-
-            <p>
-              <strong>
-                Brass Agarbatti Holder:
-              </strong>{" "}
-              Designed to hold incense and
-              add tranquility to your
-              rituals.
-            </p>
-
-            <p>
-              <strong>
-                Brass Pooja Ghanti:
-              </strong>{" "}
-              Gentle chimes create positive
-              vibrations in your sacred
-              space.
-            </p>
-
-            <p>
-              Experience the divine beauty
-              and heritage of Indian
-              spirituality with our luxury
-              pooja thali collection.
-            </p>
 
           </div>
+
+          <div
+            className="shopdetailsswitchbar__body"
+            dangerouslySetInnerHTML={{
+           __html:
+            product.aboutProduct ||
+              "No product details available",
+          }}
+          />
+
         </div>
       )}
 
-      {/* SIZE */}
+      {/* ================= SIZE ================= */}
 
       {activeTab === "size" && (
+
         <div className="shopdetailsswitchbar__content">
 
           <div className="shopdetailsswitchbar__heading">
+
             <FaCube />
+
             <h2>
               Size & Weight
             </h2>
+
           </div>
 
           <div className="shopdetailsswitchbar__body">
 
+            {/* SIZE */}
+
             <h3>
-              (Diameter)
+              Size Details
             </h3>
 
             <ul>
-              <li>
-                25.5 cms
-              </li>
 
-              <li>
-                10 inches
-              </li>
+              {product.sizes?.height && (
+
+                <li>
+                  Height :
+                  {" "}
+                  {product.sizes.height}
+                </li>
+              )}
+
+              {product.sizes?.width && (
+
+                <li>
+                  Width :
+                  {" "}
+                  {product.sizes.width}
+                </li>
+              )}
+
+              {product.sizes?.weight && (
+
+                <li>
+                  Weight :
+                  {" "}
+                  {product.sizes.weight}
+                </li>
+              )}
+
+              {product.sizes?.diameter && (
+
+                <li>
+                  Diameter :
+                  {" "}
+                  {product.sizes.diameter}
+                </li>
+              )}
+
+              {product.sizes?.inches && (
+
+                <li>
+                  Inches :
+                  {" "}
+                  {product.sizes.inches}
+                </li>
+              )}
+
             </ul>
 
+            {/* WEIGHT DETAILS */}
+
             <h3>
-              Weight
+              Weight Details
             </h3>
 
             <ul>
-              <li>
-                Thali : 790 Grams
-              </li>
 
-              <li>
-                Diya : 90 Grams
-              </li>
+              {product.weightDetails
+                ?.thali && (
 
-              <li>
-                Incense Holder : 74 Grams
-              </li>
+                <li>
+                  Thali :
+                  {" "}
+                  {
+                    product
+                      .weightDetails
+                      .thali
+                  }
+                </li>
+              )}
 
-              <li>
-                Bell : 124 Grams
-              </li>
+              {product.weightDetails
+                ?.diya && (
 
-              <li>
-                Small Bowl : 52 Grams
-              </li>
+                <li>
+                  Diya :
+                  {" "}
+                  {
+                    product
+                      .weightDetails
+                      .diya
+                  }
+                </li>
+              )}
 
-              <li>
-                Kalash : 169 Grams
-              </li>
+              {product.weightDetails
+                ?.incenseHolder && (
+
+                <li>
+                  Incense Holder :
+                  {" "}
+                  {
+                    product
+                      .weightDetails
+                      .incenseHolder
+                  }
+                </li>
+              )}
+
+              {product.weightDetails
+                ?.bell && (
+
+                <li>
+                  Bell :
+                  {" "}
+                  {
+                    product
+                      .weightDetails
+                      .bell
+                  }
+                </li>
+              )}
+
+              {product.weightDetails
+                ?.bowl && (
+
+                <li>
+                  Bowl :
+                  {" "}
+                  {
+                    product
+                      .weightDetails
+                      .bowl
+                  }
+                </li>
+              )}
+
+              {product.weightDetails
+                ?.kalash && (
+
+                <li>
+                  Kalash :
+                  {" "}
+                  {
+                    product
+                      .weightDetails
+                      .kalash
+                  }
+                </li>
+              )}
+
             </ul>
 
           </div>
+
         </div>
       )}
 
-      {/* MATERIAL */}
+      {/* ================= MATERIAL ================= */}
 
       {activeTab === "material" && (
+
         <div className="shopdetailsswitchbar__content">
 
           <div className="shopdetailsswitchbar__heading">
+
             <FaLayerGroup />
+
             <h2>
               Product Material
             </h2>
+
           </div>
 
           <div className="shopdetailsswitchbar__body">
 
             <p>
-              This intricate thali set is
-              crafted from premium quality
-              brass with luxurious
-              meenakari finishing.
+
+              {product.productMaterial ||
+                "No material details available"}
+
             </p>
 
           </div>
+
         </div>
       )}
 
-      {/* FAQ */}
+      {/* ================= FAQ ================= */}
 
       {activeTab === "faq" && (
+
         <div className="shopdetailsswitchbar__content">
 
           <div className="shopdetailsswitchbar__faqTitle">
+
             Frequently Asked Questions
+
           </div>
 
           <div className="shopdetailsswitchbar__faqWrapper">
 
-            {faqData.map((item, index) => (
+            {product.faqs &&
+            product.faqs.length > 0 ? (
 
-              <div
-                className="shopdetailsswitchbar__faqItem"
-                key={index}
-              >
+              product.faqs.map(
+                (item, index) => (
 
-                <div
-                  className="shopdetailsswitchbar__faqQuestion"
-                  onClick={() =>
-                    setOpenFaq(
-                      openFaq === index
-                        ? null
-                        : index
-                    )
-                  }
-                >
+                  <div
+                    className="shopdetailsswitchbar__faqItem"
+                    key={index}
+                  >
 
-                  <div className="shopdetailsswitchbar__faqLeft">
+                    {/* QUESTION */}
 
-                    <FaQuestionCircle />
+                    <div
+                      className="shopdetailsswitchbar__faqQuestion"
+                      onClick={() =>
+                        setOpenFaq(
+                          openFaq ===
+                            index
+                            ? null
+                            : index
+                        )
+                      }
+                    >
 
-                    <span>
-                      {item.question}
-                    </span>
+                      <div className="shopdetailsswitchbar__faqLeft">
+
+                        <FaQuestionCircle />
+
+                        <span>
+                          {item.question}
+                        </span>
+
+                      </div>
+
+                      {openFaq ===
+                      index ? (
+
+                        <FaMinus />
+
+                      ) : (
+
+                        <FaPlus />
+
+                      )}
+
+                    </div>
+
+                    {/* ANSWER */}
+
+                    {openFaq ===
+                      index && (
+
+                      <div className="shopdetailsswitchbar__faqAnswer">
+
+                        {item.answer}
+
+                      </div>
+                    )}
 
                   </div>
+                )
+              )
 
-                  {openFaq === index ? (
-                    <FaMinus />
-                  ) : (
-                    <FaPlus />
-                  )}
-                </div>
+            ) : (
 
-                {openFaq === index && (
-                  <div className="shopdetailsswitchbar__faqAnswer">
-                    {item.answer}
-                  </div>
-                )}
+              <p>
+                No FAQs available
+              </p>
 
-              </div>
-            ))}
+            )}
 
           </div>
+
         </div>
       )}
+
     </section>
   );
 };
