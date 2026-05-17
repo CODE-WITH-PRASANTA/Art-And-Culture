@@ -44,14 +44,6 @@ const LoginForm = () => {
   // ================= PAGE LOAD =================
 
   useEffect(() => {
-    // ALWAYS CLEAR OLD LOGIN
-    localStorage.removeItem(
-      "adminAuth"
-    );
-
-    localStorage.removeItem(
-      "adminUser"
-    );
 
     const timer = setTimeout(() => {
       setAnimate(true);
