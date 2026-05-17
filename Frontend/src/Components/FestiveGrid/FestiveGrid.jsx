@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./FestiveGrid.css";
 
@@ -82,6 +83,8 @@ const Icon = ({ name, size = 18, className = "" }) => {
 ===================================================== */
 
 const FestiveGrid = () => {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -93,6 +96,15 @@ const FestiveGrid = () => {
   const [view, setView] = useState("list");
 
   const [flipped, setFlipped] = useState({});
+
+  const [activeImages, setActiveImages] = useState({});
+
+  const changeImage = (id, index) => {
+    setActiveImages((prev) => ({
+      ...prev,
+      [id]: index,
+    }));
+  };
 
   const containerRef = useRef(null);
 
@@ -112,25 +124,37 @@ const FestiveGrid = () => {
         const mapped = res.data.data.map((item) => ({
           ...item,
 
-          img: `${IMG_URL}${item.image}`,
+          /* MULTIPLE IMAGES */
+          images: item.images?.map((img) => `${IMG_URL}${img}`) || [],
 
-          old: item.oldPrice,
+          old: item.oldPrice || 0,
 
           reviews: Math.floor(Math.random() * 50) + 1,
 
-          discount: item.oldPrice
-            ? `-${Math.round(
-                ((item.oldPrice - item.price) / item.oldPrice) * 100,
-              )}%`
-            : "-10%",
+          discount:
+            item.oldPrice > item.price
+              ? `-${Math.round(
+                  ((item.oldPrice - item.price) / item.oldPrice) * 100,
+                )}%`
+              : "",
 
-          size: item.size || "1-5",
+          size: item.size || "N/A",
+
+          weight: item.weight || "N/A",
 
           purpose: item.category || "Pooja",
 
-          material: item.material || "Premium Resin",
+          material: item.material || "Premium Material",
 
           inStock: item.stock > 0,
+
+          /* REMOVE HTML */
+          cleanDescription:
+            item.description
+              ?.replace(/<[^>]+>/g, " ")
+              .replace(/&nbsp;/g, " ")
+              .replace(/\s+/g, " ")
+              .trim() || "",
         }));
 
         setProducts(mapped);
@@ -344,15 +368,49 @@ const FestiveGrid = () => {
 
         <div className="festivegrid-list">
           {filtered.map((p) => (
-            <article key={p._id} className="festivegrid-product-row">
-              <div className="festivegrid-product-media">
-                <img src={p.img} alt={p.title} />
+            <article
+              key={p._id}
+              className="festivegrid-product-row"
+              onClick={() => navigate(`/poojadetails/${p._id}`)}
+            >
+              {/* IMAGE */}
 
-                <span className="festivegrid-discount-pill">{p.discount}</span>
+              <div className="festivegrid-product-media">
+                <img
+                  src={p.images?.[activeImages[p._id] || 0] || "/no-image.png"}
+                  alt={p.title}
+                />
+
+                {p.discount && (
+                  <span className="festivegrid-discount-pill">
+                    {p.discount}
+                  </span>
+                )}
+
+                {/* DOTS */}
+
+                {p.images?.length > 1 && (
+                  <div className="festivegrid-imageDots">
+                    {p.images.map((_, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        className={`festivegrid-imageDot ${
+                          (activeImages[p._id] || 0) === index ? "active" : ""
+                        }`}
+                        onClick={() => changeImage(p._id, index)}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
+
+              {/* CONTENT */}
 
               <div className="festivegrid-product-body">
                 <h3 className="festivegrid-product-title">{p.title}</h3>
+
+                {/* META */}
 
                 <div className="festivegrid-product-meta">
                   <div className="festivegrid-rating">
@@ -361,20 +419,54 @@ const FestiveGrid = () => {
                     <span>{p.rating}</span>
 
                     <small>{p.reviews} reviews</small>
+
+                    {/* STOCK */}
+
+                    <div
+                      className={`festivegrid-stock ${
+                        p.inStock ? "in-stock" : "out-stock"
+                      }`}
+                    >
+                      {p.inStock ? `In Stock (${p.stock})` : "Out Of Stock"}
+                    </div>
                   </div>
+
+                  {/* PRICE */}
 
                   <div className="festivegrid-price-line">
                     <span className="festivegrid-current">
                       ₹{p.price.toLocaleString()}
                     </span>
 
-                    <span className="festivegrid-old">
-                      ₹{p.old.toLocaleString()}
-                    </span>
+                    {p.old > 0 && (
+                      <span className="festivegrid-old">
+                        ₹{p.old.toLocaleString()}
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <p className="festivegrid-desc">{p.description}</p>
+                {/* DESCRIPTION */}
+
+                <p className="festivegrid-desc">{p.cleanDescription}</p>
+
+                {/* EXTRA */}
+
+                <div className="festivegrid-extraInfo">
+                  <span>
+                    <strong>Material:</strong> {p.material}
+                  </span>
+
+                  <span>
+                    <strong>Size:</strong> {p.size}
+                  </span>
+
+                  <span>
+                    <strong>Weight:</strong> {p.weight}
+                  </span>
+                </div>
+
+                {/* CTA */}
 
                 <div className="festivegrid-product-ctas">
                   <button className="festivegrid-btn-quick">QUICK ADD</button>

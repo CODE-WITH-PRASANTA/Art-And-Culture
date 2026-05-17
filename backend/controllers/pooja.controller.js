@@ -1,5 +1,4 @@
 const fs = require("fs");
-
 const path = require("path");
 
 const Pooja = require("../models/pooja.model");
@@ -8,15 +7,8 @@ const Pooja = require("../models/pooja.model");
    CREATE
 ===================================================== */
 
-exports.createPooja = async (
-  req,
-  res
-) => {
+exports.createPooja = async (req, res) => {
   try {
-    console.log("BODY :", req.body);
-
-    console.log("FILE :", req.file);
-
     const {
       title,
       category,
@@ -25,41 +17,57 @@ exports.createPooja = async (
       stock,
       rating,
       description,
+      size,
+      weight,
+      material,
+      faqs,
     } = req.body;
 
-    /* IMAGE REQUIRED */
+    /* IMAGES REQUIRED */
 
-    if (!req.file) {
+    if (!req.files || req.files.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "Image is required",
+        message: "At least one image is required",
       });
     }
 
-    const newPooja =
-      await Pooja.create({
-        title,
-        category,
-        price,
-        oldPrice,
-        stock,
-        rating,
-        description,
+    /* MULTIPLE IMAGE PATHS */
 
-        image: `/uploads/pooja/${req.file.filename}`,
-      });
+    const imagePaths = req.convertedImages.map(
+      (file) => `/uploads/pooja/${file.filename}`
+    );
+
+    /* FAQ PARSE */
+
+    let parsedFaqs = [];
+
+    if (faqs) {
+      parsedFaqs = JSON.parse(faqs);
+    }
+
+    const newPooja = await Pooja.create({
+      title,
+      category,
+      price,
+      oldPrice,
+      stock,
+      rating,
+      description,
+      size,
+      weight,
+      material,
+      faqs: parsedFaqs,
+      images: imagePaths,
+    });
 
     res.status(201).json({
       success: true,
-      message:
-        "Pooja Product Created",
+      message: "Pooja Product Created",
       data: newPooja,
     });
   } catch (error) {
-    console.log(
-      "CREATE ERROR :",
-      error
-    );
+    console.log("CREATE ERROR :", error);
 
     res.status(500).json({
       success: false,
@@ -74,15 +82,11 @@ exports.createPooja = async (
    GET ALL
 ===================================================== */
 
-exports.getAllPooja = async (
-  req,
-  res
-) => {
+exports.getAllPooja = async (req, res) => {
   try {
-    const products =
-      await Pooja.find().sort({
-        createdAt: -1,
-      });
+    const products = await Pooja.find().sort({
+      createdAt: -1,
+    });
 
     res.status(200).json({
       success: true,
@@ -93,8 +97,7 @@ exports.getAllPooja = async (
 
     res.status(500).json({
       success: false,
-      message:
-        "Failed to fetch products",
+      message: "Failed to fetch products",
     });
   }
 };
@@ -103,36 +106,35 @@ exports.getAllPooja = async (
    GET SINGLE
 ===================================================== */
 
-exports.getSinglePooja =
-  async (req, res) => {
-    try {
-      const product =
-        await Pooja.findById(
-          req.params.id
-        );
+exports.getSinglePooja = async (
+  req,
+  res
+) => {
+  try {
+    const product = await Pooja.findById(
+      req.params.id
+    );
 
-      if (!product) {
-        return res.status(404).json({
-          success: false,
-          message:
-            "Product not found",
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        data: product,
-      });
-    } catch (error) {
-      console.log(error);
-
-      res.status(500).json({
+    if (!product) {
+      return res.status(404).json({
         success: false,
-        message:
-          "Failed to fetch product",
+        message: "Product not found",
       });
     }
-  };
+
+    res.status(200).json({
+      success: true,
+      data: product,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch product",
+    });
+  }
+};
 
 /* =====================================================
    UPDATE
@@ -143,16 +145,14 @@ exports.updatePooja = async (
   res
 ) => {
   try {
-    const product =
-      await Pooja.findById(
-        req.params.id
-      );
+    const product = await Pooja.findById(
+      req.params.id
+    );
 
     if (!product) {
       return res.status(404).json({
         success: false,
-        message:
-          "Product not found",
+        message: "Product not found",
       });
     }
 
@@ -164,31 +164,48 @@ exports.updatePooja = async (
       stock,
       rating,
       description,
+      size,
+      weight,
+      material,
+      faqs,
     } = req.body;
 
-    /* UPDATE IMAGE */
+    /* UPDATE IMAGES */
 
-    if (req.file) {
-      /* DELETE OLD IMAGE */
+    if (req.files && req.files.length > 0) {
+      /* DELETE OLD IMAGES */
 
-      if (product.image) {
-        const oldImagePath =
-          path.join(
+      if (
+        product.images &&
+        product.images.length > 0
+      ) {
+        product.images.forEach((img) => {
+          const oldImagePath = path.join(
             __dirname,
             "..",
-            product.image
+            img
           );
 
-        if (
-          fs.existsSync(oldImagePath)
-        ) {
-          fs.unlinkSync(
-            oldImagePath
-          );
-        }
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath);
+          }
+        });
       }
 
-      product.image = `/uploads/pooja/${req.file.filename}`;
+      /* SAVE NEW IMAGES */
+
+      product.images = req.convertedImages.map(
+        (file) =>
+          `/uploads/pooja/${file.filename}`
+      );
+    }
+
+    /* FAQ PARSE */
+
+    let parsedFaqs = [];
+
+    if (faqs) {
+      parsedFaqs = JSON.parse(faqs);
     }
 
     /* UPDATE DATA */
@@ -199,8 +216,11 @@ exports.updatePooja = async (
     product.oldPrice = oldPrice;
     product.stock = stock;
     product.rating = rating;
-    product.description =
-      description;
+    product.description = description;
+    product.size = size;
+    product.weight = weight;
+    product.material = material;
+    product.faqs = parsedFaqs;
 
     await product.save();
 
@@ -211,10 +231,7 @@ exports.updatePooja = async (
       data: product,
     });
   } catch (error) {
-    console.log(
-      "UPDATE ERROR :",
-      error
-    );
+    console.log("UPDATE ERROR :", error);
 
     res.status(500).json({
       success: false,
@@ -234,33 +251,34 @@ exports.deletePooja = async (
   res
 ) => {
   try {
-    const product =
-      await Pooja.findById(
-        req.params.id
-      );
+    const product = await Pooja.findById(
+      req.params.id
+    );
 
     if (!product) {
       return res.status(404).json({
         success: false,
-        message:
-          "Product not found",
+        message: "Product not found",
       });
     }
 
-    /* DELETE IMAGE */
+    /* DELETE ALL IMAGES */
 
-    if (product.image) {
-      const imagePath = path.join(
-        __dirname,
-        "..",
-        product.image
-      );
+    if (
+      product.images &&
+      product.images.length > 0
+    ) {
+      product.images.forEach((img) => {
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          img
+        );
 
-      if (
-        fs.existsSync(imagePath)
-      ) {
-        fs.unlinkSync(imagePath);
-      }
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
+      });
     }
 
     await product.deleteOne();
@@ -271,10 +289,7 @@ exports.deletePooja = async (
         "Product Deleted Successfully",
     });
   } catch (error) {
-    console.log(
-      "DELETE ERROR :",
-      error
-    );
+    console.log("DELETE ERROR :", error);
 
     res.status(500).json({
       success: false,

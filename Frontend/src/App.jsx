@@ -21,6 +21,9 @@ import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./Components/Termandcondition/Termandcondition";
 import OrderHistory from "./Pages/OrderHistory/OrderHistory";
 import CheckOut from "./Pages/CheckOut/CheckOut";
+import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
+import ShopDetails from "./Pages/ShopDetails/ShopDetails";
+import Carts from "./Pages/Carts/Carts";
 
 function App() {
   return (
@@ -34,7 +37,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
-         <Route path="/blog/:id" element={<BlogDetailsSection />} />
+          <Route path="/blog/:id" element={<BlogDetailsSection />} />
 
           <Route path="/best-sellers" element={<BestSelling />} />
 
@@ -53,6 +56,12 @@ function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/orderconfirm" element={<OrderConfirm />} />
           <Route path="/ordershistory" element={<OrderHistory />} />
+          <Route path="/poojadetails" element={<PoojaDetails/>}/>
+          <Route path="/shopdetails/:id" element={<ShopDetails />}/>
+          <Route path="/poojadetails/:id" element={<PoojaDetails />} />
+          <Route path="/cart" element={<Carts />} />
+          <Route path="/shopdetails" element={<ShopDetails/>}/>
+          <Route path="/cart" element={<Carts/>}/>
         </Routes>
       </main>
 

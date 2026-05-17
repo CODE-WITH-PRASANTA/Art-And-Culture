@@ -1,71 +1,114 @@
 import React from "react";
 import "./Kindergartensection.css";
 
-import img1 from "../../assets/k-1.webp";
-import img2 from "../../assets/k-2.webp";
-import img3 from "../../assets/k-3.webp";
-import img4 from "../../assets/k-4.webp";
+import {
+  Sparkles,
+  HeartHandshake,
+  Hammer,
+  BadgeCheck,
+} from "lucide-react";
 
-export default function TimelineHistory() {
-  const items = [
-    {
-      year: "1994",
-      title: "Opened Its Doors",
-      desc:
-        "We are constantly expanding the range of services offered, taking children of all ages. Our goal is to carefully educat.",
-      img: img1,
-    },
-    {
-      year: "2001",
-      title: "High School Physics",
-      desc:
-        "We are constantly expanding the range of services offered, taking children of all ages. Our goal is to carefully educat.",
-      img: img2,
-    },
-    {
-      year: "2008",
-      title: "Get Ready For 6th Grade",
-      desc:
-        "We are constantly expanding the range of services offered, taking children of all ages. Our goal is to carefully educat.",
-      img: img3,
-    },
-    {
-      year: "2014",
-      title: "Internet Safety",
-      desc:
-        "We are constantly expanding the range of services offered, taking children of all ages. Our goal is to carefully educat.",
-      img: img4,
-    },
-  ];
-
+const Kindergartensection = () => {
   return (
-    <section className="th-root" aria-labelledby="th-heading">
-      <div className="th-inner">
-        <div className="th-top">
-          <div className="th-small">Kindergarten Schedule</div>
-          <h2 id="th-heading" className="th-title">Kindergarten History</h2>
-        </div>
+    <section className="kindergartenSection">
 
-        <div className="th-timeline-wrapper">
-          <div className="th-timeline">
-            {items.map((it, idx) => (
-              <div key={idx} className="th-col">
-                <div className="th-year">{it.year}</div>
-                <h3 className="th-col-title">{it.title}</h3>
-                <p className="th-desc">{it.desc}</p>
+      {/* TOP CONTENT */}
+      <div className="kindergartenSection__top">
 
-                <div
-                  className="th-image-wrap"
-                  tabIndex={0} /* make focusable for keyboard users */
-                  aria-label={`${it.title} image`}
-                >
-                  <img src={it.img} alt={it.title} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <span className="kindergartenSection__tag">
+          OUR VALUES
+        </span>
+
+        <h2 className="kindergartenSection__title">
+          Our Commitment
+        </h2>
+
+        <p className="kindergartenSection__subtitle">
+          Every creation reflects our dedication to meaningful design,
+          timeless craftsmanship, and creating a positive impact.
+        </p>
+
       </div>
+
+      {/* CARDS */}
+      <div className="kindergartenSection__grid">
+
+        {/* CARD 1 */}
+        <div className="kindergartenSection__card">
+
+          <div className="kindergartenSection__iconWrap">
+            <Sparkles className="kindergartenSection__icon" />
+          </div>
+
+          <h3 className="kindergartenSection__cardTitle">
+            Positive Energy
+          </h3>
+
+          <p className="kindergartenSection__cardText">
+            Creating objects that carry positivity,
+            warmth, and purposeful meaning.
+          </p>
+
+        </div>
+
+        {/* CARD 2 */}
+        <div className="kindergartenSection__card">
+
+          <div className="kindergartenSection__iconWrap">
+            <HeartHandshake className="kindergartenSection__icon" />
+          </div>
+
+          <h3 className="kindergartenSection__cardTitle">
+            Community Support
+          </h3>
+
+          <p className="kindergartenSection__cardText">
+            Supporting communities through
+            meaningful and impactful initiatives.
+          </p>
+
+        </div>
+
+        {/* CARD 3 */}
+        <div className="kindergartenSection__card">
+
+          <div className="kindergartenSection__iconWrap">
+            <Hammer className="kindergartenSection__icon" />
+          </div>
+
+          <h3 className="kindergartenSection__cardTitle">
+            Craftsmanship
+          </h3>
+
+          <p className="kindergartenSection__cardText">
+            Preserving and celebrating timeless
+            traditional craftsmanship.
+          </p>
+
+        </div>
+
+        {/* CARD 4 */}
+        <div className="kindergartenSection__card">
+
+          <div className="kindergartenSection__iconWrap">
+            <BadgeCheck className="kindergartenSection__icon" />
+          </div>
+
+          <h3 className="kindergartenSection__cardTitle">
+            Quality
+          </h3>
+
+          <p className="kindergartenSection__cardText">
+            Ensuring exceptional quality and
+            premium detailing in every creation.
+          </p>
+
+        </div>
+
+      </div>
+
     </section>
   );
-}
+};
+
+export default Kindergartensection;

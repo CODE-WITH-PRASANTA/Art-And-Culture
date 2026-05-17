@@ -1,63 +1,90 @@
+// Childrensection.jsx
+
 import React from "react";
 import "./Childrensection.css";
-import heroImage from "../../assets/child.webp"; // <- adjust path to your image
 
-export default function HeroChildStart() {
-  const items = [
-    "Comprehensive reporting on individual achievement",
-    "Educational field trips and school presentations",
-    "Individual attention in a small-class setting",
-    "Learning program with after-school care",
-  ];
+import aboutImage from "../../assets/About1.webp";
 
+const Childrensection = () => {
   return (
-    <section className="hero-section" aria-labelledby="hero-heading">
-      <div className="hero-inner">
-        {/* LEFT */}
-        <div className="hero-left">
-          <h1 id="hero-heading" className="hero-title">
-            Your Child's Best
-            <br />
-            Start In Life
+    <section className="childrenSection">
+      <div className="childrenSection__container">
+
+        {/* =========================
+            LEFT CONTENT
+        ========================= */}
+
+        <div className="childrenSection__content">
+
+          <span className="childrenSection__tag">
+            OUR STORY
+          </span>
+
+          <h1 className="childrenSection__title">
+            A Vision Born from Purpose
           </h1>
 
-          <p className="hero-sub">
-            We are constantly expanding the range of services offered, taking
-            children of all ages. Our goal is to carefully educate and develop
-            a fun way. We strive to turn the learning process.
+          <p className="childrenSection__description">
+            In August 2022, Ajinkya & Saiyam embarked on a
+            journey to redefine what meaningful objects
+            could be. Tired of seeing gifts and decor that
+            felt empty of purpose, they envisioned
+            Svastika—a brand that would create pieces
+            carrying genuine positive energy and
+            intention.
           </p>
 
-          <ul className="hero-list" aria-label="benefits">
-            {items.map((t, i) => (
-              <li key={i} className="hero-list-item">
-                <span className="icon-wrap" aria-hidden>
-                  <span className="icon-circle">
-                    <svg viewBox="0 0 20 20" className="icon-check" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 5.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                        fill="#7A2E1B"
-                      />
-                    </svg>
-                  </span>
-                </span>
-                <span className="hero-item-text">{t}</span>
-              </li>
-            ))}
-          </ul>
+          <p className="childrenSection__description">
+            Our vision is simple yet profound: to create a
+            world where every object carries meaning,
+            every purchase creates impact, and every
+            space resonates with positive energy.
+          </p>
+
+          <button className="childrenSection__button">
+            Explore More
+          </button>
+
         </div>
 
-        {/* RIGHT */}
-        <div className="hero-right">
-          <div className="image-block" aria-hidden>
-            <div className="yellow-circle" />
+        {/* =========================
+            RIGHT IMAGE SECTION
+        ========================= */}
 
-            {/* oval-mask now has jelly animation */}
-            <div className="oval-mask jelly">
-              <img src={heroImage} alt="Teacher and child doing crafts" draggable="false" />
+        <div className="childrenSection__imageWrapper">
+
+          <div className="childrenSection__imageCard">
+
+            <img
+              src={aboutImage}
+              alt="Luxury Interior"
+              className="childrenSection__image"
+            />
+
+            {/* Overlay */}
+            <div className="childrenSection__overlay"></div>
+
+            {/* Floating Glass Card */}
+            <div className="childrenSection__floatingCard">
+
+              <h4>
+                Premium Decor
+              </h4>
+
+              <p>
+                Crafted with elegance,
+                luxury & positive energy
+              </p>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
     </section>
   );
-}
+};
+
+export default Childrensection;

@@ -1,0 +1,388 @@
+/* =========================================
+   shopdetailsswitchbar.css
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.shopdetailsswitchbar {
+  width: 100%;
+  background: #f8f5f1;
+}
+
+/* =========================================
+   TOP TABS
+========================================= */
+
+.shopdetailsswitchbar__tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: #fff;
+  padding: 14px 18px;
+
+  border-radius: 16px;
+  overflow-x: auto;
+
+  margin-bottom: 24px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+
+  scrollbar-width: thin;
+}
+
+.shopdetailsswitchbar__tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.shopdetailsswitchbar__tabs::-webkit-scrollbar-thumb {
+  background: #d4a548;
+  border-radius: 20px;
+}
+
+.shopdetailsswitchbar__tab {
+  border: none;
+  background: transparent;
+
+  padding: 12px 18px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  white-space: nowrap;
+}
+
+.shopdetailsswitchbar__tab svg {
+  font-size: 16px;
+}
+
+.shopdetailsswitchbar__tab:hover {
+  background: #faf4e8;
+}
+
+.shopdetailsswitchbar__tabActive {
+  color: #c89028;
+  background: #fff8eb;
+  border-bottom: 2px solid #c89028;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.shopdetailsswitchbar__content {
+  width: 100%;
+
+  background: #fff;
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.shopdetailsswitchbar__heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 26px 30px;
+
+  border-bottom: 1px solid #ececec;
+
+  color: #d09a37;
+}
+
+.shopdetailsswitchbar__heading svg {
+  font-size: 22px;
+}
+
+.shopdetailsswitchbar__heading h2 {
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 700;
+  color: #333;
+}
+
+/* =========================================
+   BODY
+========================================= */
+
+.shopdetailsswitchbar__body {
+  padding: 30px;
+}
+
+.shopdetailsswitchbar__body p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.shopdetailsswitchbar__body strong {
+  color: #444;
+}
+
+.shopdetailsswitchbar__body h3 {
+  font-size: 22px;
+  color: #444;
+  margin-bottom: 14px;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.shopdetailsswitchbar__body ul {
+  padding-left: 20px;
+}
+
+.shopdetailsswitchbar__body li {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.9;
+  margin-bottom: 6px;
+}
+
+/* =========================================
+   FAQ
+========================================= */
+
+.shopdetailsswitchbar__faqTitle {
+  font-size: clamp(24px, 2vw, 34px);
+  font-weight: 700;
+  color: #222;
+
+  padding: 30px;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.shopdetailsswitchbar__faqWrapper {
+  padding: 10px 30px 30px;
+}
+
+.shopdetailsswitchbar__faqItem {
+  border-bottom: 1px solid #ececec;
+}
+
+.shopdetailsswitchbar__faqQuestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 22px 0;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.shopdetailsswitchbar__faqQuestion:hover {
+  color: #d09a37;
+}
+
+.shopdetailsswitchbar__faqLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.shopdetailsswitchbar__faqLeft svg {
+  font-size: 18px;
+  color: #c89028;
+}
+
+.shopdetailsswitchbar__faqLeft span {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.shopdetailsswitchbar__faqAnswer {
+  padding-bottom: 22px;
+  padding-left: 32px;
+
+  font-size: 15px;
+  color: #666;
+  line-height: 1.9;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+
+  .shopdetailsswitchbar__heading {
+    padding: 22px 24px;
+  }
+
+  .shopdetailsswitchbar__body {
+    padding: 24px;
+  }
+
+  .shopdetailsswitchbar__faqTitle {
+    padding: 24px;
+  }
+
+  .shopdetailsswitchbar__faqWrapper {
+    padding: 10px 24px 24px;
+  }
+
+  .shopdetailsswitchbar__body p,
+  .shopdetailsswitchbar__body li {
+    font-size: 15px;
+  }
+
+  .shopdetailsswitchbar__faqLeft span {
+    font-size: 17px;
+  }
+
+  .shopdetailsswitchbar__faqAnswer {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .shopdetailsswitchbar {
+    padding: 0;
+  }
+
+  .shopdetailsswitchbar__tabs {
+    padding: 12px;
+    gap: 8px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+
+  .shopdetailsswitchbar__tab {
+    font-size: 13px;
+    padding: 10px 14px;
+    gap: 6px;
+  }
+
+  .shopdetailsswitchbar__tab svg {
+    font-size: 14px;
+  }
+
+  .shopdetailsswitchbar__heading {
+    padding: 20px 18px;
+    gap: 10px;
+  }
+
+  .shopdetailsswitchbar__heading svg {
+    font-size: 18px;
+  }
+
+  .shopdetailsswitchbar__heading h2 {
+    font-size: 22px;
+  }
+
+  .shopdetailsswitchbar__body {
+    padding: 20px 18px;
+  }
+
+  .shopdetailsswitchbar__body p,
+  .shopdetailsswitchbar__body li {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .shopdetailsswitchbar__body h3 {
+    font-size: 18px;
+  }
+
+  .shopdetailsswitchbar__faqTitle {
+    font-size: 24px;
+    padding: 20px 18px;
+  }
+
+  .shopdetailsswitchbar__faqWrapper {
+    padding: 0 18px 20px;
+  }
+
+  .shopdetailsswitchbar__faqQuestion {
+    padding: 18px 0;
+  }
+
+  .shopdetailsswitchbar__faqLeft {
+    gap: 10px;
+  }
+
+  .shopdetailsswitchbar__faqLeft svg {
+    font-size: 16px;
+  }
+
+  .shopdetailsswitchbar__faqLeft span {
+    font-size: 15px;
+  }
+
+  .shopdetailsswitchbar__faqAnswer {
+    font-size: 14px;
+    padding-left: 24px;
+    padding-bottom: 18px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .shopdetailsswitchbar__tabs {
+    padding: 10px;
+  }
+
+  .shopdetailsswitchbar__tab {
+    min-width: max-content;
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+
+  .shopdetailsswitchbar__heading h2 {
+    font-size: 20px;
+  }
+
+  .shopdetailsswitchbar__faqTitle {
+    font-size: 22px;
+  }
+
+  .shopdetailsswitchbar__body p,
+  .shopdetailsswitchbar__body li,
+  .shopdetailsswitchbar__faqAnswer {
+    font-size: 13px;
+  }
+
+  .shopdetailsswitchbar__faqLeft {
+    align-items: flex-start;
+  }
+
+  .shopdetailsswitchbar__faqLeft span {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}

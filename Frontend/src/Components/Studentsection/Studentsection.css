@@ -1,239 +1,293 @@
-/* hero-page.css
-   Recreates the screenshot layout with a left oval image + right text, and the same jelly effect.
-   Paste this into src/components/hero-page.css or adjust import path in the JSX.
-*/
+/* =========================================
+   MAIN SECTION
+========================================= */
 
-:root{
-  --pink: #7A3E1B;
-  --yellow: #f5d50f;
-  --font-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --max-width: 1300px;
+.studentSection {
+  width: 100%;
+  padding: 120px 8%;
+  background: #f6f2ec;
+  overflow: hidden;
 }
 
-*{box-sizing:border-box}
-body{margin:0;font-family:var(--font-sans);}
+/* =========================================
+   WRAPPER
+========================================= */
 
-/* Page layout */
-.page-wrap{
-  background:#fff;
-  padding:48px 56px;
-  display:flex;
-  justify-content:center;
+.studentSection__wrapper {
+  width: 100%;
+  max-width: 1450px;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 90px;
 }
 
-.page-inner{
-  width:100%;
-  max-width:var(--max-width);
-  display:grid;
-  grid-template-columns: 520px 1fr;
-  gap: 36px;
-  align-items:center;
-  min-height: 720px;
-}
+/* =========================================
+   IMAGE SIDE
+========================================= */
 
-/* Responsive fallback */
-@media (max-width: 980px){
-  .page-inner { grid-template-columns: 1fr; gap: 28px; min-height: auto; padding-bottom: 40px; }
-  .left-col, .right-col { display:flex; justify-content:center; }
-  .big-heading { text-align:center; }
-}
-
-/* ---------- LEFT - IMAGE BLOCK ---------- */
-.left-col { display:flex; align-items:center; justify-content:flex-start; }
-
-.image-block {
+.studentSection__imageBox {
+  flex: 1;
   position: relative;
-  width: 520px;
-  height: 520px;
+  overflow: hidden;
+  border-radius: 30px;
+  min-height: 780px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.12),
+    0 8px 25px rgba(0, 0, 0, 0.08);
+
+  transition: 0.5s ease;
 }
 
-/* yellow accent circle sits behind the oval */
-.yellow-circle {
-  position: absolute;
-  left: -68px; /* shift left so accent peeks from behind */
-  top: 60px;
-  width: 160px;
-  height: 160px;
-  background: var(--yellow);
-  border-radius: 50%;
-  z-index: 1;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+.studentSection__imageBox:hover {
+  transform: translateY(-8px);
 }
 
-/* oval mask (egg shape) */
-.oval-mask {
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  z-index:2;
-
-  /* slightly rotated and offset to match screenshot */
-  transform: rotate(-6deg) translateX(-2%);
-  clip-path: ellipse(57% 72% at 40% 60%);
-  border-radius:50%;
-  box-shadow:0 18px 48px rgba(0,0,0,0.12);
-
-  will-change: transform, clip-path;
-  backface-visibility:hidden;
-
-  pointer-events: none; /* no cursor sensation */
-}
-
-.oval-mask img{
-  width:100%;
-  height:100%;
+.studentSection__image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  display:block;
-  pointer-events:none;
-  -webkit-user-drag:none;
-  user-select:none;
+  display: block;
+
+  transition: transform 0.7s ease;
 }
 
-/* floating up button (kept inside left block visually but clickable) */
-.up-button {
+.studentSection__imageBox:hover .studentSection__image {
+  transform: scale(1.04);
+}
+
+/* PREMIUM OVERLAY */
+
+.studentSection__overlay {
   position: absolute;
-  right: -6px;
-  bottom: -6px;
-  transform: translate(20%,20%);
-  width: 48px;
-  height: 48px;
-  background: var(--pink);
-  color: #fff;
-  border-radius: 50%;
-  border: none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:3;
-  box-shadow: 0 10px 26px rgba(0,0,0,0.12);
-  cursor:pointer;
-  transition: transform 140ms ease;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.02)
+    );
+
+  pointer-events: none;
 }
 
-.up-button:hover { transform: translate(20%,20%) scale(1.06); }
-.up-icon { width: 18px; height: 18px; }
+/* =========================================
+   CONTENT SIDE
+========================================= */
 
-/* ---------- RIGHT - TEXT / SESSIONS ---------- */
-.right-col {
-  padding-left: 18px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
+.studentSection__content {
+  flex: 1;
+  max-width: 620px;
 }
 
-/* big heading to match screenshot */
-.big-heading {
-  margin: 0 0 14px 0;
-  font-weight: 800;
-  color: #000;
-  font-size: 56px;
-  line-height: 1.02;
-  letter-spacing: -0.6px;
-}
+/* SMALL TAG */
 
-/* scale heading on very wide screens */
-@media (min-width: 1400px) {
-  .big-heading { font-size: 72px; }
-}
+.studentSection__tag {
+  display: inline-block;
 
-/* paragraph */
-.lead {
-  color: rgba(0,0,0,0.55);
-  max-width: 520px;
-  font-size: 15px;
-  line-height: 1.7;
-  margin-bottom: 18px;
-}
-
-/* sessions block */
-.sessions {
-  margin-top: 18px;
-}
-
-.sessions-title {
-  margin: 18px 0 8px 0;
   font-size: 14px;
-  letter-spacing: 0.4px;
-  font-weight: 700;
-}
+  letter-spacing: 4px;
+  text-transform: uppercase;
 
-/* grid of three small columns */
-.session-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  align-items:start;
-  max-width: 680px;
-  margin-top: 6px;
-}
-
-.session {
-  display:flex;
-  flex-direction:column;
-}
-
-.session-label {
-  color: var(--pink);
-  font-weight: 700;
-  margin-bottom: 6px;
-  font-size: 15px;
-}
-
-.session-time {
-  color: rgba(0,0,0,0.9);
+  color: #b58a44;
   font-weight: 600;
+
+  margin-bottom: 22px;
+}
+
+/* TITLE */
+
+.studentSection__title {
+  font-size: 64px;
+  line-height: 1.08;
+  font-weight: 600;
+
+  color: #b58a44;
+
+  margin-bottom: 34px;
+
+  font-family: "Playfair Display", serif;
+}
+
+/* DESCRIPTION */
+
+.studentSection__description {
+  font-size: 20px;
+  line-height: 1.95;
+
+  color: #2d2d2d;
+
+  margin-bottom: 28px;
+
+  font-weight: 400;
+}
+
+/* BUTTON */
+
+.studentSection__buttonWrap {
+  margin-top: 45px;
+}
+
+.studentSection__button {
+  padding: 18px 42px;
+
+  border: none;
+  outline: none;
+
+  background: #b58a44;
+  color: white;
+
   font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  border-radius: 100px;
+
+  cursor: pointer;
+
+  transition: 0.4s ease;
+
+  box-shadow:
+    0 10px 30px rgba(181, 138, 68, 0.25);
 }
 
-/* responsive sessions stacking */
-@media (max-width: 820px) {
-  .session-grid { grid-template-columns: 1fr; gap: 10px; }
-  .right-col { align-items:center; text-align:center; }
-  .lead { max-width: 100%; }
-  .sessions-title { text-align:center; }
+.studentSection__button:hover {
+  background: #9e7431;
+  transform: translateY(-4px);
 }
 
-/* ========== JELLY / ZIGGLE EFFECT ========== */
-/* same ultra-smooth continuous jelly as previous section but tuned for this mask */
+/* =========================================
+   LARGE DESKTOP
+========================================= */
 
-.jelly {
-  animation:
-    jelly-clip 4s cubic-bezier(.22,.9,.35,1) infinite alternate,
-    jelly-transform 4s cubic-bezier(.22,.9,.35,1) infinite alternate;
-  transform-origin: 40% 60%;
+@media (max-width: 1400px) {
+  .studentSection__title {
+    font-size: 56px;
+  }
+
+  .studentSection__description {
+    font-size: 18px;
+  }
+
+  .studentSection__imageBox {
+    min-height: 700px;
+  }
 }
 
-/* subtle, smooth ellipse morph */
-@keyframes jelly-clip {
-  0%   { clip-path: ellipse(57% 72% at 40% 60%); }
-  20%  { clip-path: ellipse(57.6% 71.6% at 40.4% 60.2%); }
-  40%  { clip-path: ellipse(56.9% 72.3% at 39.6% 59.6%); }
-  60%  { clip-path: ellipse(57.3% 71.9% at 40.1% 60.4%); }
-  80%  { clip-path: ellipse(57.1% 72.1% at 39.9% 59.9%); }
-  100% { clip-path: ellipse(57% 72% at 40% 60%); }
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .studentSection {
+    padding: 90px 6%;
+  }
+
+  .studentSection__wrapper {
+    gap: 60px;
+  }
+
+  .studentSection__title {
+    font-size: 48px;
+  }
+
+  .studentSection__description {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .studentSection__imageBox {
+    min-height: 620px;
+  }
 }
 
-/* transform wobble (tiny translate/rotate/scale changes) */
-@keyframes jelly-transform {
-  0%   { transform: rotate(-6deg) translateX(-2%) translateY(0px) scale(1); }
-  18%  { transform: rotate(-5.95deg) translateX(-1.9%) translateY(-0.9px) scale(1.002); }
-  36%  { transform: rotate(-6.08deg) translateX(-2.15%) translateY(0.7px) scale(0.9985); }
-  54%  { transform: rotate(-5.98deg) translateX(-2.02%) translateY(-0.4px) scale(1.001); }
-  72%  { transform: rotate(-6.05deg) translateX(-2.01%) translateY(0.35px) scale(0.999); }
-  90%  { transform: rotate(-5.96deg) translateX(-1.95%) translateY(-0.7px) scale(1.0015); }
-  100% { transform: rotate(-6deg) translateX(-2%) translateY(0px) scale(1); }
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .studentSection__wrapper {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .studentSection__content {
+    max-width: 100%;
+  }
+
+  .studentSection__title {
+    font-size: 42px;
+  }
+
+  .studentSection__imageBox {
+    width: 100%;
+    min-height: 650px;
+  }
 }
 
-/* accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .jelly { animation: none; transform: rotate(-6deg) translateX(-2%); }
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .studentSection {
+    padding: 70px 5%;
+  }
+
+  .studentSection__wrapper {
+    gap: 35px;
+  }
+
+  .studentSection__imageBox {
+    min-height: 500px;
+    border-radius: 24px;
+  }
+
+  .studentSection__tag {
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  .studentSection__title {
+    font-size: 34px;
+    margin-bottom: 24px;
+  }
+
+  .studentSection__description {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 22px;
+  }
+
+  .studentSection__button {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 14px;
+  }
 }
 
-/* small screens adjustments */
-@media (max-width: 620px) {
-  .page-inner { padding: 0 12px; }
-  .image-block { width: 300px; height: 300px; }
-  .oval-mask { clip-path: ellipse(58% 72% at 50% 50%); transform: rotate(-6deg) translateX(0%); }
-  .big-heading { font-size: 32px; text-align: center; }
-  .lead { text-align:center; }
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+  .studentSection__title {
+    font-size: 29px;
+  }
+
+  .studentSection__imageBox {
+    min-height: 420px;
+  }
+
+  .studentSection__description {
+    font-size: 14px;
+  }
 }
