@@ -1,399 +1,212 @@
-// ShopDetailsYoumight.jsx
-
-import React, {
-  useEffect,
-  useState,
-} from "react";
-
+import React, { useState, useEffect } from "react";
 import "./ShopDetailsYoumight.css";
 
 import {
-  FaChevronLeft,
-  FaChevronRight,
-  FaHeart,
-  FaEye,
-  FaStar,
-  FaRegStar,
-} from "react-icons/fa";
-
-import {
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-
-import API, {
-  IMG_URL,
-} from "../../api/axios";
+  FiFileText,
+  FiPackage,
+  FiLayers,
+  FiHelpCircle,
+  FiPlus,
+  FiMinus,
+} from "react-icons/fi";
 
 const ShopDetailsYoumight = () => {
+  const [activeTab, setActiveTab] = useState("about");
+  const [openFaq, setOpenFaq] = useState(null);
 
-  /* ================= NAVIGATE ================= */
+  const scrollToSection = (id) => {
+    setActiveTab(id);
 
-  const navigate = useNavigate();
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
-  /* ================= PRODUCT ID ================= */
-
-  const { id } = useParams();
-
-  /* ================= STATES ================= */
-
-  const [products, setProducts] =
-    useState([]);
-
-  const [wishlist, setWishlist] =
-    useState([]);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  /* ================= FETCH PRODUCTS ================= */
-
-  useEffect(() => {
-
-    const fetchProducts = async () => {
-
-      try {
-
-        const res = await API.get(
-          "/products"
-        );
-
-        if (
-          res.data.success
-        ) {
-
-          /* REMOVE CURRENT PRODUCT */
-
-          const filteredProducts =
-            res.data.data.filter(
-              (item) =>
-                item._id !== id
-            );
-
-          setProducts(
-            filteredProducts
-          );
-
-        }
-
-      } catch (error) {
-
-        console.error(
-          "Failed to fetch products",
-          error
-        );
-
-      } finally {
-
-        setLoading(false);
-
-      }
-    };
-
-    fetchProducts();
-
-  }, [id]);
-
-  /* ================= WISHLIST ================= */
-
-  const toggleWishlist = (id) => {
-
-    if (
-      wishlist.includes(id)
-    ) {
-
-      setWishlist(
-        wishlist.filter(
-          (item) =>
-            item !== id
-        )
-      );
-
-    } else {
-
-      setWishlist([
-        ...wishlist,
-        id,
-      ]);
-
+  const faqs = [
+    {
+      q: "How long does the gold/silver plating last?",
+      a: "With proper care and maintenance, the plating remains beautiful for years."
+    },
+    {
+      q: "Can these idols be customized?",
+      a: "Yes, customization options are available for selected products."
+    },
+    {
+      q: "Is there any plating quality guarantee?",
+      a: "Every product undergoes strict quality inspection before dispatch."
+    },
+    {
+      q: "Are these idols suitable for gifting?",
+      a: "Absolutely. They are perfect for festivals, weddings and housewarming gifts."
     }
-  };
-
-  /* ================= SLIDER ================= */
-
-  const scrollLeft = () => {
-
-    document
-      .getElementById(
-        "shopdetailsyoumight__slider"
-      )
-      .scrollBy({
-        left: -400,
-        behavior: "smooth",
-      });
-
-  };
-
-  const scrollRight = () => {
-
-    document
-      .getElementById(
-        "shopdetailsyoumight__slider"
-      )
-      .scrollBy({
-        left: 400,
-        behavior: "smooth",
-      });
-
-  };
-
-  /* ================= LOADING ================= */
-
-  if (loading) {
-
-    return (
-      <div
-        style={{
-          textAlign:
-            "center",
-          padding: "20px",
-        }}
-      >
-
-        Loading...
-
-      </div>
-    );
-
-  }
+  ];
 
   return (
     <section className="shopdetailsyoumight">
 
-      {/* ================= TOP ================= */}
+      {/* Switch Navigation */}
 
-      <div className="shopdetailsyoumight__top">
+      <div className="shopdetailsyoumight__switchbar">
+        <button
+          className={`shopdetailsyoumight__tab ${
+            activeTab === "about" ? "active" : ""
+          }`}
+          onClick={() => scrollToSection("about")}
+        >
+          <FiFileText />
+          About Product
+        </button>
 
-        <h2 className="shopdetailsyoumight__heading">
+        <button
+          className={`shopdetailsyoumight__tab ${
+            activeTab === "size" ? "active" : ""
+          }`}
+          onClick={() => scrollToSection("size")}
+        >
+          <FiPackage />
+          Size & Weight
+        </button>
 
-          You Might Also Like
+        <button
+          className={`shopdetailsyoumight__tab ${
+            activeTab === "material" ? "active" : ""
+          }`}
+          onClick={() => scrollToSection("material")}
+        >
+          <FiLayers />
+          Material
+        </button>
 
-        </h2>
-
-        {/* ================= ARROWS ================= */}
-
-        <div className="shopdetailsyoumight__arrowRow">
-
-          <button
-            className="shopdetailsyoumight__arrow"
-            onClick={scrollLeft}
-          >
-
-            <FaChevronLeft />
-
-          </button>
-
-          <button
-            className="shopdetailsyoumight__arrow"
-            onClick={scrollRight}
-          >
-
-            <FaChevronRight />
-
-          </button>
-
-        </div>
-
+        <button
+          className={`shopdetailsyoumight__tab ${
+            activeTab === "faq" ? "active" : ""
+          }`}
+          onClick={() => scrollToSection("faq")}
+        >
+          <FiHelpCircle />
+          FAQs
+        </button>
       </div>
 
-      {/* ================= PRODUCTS ================= */}
+      {/* About Product */}
 
       <div
-        className="shopdetailsyoumight__slider"
-        id="shopdetailsyoumight__slider"
+        id="about"
+        className="shopdetailsyoumight__card"
       >
+        <h3>
+          <FiFileText />
+          About the Product
+        </h3>
 
-        {products.map(
-          (item) => {
+        <p>
+          Bring home the sacred presence of Murugan through this
+          finely crafted 999 silver-plated idol.
+        </p>
 
-            const price =
-              item.price || 0;
+        <p>
+          The design features divine detailing and premium
+          craftsmanship, symbolizing courage, wisdom,
+          protection and positivity.
+        </p>
 
-            const discount =
-              item.discount || 0;
-
-            const finalPrice =
-              discount > 0
-                ? price -
-                  (
-                    price *
-                    discount
-                  ) /
-                    100
-                : price;
-
-            return (
-
-              <div
-                className="shopdetailsyoumight__card"
-                key={item._id}
-              >
-
-                {/* ================= IMAGE ================= */}
-
-                <div className="shopdetailsyoumight__imageWrapper">
-
-                  <img
-                    src={
-                      item.images?.[0]
-                        ? `${IMG_URL}${item.images[0]}`
-                        : "/no-image.png"
-                    }
-                    alt={
-                      item.title
-                    }
-                    className="shopdetailsyoumight__image"
-                    onClick={() =>
-                      navigate(
-                        `/shopdetails/${item._id}`
-                      )
-                    }
-                  />
-
-                  {/* ================= DISCOUNT ================= */}
-
-                  {discount >
-                    0 && (
-
-                    <span className="shopdetailsyoumight__discount">
-
-                      -{discount}%
-
-                    </span>
-                  )}
-
-                  {/* ================= SIDE ICONS ================= */}
-
-                  <div className="shopdetailsyoumight__icons">
-
-                    <button
-                      className={`shopdetailsyoumight__icon ${
-                        wishlist.includes(
-                          item._id
-                        )
-                          ? "shopdetailsyoumight__iconActive"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        toggleWishlist(
-                          item._id
-                        )
-                      }
-                    >
-
-                      <FaHeart />
-
-                    </button>
-
-                    <button className="shopdetailsyoumight__icon">
-
-                      <FaEye />
-
-                    </button>
-
-                  </div>
-
-                  {/* ================= QUICK ADD ================= */}
-
-                  <button className="shopdetailsyoumight__quickBtn">
-
-                    QUICK ADD
-
-                  </button>
-
-                </div>
-
-                {/* ================= CONTENT ================= */}
-
-                <div className="shopdetailsyoumight__content">
-
-                  {/* ================= TITLE ================= */}
-
-                  <h3
-                    className="shopdetailsyoumight__title"
-                    onClick={() =>
-                      navigate(
-                        `/shopdetails/${item._id}`
-                      )
-                    }
-                  >
-
-                    {item.title}
-
-                  </h3>
-
-                  {/* ================= RATING ================= */}
-
-                  <div className="shopdetailsyoumight__rating">
-
-                    <span>
-
-                      {item.rating ||
-                        0}
-
-                    </span>
-
-                    <div className="shopdetailsyoumight__stars">
-
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaRegStar />
-
-                    </div>
-
-                    <p>
-
-                      1 review
-
-                    </p>
-
-                  </div>
-
-                  {/* ================= PRICE ================= */}
-
-                  <div className="shopdetailsyoumight__priceRow">
-
-                    <span className="shopdetailsyoumight__price">
-
-                      ₹
-                      {finalPrice}
-
-                    </span>
-
-                    {discount >
-                      0 && (
-
-                      <span className="shopdetailsyoumight__oldPrice">
-
-                        ₹
-                        {price}
-
-                      </span>
-                    )}
-
-                  </div>
-
-                </div>
-
-              </div>
-            );
-          }
-        )}
-
+        <p>
+          Perfect for pooja spaces, office desks,
+          study tables and gifting purposes.
+        </p>
       </div>
 
+      {/* Size */}
+
+      <div
+        id="size"
+        className="shopdetailsyoumight__card"
+      >
+        <h3>
+          <FiPackage />
+          Size & Weight
+        </h3>
+
+        <div className="shopdetailsyoumight__sizegrid">
+          <div className="shopdetailsyoumight__sizebox">
+            <h4>3.5 Inch</h4>
+            <ul>
+              <li>4.8 × 8.5 cm</li>
+              <li>2 × 3.5 inch</li>
+              <li>Weight : 80g</li>
+            </ul>
+          </div>
+
+          <div className="shopdetailsyoumight__sizebox">
+            <h4>5 Inch</h4>
+            <ul>
+              <li>6.8 × 13 cm</li>
+              <li>3 × 5 inch</li>
+              <li>Weight : 210g</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Material */}
+
+      <div
+        id="material"
+        className="shopdetailsyoumight__card"
+      >
+        <h3>
+          <FiLayers />
+          Product Material
+        </h3>
+
+        <p>
+          Crafted using premium quality resin and
+          finished with high-quality silver plating
+          for an elegant devotional appearance.
+        </p>
+      </div>
+
+      {/* FAQ */}
+
+      <div
+        id="faq"
+        className="shopdetailsyoumight__card"
+      >
+        <h2 className="shopdetailsyoumight__faqtitle">
+          Frequently Asked Questions
+        </h2>
+
+        {faqs.map((item, index) => (
+          <div
+            key={index}
+            className="shopdetailsyoumight__faqitem"
+          >
+            <button
+              className="shopdetailsyoumight__faqquestion"
+              onClick={() =>
+                setOpenFaq(
+                  openFaq === index ? null : index
+                )
+              }
+            >
+              <span>{item.q}</span>
+
+              {openFaq === index ? (
+                <FiMinus />
+              ) : (
+                <FiPlus />
+              )}
+            </button>
+
+            {openFaq === index && (
+              <div className="shopdetailsyoumight__faqanswer">
+                {item.a}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

@@ -1,173 +1,222 @@
-/* ShopDetailsHome.css */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.shopDetailsHome {
+  width: 100%;
+  padding: 30px;
+  background: #f8f8f8;
 }
 
-.ShopDetailsHome {
-  width: 100%;
-  padding: 60px 5%;
-  background: #f8f5f1;
-}
-
-.shopdetailshome-container {
-  width: 100%;
-}
-
-/* ====================================
-   GALLERY
-==================================== */
-
-.shopdetailshome-gallery {
-  width: 100%;
-  max-width: 900px;
+.shopDetailsHome__gallery {
+  max-width: 1200px; /* Increased from 700px to allow a much larger presentation width */
   margin: auto;
 }
 
-.shopdetailshome-mainimagewrapper {
-  width: 100%;
-  background: #fff;
-  border-radius: 24px;
-  overflow: hidden;
+/* MAIN IMAGE */
+
+.shopDetailsHome__mainImageWrapper {
   position: relative;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-}
-
-.shopdetailshome-mainimage {
   width: 100%;
+  max-height: 750px; /* Increased from 450px to make the hero image look large and prominent */
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08),
+    0 1px 3px rgba(0,0,0,0.06);
+}
+
+.shopDetailsHome__mainImage {
+  width: 100%;
+  height: 100%;
+  max-height: 750px; /* Matched the container height for a generous portrait/landscape showcase */
   display: block;
-  object-fit: cover;
-  transition: 0.4s;
+  object-fit: cover; 
+  border-radius: 24px;
+  transition: all 0.4s ease;
 }
 
-.shopdetailshome-mainimage:hover {
-  transform: scale(1.02);
+/* ZOOM BUTTON */
+
+.shopDetailsHome__zoomBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 55px; /* Restored to a prominent clickable size */
+  height: 55px;
+  border: none;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px; 
+  color: #222;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  z-index: 2;
 }
 
-/* ====================================
-   ARROWS
-==================================== */
+.shopDetailsHome__zoomBtn:hover {
+  transform: scale(1.08);
+}
 
-.shopdetailshome-arrow {
+/* NAVIGATION BUTTONS */
+
+.shopDetailsHome__navBtn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 52px;
-  height: 52px;
+  width: 60px; /* Increased button sizing to match the large canvas image */
+  height: 60px;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
-  font-size: 18px;
   cursor: pointer;
-  z-index: 10;
-  transition: 0.3s;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  background: linear-gradient(
+    135deg,
+    #bf5b17,
+    #a94910
+  );
+
+  color: white;
+  font-size: 22px; 
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 10px 20px rgba(191,91,23,0.35);
 }
 
-.shopdetailshome-arrow:hover {
-  background: #c9a227;
-  color: #fff;
+.shopDetailsHome__navBtn:hover {
+  transform: translateY(-50%) scale(1.08);
 }
 
-.shopdetailshome-leftarrow {
-  left: 20px;
+.shopDetailsHome__prevBtn {
+  left: 24px;
 }
 
-.shopdetailshome-rightarrow {
-  right: 20px;
+.shopDetailsHome__nextBtn {
+  right: 24px;
 }
 
-/* ====================================
-   THUMBNAILS
-==================================== */
+/* THUMBNAILS */
 
-.shopdetailshome-thumbwrapper {
-  width: 100%;
+.shopDetailsHome__thumbnailContainer {
   display: flex;
-  gap: 18px;
-  margin-top: 24px;
+  gap: 16px; /* Restored spacing definition for larger layout look */
+  margin-top: 24px; 
   overflow-x: auto;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 
-.shopdetailshome-thumbwrapper::-webkit-scrollbar {
-  height: 4px;
+.shopDetailsHome__thumbnailContainer::-webkit-scrollbar {
+  height: 6px;
 }
 
-.shopdetailshome-thumbwrapper::-webkit-scrollbar-thumb {
-  background: #c9a227;
-  border-radius: 20px;
+.shopDetailsHome__thumbnailContainer::-webkit-scrollbar-thumb {
+  background: #d2d2d2;
+  border-radius: 10px;
 }
 
-.shopdetailshome-thumbbox {
-  min-width: 120px;
-  height: 120px;
-  border-radius: 18px;
-  overflow: hidden;
+.shopDetailsHome__thumbnailBox {
+  min-width: 110px; /* Enlarged thumbnail previews from 80px */
+  height: 110px;
   cursor: pointer;
+  overflow: hidden;
+  border-radius: 14px; 
   border: 2px solid transparent;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   background: #fff;
+  padding: 4px;
 }
 
-.shopdetailshome-thumbbox:hover {
-  transform: translateY(-5px);
+.shopDetailsHome__thumbnailBox:hover {
+  transform: translateY(-4px);
 }
 
-.shopdetailshome-thumbactive {
-  border-color: #c9a227;
+.shopDetailsHome__thumbnailBox--active {
+  border: 2px solid #bf5b17;
+  box-shadow: 0 10px 25px rgba(191,91,23,0.2);
 }
 
-.shopdetailshome-thumbimage {
+.shopDetailsHome__thumbnail {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 }
 
-/* ====================================
-   RESPONSIVE
-==================================== */
+/* TABLET */
 
 @media (max-width: 768px) {
-  .ShopDetailsHome {
-    padding: 40px 20px;
+
+  .shopDetailsHome {
+    padding: 24px;
   }
 
-  .shopdetailshome-thumbbox {
-    min-width: 90px;
+  .shopDetailsHome__mainImageWrapper,
+  .shopDetailsHome__mainImage {
+    max-height: 550px; /* Increased from 350px */
+  }
+
+  .shopDetailsHome__navBtn {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .shopDetailsHome__thumbnailBox {
+    min-width: 90px; 
     height: 90px;
   }
 
-  .shopdetailshome-arrow {
-    width: 42px;
-    height: 42px;
-    font-size: 15px;
+  .shopDetailsHome__zoomBtn {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
   }
 }
 
+/* MOBILE */
+
 @media (max-width: 480px) {
 
-  .shopdetailshome-mainimagewrapper {
-    border-radius: 18px;
+  .shopDetailsHome {
+    padding: 16px;
   }
 
-  .shopdetailshome-leftarrow {
-    left: 10px;
+  .shopDetailsHome__mainImageWrapper,
+  .shopDetailsHome__mainImage {
+    max-height: 400px; /* Increased from 260px for a bold mobile view profile */
+    border-radius: 20px;
   }
 
-  .shopdetailshome-rightarrow {
-    right: 10px;
+  .shopDetailsHome__thumbnailContainer {
+    gap: 12px;
   }
 
-  .shopdetailshome-thumbbox {
-    min-width: 75px;
+  .shopDetailsHome__thumbnailBox {
+    min-width: 75px; 
     height: 75px;
+  }
+
+  .shopDetailsHome__navBtn {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .shopDetailsHome__prevBtn {
+    left: 12px;
+  }
+
+  .shopDetailsHome__nextBtn {
+    right: 12px;
+  }
+
+  .shopDetailsHome__zoomBtn {
+    width: 42px;
+    height: 42px;
+    top: 14px;
+    right: 14px;
+    font-size: 14px;
   }
 }
