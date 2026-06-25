@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-// Import ShopCart drawer component
 import ShopCart from "../ShopCart/ShopCart";
-// Icons
 import { AiFillHeart } from "react-icons/ai";
 import { FaUserCircle, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { FaHome, FaBlog } from "react-icons/fa";
@@ -27,7 +25,6 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Lock background scrolling cleanly when mobile sidebar is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.classList.add("menu-open");
@@ -40,7 +37,12 @@ const Navbar = () => {
   }, [mobileMenuOpen]);
 
   const toggleMobileMenu = () => setMobileMenuOpen((s) => !s);
-  const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  // ✅ KEY FIX: close menu first, then let Link handle navigation
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    document.body.classList.remove("menu-open");
+  };
 
   const portalNode = typeof document !== "undefined" ? document.body : null;
 
@@ -56,24 +58,21 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Background overlay for mobile drawer menu close trigger */}
-      <div 
-        className={`mobile-menu-overlay ${mobileMenuOpen ? "active" : ""}`} 
+      {/* ✅ FIX: pointer-events must not block nav links — handle via CSS z-index */}
+      <div
+        className={`mobile-menu-overlay ${mobileMenuOpen ? "active" : ""}`}
         onClick={closeMobileMenu}
       />
 
       <header className="navbar-header">
         <div className="navbar-container">
 
-          {/* LEFT: Main Brand Logo */}
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             <img src={logo} alt="Logo" />
           </Link>
 
-          {/* CENTER: Slide-out Navigation Drawer */}
           <nav className={`navbar-links ${mobileMenuOpen ? "active" : ""}`}>
-            
-            {/* Header section visible only on mobile viewports */}
+
             <div className="mobile-menu-header">
               <span className="mobile-menu-title">Menu</span>
               <button
@@ -86,17 +85,28 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Navigation Anchor List Container */}
+            {/* ✅ FIX: Each link uses onClick={closeMobileMenu} and has z-index above overlay */}
             <div className="nav-links-container">
-              <Link to="/" onClick={closeMobileMenu}><FaHome /> Home</Link>
-              <Link to="/shop" onClick={closeMobileMenu}><MdCategory /> Shop</Link>
-              <Link to="/blog" onClick={closeMobileMenu}><FaBlog /> Blog</Link>
-              <Link to="/Pooja-essentials" onClick={closeMobileMenu}><MdOutlineLocalFlorist /> Pooja Essentials</Link>
-              <Link to="/about" onClick={closeMobileMenu}><FaUserCircle /> About</Link>
-              <Link to="/contact" onClick={closeMobileMenu}><AiFillHeart /> Contact</Link>
+              <Link to="/" onClick={closeMobileMenu}>
+                <FaHome /> Home
+              </Link>
+              <Link to="/shop" onClick={closeMobileMenu}>
+                <MdCategory /> Shop
+              </Link>
+              <Link to="/blog" onClick={closeMobileMenu}>
+                <FaBlog /> Blog
+              </Link>
+              <Link to="/Pooja-essentials" onClick={closeMobileMenu}>
+                <MdOutlineLocalFlorist /> Pooja Essentials
+              </Link>
+              <Link to="/about" onClick={closeMobileMenu}>
+                <FaUserCircle /> About
+              </Link>
+              <Link to="/contact" onClick={closeMobileMenu}>
+                <AiFillHeart /> Contact
+              </Link>
             </div>
 
-            {/* Decorative base divider for the mobile navigation footer */}
             <div className="mobile-menu-footer">
               <div className="ganesha-decorative-dots">
                 <span>✦</span><span>✦</span><span>✦</span><span>✦</span>
@@ -104,7 +114,6 @@ const Navbar = () => {
             </div>
           </nav>
 
-          {/* RIGHT: Utility Action Containers */}
           <div className="navbar-actions">
 
             <Link to="/wishlist" className="icon-link" onClick={closeMobileMenu}>
@@ -121,7 +130,18 @@ const Navbar = () => {
 
             {showLogin && (
               <div className="accountLoginOverlay" onClick={() => setShowLogin(false)}>
-                <div className="accountLoginModal" onClick={(e) => e.stopPropagation()} />
+                <div className="accountLoginModal" onClick={(e) => e.stopPropagation()}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                    <h3 style={{ margin: 0, color: "var(--primary-color)" }}>Account Login</h3>
+                    <button
+                      onClick={() => setShowLogin(false)}
+                      style={{ background: "none", border: "none", cursor: "pointer", fontSize: "16px" }}
+                    >
+                      <FaTimes />
+                    </button>
+                  </div>
+                  <p style={{ fontSize: "14px", color: "var(--text-dark)" }}>Please sign in to access your account.</p>
+                </div>
               </div>
             )}
 
@@ -135,7 +155,6 @@ const Navbar = () => {
 
             {openCart && <ShopCart onClose={() => setOpenCart(false)} />}
 
-            {/* Mobile Hamburger Toggle */}
             <button
               type="button"
               className="quote-box-icon-btn mobile-hamburger-btn"
