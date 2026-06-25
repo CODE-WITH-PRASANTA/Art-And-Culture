@@ -1,463 +1,268 @@
-/* =========================================
-   shopdetailsyoumight.css
-========================================= */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .shopdetailsyoumight {
   width: 100%;
-  padding: 50px 4%;
-  background: #f8f5f1;
-  overflow: hidden;
+  padding: 20px 0;
+  background: #fafafa;
 }
 
-/* =========================================
-   TOP
-========================================= */
+/* ===================== */
+/* SWITCH BAR */
+/* ===================== */
 
-.shopdetailsyoumight__top {
+.shopdetailsyoumight__switchbar {
+  position: sticky;
+  top: 10px;
+  z-index: 50;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 30px;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.shopdetailsyoumight__heading {
-  font-size: clamp(26px, 3vw, 42px);
-  font-weight: 700;
-  color: #1c1c1c;
-  font-family: serif;
-  line-height: 1.3;
-}
-
-/* =========================================
-   ARROWS
-========================================= */
-
-.shopdetailsyoumight__arrowRow {
-  display: flex;
   gap: 10px;
-}
-
-.shopdetailsyoumight__arrow {
-  width: 46px;
-  height: 46px;
-
-  border-radius: 50%;
-  border: none;
-
-  background: #fff;
-  color: #222;
-
-  cursor: pointer;
-
-  font-size: 15px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: 0.3s ease;
-
-  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
-}
-
-.shopdetailsyoumight__arrow:hover {
-  background: #c89028;
-  color: #fff;
-}
-
-/* =========================================
-   SLIDER
-========================================= */
-
-.shopdetailsyoumight__slider {
-  display: flex;
-  gap: 20px;
 
   overflow-x: auto;
-  scroll-behavior: smooth;
+
+  background: #fff;
+  padding: 10px;
+  border-radius: 16px;
+
+  border: 1px solid #ececec;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.05);
+
+  margin-bottom: 25px;
 
   scrollbar-width: none;
 }
 
-.shopdetailsyoumight__slider::-webkit-scrollbar {
+.shopdetailsyoumight__switchbar::-webkit-scrollbar {
   display: none;
 }
 
-/* =========================================
-   CARD
-========================================= */
-
-.shopdetailsyoumight__card {
-  min-width: 300px;
+.shopdetailsyoumight__tab {
+  border: none;
   background: transparent;
-  transition: 0.35s ease;
-}
 
-.shopdetailsyoumight__card:hover {
-  transform: translateY(-4px);
-}
-
-/* =========================================
-   IMAGE
-========================================= */
-
-.shopdetailsyoumight__imageWrapper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 18px;
-  background: #fff;
-}
-
-.shopdetailsyoumight__image {
-  width: 100%;
-  height: 340px;
-
-  object-fit: cover;
-  display: block;
-
-  transition: 0.5s ease;
-}
-
-.shopdetailsyoumight__card:hover .shopdetailsyoumight__image {
-  transform: scale(1.05);
-}
-
-/* =========================================
-   DISCOUNT
-========================================= */
-
-.shopdetailsyoumight__discount {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-
-  background: #b84e08;
-  color: #fff;
-
-  padding: 8px 14px;
-  border-radius: 30px;
-
-  font-size: 13px;
-  font-weight: 600;
-}
-
-/* =========================================
-   ICONS
-========================================= */
-
-.shopdetailsyoumight__icons {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  opacity: 0;
-  transform: translateX(16px);
-
-  transition: 0.35s ease;
-}
-
-.shopdetailsyoumight__card:hover .shopdetailsyoumight__icons {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.shopdetailsyoumight__icon {
-  width: 48px;
-  height: 48px;
-
-  border-radius: 50%;
-  border: none;
-
-  background: #fff;
-  color: #222;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 16px;
-
-  transition: 0.3s ease;
-
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.shopdetailsyoumight__icon:hover {
-  background: #c89028;
-  color: #fff;
-}
-
-.shopdetailsyoumight__iconActive {
-  background: #c14d00;
-  color: #fff;
-}
-
-/* =========================================
-   QUICK BUTTON
-========================================= */
-
-.shopdetailsyoumight__quickBtn {
-  position: absolute;
-  bottom: -80px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  width: 82%;
-  height: 54px;
-
-  border: none;
-  border-radius: 14px;
-
-  background: #fff;
-  color: #222;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: 0.35s ease;
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-.shopdetailsyoumight__card:hover .shopdetailsyoumight__quickBtn {
-  bottom: 18px;
-}
-
-.shopdetailsyoumight__quickBtn:hover {
-  background: #c89028;
-  color: #fff;
-}
-
-/* =========================================
-   CONTENT
-========================================= */
-
-.shopdetailsyoumight__content {
-  padding-top: 18px;
-}
-
-.shopdetailsyoumight__title {
-  font-size: 20px;
-  line-height: 1.6;
-  color: #1f1f1f;
-
-  margin-bottom: 14px;
-  font-weight: 500;
-}
-
-/* =========================================
-   RATING
-========================================= */
-
-.shopdetailsyoumight__rating {
   display: flex;
   align-items: center;
   gap: 8px;
 
-  margin-bottom: 14px;
-  flex-wrap: wrap;
+  white-space: nowrap;
+
+  padding: 12px 18px;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: .3s;
 }
 
-.shopdetailsyoumight__rating span {
-  font-size: 14px;
-  color: #333;
+.shopdetailsyoumight__tab svg {
+  font-size: 18px;
 }
 
-.shopdetailsyoumight__stars {
-  display: flex;
-  gap: 3px;
-
-  color: #d4a548;
-  font-size: 14px;
+.shopdetailsyoumight__tab:hover {
+  background: #f5f5f5;
 }
 
-.shopdetailsyoumight__rating p {
-  font-size: 14px;
-  color: #444;
+.shopdetailsyoumight__tab.active {
+  color: #c28b2c;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(194,139,44,.12),
+      rgba(194,139,44,.04)
+    );
+
+  border: 1px solid rgba(194,139,44,.2);
 }
 
-/* =========================================
-   PRICE
-========================================= */
+/* ===================== */
+/* CARD */
+/* ===================== */
 
-.shopdetailsyoumight__priceRow {
+.shopdetailsyoumight__card {
+  background: #fff;
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  margin-bottom: 20px;
+
+  border: 1px solid #ededed;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.04);
+}
+
+.shopdetailsyoumight__card h3 {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-}
 
-.shopdetailsyoumight__price {
   font-size: 24px;
   font-weight: 700;
+
+  color: #c28b2c;
+
+  margin-bottom: 20px;
+}
+
+.shopdetailsyoumight__card p {
+  color: #666;
+  line-height: 1.9;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* ===================== */
+/* SIZE */
+/* ===================== */
+
+.shopdetailsyoumight__sizegrid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+}
+
+.shopdetailsyoumight__sizebox {
+  padding: 25px;
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff8eb,
+      #ffffff
+    );
+
+  border: 1px solid #f0dfbf;
+}
+
+.shopdetailsyoumight__sizebox h4 {
+  margin-bottom: 15px;
   color: #222;
+  font-size: 22px;
 }
 
-.shopdetailsyoumight__oldPrice {
-  font-size: 18px;
-  color: #777;
-  text-decoration: line-through;
+.shopdetailsyoumight__sizebox ul {
+  padding-left: 18px;
 }
 
-/* =========================================
-   LARGE TABLET
-========================================= */
+.shopdetailsyoumight__sizebox li {
+  margin-bottom: 10px;
+  color: #666;
+}
 
-@media (max-width: 1200px) {
+/* ===================== */
+/* FAQ */
+/* ===================== */
 
-  .shopdetailsyoumight__heading {
-    font-size: 36px;
-  }
+.shopdetailsyoumight__faqtitle {
+  margin-bottom: 25px;
+  font-size: 32px;
+}
+
+.shopdetailsyoumight__faqitem {
+  border-bottom: 1px solid #eee;
+}
+
+.shopdetailsyoumight__faqquestion {
+  width: 100%;
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 0;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  text-align: left;
+}
+
+.shopdetailsyoumight__faqanswer {
+  padding-bottom: 20px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* ===================== */
+/* TABLET */
+/* ===================== */
+
+@media (max-width: 992px) {
 
   .shopdetailsyoumight__card {
-    min-width: 280px;
+    padding: 24px;
   }
 
-  .shopdetailsyoumight__image {
-    height: 300px;
+  .shopdetailsyoumight__sizegrid {
+    grid-template-columns: 1fr;
   }
 }
 
-/* =========================================
-   TABLET
-========================================= */
+/* ===================== */
+/* MOBILE */
+/* ===================== */
 
 @media (max-width: 768px) {
 
   .shopdetailsyoumight {
-    padding: 40px 18px;
+    padding: 10px 0;
   }
 
-  .shopdetailsyoumight__top {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 24px;
-  }
-
-  .shopdetailsyoumight__heading {
-    font-size: 30px;
-  }
-
-  .shopdetailsyoumight__card {
-    min-width: 250px;
-  }
-
-  .shopdetailsyoumight__image {
-    height: 280px;
-  }
-
-  .shopdetailsyoumight__title {
-    font-size: 17px;
-  }
-
-  .shopdetailsyoumight__price {
-    font-size: 22px;
-  }
-
-  .shopdetailsyoumight__oldPrice {
-    font-size: 16px;
-  }
-
-  .shopdetailsyoumight__rating span,
-  .shopdetailsyoumight__rating p,
-  .shopdetailsyoumight__stars {
+  .shopdetailsyoumight__tab {
     font-size: 13px;
+    padding: 10px 14px;
   }
 
-  .shopdetailsyoumight__icon {
-    width: 42px;
-    height: 42px;
-    font-size: 14px;
-  }
-
-  .shopdetailsyoumight__quickBtn {
-    height: 48px;
-    font-size: 14px;
-  }
-
-  .shopdetailsyoumight__discount {
-    font-size: 12px;
-    padding: 7px 12px;
-  }
-}
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-
-  .shopdetailsyoumight {
-    padding: 35px 14px;
+  .shopdetailsyoumight__tab svg {
+    font-size: 15px;
   }
 
   .shopdetailsyoumight__card {
-    min-width: 100%;
+    padding: 20px;
+    border-radius: 16px;
   }
 
-  .shopdetailsyoumight__heading {
-    font-size: 24px;
-  }
-
-  .shopdetailsyoumight__image {
-    height: 260px;
-  }
-
-  .shopdetailsyoumight__title {
-    font-size: 16px;
-  }
-
-  .shopdetailsyoumight__price {
+  .shopdetailsyoumight__card h3 {
     font-size: 20px;
   }
 
-  .shopdetailsyoumight__oldPrice {
+  .shopdetailsyoumight__faqtitle {
+    font-size: 24px;
+  }
+
+  .shopdetailsyoumight__faqquestion {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .shopdetailsyoumight__tab {
+    min-width: max-content;
+  }
+
+  .shopdetailsyoumight__card {
+    padding: 16px;
+  }
+
+  .shopdetailsyoumight__card p {
     font-size: 14px;
   }
 
-  .shopdetailsyoumight__arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 13px;
-  }
-
-  .shopdetailsyoumight__quickBtn {
-    width: 85%;
-    height: 46px;
-    font-size: 13px;
-  }
-
-  .shopdetailsyoumight__icon {
-    width: 38px;
-    height: 38px;
-    font-size: 13px;
-  }
-
-  .shopdetailsyoumight__discount {
-    top: 12px;
-    left: 12px;
-  }
-
-  .shopdetailsyoumight__icons {
-    top: 12px;
-    right: 12px;
+  .shopdetailsyoumight__faqtitle {
+    font-size: 22px;
   }
 }

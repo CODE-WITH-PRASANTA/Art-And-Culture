@@ -1,516 +1,191 @@
-// ShopDetailsSwitchbar.jsx
-
-import React, {
-  useEffect,
-  useState,
-} from "react";
-
+import React, { useRef, useState, useEffect } from "react";
 import "./ShopDetailsSwitchbar.css";
-
 import {
-  FaRegFileAlt,
-  FaCube,
-  FaLayerGroup,
-  FaQuestionCircle,
-  FaPlus,
-  FaMinus,
+  FaChevronLeft,
+  FaChevronRight,
+  FaStar,
 } from "react-icons/fa";
 
-import API from "../../api/axios";
-
-import { useParams } from "react-router-dom";
-
 const ShopDetailsSwitchbar = () => {
+  const sliderRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  /* ================= PRODUCT ID ================= */
+  const cardData = [
+    {
+      step: "STEP 1",
+      image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1200",
+      title: "Master Artisan Sculpting",
+      desc: "Each sacred idol is carefully handcrafted by experienced artisans preserving divine details.",
+      diff: "Hand carved craftsmanship vs machine molded production",
+    },
+    {
+      step: "STEP 2",
+      image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200",
+      title: "Premium Resin Foundation",
+      desc: "Highest-grade polyresin ensures intricate details remain sharp and durable for decades.",
+      diff: "Premium handcrafted foundation vs cheap injection molding",
+    },
+    {
+      step: "STEP 3",
+      image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200",
+      title: "Heavy Copper Preparation",
+      desc: "3x thicker copper base creates unmatched durability and plating strength.",
+      diff: "3x thicker copper base vs thin industry standard",
+    },
+    {
+      step: "STEP 4",
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200",
+      title: "Pure 24K Gold Immersion",
+      desc: "Authentic gold and silver immersion without artificial paint or fillers.",
+      diff: "100% pure plating vs color coated alternatives",
+    },
+    {
+      step: "STEP 5",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200",
+      title: "Quality Inspection",
+      desc: "Every idol undergoes rigorous inspection ensuring premium finish and perfection.",
+      diff: "Multi-stage inspection vs random quality checks",
+    },
+  ];
 
-  const { id } = useParams();
+  // Dynamically update pagination dots based on scroll position
+  const handleScroll = () => {
+    const container = sliderRef.current;
+    if (!container) return;
 
-  /* ================= STATES ================= */
+    const children = container.children;
+    if (children.length === 0) return;
 
-  const [activeTab, setActiveTab] =
-    useState("about");
+    const containerLeft = container.getBoundingClientRect().left;
+    let closestIndex = 0;
+    let minDistance = Infinity;
 
-  const [openFaq, setOpenFaq] =
-    useState(0);
+    // Detect which card is closest to the left edge of view window
+    for (let i = 0; i < children.length; i++) {
+      const childLeft = children[i].getBoundingClientRect().left;
+      const distance = Math.abs(childLeft - containerLeft);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    }
+    setActiveIndex(closestIndex);
+  };
 
-  const [product, setProduct] =
-    useState(null);
+  useEffect(() => {
+    const container = sliderRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll, { passive: true });
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
-  const [loading, setLoading] =
-    useState(true);
-
-  /* ================= FETCH PRODUCT ================= */
-
-useEffect(() => {
-
-  if (!id) {
-    setLoading(false);
-    return;
-  }
-
-  const fetchProduct = async () => {
-
-    try {
-
-      const res = await API.get(
-        `/products/${id}`
-      );
-
-      setProduct(res.data.data);
-
-    } catch (error) {
-
-      console.error(
-        "Failed to fetch product",
-        error
-      );
-
-    } finally {
-
-      setLoading(false);
-
+  const scrollToIndex = (index) => {
+    const container = sliderRef.current;
+    if (!container) return;
+    
+    const targetCard = container.children[index];
+    if (targetCard) {
+      container.scrollTo({
+        left: targetCard.offsetLeft - container.offsetLeft,
+        behavior: "smooth",
+      });
     }
   };
 
-  fetchProduct();
+  const nextSlide = () => {
+    if (activeIndex < cardData.length - 1) {
+      scrollToIndex(activeIndex + 1);
+    } else {
+      // Loop back to beginning smoothly if reached end
+      scrollToIndex(0);
+    }
+  };
 
-}, [id]);
-
-  /* ================= LOADING ================= */
-
-  if (loading) {
-
-    return (
-      <div className="shopdetailsswitchbar__loading">
-
-        Loading...
-
-      </div>
-    );
-
-  }
-
-  /* ================= NO PRODUCT ================= */
-
-  if (!product) {
-
-    return (
-      <div className="shopdetailsswitchbar__loading">
-
-        Product Not Found
-
-      </div>
-    );
-
-  }
+  const prevSlide = () => {
+    if (activeIndex > 0) {
+      scrollToIndex(activeIndex - 1);
+    } else {
+      // Loop back to end smoothly if clicked back at start
+      scrollToIndex(cardData.length - 1);
+    }
+  };
 
   return (
-    <section className="shopdetailsswitchbar">
-
-      {/* ================= TOP NAVIGATION ================= */}
-
-      <div className="shopdetailsswitchbar__tabs">
-
-        {/* ABOUT */}
-
-        <button
-          className={`shopdetailsswitchbar__tab ${
-            activeTab === "about"
-              ? "shopdetailsswitchbar__tabActive"
-              : ""
-          }`}
-          onClick={() =>
-            setActiveTab("about")
-          }
-        >
-
-          <FaRegFileAlt />
-
-          About the Product
-
-        </button>
-
-        {/* SIZE */}
-
-        <button
-          className={`shopdetailsswitchbar__tab ${
-            activeTab === "size"
-              ? "shopdetailsswitchbar__tabActive"
-              : ""
-          }`}
-          onClick={() =>
-            setActiveTab("size")
-          }
-        >
-
-          <FaCube />
-
-          Size & Weight
-
-        </button>
-
-        {/* MATERIAL */}
-
-        <button
-          className={`shopdetailsswitchbar__tab ${
-            activeTab === "material"
-              ? "shopdetailsswitchbar__tabActive"
-              : ""
-          }`}
-          onClick={() =>
-            setActiveTab("material")
-          }
-        >
-
-          <FaLayerGroup />
-
-          Product Material
-
-        </button>
-
-        {/* FAQ */}
-
-        <button
-          className={`shopdetailsswitchbar__tab ${
-            activeTab === "faq"
-              ? "shopdetailsswitchbar__tabActive"
-              : ""
-          }`}
-          onClick={() =>
-            setActiveTab("faq")
-          }
-        >
-
-          <FaQuestionCircle />
-
-          FAQs
-
-        </button>
-
+    <section className="sds-switchbar">
+      <div className="sds-heading-top">
+        <span className="sds-star">
+          <FaStar />
+        </span>
       </div>
 
-      {/* ================= ABOUT ================= */}
-
-      {activeTab === "about" && (
-
-        <div className="shopdetailsswitchbar__content">
-
-          <div className="shopdetailsswitchbar__heading">
-
-            <FaRegFileAlt />
-
-            <h2>
-              About the Product
-            </h2>
-
-          </div>
-
-          <div
-            className="shopdetailsswitchbar__body"
-            dangerouslySetInnerHTML={{
-           __html:
-            product.aboutProduct ||
-              "No product details available",
-          }}
-          />
-
-        </div>
-      )}
-
-      {/* ================= SIZE ================= */}
-
-      {activeTab === "size" && (
-
-        <div className="shopdetailsswitchbar__content">
-
-          <div className="shopdetailsswitchbar__heading">
-
-            <FaCube />
-
-            <h2>
-              Size & Weight
-            </h2>
-
-          </div>
-
-          <div className="shopdetailsswitchbar__body">
-
-            {/* SIZE */}
-
-            <h3>
-              Size Details
-            </h3>
-
-            <ul>
-
-              {product.sizes?.height && (
-
-                <li>
-                  Height :
-                  {" "}
-                  {product.sizes.height}
-                </li>
-              )}
-
-              {product.sizes?.width && (
-
-                <li>
-                  Width :
-                  {" "}
-                  {product.sizes.width}
-                </li>
-              )}
-
-              {product.sizes?.weight && (
-
-                <li>
-                  Weight :
-                  {" "}
-                  {product.sizes.weight}
-                </li>
-              )}
-
-              {product.sizes?.diameter && (
-
-                <li>
-                  Diameter :
-                  {" "}
-                  {product.sizes.diameter}
-                </li>
-              )}
-
-              {product.sizes?.inches && (
-
-                <li>
-                  Inches :
-                  {" "}
-                  {product.sizes.inches}
-                </li>
-              )}
-
-            </ul>
-
-            {/* WEIGHT DETAILS */}
-
-            <h3>
-              Weight Details
-            </h3>
-
-            <ul>
-
-              {product.weightDetails
-                ?.thali && (
-
-                <li>
-                  Thali :
-                  {" "}
-                  {
-                    product
-                      .weightDetails
-                      .thali
-                  }
-                </li>
-              )}
-
-              {product.weightDetails
-                ?.diya && (
-
-                <li>
-                  Diya :
-                  {" "}
-                  {
-                    product
-                      .weightDetails
-                      .diya
-                  }
-                </li>
-              )}
-
-              {product.weightDetails
-                ?.incenseHolder && (
-
-                <li>
-                  Incense Holder :
-                  {" "}
-                  {
-                    product
-                      .weightDetails
-                      .incenseHolder
-                  }
-                </li>
-              )}
-
-              {product.weightDetails
-                ?.bell && (
-
-                <li>
-                  Bell :
-                  {" "}
-                  {
-                    product
-                      .weightDetails
-                      .bell
-                  }
-                </li>
-              )}
-
-              {product.weightDetails
-                ?.bowl && (
-
-                <li>
-                  Bowl :
-                  {" "}
-                  {
-                    product
-                      .weightDetails
-                      .bowl
-                  }
-                </li>
-              )}
-
-              {product.weightDetails
-                ?.kalash && (
-
-                <li>
-                  Kalash :
-                  {" "}
-                  {
-                    product
-                      .weightDetails
-                      .kalash
-                  }
-                </li>
-              )}
-
-            </ul>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* ================= MATERIAL ================= */}
-
-      {activeTab === "material" && (
-
-        <div className="shopdetailsswitchbar__content">
-
-          <div className="shopdetailsswitchbar__heading">
-
-            <FaLayerGroup />
-
-            <h2>
-              Product Material
-            </h2>
-
-          </div>
-
-          <div className="shopdetailsswitchbar__body">
-
-            <p>
-
-              {product.productMaterial ||
-                "No material details available"}
-
-            </p>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* ================= FAQ ================= */}
-
-      {activeTab === "faq" && (
-
-        <div className="shopdetailsswitchbar__content">
-
-          <div className="shopdetailsswitchbar__faqTitle">
-
-            Frequently Asked Questions
-
-          </div>
-
-          <div className="shopdetailsswitchbar__faqWrapper">
-
-            {product.faqs &&
-            product.faqs.length > 0 ? (
-
-              product.faqs.map(
-                (item, index) => (
-
-                  <div
-                    className="shopdetailsswitchbar__faqItem"
-                    key={index}
-                  >
-
-                    {/* QUESTION */}
-
-                    <div
-                      className="shopdetailsswitchbar__faqQuestion"
-                      onClick={() =>
-                        setOpenFaq(
-                          openFaq ===
-                            index
-                            ? null
-                            : index
-                        )
-                      }
-                    >
-
-                      <div className="shopdetailsswitchbar__faqLeft">
-
-                        <FaQuestionCircle />
-
-                        <span>
-                          {item.question}
-                        </span>
-
-                      </div>
-
-                      {openFaq ===
-                      index ? (
-
-                        <FaMinus />
-
-                      ) : (
-
-                        <FaPlus />
-
-                      )}
-
-                    </div>
-
-                    {/* ANSWER */}
-
-                    {openFaq ===
-                      index && (
-
-                      <div className="shopdetailsswitchbar__faqAnswer">
-
-                        {item.answer}
-
-                      </div>
-                    )}
-
+      <h2 className="sds-main-title">The Svastika Difference</h2>
+
+      <div className="sds-badge">100% PURE GOLD & SILVER PLATING</div>
+
+      <p className="sds-subtitle">
+        Experience the pinnacle of sacred craftsmanship. Unlike brands who use
+        color dyes and artificial finishes, we use authentic precious metal
+        plating for long-lasting divine radiance.
+      </p>
+
+      <div className="sds-slider-container">
+        <div className="sds-slider-wrapper">
+          <button
+            className={`sds-nav sds-prev ${activeIndex === 0 ? "disabled" : ""}`}
+            onClick={prevSlide}
+            aria-label="Previous step"
+          >
+            <FaChevronLeft />
+          </button>
+
+          <div className="sds-slider" ref={sliderRef}>
+            {cardData.map((item, index) => (
+              <div className="sds-card" key={index}>
+                <div className="sds-image-wrap">
+                  <img src={item.image} alt={item.title} loading="lazy" />
+                  <span className="sds-card-star">
+                    <FaStar />
+                  </span>
+                </div>
+
+                <div className="sds-card-body">
+                  <span className="sds-step">{item.step}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+
+                  <div className="sds-difference">
+                    <strong>Svastika Difference:</strong> {item.diff}
                   </div>
-                )
-              )
-
-            ) : (
-
-              <p>
-                No FAQs available
-              </p>
-
-            )}
-
+                </div>
+              </div>
+            ))}
           </div>
 
+          <button
+            className={`sds-nav sds-next ${activeIndex === cardData.length - 1 ? "disabled" : ""}`}
+            onClick={nextSlide}
+            aria-label="Next step"
+          >
+            <FaChevronRight />
+          </button>
         </div>
-      )}
 
+        <div className="sds-pagination">
+          {cardData.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => scrollToIndex(i)}
+              className={`sds-dot ${activeIndex === i ? "active" : ""}`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

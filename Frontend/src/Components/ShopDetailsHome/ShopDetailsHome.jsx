@@ -1,222 +1,91 @@
-// ShopDetailsHome.jsx
-
-import React, {
-  useEffect,
-  useState,
-} from "react";
-
+import React, { useState } from "react";
 import "./ShopDetailsHome.css";
 
-import {
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaSearchPlus } from "react-icons/fa";
 
-import API from "../../api/axios";
-
-import { useParams } from "react-router-dom";
+import Murti1 from "../../assets/Murti1.webp";
+import Murti2 from "../../assets/Murti2.webp";
+import Murti3 from "../../assets/Murti3.webp";
+import Murti4 from "../../assets/Murti4.webp";
+import Murti5 from "../../assets/Murti5.webp";
 
 const ShopDetailsHome = () => {
+  const images = [Murti1, Murti2, Murti3, Murti4, Murti5];
 
-  /* ================= PRODUCT ID ================= */
-
-  const { id } = useParams();
-
-  /* ================= STATES ================= */
-
-  const [images, setImages] = useState([]);
-
-  const [currentIndex, setCurrentIndex] =
-    useState(0);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  /* ================= FETCH PRODUCT ================= */
-
- useEffect(() => {
-
-  if (!id) {
-    setLoading(false);
-    return;
-  }
-
-  const fetchProduct = async () => {
-
-    try {
-
-      const res = await API.get(
-        `/products/${id}`
-      );
-
-      const product =
-        res.data.data;
-
-      if (
-        product &&
-        product.images
-      ) {
-
-        const formattedImages =
-          product.images.map(
-            (img) =>
-              `http://localhost:5000${img}`
-          );
-
-        setImages(formattedImages);
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Failed to fetch product",
-        error
-      );
-
-    } finally {
-
-      setLoading(false);
-
-    }
-  };
-
-  fetchProduct();
-
-}, [id]);
-
-  /* ================= ACTIVE IMAGE ================= */
-
-  const activeImage =
-    images[currentIndex];
-
-  /* ================= NEXT IMAGE ================= */
+  const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
-
-    setCurrentIndex((prev) =>
-      prev === images.length - 1
-        ? 0
-        : prev + 1
+    setCurrentImage((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
     );
-
   };
-
-  /* ================= PREVIOUS IMAGE ================= */
 
   const prevImage = () => {
-
-    setCurrentIndex((prev) =>
-      prev === 0
-        ? images.length - 1
-        : prev - 1
+    setCurrentImage((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
     );
-
   };
 
-  /* ================= LOADING ================= */
-
-  if (loading) {
-
-    return (
-      <div className="shopdetailshome-loading">
-
-        Loading...
-
-      </div>
-    );
-
-  }
-
   return (
-    <section className="ShopDetailsHome">
+    <section className="shopDetailsHome">
+      <div className="shopDetailsHome__gallery">
 
-      <div className="shopdetailshome-container">
+        {/* Main Image */}
 
-        {/* ================= GALLERY ================= */}
+        <div className="shopDetailsHome__mainImageWrapper">
+          <img
+            src={images[currentImage]}
+            alt="Product"
+            className="shopDetailsHome__mainImage"
+          />
 
-        <div className="shopdetailshome-gallery">
+          {/* Zoom Icon */}
 
-          {/* ================= MAIN IMAGE ================= */}
+          <button className="shopDetailsHome__zoomBtn">
+            <FaSearchPlus />
+          </button>
 
-          <div className="shopdetailshome-mainimagewrapper">
+          {/* Prev Button */}
 
-            {/* LEFT BUTTON */}
+          <button
+            className="shopDetailsHome__navBtn shopDetailsHome__prevBtn"
+            onClick={prevImage}
+          >
+            <FaChevronLeft />
+          </button>
 
-            {images.length > 1 && (
+          {/* Next Button */}
 
-              <button
-                className="shopdetailshome-arrow shopdetailshome-leftarrow"
-                onClick={prevImage}
-              >
-
-                <FaChevronLeft />
-
-              </button>
-            )}
-
-            {/* IMAGE */}
-
-            <img
-              src={
-                activeImage ||
-                "https://via.placeholder.com/500"
-              }
-              alt="product"
-              className="shopdetailshome-mainimage"
-            />
-
-            {/* RIGHT BUTTON */}
-
-            {images.length > 1 && (
-
-              <button
-                className="shopdetailshome-arrow shopdetailshome-rightarrow"
-                onClick={nextImage}
-              >
-
-                <FaChevronRight />
-
-              </button>
-            )}
-
-          </div>
-
-          {/* ================= THUMBNAILS ================= */}
-
-          <div className="shopdetailshome-thumbwrapper">
-
-            {images.map(
-              (img, index) => (
-
-                <div
-                  key={index}
-                  className={`shopdetailshome-thumbbox ${
-                    currentIndex === index
-                      ? "shopdetailshome-thumbactive"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    setCurrentIndex(index)
-                  }
-                >
-
-                  <img
-                    src={img}
-                    alt="thumbnail"
-                    className="shopdetailshome-thumbimage"
-                  />
-
-                </div>
-              )
-            )}
-
-          </div>
-
+          <button
+            className="shopDetailsHome__navBtn shopDetailsHome__nextBtn"
+            onClick={nextImage}
+          >
+            <FaChevronRight />
+          </button>
         </div>
 
-      </div>
+        {/* Thumbnail Gallery */}
 
+        <div className="shopDetailsHome__thumbnailContainer">
+          {images.map((img, index) => (
+            <div
+              key={index}
+              className={`shopDetailsHome__thumbnailBox ${
+                currentImage === index
+                  ? "shopDetailsHome__thumbnailBox--active"
+                  : ""
+              }`}
+              onClick={() => setCurrentImage(index)}
+            >
+              <img
+                src={img}
+                alt={`Thumbnail ${index}`}
+                className="shopDetailsHome__thumbnail"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
