@@ -10,12 +10,17 @@
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+body.menu-open {
+  overflow: hidden;
+}
+
 .navbar-header {
   width: 100%;
   background-color: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 1000;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.02);
 }
@@ -41,10 +46,6 @@
   flex-shrink: 0;
 }
 
-.navbar-logo:hover {
-  opacity: 0.9;
-}
-
 .navbar-logo img {
   height: 100%;
   width: auto;
@@ -52,12 +53,12 @@
 }
 
 /* ==========================================================================
-   CENTER: Desktop Navigation Links
+   CENTER: Desktop Links Configuration
    ========================================================================== */
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
 }
 
 .navbar-links a {
@@ -74,7 +75,6 @@
   white-space: nowrap;
 }
 
-/* Premium underline animation for desktop link hover states */
 .navbar-links a::after {
   content: '';
   position: absolute;
@@ -90,6 +90,15 @@
   .navbar-links a:hover::after {
     width: 100%;
   }
+  .mobile-menu-header,
+  .mobile-menu-footer {
+    display: none !important;
+  }
+  .nav-links-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
 }
 
 .navbar-links a svg {
@@ -98,7 +107,7 @@
 }
 
 /* ==========================================================================
-   RIGHT: Actions & Icon Buttons
+   RIGHT: Core Utility Actions Elements
    ========================================================================== */
 .navbar-actions {
   display: flex;
@@ -107,7 +116,6 @@
   flex-shrink: 0;
 }
 
-/* Utility buttons context layout styling */
 .navbar-actions .icon-link,
 .navbar-actions .quote-box-icon-btn {
   background: transparent;
@@ -120,7 +128,7 @@
   width: 42px;
   height: 42px;
   color: var(--primary-color);
-  font-size: 20px;
+  font-size: 19px;
   text-decoration: none;
   border-radius: 8px;
   background-color: var(--bg-light);
@@ -134,7 +142,6 @@
   transform: translateY(-1px);
 }
 
-/* "Get Free Quotes" Main Action Button */
 .navbar-quote-btn {
   display: inline-flex;
   align-items: center;
@@ -145,82 +152,77 @@
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.3px;
-  padding: 12px 24px;
+  padding: 12px 22px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(97, 31, 16, 0.15);
   transition: var(--transition-smooth);
-  margin-left: 4px;
   white-space: nowrap;
 }
 
 .navbar-quote-btn:hover {
   background-color: var(--primary-hover);
-  box-shadow: 0 6px 14px rgba(97, 31, 16, 0.25);
   transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   Overlays, Backgrounds & Panel Drawers
-   ========================================================================== */
-.quote-info-overlay,
-.cartdrawer__overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  z-index: 1500;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+@media (min-width: 993px) {
+  .mobile-hamburger-btn {
+    display: none !important;
+  }
 }
 
-.quote-info-overlay.show,
-.cartdrawer__overlayActive {
+/* ==========================================================================
+   Backdrops and Overlays (Fixed Layer Hierarchies)
+   ========================================================================== */
+.quote-info-overlay {
+  display: none;
+}
+
+.quote-info-overlay.show {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1500;
+}
+.quote-info-overlay.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Login Modal Modifiers */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1990; /* Placed fully below the sliding drawer container */
+}
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 .accountLoginOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); 
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 2005;
 }
-
 .accountLoginModal {
   background: #ffffff;
   padding: 30px;
   border-radius: 12px;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  animation: modalFadeIn 0.3s ease;
-}
-
-@keyframes modalFadeIn {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* ==========================================================================
-   STRICT MOBILE RESPONSIVE ADAPTATIONS
+   STRICT MOBILE DRAWER LAYOUT RESOLUTIONS
    ========================================================================== */
 @media (max-width: 992px) {
   .navbar-container {
@@ -228,43 +230,117 @@
   }
 
   .navbar-logo {
-    height: 46px;
+    height: 44px;
   }
 
-  /* Converts Navbar links container into a premium mobile slide-out drawer */
+  /* Side Drawer Structure Transformation */
   .navbar-links {
     position: fixed;
     top: 0;
-    right: -100%; /* Hidden offscreen by default */
-    width: 280px;
+    right: -100%;
+    width: 300px;
+    max-width: 85vw;
     height: 100vh;
-    background-color: #ffffff;
-    box-shadow: -4px 0 25px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 80px 24px 40px 24px;
-    gap: 16px;
-    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 1400;
+    align-items: stretch;
+    padding: 0;
+    box-shadow: -6px 0 25px rgba(0, 0, 0, 0.15);
+    transition: right 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 2000; /* Set above the overlay layer so link element touch/clicks work properly */
   }
 
-  /* To use this mobile slide-out feature, apply toggle logic to add this .active class */
   .navbar-links.active {
     right: 0;
   }
 
+  /* Fixed Top Control Area Header inside Mobile View */
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-light);
+    background-color: var(--bg-light);
+  }
+
+  .mobile-menu-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary-color);
+    letter-spacing: 0.5px;
+  }
+
+  .mobile-menu-close-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: var(--text-dark);
+    font-size: 18px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+
+  .mobile-menu-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  /* Primary Navigation Scroller Context */
+  .nav-links-container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 12px;
+    overflow-y: auto;
+    flex: 1;
+    gap: 4px;
+  }
+
   .navbar-links a {
     width: 100%;
-    font-size: 16px;
-    padding: 12px 8px;
-    border-bottom: 1px solid rgba(234, 221, 205, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: var(--primary-color);
+    border-bottom: none;
+  }
+
+  .navbar-links a:hover {
+    background-color: var(--bg-light);
+    transform: translateX(3px);
   }
 
   .navbar-links a::after {
-    display: none; /* Turn off desktop animation logic */
+    display: none;
   }
 
-  /* Optimized sizing adjustment for utility actions on mobile viewports */
+  /* Decorative Minimal Footer Wrapper base */
+  .mobile-menu-footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    border-top: 1px solid rgba(234, 221, 205, 0.3);
+  }
+
+  .ganesha-decorative-dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    color: #e67e22;
+    font-size: 10px;
+    opacity: 0.6;
+  }
+
+  /* Sizing optimizations for utilities */
   .navbar-actions {
     gap: 8px;
   }
@@ -277,28 +353,65 @@
     border-radius: 6px;
   }
 
-  /* Shrinks quote CTA text margins inside tiny screen widths gracefully */
   .navbar-quote-btn {
     font-size: 12px;
     padding: 10px 14px;
     border-radius: 6px;
-    margin-left: 2px;
   }
 }
 
-/* Extra optimization layout for tiny smartphones */
+/* Micro-screen Adjustments */
 @media (max-width: 480px) {
   .navbar-container {
     padding: 10px 12px;
   }
-
-  /* Hides less critical links explicitly on micro viewports to avoid overlapping layout items */
   .navbar-actions .icon-link:nth-of-type(1) {
-    display: none; /* Hides wishlist icon optionally to save space */
+    display: none;
   }
-  
   .navbar-quote-btn {
     padding: 9px 10px;
     font-size: 11px;
   }
+  .navbar-links {
+    width: 280px;
+  }
+}
+/* ✅ Overlay must sit BELOW the nav drawer */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;        /* below navbar-links */
+}
+.mobile-menu-overlay.active {
+  display: block;
+}
+
+/* ✅ Nav drawer must sit ABOVE the overlay */
+.navbar-links {
+  z-index: 999;        /* above overlay */
+  pointer-events: none;  /* disabled when closed */
+}
+.navbar-links.active {
+  pointer-events: all;   /* ✅ enabled only when open */
+}
+
+/* ✅ Links must be fully clickable */
+.nav-links-container a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  text-decoration: none;
+  position: relative;
+  z-index: 1000;         /* above everything */
+  pointer-events: all;   /* ✅ never blocked */
+  cursor: pointer;
+}
+
+/* ✅ Body scroll lock must NOT block pointer events on the drawer */
+body.menu-open {
+  overflow: hidden;
+  /* Do NOT add pointer-events: none here */
 }
