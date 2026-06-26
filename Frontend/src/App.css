@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+ 
 }
 
 /* ================================
@@ -16,7 +17,8 @@ body {
   color: #212529;                  /* Dark readable text */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;              /* Prevent horizontal scroll */
+  overflow-x: hidden;      
+        /* Prevent horizontal scroll */
 }
 
 /* ================================
