@@ -26,6 +26,7 @@ import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
 
+
 function App() {
   return (
     <>
@@ -61,8 +62,12 @@ function App() {
           <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
+<<<<<<< HEAD
           <Route path="/login" element={<LoginForm/>}/>
           
+=======
+   
+>>>>>>> ca3046f2f6b5b082fbbd237d2c0a2777f9548cf0
         </Routes>
       </main>
 
