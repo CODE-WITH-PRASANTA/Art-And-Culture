@@ -5,50 +5,34 @@ import ShopDetailsHome from "../../Components/ShopDetailsHome/ShopDetailsHome";
 import ShopDetailsAddToCart from "../../Components/ShopDetailsAddToCart/ShopDetailsAddToCart";
 import ShopDetailsSwitchbar from "../../Components/ShopDetailsSwitchbar/ShopDetailsSwitchbar";
 import ShopDetailsYoumight from "../../Components/ShopDetailsYoumight/ShopDetailsYoumight";
-import ShopDetailsReviews from "../../Components/ShopDetailsReviews/ShopDetailsReviews";
+import ShopDetailsBread from "../../Components/ShopDetailsBread/ShopDetailsBread";
 import AddNow from "../../Components/AddNow/AddNow";
+import CustomerReviews from "../../Components/CustomerReviews/CustomerReviews";
+
 
 const ShopDetails = () => {
   return (
-    <div className="shopDetailsPage">
+   <div className="shopDetailsPage">
+  <ShopDetailsBread /> {/* Full Width */}
 
-      {/* ================= TOP SECTION ================= */}
-
-      <div className="shopDetailsPage__top">
-
-        {/* LEFT SIDE */}
-        <div className="shopDetailsPage__left">
-          <ShopDetailsHome />
-        </div>
-
-        {/* RIGHT SIDE */}
-        <div className="shopDetailsPage__right">
-          <ShopDetailsAddToCart />
-        </div>
-
-      </div>
-
-      {/* ================= BOTTOM SECTION ================= */}
-
-      <div className="shopDetailsPage__bottom">
-
-        <div className="shopDetailsPage__section">
-          <ShopDetailsSwitchbar />
-        </div>
-
-        <div className="shopDetailsPage__section">
-          <ShopDetailsYoumight />
-        </div>
-
-        <div className="shopDetailsPage__section">
-          <ShopDetailsReviews />
-        </div>
- 
-          <AddNow />
-    
-      </div>
-
+  <div className="shopDetailsPage__top">
+    <div className="shopDetailsPage__left">
+      <ShopDetailsHome />
     </div>
+
+    <div className="shopDetailsPage__right">
+      <ShopDetailsAddToCart />
+    </div>
+  </div>
+
+  <div className="shopDetailsPage__bottom">
+    <ShopDetailsSwitchbar />
+    <ShopDetailsYoumight />
+  </div>
+    <AddNow />
+    <CustomerReviews />
+
+</div>
   );
 };
 

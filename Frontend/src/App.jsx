@@ -25,6 +25,7 @@ import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
 
+
 function App() {
   return (
     <>
@@ -57,11 +58,10 @@ function App() {
           <Route path="/orderconfirm" element={<OrderConfirm />} />
           <Route path="/ordershistory" element={<OrderHistory />} />
           <Route path="/poojadetails" element={<PoojaDetails/>}/>
-          <Route path="/shopdetails/:id" element={<ShopDetails />}/>
-          <Route path="/poojadetails/:id" element={<PoojaDetails />} />
           <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
+   
         </Routes>
       </main>
 

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AddNow.css";
 
 import {
   FaHeart,
   FaEye,
-  FaChevronLeft,
   FaStar,
   FaRegStar,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 
 import product1 from "../../assets/product 1.webp";
@@ -74,72 +75,94 @@ const AddNow = () => {
     },
   ];
 
+  const itemsPerPage = 4;
+  const [page, setPage] = useState(0);
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  const visibleProducts = products.slice(
+    page * itemsPerPage,
+    page * itemsPerPage + itemsPerPage
+  );
+
+  const nextSlide = () => {
+    setPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevSlide = () => {
+    setPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
   return (
     <section className="addnow">
+      <div className="addnow_nav">
+        <button className="addnow_arrow" onClick={prevSlide}>
+          <FaChevronLeft />
+        </button>
+
+        <button className="addnow_arrow" onClick={nextSlide}>
+          <FaChevronRight />
+        </button>
+      </div>
+
       <div className="addnow_wrapper">
-        {products.map((item) => (
+        {visibleProducts.map((item) => (
           <div className="addnow_card" key={item.id}>
             <div className="addnow_imagebox">
-              <img src={item.image} alt="" />
+              <img src={item.image} alt={item.title} />
 
               <span className="addnow_discount">
                 {item.discount}
               </span>
 
               <div className="addnow_overlay">
-
-                <button className="addnow_arrow">
-                  <FaChevronLeft />
-                </button>
-
                 <div className="addnow_icons">
+                  <button className="addnow_icon">
+                    <FaHeart />
+                  </button>
 
-                  <div className="addnow_iconbox">
-                    <span>Add to wishlist</span>
-                    <button>
-                      <FaHeart />
-                    </button>
-                  </div>
-
-                  <div className="addnow_iconbox">
-                    <span>Quick view</span>
-                    <button>
-                      <FaEye />
-                    </button>
-                  </div>
-
+                  <button className="addnow_icon">
+                    <FaEye />
+                  </button>
                 </div>
 
                 <button className="addnow_quickbtn">
                   QUICK ADD
                 </button>
-
               </div>
             </div>
 
             <div className="addnow_content">
-
               <h3>{item.title}</h3>
 
               <div className="addnow_rating">
                 <span>5.0</span>
-
                 <FaStar />
                 <FaStar />
                 <FaStar />
                 <FaStar />
                 <FaRegStar />
-
-                <span>{item.reviews} review</span>
+                <span>({item.reviews})</span>
               </div>
 
               <div className="addnow_price">
                 <span>{item.price}</span>
                 <del>{item.oldPrice}</del>
               </div>
-
             </div>
           </div>
+        ))}
+      </div>
+
+      <div className="addnow_dots">
+        {[...Array(totalPages)].map((_, index) => (
+          <span
+            key={index}
+            className={`addnow_dot ${
+              page === index ? "active" : ""
+            }`}
+            onClick={() => setPage(index)}
+          />
         ))}
       </div>
     </section>
