@@ -25,6 +25,7 @@ import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
+import BrassDiyas from "./Pages/BrassDiyas/BrassDiyas";
 
 
 function App() {
@@ -62,12 +63,11 @@ function App() {
           <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
-<<<<<<< HEAD
           <Route path="/login" element={<LoginForm/>}/>
           
-=======
+          <Route path="/brass-diyas" element={<BrassDiyas/>}/>
+          
    
->>>>>>> ca3046f2f6b5b082fbbd237d2c0a2777f9548cf0
         </Routes>
       </main>
 
