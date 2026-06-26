@@ -1,0 +1,209 @@
+/* ==========================
+   Sidebar Base Layout
+========================== */
+.Sidebar {
+  display: flex;
+  flex-direction: column; /* Stacks the cards vertically */
+  gap: 16px;
+  font-family: "Poppins", sans-serif;
+  width: 340px; /* Adjust width as needed for your app grid */
+  background-color: #fcfbfa; /* Subtle off-white canvas backdrop like the photo */
+  padding: 50px;
+  margin-top: 20px;
+  position: fixed;
+  
+}
+
+
+/* ==========================
+   Profile Card
+========================== */
+.Sidebar-profileCard {
+  background: #fff;
+  border-radius: 16px;
+  padding:20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.Sidebar-profileTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f5f5f5;
+  padding-bottom: 16px;
+}
+
+.Sidebar-profileInfo h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.Sidebar-profileInfo h3 span {
+  color: #666;
+  font-weight: 400;
+}
+
+.Sidebar-email {
+  margin: 6px 0 0 0;
+  font-size: 14px;
+  color: #828282;
+}
+
+.Sidebar-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #d4a54e;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.Sidebar-profileBottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 16px;
+}
+
+.Sidebar-orderCount {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111;
+}
+
+.Sidebar-orderText {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 15px;
+  color: #2c2c2c;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.Sidebar-inlineArrow {
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+/* ==========================
+   Menu Card
+========================== */
+.Sidebar-menuCard {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar-title {
+  padding: 16px 20px;
+}
+
+.Sidebar-title h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  text-transform: capitalize;
+}
+
+/* ==========================
+   Menu Item Links
+========================== */
+.Sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  text-decoration: none; /* Prevents default blue/underlined anchor tag styles */
+  transition: all 0.2s ease;
+}
+
+.Sidebar-item:hover {
+  background: hwb(36 27% 22%);
+}
+
+.Sidebar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.Sidebar-icon {
+  font-size: 20px;
+  color: #616161;
+  flex-shrink: 0;
+}
+
+.Sidebar-left h5 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2c2c2c;
+}
+
+.Sidebar-left p {
+  margin: 3px 0 0 0;
+  font-size: 13px;
+  color: #8c8c8c;
+}
+
+.Sidebar-arrow {
+  font-size: 18px;
+  color: #8c8c8c;
+  transition: transform 0.2s;
+}
+
+/* ==========================
+   Active State Rules
+========================== */
+.Sidebar-active {
+  background: #fdfaf4; /* Subtle warm golden-tint background */
+}
+
+/* Colors text and icons dynamically when active */
+.Sidebar-active .Sidebar-icon,
+.Sidebar-active h5,
+.Sidebar-active .Sidebar-arrow {
+  color: #d4a54e !important;
+}
+
+/* ==========================
+   Logout Button
+========================== */
+.Sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  margin-top: auto;
+  cursor: pointer;
+  color: #e54b4b;
+  transition: background 0.2s;
+}
+
+.Sidebar-logout:hover {
+  background: #fff5f5;
+}
+
+.Sidebar-logoutIcon {
+  font-size: 20px;
+}
+
+.Sidebar-logout span {
+  font-size: 15px;
+  font-weight: 500;
+}
