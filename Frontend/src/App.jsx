@@ -24,6 +24,7 @@ import CheckOut from "./Pages/CheckOut/CheckOut";
 import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
+import LoginForm from "./Components/LoginForm/LoginForm";
 
 function App() {
   return (
@@ -60,6 +61,8 @@ function App() {
           <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
+          <Route path="/login" element={<LoginForm/>}/>
+          
         </Routes>
       </main>
 
