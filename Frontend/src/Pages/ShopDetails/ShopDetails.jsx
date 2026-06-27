@@ -29,6 +29,7 @@ const ShopDetails = () => {
     <ShopDetailsSwitchbar />
     <ShopDetailsYoumight />
   </div>
+  
     <AddNow />
     <CustomerReviews />
 

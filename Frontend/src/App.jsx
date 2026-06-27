@@ -27,6 +27,11 @@ import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
 import BrassDiyas from "./Pages/BrassDiyas/BrassDiyas";
 import Category from "./Pages/Category/Category";
+import MainLayout from "./Layout/MainLayout/MainLayout";
+import Address from "./Components/Address/Address";
+import AccountDetails from "./Components/AccountDetails/AccountDetails";
+import AccContact from "./Components/AccContact/AccContact";
+import AccOverview from "./Components/AccOverview/AccOverview";
 
 
 function App() {
@@ -68,6 +73,28 @@ function App() {
           
           <Route path="/brass-diyas" element={<BrassDiyas/>}/>
           <Route path="/category" element={<Category />} />
+          <Route path="/account" element={<MainLayout />}>
+          <Route index element={<div>Overview Page</div>} />
+          <Route index element={<AccOverview/>} />
+          <Route path="address" element={<Address />} />
+          <Route path="orders" element={<div>Orders Page</div>} />
+          <Route path="details" element={<div>Account Details</div>} />
+            <Route
+              path="contact"
+              element={<div>Contact Page</div>}
+            />
+            <Route
+              path="details"
+              element={<AccountDetails/>}
+            />
+
+            <Route
+              path="contact"
+              element={<AccContact/>}
+            />
+
+          </Route>
+                    
    
         </Routes>
       </main>

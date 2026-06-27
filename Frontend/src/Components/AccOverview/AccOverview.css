@@ -1,0 +1,254 @@
+/*=================================
+ AccOverview
+==================================*/
+
+.AccOverview{
+    width:100%;
+    padding:25px;
+    background:#f5f7fb;
+    font-family:'Poppins',sans-serif;
+}
+
+/*==============================*/
+
+.AccOverview-card{
+    background:#fff;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    margin-bottom:25px;
+    overflow:hidden;
+}
+
+/*==============================*/
+
+.AccOverview-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:24px 28px;
+    border-bottom:1px solid #edf1f7;
+}
+
+.AccOverview-header h2{
+    font-size:26px;
+    color:#1f2937;
+    font-weight:700;
+}
+
+.AccOverview-header a{
+    color:#d6a03e;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.AccOverview-header a:hover{
+    color:#b8821c;
+}
+
+/*==============================
+ Orders
+==============================*/
+
+.AccOverview-orders{
+    padding:20px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.AccOverview-orderIcon{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#faf6ef;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#d6a03e;
+    font-size:42px;
+    margin-bottom:25px;
+}
+
+.AccOverview-orders h3{
+    font-size:30px;
+    margin-bottom:10px;
+    color:#1f2937;
+}
+
+.AccOverview-orders p{
+    color:#6b7280;
+    font-size:16px;
+    margin-bottom:30px;
+}
+
+.AccOverview-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:none;
+    cursor:pointer;
+    padding:15px 28px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#d6a03e,#bc8318);
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    transition:.35s;
+    box-shadow:0 12px 25px rgba(214,160,62,.30);
+}
+
+.AccOverview-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(214,160,62,.40);
+}
+
+/*==============================
+ Address
+==============================*/
+
+.AccOverview-addressCard{
+    
+    padding-left: 14px;
+    border:1px solid #e8edf3;
+    border-radius:14px;
+    transition:.3s;
+}
+
+.AccOverview-addressCard:hover{
+    box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+
+.AccOverview-addressTop{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.AccOverview-addressTop h3{
+    font-size:25px;
+    color:#1f2937;
+    font-weight:700;
+}
+
+.AccOverview-addressTop span{
+    padding:5px 12px;
+    background:#e7f8e8;
+    color:#2d8f45;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.AccOverview-address{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+}
+
+.AccOverview-address svg{
+    color:#d6a03e;
+    font-size:22px;
+    margin-top:4px;
+}
+
+.AccOverview-address p{
+    margin-bottom:8px;
+    color:#555;
+    font-size:16px;
+    line-height:1.7;
+}
+
+/*==============================
+ Responsive
+==============================*/
+
+@media(max-width:768px){
+
+.AccOverview{
+    padding:15px;
+}
+
+.AccOverview-header{
+    padding:18px;
+}
+
+.AccOverview-header h2{
+    font-size:22px;
+}
+
+.AccOverview-orders{
+    padding:40px 20px;
+}
+
+.AccOverview-orderIcon{
+    width:75px;
+    height:75px;
+    font-size:34px;
+}
+
+.AccOverview-orders h3{
+    font-size:24px;
+}
+
+.AccOverview-addressCard{
+    margin:18px;
+}
+
+.AccOverview-addressTop{
+    flex-wrap:wrap;
+}
+
+.AccOverview-addressTop h3{
+    font-size:21px;
+}
+
+.AccOverview-btn{
+    width:100%;
+    justify-content:center;
+}
+
+}
+
+@media(max-width:480px){
+
+.AccOverview-header{
+    padding:16px;
+}
+
+.AccOverview-header h2{
+    font-size:18px;
+}
+
+.AccOverview-header a{
+    font-size:14px;
+}
+
+.AccOverview-orders h3{
+    font-size:20px;
+}
+
+.AccOverview-orders p{
+    font-size:14px;
+}
+
+.AccOverview-address{
+    flex-direction:column;
+}
+
+.AccOverview-addressTop h3{
+    font-size:18px;
+}
+
+.AccOverview-address p{
+    font-size:14px;
+}
+
+.AccOverview-addressCard{
+    padding:18px;
+}
+
+}
