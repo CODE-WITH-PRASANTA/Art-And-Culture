@@ -1,0 +1,70 @@
+.mainLayout {
+  width: 100%;
+  min-height: 100vh;
+  background: #f7f7f7;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+  margin-top: 80px;
+}
+
+.mainLayout-sidebar {
+  width: 340px;
+  min-width: 340px;
+}
+
+.mainLayout-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Scroll */
+
+.mainLayout-content,
+.mainLayout-sidebar {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.mainLayout-content::-webkit-scrollbar,
+.mainLayout-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ================= Tablet ================= */
+
+@media (max-width:1100px){
+
+.mainLayout{
+    gap:20px;
+    padding:20px;
+}
+
+.mainLayout-sidebar{
+    width:300px;
+    min-width:300px;
+}
+
+}
+
+/* ================= Mobile ================= */
+
+@media(max-width:768px){
+
+.mainLayout{
+    flex-direction:column;
+    padding:15px;
+    gap:18px;
+}
+
+.mainLayout-sidebar{
+    width:100%;
+    min-width:100%;
+}
+
+.mainLayout-content{
+    width:100%;
+}
+
+}

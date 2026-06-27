@@ -1,12 +1,11 @@
 .shopDetailsHome {
   width: 100%;
-  padding: 30px;
-  background: #f8f8f8;
 }
 
 .shopDetailsHome__gallery {
-  max-width: 1200px; /* Increased from 700px to allow a much larger presentation width */
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* MAIN IMAGE */
@@ -14,209 +13,173 @@
 .shopDetailsHome__mainImageWrapper {
   position: relative;
   width: 100%;
-  max-height: 750px; /* Increased from 450px to make the hero image look large and prominent */
-  overflow: hidden;
-  border-radius: 24px;
-  background: #fff;
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.08),
-    0 1px 3px rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .shopDetailsHome__mainImage {
   width: 100%;
-  height: 100%;
-  max-height: 750px; /* Matched the container height for a generous portrait/landscape showcase */
+  max-width: 550px;
+  height: 550px;
+  object-fit: contain;
   display: block;
-  object-fit: cover; 
-  border-radius: 24px;
-  transition: all 0.4s ease;
+  margin: 0 auto;
+  transition: all 0.3s ease;
 }
 
 /* ZOOM BUTTON */
 
 .shopDetailsHome__zoomBtn {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 55px; /* Restored to a prominent clickable size */
-  height: 55px;
+  top: 15px;
+  right: 15px;
+  width: 46px;
+  height: 46px;
   border: none;
-  background: #fff;
   border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px; 
+  background: #fff;
   color: #222;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  z-index: 2;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
 .shopDetailsHome__zoomBtn:hover {
-  transform: scale(1.08);
+  background: #f6e3a6;
 }
 
-/* NAVIGATION BUTTONS */
+/* PREV NEXT BUTTONS */
 
 .shopDetailsHome__navBtn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 60px; /* Increased button sizing to match the large canvas image */
-  height: 60px;
+  width: 46px;
+  height: 46px;
   border: none;
   border-radius: 50%;
+  background: #fff;
+  color: #222;
   cursor: pointer;
-
-  background: linear-gradient(
-    135deg,
-    #bf5b17,
-    #a94910
-  );
-
-  color: white;
-  font-size: 22px; 
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  font-size: 15px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-
-  box-shadow: 0 10px 20px rgba(191,91,23,0.35);
+  z-index: 2;
 }
 
 .shopDetailsHome__navBtn:hover {
-  transform: translateY(-50%) scale(1.08);
+  background: #f6e3a6;
 }
 
 .shopDetailsHome__prevBtn {
-  left: 24px;
+  left: 15px;
 }
 
 .shopDetailsHome__nextBtn {
-  right: 24px;
+  right: 15px;
 }
 
 /* THUMBNAILS */
 
 .shopDetailsHome__thumbnailContainer {
   display: flex;
-  gap: 16px; /* Restored spacing definition for larger layout look */
-  margin-top: 24px; 
-  overflow-x: auto;
-  padding-bottom: 10px;
-}
-
-.shopDetailsHome__thumbnailContainer::-webkit-scrollbar {
-  height: 6px;
-}
-
-.shopDetailsHome__thumbnailContainer::-webkit-scrollbar-thumb {
-  background: #d2d2d2;
-  border-radius: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .shopDetailsHome__thumbnailBox {
-  min-width: 110px; /* Enlarged thumbnail previews from 80px */
-  height: 110px;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: 14px; 
+  width: 85px;
+  height: 85px;
   border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
   transition: all 0.3s ease;
   background: #fff;
-  padding: 4px;
 }
 
 .shopDetailsHome__thumbnailBox:hover {
-  transform: translateY(-4px);
+  border-color: #d4a73d;
 }
 
 .shopDetailsHome__thumbnailBox--active {
-  border: 2px solid #bf5b17;
-  box-shadow: 0 10px 25px rgba(191,91,23,0.2);
+  border-color: #d4a73d;
 }
 
 .shopDetailsHome__thumbnail {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+}
+
+/* LARGE TABLET */
+
+@media (max-width: 991px) {
+  .shopDetailsHome__mainImage {
+    max-width: 450px;
+    height: 450px;
+  }
+
+  .shopDetailsHome__thumbnailBox {
+    width: 75px;
+    height: 75px;
+  }
 }
 
 /* TABLET */
 
 @media (max-width: 768px) {
-
-  .shopDetailsHome {
-    padding: 24px;
-  }
-
-  .shopDetailsHome__mainImageWrapper,
   .shopDetailsHome__mainImage {
-    max-height: 550px; /* Increased from 350px */
+    max-width: 350px;
+    height: 350px;
   }
 
   .shopDetailsHome__navBtn {
-    width: 50px;
-    height: 50px;
-    font-size: 18px;
-  }
-
-  .shopDetailsHome__thumbnailBox {
-    min-width: 90px; 
-    height: 90px;
+    width: 40px;
+    height: 40px;
   }
 
   .shopDetailsHome__zoomBtn {
-    width: 48px;
-    height: 48px;
-    font-size: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .shopDetailsHome__thumbnailBox {
+    width: 65px;
+    height: 65px;
   }
 }
 
 /* MOBILE */
 
 @media (max-width: 480px) {
-
-  .shopDetailsHome {
-    padding: 16px;
-  }
-
-  .shopDetailsHome__mainImageWrapper,
   .shopDetailsHome__mainImage {
-    max-height: 400px; /* Increased from 260px for a bold mobile view profile */
-    border-radius: 20px;
+    max-width: 280px;
+    height: 280px;
   }
 
   .shopDetailsHome__thumbnailContainer {
-    gap: 12px;
+    gap: 8px;
   }
 
   .shopDetailsHome__thumbnailBox {
-    min-width: 75px; 
-    height: 75px;
+    width: 55px;
+    height: 55px;
   }
 
   .shopDetailsHome__navBtn {
-    width: 44px;
-    height: 44px;
-    font-size: 14px;
-  }
-
-  .shopDetailsHome__prevBtn {
-    left: 12px;
-  }
-
-  .shopDetailsHome__nextBtn {
-    right: 12px;
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
   }
 
   .shopDetailsHome__zoomBtn {
-    width: 42px;
-    height: 42px;
-    top: 14px;
-    right: 14px;
-    font-size: 14px;
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
   }
 }
