@@ -24,10 +24,6 @@ import CheckOut from "./Pages/CheckOut/CheckOut";
 import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
-import Sidebar from "./Layout/Sidebar/Sidebar";
-import Mainlayout from "./Layout/Mainlayout/Mainlayout";
-import Myaddress from "./Layout/Myaddress/Myaddress";
-
 
 function App() {
   return (
@@ -64,15 +60,8 @@ function App() {
           <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
-          <Route path="/sidebar" element={<Sidebar/>}/>
-          <Route path="/mainlayout" element={<Mainlayout/>}/>
-          <Route path="/myaddress" element={<Myaddress/>}/>
-          
-    
-    
          
-          
-      </Routes>
+        </Routes>
       </main>
 
       <Footer />
