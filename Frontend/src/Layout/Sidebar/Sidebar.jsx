@@ -25,7 +25,7 @@ const Sidebar = () => {
               <FiChevronRight className="sidebarMiniArrow" />
             </h3>
 
-            <p>adyshabarik@gmail.com</p>
+            <p>adyasabarik@gmail.com</p>
           </div>
 
           <div className="sidebarAvatar">U</div>
