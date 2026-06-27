@@ -28,6 +28,9 @@ import LoginForm from "./Components/LoginForm/LoginForm";
 import BrassDiyas from "./Pages/BrassDiyas/BrassDiyas";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Address from "./Components/Address/Address";
+import AccountDetails from "./Components/AccountDetails/AccountDetails";
+import AccContact from "./Components/AccContact/AccContact";
+import AccOverview from "./Components/AccOverview/AccOverview";
 
 
 function App() {
@@ -74,6 +77,7 @@ function App() {
           <Route path="/account" element={<MainLayout />}>
 
             <Route index element={<div>Overview Page</div>} />
+              <Route index element={<AccOverview/>} />
 
             <Route
               path="address"
@@ -93,6 +97,15 @@ function App() {
             <Route
               path="contact"
               element={<div>Contact Page</div>}
+            />
+            <Route
+              path="details"
+              element={<AccountDetails/>}
+            />
+
+            <Route
+              path="contact"
+              element={<AccContact/>}
             />
 
           </Route>

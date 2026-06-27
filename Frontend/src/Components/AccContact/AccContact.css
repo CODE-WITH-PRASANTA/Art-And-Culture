@@ -1,0 +1,265 @@
+/* ===================================
+   AccContact
+=================================== */
+
+.AccContact {
+  width: 100%;
+  padding: 30px 20px;
+  background: #f5f7fb;
+  font-family: "Poppins", sans-serif;
+}
+
+.AccContact-container {
+  
+  margin: auto;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   Heading
+========================= */
+
+.AccContact-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.AccContact-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 70px;
+  height: 4px;
+  background: #d7a03d;
+  border-radius: 20px;
+}
+
+/* =========================
+   Cards
+========================= */
+
+.AccContact-card {
+  display: flex;
+  align-items: flex-start;
+  gap:0;
+  transition: 0.35s ease;
+  border-radius: 16px;
+  padding:0;
+  margin-bottom:0;
+}
+
+.AccContact-card:hover {
+  background: #fffaf2;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(215, 160, 61, 0.12);
+}
+
+/* =========================
+   Icon
+========================= */
+
+.AccContact-icon {
+  width: 55px;
+  height: 55px;
+  min-width: 55px;
+  border-radius: 14px;
+  background: rgba(215, 160, 61, 0.12);
+  color: #d7a03d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  transition: .3s;
+}
+
+.AccContact-card:hover .AccContact-icon {
+  background: #d7a03d;
+  color: #fff;
+}
+
+/* =========================
+   Content
+========================= */
+
+.AccContact-content {
+  flex: 1;
+}
+
+.AccContact-content h4 {
+  font-size: 18px;
+  color: #1f2937;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.AccContact-content p {
+  color: #555;
+  line-height: 1.8;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.AccContact-content strong {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+/* =========================
+   Links
+========================= */
+
+.AccContact-content a {
+  padding: 0px 0px 20px 20px;
+  color: #d7a03d;
+  text-decoration: none;
+  font-weight: 500;
+  transition: .3s;
+}
+
+.AccContact-content a:hover {
+  color: #b47d15;
+  text-decoration: underline;
+}
+
+.AccContact-email {
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.AccContact-note {
+  display: block;
+  color: #7b8794;
+  font-size: 14px;
+}
+
+/* =========================
+   Divider
+========================= */
+
+.AccContact-divider {
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 30px 0;
+}
+
+/* =========================
+   Button
+========================= */
+
+.AccContact-buttonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.AccContact-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #d7a03d, #be8520);
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 34px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: .35s;
+  box-shadow: 0 10px 25px rgba(215, 160, 61, 0.25);
+}
+
+.AccContact-button svg {
+  font-size: 18px;
+}
+
+.AccContact-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(215, 160, 61, 0.35);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+
+  .AccContact {
+    padding: 20px 15px;
+  }
+
+  .AccContact-container {
+    padding: 25px;
+  }
+
+  .AccContact-title {
+    font-size: 28px;
+  }
+
+  .AccContact-card {
+    padding: 18px;
+    gap: 15px;
+  }
+
+  .AccContact-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 21px;
+  }
+
+  .AccContact-content h4 {
+    font-size: 17px;
+  }
+
+  .AccContact-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .AccContact-container {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .AccContact-title {
+    font-size: 24px;
+  }
+
+  .AccContact-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .AccContact-icon {
+    margin-bottom: 8px;
+  }
+
+  .AccContact-content h4 {
+    font-size: 16px;
+  }
+
+  .AccContact-content p,
+  .AccContact-content strong,
+  .AccContact-email {
+    font-size: 14px;
+  }
+
+  .AccContact-button {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+}
