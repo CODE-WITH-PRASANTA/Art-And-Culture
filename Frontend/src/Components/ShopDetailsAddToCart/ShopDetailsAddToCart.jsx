@@ -18,7 +18,9 @@ const ShopDetailsAddToCart = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("3.5 Inch");
 
-  const increaseQty = () => setQuantity((prev) => prev + 1);
+  const increaseQty = () => {
+    setQuantity((prev) => prev + 1);
+  };
 
   const decreaseQty = () => {
     if (quantity > 1) {
@@ -27,12 +29,14 @@ const ShopDetailsAddToCart = () => {
   };
 
   return (
-    <div className="sdac">
+    <aside className="sdac">
 
-      {/* PRODUCT TITLE */}
+      {/* PRODUCT HEADER */}
+
       <div className="sdac__top">
 
         <div className="sdac__titleWrap">
+
           <h1 className="sdac__title">
             Svastika Vel Mayil Murugan Idol
             <span>(999 Silver Plated)</span>
@@ -45,8 +49,9 @@ const ShopDetailsAddToCart = () => {
               ★★★★★
             </div>
 
-            <span className="sdac__reviews">(14)</span>
+            <span className="sdac__reviews">(14 Reviews)</span>
           </div>
+
         </div>
 
         <button className="sdac__wishlist">
@@ -56,6 +61,7 @@ const ShopDetailsAddToCart = () => {
       </div>
 
       {/* PRICE */}
+
       <div className="sdac__priceRow">
 
         <h2 className="sdac__price">
@@ -67,16 +73,17 @@ const ShopDetailsAddToCart = () => {
         </span>
 
         <span className="sdac__saveTag">
-          SAVE ₹ 500.00
+          Save ₹500
         </span>
 
       </div>
 
       {/* SIZE */}
+
       <div className="sdac__section">
 
         <h4 className="sdac__label">
-          Select a size:
+          Select Size:
           <span> {selectedSize}</span>
         </h4>
 
@@ -101,16 +108,21 @@ const ShopDetailsAddToCart = () => {
           </button>
 
         </div>
+
       </div>
 
       {/* QUANTITY */}
+
       <div className="sdac__section">
 
-        <h4 className="sdac__label">Quantity</h4>
+        <h4 className="sdac__label">
+          Quantity
+        </h4>
 
         <div className="sdac__cartRow">
 
           <div className="sdac__qtyBox">
+
             <button onClick={decreaseQty}>
               <FiMinus />
             </button>
@@ -120,6 +132,7 @@ const ShopDetailsAddToCart = () => {
             <button onClick={increaseQty}>
               <FiPlus />
             </button>
+
           </div>
 
           <button className="sdac__addCartBtn">
@@ -136,6 +149,7 @@ const ShopDetailsAddToCart = () => {
       </div>
 
       {/* DELIVERY */}
+
       <div className="sdac__delivery">
 
         <h4 className="sdac__deliveryTitle">
@@ -146,25 +160,29 @@ const ShopDetailsAddToCart = () => {
         <div className="sdac__deliveryGrid">
 
           <div className="sdac__deliveryCard">
+
             <FiTruck />
 
             <div>
               <h5>
-                Mumbai
-                <span>Express</span>
+                Mumbai <span>Express</span>
               </h5>
 
               <p>Jun 26 - Jun 27</p>
             </div>
+
           </div>
 
           <div className="sdac__deliveryCard">
+
             <FiTruck />
 
             <div>
               <h5>All Over India</h5>
+
               <p>Jun 28 - Jul 01</p>
             </div>
+
           </div>
 
         </div>
@@ -172,31 +190,35 @@ const ShopDetailsAddToCart = () => {
       </div>
 
       {/* COUPON */}
+
       <div className="sdac__coupon">
 
         <div className="sdac__couponLeft">
-          <div className="sdac__couponIcon">%</div>
+
+          <div className="sdac__couponIcon">
+            %
+          </div>
 
           <div>
-            <h4>
-              Get this for ₹1,353
-            </h4>
-
+            <h4>Get this for ₹1,353</h4>
             <span>Save ₹146</span>
           </div>
+
         </div>
 
         <button className="sdac__couponBtn">
           View Coupons
-          <strong>2</strong>
+          <strong> 2</strong>
         </button>
 
       </div>
 
-      {/* BULK */}
+      {/* BULK ENQUIRY */}
+
       <div className="sdac__bulk">
 
         <div className="sdac__bulkLeft">
+
           <div className="sdac__bulkIcon">
             <FiPackage />
           </div>
@@ -204,6 +226,7 @@ const ShopDetailsAddToCart = () => {
           <h4>
             Looking for Bulk Pricing (30+ Qty)?
           </h4>
+
         </div>
 
         <button>
@@ -213,19 +236,22 @@ const ShopDetailsAddToCart = () => {
       </div>
 
       {/* BUYBACK */}
+
       <div className="sdac__buyback">
 
         <div className="sdac__buybackTop">
 
           <div>
+
             <h3>
               3-Year Buyback Guarantee
-              <span>INCLUDED</span>
+              <span> INCLUDED</span>
             </h3>
 
             <p>
               Crafted with Pure Gold & Silver plating.
             </p>
+
           </div>
 
           <div className="sdac__check">
@@ -236,11 +262,9 @@ const ShopDetailsAddToCart = () => {
 
         <div className="sdac__tags">
 
-          <span>Authenticity certificate</span>
-
+          <span>Authenticity Certificate</span>
           <span>100% Purity</span>
-
-          <span>Svastika's Trust</span>
+          <span>Svastika Trust</span>
 
         </div>
 
@@ -266,7 +290,7 @@ const ShopDetailsAddToCart = () => {
             <FiRefreshCcw />
           </div>
 
-          <h5>7 Days Easy Returns</h5>
+          <h5>7 Days Return</h5>
 
         </div>
 
@@ -276,7 +300,7 @@ const ShopDetailsAddToCart = () => {
             <FiMapPin />
           </div>
 
-          <h5>Trusted by 3,00,000+</h5>
+          <h5>Trusted by 3L+ Customers</h5>
 
         </div>
 
@@ -291,23 +315,34 @@ const ShopDetailsAddToCart = () => {
           <FiHeadphones />
 
           <div>
+
             <h4>Need Help?</h4>
-            <p>Get assistance or bulk order discounts</p>
+
+            <p>
+              Get assistance or bulk discounts
+            </p>
+
           </div>
 
         </div>
 
         <FiArrowRight />
+
       </div>
 
       {/* SKU */}
 
       <div className="sdac__sku">
-        <span>SKU:</span>
-        <strong>SVS-IDL-VLMRGN3</strong>
+
+        <span>SKU :</span>
+
+        <strong>
+          SVS-IDL-VLMRGN3
+        </strong>
+
       </div>
 
-    </div>
+    </aside>
   );
 };
 

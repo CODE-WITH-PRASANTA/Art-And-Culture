@@ -1,0 +1,381 @@
+.address {
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+ 
+  box-sizing: border-box;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* ================= HEADER ================= */
+
+.addressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 15px;
+}
+
+.addressHeader h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #1f1f1f;
+  font-weight: 700;
+}
+
+.addressAddBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #d5a441;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.addressAddBtn:hover {
+  background: #c8942d;
+}
+
+/* ================= FORM ================= */
+
+.addressFormCard {
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 35px;
+  animation: addressFade .3s ease;
+}
+
+@keyframes addressFade {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.addressFormTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d5a441;
+  margin-bottom: 25px;
+}
+
+.addressFormTitle h3 {
+  margin: 0;
+  color: #222;
+  font-size: 26px;
+}
+
+.addressFormTitle svg {
+  font-size: 22px;
+}
+
+.addressGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.addressFormGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.addressFormGroup label {
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #222;
+  font-weight: 500;
+}
+
+.addressFormGroup input,
+.addressFormGroup select {
+  height: 50px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  padding: 0 15px;
+  font-size: 15px;
+  outline: none;
+  transition: .3s;
+  background: #fff;
+}
+
+.addressFormGroup input:focus,
+.addressFormGroup select:focus {
+  border-color: #d5a441;
+  box-shadow: 0 0 0 3px rgba(213, 164, 65, .15);
+}
+
+/* ================= CHECKBOX ================= */
+
+.addressCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  padding: 14px 15px;
+  margin-top: 22px;
+}
+
+.addressCheckbox input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.addressCheckbox label {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ================= BUTTONS ================= */
+
+.addressButtons {
+  display: flex;
+  gap: 15px;
+  margin-top: 22px;
+}
+
+.addressSaveBtn {
+  border: none;
+  background: #d5a441;
+  color: #fff;
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.addressSaveBtn:hover {
+  background: #c8942d;
+}
+
+.addressCancelBtn {
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  color: #555;
+  border-radius: 10px;
+  padding: 14px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.addressCancelBtn:hover {
+  background: #f6f6f6;
+}
+
+/* ================= EMPTY ================= */
+
+.addressContent {
+  min-height: 260px;
+}
+
+.addressEmpty {
+  text-align: center;
+  padding: 40px 15px;
+}
+
+.addressEmptyIcon {
+  font-size: 60px;
+  color: #cfcfcf;
+  margin-bottom: 15px;
+}
+
+.addressEmpty h3 {
+  margin: 0;
+  font-size: 32px;
+  color: #222;
+}
+
+.addressEmpty p {
+  margin: 14px 0 28px;
+  color: #888;
+  font-size: 17px;
+}
+
+.addressPrimaryBtn {
+  background: #d5a441;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.addressPrimaryBtn:hover {
+  background: #c8942d;
+}
+
+/* ================= ADDRESS LIST ================= */
+
+.addressList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.addressCard {
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  padding: 20px;
+  background: #fff;
+  transition: .3s;
+}
+
+.addressCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .08);
+}
+
+.addressCard h4 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: #222;
+}
+
+.addressCard p {
+  margin: 6px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.addressDefaultBadge {
+  display: inline-block;
+  margin-top: 15px;
+  background: #d5a441;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ================= 1200 ================= */
+
+@media (max-width:1200px) {
+
+  .addressGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* ================= Tablet ================= */
+
+@media (max-width:768px) {
+
+  .address {
+    padding: 18px;
+  }
+
+  .addressHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .addressHeader h2 {
+    font-size: 26px;
+  }
+
+  .addressAddBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .addressFormCard {
+    padding: 18px;
+  }
+
+  .addressGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .addressButtons {
+    flex-direction: column;
+  }
+
+  .addressSaveBtn,
+  .addressCancelBtn {
+    width: 100%;
+  }
+
+  .addressEmpty h3 {
+    font-size: 26px;
+  }
+
+  .addressEmpty p {
+    font-size: 15px;
+  }
+
+}
+
+/* ================= Mobile ================= */
+
+@media (max-width:480px) {
+
+  .address {
+    padding: 15px;
+    border-radius: 14px;
+  }
+
+  .addressHeader h2 {
+    font-size: 22px;
+  }
+
+  .addressFormTitle h3 {
+    font-size: 20px;
+  }
+
+  .addressFormGroup label {
+    font-size: 14px;
+  }
+
+  .addressFormGroup input,
+  .addressFormGroup select {
+    height: 46px;
+    font-size: 14px;
+  }
+
+  .addressCheckbox label {
+    font-size: 14px;
+  }
+
+  .addressEmptyIcon {
+    font-size: 50px;
+  }
+
+  .addressEmpty h3 {
+    font-size: 22px;
+  }
+
+  .addressPrimaryBtn {
+    width: 100%;
+  }
+
+  .addressCard {
+    padding: 16px;
+  }
+
+}
