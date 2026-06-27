@@ -27,6 +27,7 @@ const ShopDetails = () => {
     <ShopDetailsSwitchbar />
     <ShopDetailsYoumight />
   </div>
+  
 </div>
   );
 };
