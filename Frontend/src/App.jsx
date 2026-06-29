@@ -60,15 +60,30 @@ function App() {
           
 
           {/* Adyasa */}
+          
           <Route path="/account" element={<MainLayout />}>
-          <Route index element={<AccContact/>} />
-          <Route index element={<AccOverview/>} />
+          
           <Route path="address" element={<Address />} />
           <Route path="orders" element={<div>Orders Page</div>} />
-          <Route path="details" element={<AccountDetails/>} />
-          <Route path="contact" element={<AccContact/>}/>
-          <Route path="details" element={<AccountDetails/>} />
-          <Route path=""contact element={<AccContact/>} />
+          
+         
+            <Route
+              path="contact"
+              element={<AccContact/>}
+            />
+            <Route
+              path="details"
+              element={<AccountDetails/>}
+            />
+            <Route
+            path="overview"
+            element={<AccOverview/>}
+            />
+            <Route
+              path="contact"
+              element={<AccContact/>}
+            />
+
           </Route>
 
 

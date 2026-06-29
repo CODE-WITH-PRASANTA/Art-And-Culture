@@ -79,16 +79,14 @@
   transition: .3s;
 }
 
-.AccContact-card:hover .AccContact-icon {
-  background: #d7a03d;
-  color: #fff;
-}
+
 
 /* =========================
    Content
 ========================= */
 
 .AccContact-content {
+  padding: 0px 0px 20px 20px;
   flex: 1;
 }
 
@@ -118,17 +116,12 @@
 ========================= */
 
 .AccContact-content a {
-  padding: 0px 0px 20px 20px;
   color: #d7a03d;
   text-decoration: none;
   font-weight: 500;
   transition: .3s;
 }
 
-.AccContact-content a:hover {
-  color: #b47d15;
-  text-decoration: underline;
-}
 
 .AccContact-email {
   display: inline-block;
@@ -181,10 +174,7 @@
   font-size: 18px;
 }
 
-.AccContact-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(215, 160, 61, 0.35);
-}
+
 
 /* =========================
    Responsive
