@@ -11,7 +11,7 @@ import GodCollectionSection from '../../Components/GodCollectionSection/GodColle
 
 import Artpromise from '../../Components/Artpromise/Artpromise'
 import Testimonial from '../../Components/Testimonial/Testimonial'
-import Category from '../Category/Category'
+import HotCategory from '../../Components/HotCategory/HotCategory'
 
 const Home = () => {
   return (
@@ -22,7 +22,7 @@ const Home = () => {
      <Testimonial/>
       <Trendingproducts/>
       <TeamMember/>
-      <Category />
+      <HotCategory />
       <GodCollectionSection/>
       <Artpromise/>
     </div>
