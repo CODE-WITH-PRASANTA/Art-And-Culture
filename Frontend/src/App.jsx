@@ -15,18 +15,11 @@ import PoojaEssentials from "./Pages/PoojaEssentials/PoojaEssentials";
 import HomeDecor from "./Pages/HomeDecor/HomeDecor";
 import TrackOrder from "./Pages/TrackOrder/TrackOrder";
 import Faq from "./Pages/Faq/Faq";
-import OrderConfirm from "./Pages/OrderConfirm/OrderConfirm";
 import About from "./Pages/About/About";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./Components/Termandcondition/Termandcondition";
-import OrderHistory from "./Pages/OrderHistory/OrderHistory";
-import CheckOut from "./Pages/CheckOut/CheckOut";
-import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
-import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
-import BrassDiyas from "./Pages/BrassDiyas/BrassDiyas";
-import Category from "./Pages/Category/Category";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Address from "./Components/Address/Address";
 import AccountDetails from "./Components/AccountDetails/AccountDetails";
@@ -62,17 +55,9 @@ function App() {
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
 
-          <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/orderconfirm" element={<OrderConfirm />} />
-          <Route path="/ordershistory" element={<OrderHistory />} />
-          <Route path="/poojadetails" element={<PoojaDetails/>}/>
-          <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
-          <Route path="/cart" element={<Carts/>}/>
           <Route path="/login" element={<LoginForm/>}/>
           
-          <Route path="/brass-diyas" element={<BrassDiyas/>}/>
-          <Route path="/category" element={<Category />} />
 
           {/* Adyasa */}
           <Route path="/account" element={<MainLayout />}>
@@ -81,20 +66,9 @@ function App() {
           <Route path="address" element={<Address />} />
           <Route path="orders" element={<div>Orders Page</div>} />
           <Route path="details" element={<AccountDetails/>} />
-            <Route
-              path="contact"
-              element={<AccContact/>}
-            />
-            <Route
-              path="details"
-              element={<AccountDetails/>}
-            />
-
-            <Route
-              path=""contact
-              element={<AccContact/>}
-            />
-
+          <Route path="contact" element={<AccContact/>}/>
+          <Route path="details" element={<AccountDetails/>} />
+          <Route path=""contact element={<AccContact/>} />
           </Route>
 
 
