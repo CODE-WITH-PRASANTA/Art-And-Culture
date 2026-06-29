@@ -51,12 +51,11 @@ const Sidebar = () => {
         {/* Overview */}
 
         <NavLink
-          end
-          to="/account"
-          className={({ isActive }) =>
-            isActive ? "sidebarMenuItem active" : "sidebarMenuItem"
-          }
-        >
+              to="/account/overview"
+              className={({ isActive }) =>
+                isActive ? "sidebarMenuItem active" : "sidebarMenuItem"
+              }
+            >
           <div className="sidebarMenuLeft">
             <div className="sidebarIcon">
               <FiHome />
@@ -66,6 +65,7 @@ const Sidebar = () => {
               <h4>Overview</h4>
               <p>All details in one place</p>
             </div>
+            
           </div>
 
           <FiChevronRight className="sidebarArrow" />
