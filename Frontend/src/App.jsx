@@ -25,6 +25,8 @@ import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
+import PoojaEssentialsMain from "./Pages/PoojaEssentialsMain/PoojaEssentialsMain";
+import Prints from "./Pages/Prints/Prints";
 
 
 function App() {
@@ -55,24 +57,22 @@ function App() {
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
 
-          <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/pritsycheckout" element={<CheckOut />} />
           <Route path="/orderconfirm" element={<OrderConfirm />} />
           <Route path="/ordershistory" element={<OrderHistory />} />
           <Route path="/poojadetails" element={<PoojaDetails/>}/>
           <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
-<<<<<<< HEAD
-          <Route path="/login" element={<LoginForm/>}/>
-          
-=======
+          <Route path="/poojamain" element={<PoojaEssentialsMain />}/>
+          <Route path="/wood" element={<Prints />} />
    
->>>>>>> ca3046f2f6b5b082fbbd237d2c0a2777f9548cf0
         </Routes>
       </main>
 
       <Footer />
       <FloatingIcons />
+      <PoojaEssentialsMain />
     </>
   );
 }

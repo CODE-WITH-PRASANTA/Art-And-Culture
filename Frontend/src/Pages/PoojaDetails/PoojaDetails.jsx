@@ -6,6 +6,8 @@ import AddtocartSection from "../../Components/AddtocartSection/AddtocartSection
 import Switchbar from "../../Components/Switchbar/Switchbar";
 import Youmight from "../../Components/Youmight/Youmight";
 import Review from "../../Components/Review/Review";
+import AddNow from "../../Components/AddNow/AddNow";
+import CustomerReviews from "../../Components/CustomerReviews/CustomerReviews";
 
 const PoojaDetails = () => {
   return (
@@ -43,7 +45,8 @@ const PoojaDetails = () => {
         <div className="poojaDetailsPage__section">
           <Review />
         </div>
-
+      <AddNow />
+      <CustomerReviews />
       </div>
 
     </div>

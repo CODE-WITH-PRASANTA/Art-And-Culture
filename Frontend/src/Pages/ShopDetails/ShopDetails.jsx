@@ -10,6 +10,7 @@ import AddNow from "../../Components/AddNow/AddNow";
 import CustomerReviews from "../../Components/CustomerReviews/CustomerReviews";
 
 
+
 const ShopDetails = () => {
   return (
    <div className="shopDetailsPage">
@@ -29,9 +30,7 @@ const ShopDetails = () => {
     <ShopDetailsSwitchbar />
     <ShopDetailsYoumight />
   </div>
-    <AddNow />
-    <CustomerReviews />
-
+    
 </div>
   );
 };
