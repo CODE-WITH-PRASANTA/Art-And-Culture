@@ -57,7 +57,7 @@ function App() {
 
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/login" element={<LoginForm/>}/>
-          
+         
 
           {/* Adyasa */}
           
