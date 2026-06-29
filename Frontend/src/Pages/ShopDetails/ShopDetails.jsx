@@ -31,6 +31,10 @@ const ShopDetails = () => {
     <ShopDetailsYoumight />
   </div>
     
+  
+    <AddNow />
+    <CustomerReviews />
+
 </div>
   );
 };

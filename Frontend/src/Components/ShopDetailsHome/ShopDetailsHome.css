@@ -12,16 +12,15 @@
 
 .shopDetailsHome__mainImageWrapper {
   position: relative;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .shopDetailsHome__mainImage {
-  width: 100%;
-  max-width: 550px;
-  height: 550px;
+  width: 300%;
+
+  height: 800px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
