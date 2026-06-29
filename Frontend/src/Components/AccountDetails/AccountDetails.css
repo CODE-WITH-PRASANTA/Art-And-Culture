@@ -1,0 +1,186 @@
+/* ==========================
+   AccountDetails
+========================== */
+
+.AccountDetails {
+  width: 100%;
+  
+  background: #f5f6fa;
+  font-family: "Poppins", sans-serif;
+}
+
+.AccountDetails-card {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.AccountDetails-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  padding: 25px 25px 15px;
+}
+
+.AccountDetails-list {
+  width: 100%;
+}
+
+.AccountDetails-row {
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  border-top: 1px solid #ededed;
+  padding: 0 25px;
+}
+
+.AccountDetails-row:first-child {
+  border-top: none;
+}
+
+.AccountDetails-label {
+  width: 240px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #7b8794;
+  font-size: 16px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.AccountDetails-icon {
+  color: #c89b3c;
+  font-size: 18px;
+}
+
+.AccountDetails-value {
+  flex: 1;
+  color: #1f2937;
+  font-size: 16px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.AccountDetails-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 25px;
+  flex-wrap: wrap;
+}
+
+.AccountDetails-addressBtn,
+.AccountDetails-passwordBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+
+.AccountDetails-addressBtn {
+  background: #d8a23f;
+  color: #fff;
+}
+
+.AccountDetails-addressBtn:hover {
+  background: #c8932e;
+}
+
+.AccountDetails-passwordBtn {
+  background: #fff;
+  color: #4b5563;
+  border: 1px solid #d9d9d9;
+}
+
+.AccountDetails-passwordBtn:hover {
+  background: #f8f8f8;
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+@media (max-width: 768px) {
+  .AccountDetails {
+    padding: 15px;
+  }
+
+  .AccountDetails-title {
+    font-size: 24px;
+  }
+
+  .AccountDetails-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 14px 20px;
+  }
+
+  .AccountDetails-label {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .AccountDetails-value {
+    width: 100%;
+    padding-left: 28px;
+    font-size: 15px;
+  }
+
+  .AccountDetails-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .AccountDetails-addressBtn,
+  .AccountDetails-passwordBtn {
+    width: 100%;
+  }
+}
+
+/* ==========================
+   Mobile
+========================== */
+
+@media (max-width: 480px) {
+  .AccountDetails {
+    padding: 10px;
+  }
+
+  .AccountDetails-card {
+    border-radius: 10px;
+  }
+
+  .AccountDetails-title {
+    padding: 20px 18px 12px;
+    font-size: 22px;
+  }
+
+  .AccountDetails-row {
+    padding: 14px 18px;
+  }
+
+  .AccountDetails-label {
+    font-size: 14px;
+  }
+
+  .AccountDetails-value {
+    font-size: 14px;
+  }
+
+  .AccountDetails-addressBtn,
+  .AccountDetails-passwordBtn {
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+}
