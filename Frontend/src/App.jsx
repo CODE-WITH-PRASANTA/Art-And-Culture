@@ -73,15 +73,17 @@ function App() {
           
           <Route path="/brass-diyas" element={<BrassDiyas/>}/>
           <Route path="/category" element={<Category />} />
+
+          {/* Adyasa */}
           <Route path="/account" element={<MainLayout />}>
-          <Route index element={<div>Overview Page</div>} />
+          <Route index element={<AccContact/>} />
           <Route index element={<AccOverview/>} />
           <Route path="address" element={<Address />} />
           <Route path="orders" element={<div>Orders Page</div>} />
-          <Route path="details" element={<div>Account Details</div>} />
+          <Route path="details" element={<AccountDetails/>} />
             <Route
               path="contact"
-              element={<div>Contact Page</div>}
+              element={<AccContact/>}
             />
             <Route
               path="details"
@@ -94,8 +96,8 @@ function App() {
             />
 
           </Route>
-                    
-   
+
+
         </Routes>
       </main>
 
