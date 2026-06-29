@@ -89,7 +89,7 @@ function App() {
             />
 
             <Route
-              path="contact"
+              path=""contact
               element={<AccContact/>}
             />
 
