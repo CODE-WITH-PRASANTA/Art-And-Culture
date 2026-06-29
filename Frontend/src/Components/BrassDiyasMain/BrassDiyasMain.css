@@ -3,7 +3,6 @@
   display: flex;
   gap: 30px;
   padding: 20px;
-  padding-top: 100px;
   max-width: 1500px;
   margin: auto;
   font-family: Arial, sans-serif;
@@ -322,7 +321,7 @@
 /* Compact Mobile View (Enforcing 2 columns cleanly) */
 @media (max-width: 580px) {
   .products-grid {
-    grid-template-columns: repeat(2, 1fr); /* Forces exactly two columns */
+    grid-template-columns: repeat(1, 1fr); /* Forces exactly two columns */
     gap: 12px; /* Smaller gaps to save card content workspace */
   }
 

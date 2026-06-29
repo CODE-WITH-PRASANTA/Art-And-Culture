@@ -33,7 +33,6 @@
 /* RIGHT */
 
 .shopDetailsPage__right {
-  flex: 0 0 420px;
   position: sticky;
   top: 25px;
 }
@@ -51,17 +50,7 @@
   box-sizing: border-box;
 }
 
-/* ===================================
-   LARGE DESKTOP
-=================================== */
 
-@media (max-width: 1400px) {
-
-  .shopDetailsPage__right {
-    flex-basis: 390px;
-  }
-
-}
 
 /* ===================================
    LAPTOP
@@ -77,10 +66,6 @@
 
   .shopDetailsPage__top {
     gap: 25px;
-  }
-
-  .shopDetailsPage__right {
-    flex-basis: 360px;
   }
 
 }
