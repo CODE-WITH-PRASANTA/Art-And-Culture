@@ -25,6 +25,8 @@ import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
+import BrassDiyas from "./Pages/BrassDiyas/BrassDiyas";
+import Category from "./Pages/Category/Category";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Address from "./Components/Address/Address";
 import AccountDetails from "./Components/AccountDetails/AccountDetails";
@@ -68,6 +70,9 @@ function App() {
           <Route path="/shopdetails" element={<ShopDetails/>}/>
           <Route path="/cart" element={<Carts/>}/>
           <Route path="/login" element={<LoginForm/>}/>
+          
+          <Route path="/brass-diyas" element={<BrassDiyas/>}/>
+          <Route path="/category" element={<Category />} />
           <Route path="/account" element={<MainLayout />}>
           <Route index element={<div>Overview Page</div>} />
           <Route index element={<AccOverview/>} />
