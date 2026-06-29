@@ -1,13 +1,13 @@
-import React from "react";
-import "./Category.css";
-import HotCategory from "../../Components/HotCategory/HotCategory";
+import React from 'react'
+import HotCategory from '../../Components/HotCategory/HotCategory'
 
 const Category = () => {
   return (
-    <div className="category-page">
+    <div>
       <HotCategory />
-    </div>
-  );
-};
 
-export default Category;
+    </div>
+  )
+}
+
+export default Category
