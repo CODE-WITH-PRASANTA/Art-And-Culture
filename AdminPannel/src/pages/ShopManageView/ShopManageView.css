@@ -1,112 +1,240 @@
-.form-container {
-  max-width: 700px;
-  margin: 30px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.shop-manage-container {
+ 
+  margin: 40px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Gives uniform spacing between distinct main accordions */
 }
 
-h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 25px;
+/* Accordion Containers */
+.main-accordion {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.main-accordion-header {
+  background: brown;
+  color: #ffffff;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s ease;
+}
+
+.main-accordion-header h2 {
+  margin: 0;
+  color: white;
+  font-size: 22px;
   font-weight: 600;
 }
 
-.shop-form {
+.arrow-icon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.main-accordion.open .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.main-accordion-content {
+  padding: 30px;
+  background-color: #ffffff;
+}
+
+/* Flat Form Layout */
+.shop-form-flat {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+.section-heading {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Standard Inputs */
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #f8fafc;
+}
+
+.form-control:focus {
+  border-color: #4a90e2;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.text-area-custom {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Inline Dynamic Images */
+.image-upload-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.image-box {
+  width: 170px;
+}
+
+.upload-card {
+  width: 170px;
+  height: 170px;
+  border: 2px dashed #bdbdbd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #fafafa;
+  font-weight: 600;
+  color: #666;
+}
+
+.image-preview {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Multi-column Rows */
+.form-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.dropdown-select {
+  cursor: pointer;
+}
+
+/* Dynamic FAQ Styling */
+.faq-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.form-group {
+.faq-row-block {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  position: relative;
 }
 
-.form-group label {
-  font-weight: 600;
-  color: #444;
-  font-size: 14px;
-}
-
-.form-control {
-  padding: 12px;
-  border: 1px solid #ccc;
+.add-faq-btn {
+  align-self: flex-start;
+  background-color: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border: none;
   border-radius: 6px;
-  font-size: 15px;
-  transition: border-color 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.form-control:focus {
-  border-color: #4a90e2;
-  outline: none;
-}
-
-/* Inline Images Layout */
-.image-upload-inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.image-input {
-  flex: 1;
-  min-width: 200px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.image-input:focus {
-  border-color: #2ecc71;
-  outline: none;
-}
-
-/* Row Layout for Prices and Guarantee */
-.form-row {
-  display: flex;
-  gap: 15px;
-}
-
-.form-row .col {
-  flex: 1;
-}
-
-/* Dropdown styling */
-.dropdown-select {
-  background-color: #fff;
   cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
 }
 
-/* Submit Button */
+.add-faq-btn:hover {
+  background-color: #2563eb;
+}
+
+.remove-faq-btn {
+  align-self: flex-end;
+  background-color: #ef4444;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.remove-faq-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Global Actions Container & Submit Form Button */
+.global-action-container {
+  margin-top: 10px;
+}
+
 .submit-btn {
-  background-color: #4a90e2;
+  width: 100%;
+  background-color: brown;
   color: white;
   padding: 14px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-top: 10px;
 }
 
 .submit-btn:hover {
-  background-color: #357abd;
+  background-color: #5c1d1d;
 }
 
-/* Responsive Design */
+/* Responsive view */
 @media (max-width: 600px) {
   .form-row {
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
   }
 }
