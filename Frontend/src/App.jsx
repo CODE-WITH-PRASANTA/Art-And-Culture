@@ -15,16 +15,18 @@ import PoojaEssentials from "./Pages/PoojaEssentials/PoojaEssentials";
 import HomeDecor from "./Pages/HomeDecor/HomeDecor";
 import TrackOrder from "./Pages/TrackOrder/TrackOrder";
 import Faq from "./Pages/Faq/Faq";
+import OrderConfirm from "./Pages/OrderConfirm/OrderConfirm";
 import About from "./Pages/About/About";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./Components/Termandcondition/Termandcondition";
+import OrderHistory from "./Pages/OrderHistory/OrderHistory";
+import CheckOut from "./Pages/CheckOut/CheckOut";
+import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
+import Carts from "./Pages/Carts/Carts";
 import LoginForm from "./Components/LoginForm/LoginForm";
-import MainLayout from "./Layout/MainLayout/MainLayout";
-import Address from "./Components/Address/Address";
-import AccountDetails from "./Components/AccountDetails/AccountDetails";
-import AccContact from "./Components/AccContact/AccContact";
-import AccOverview from "./Components/AccOverview/AccOverview";
+import PoojaEssentialsMain from "./Pages/PoojaEssentialsMain/PoojaEssentialsMain";
+import Prints from "./Pages/Prints/Prints";
 
 
 function App() {
@@ -55,43 +57,22 @@ function App() {
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
 
+          <Route path="/pritsycheckout" element={<CheckOut />} />
+          <Route path="/orderconfirm" element={<OrderConfirm />} />
+          <Route path="/ordershistory" element={<OrderHistory />} />
+          <Route path="/poojadetails" element={<PoojaDetails/>}/>
+          <Route path="/cart" element={<Carts />} />
           <Route path="/shopdetails" element={<ShopDetails/>}/>
-          <Route path="/login" element={<LoginForm/>}/>
-         
-
-          {/* Adyasa */}
-          
-          <Route path="/account" element={<MainLayout />}>
-          
-          <Route path="address" element={<Address />} />
-          <Route path="orders" element={<div>Orders Page</div>} />
-          
-         
-            <Route
-              path="contact"
-              element={<AccContact/>}
-            />
-            <Route
-              path="details"
-              element={<AccountDetails/>}
-            />
-            <Route
-            path="overview"
-            element={<AccOverview/>}
-            />
-            <Route
-              path="contact"
-              element={<AccContact/>}
-            />
-
-          </Route>
-
-
+          <Route path="/cart" element={<Carts/>}/>
+          <Route path="/poojamain" element={<PoojaEssentialsMain />}/>
+          <Route path="/wood" element={<Prints />} />
+   
         </Routes>
       </main>
 
       <Footer />
       <FloatingIcons />
+      <PoojaEssentialsMain />
     </>
   );
 }
