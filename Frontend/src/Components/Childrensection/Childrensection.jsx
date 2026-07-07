@@ -21,24 +21,16 @@ const Childrensection = () => {
           </span>
 
           <h1 className="childrenSection__title">
-            A Vision Born from Purpose
+            Where Art, Culture & Purpose Come Together
           </h1>
 
           <p className="childrenSection__description">
-            In August 2022, Ajinkya & Saiyam embarked on a
-            journey to redefine what meaningful objects
-            could be. Tired of seeing gifts and decor that
-            felt empty of purpose, they envisioned
-            Svastika—a brand that would create pieces
-            carrying genuine positive energy and
-            intention.
+           Every meaningful creation begins with a story. Ours began with a simple belief—that art should inspire, culture should be preserved, and every handcrafted piece should carry a deeper purpose.
+           Founded in 2022, our journey started with a vision to transform everyday décor and gifting into timeless expressions of heritage, craftsmanship, and positive energy. Inspired by India's rich artistic traditions and cultural legacy, we carefully design and curate products that celebrate creativity while adding elegance and meaning to modern living spaces.
           </p>
 
           <p className="childrenSection__description">
-            Our vision is simple yet profound: to create a
-            world where every object carries meaning,
-            every purchase creates impact, and every
-            space resonates with positive energy.
+            Our mission is to bring together art, culture, sustainability, and craftsmanship to create products that enrich homes, strengthen relationships, and preserve the beauty of handmade traditions for generations to come.
           </p>
 
           <button className="childrenSection__button">

@@ -18,20 +18,18 @@ import Faq from "./Pages/Faq/Faq";
 import About from "./Pages/About/About";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./Components/Termandcondition/Termandcondition";
+import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import LoginForm from "./Components/LoginForm/LoginForm";
+import PoojaEssentialsMain from "./Pages/PoojaEssentialsMain/PoojaEssentialsMain";
+import Prints from "./Pages/Prints/Prints";
 import MainLayout from "./Layout/MainLayout/MainLayout";
-import Address from "./Components/Address/Address";
-import AccountDetails from "./Components/AccountDetails/AccountDetails";
-import AccContact from "./Components/AccContact/AccContact";
-import AccOverview from "./Components/AccOverview/AccOverview";
 
 
 function App() {
   return (
     <>
       <Navbar />
-
       <main style={{ minHeight: "80vh" }}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -40,58 +38,31 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogDetailsSection />} />
-
           <Route path="/best-sellers" element={<BestSelling />} />
-
           <Route path="/fresh/collection" element={<FreshCollection />} />
           <Route path="/all/idol" element={<AllIdols />} />
           <Route path="/festive/filter" element={<FestiveFilter />} />
-
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/termandcondition" element={<Terms />} />
-
           <Route path="/pooja-essentials" element={<PoojaEssentials />} />
           <Route path="/homedecor" element={<HomeDecor />} />
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
-
+          <Route path="/poojadetails" element={<PoojaDetails/>}/>
           <Route path="/shopdetails" element={<ShopDetails/>}/>
-          <Route path="/login" element={<LoginForm/>}/>
-          
-
-          {/* Adyasa */}
-          
-          <Route path="/account" element={<MainLayout />}>
-          
-          <Route path="address" element={<Address />} />
-          <Route path="orders" element={<div>Orders Page</div>} />
-          
-         
-            <Route
-              path="contact"
-              element={<AccContact/>}
-            />
-            <Route
-              path="details"
-              element={<AccountDetails/>}
-            />
-            <Route
-            path="overview"
-            element={<AccOverview/>}
-            />
-            <Route
-              path="contact"
-              element={<AccContact/>}
-            />
-
-          </Route>
+          <Route path="/poojamain" element={<PoojaEssentialsMain />}/>
+          <Route path="/wood" element={<Prints />} />           
 
 
+
+          {/* LAYOUT THINGS */}
+          <Route path="/Login" element={<MainLayout />} />     
         </Routes>
       </main>
 
       <Footer />
       <FloatingIcons />
+      <PoojaEssentialsMain />
     </>
   );
 }

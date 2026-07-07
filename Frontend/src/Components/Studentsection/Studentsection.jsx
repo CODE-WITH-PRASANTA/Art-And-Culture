@@ -27,21 +27,18 @@ const Studentsection = () => {
           </span>
 
           <h2 className="studentSection__title">
-            Crafted With
+            Crafted Through
             <br />
-            Tradition & Elegance
+            Art, Culture & Timeless Elegance
           </h2>
 
           <p className="studentSection__description">
-            The true essence of luxury lies in how it makes you feel.
-            Every creation begins with thoughtful craftsmanship,
-            blending timeless artistry with modern sophistication.
+            We believe that true luxury is more than exceptional design—it is the harmony of art, culture, heritage. Every piece we create reflects a commitment to preserving traditional artistry while embracing modern sophistication, transforming everyday spaces into expressions of beauty and meaning.
+            
           </p>
 
           <p className="studentSection__description">
-            Through meaningful design and premium detailing,
-            we create experiences that radiate harmony,
-            elegance, and positive energy for every space.
+            Our philosophy is rooted in creating products that tell stories, preserve traditions, and inspire positive living. Whether it's luxury home décor, handcrafted art, cultural accents, or premium gifting, every collection is designed to enrich your surroundings with warmth, authenticity, and timeless style.
           </p>
 
           <div className="studentSection__buttonWrap">
