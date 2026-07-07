@@ -1,714 +1,205 @@
-// AddtocartSection.jsx
+import React, { useState } from 'react';
+import './PoojaDetails.css'; // CSS फ़ाइल को इम्पोर्ट करें
 
-import React, {
-  useEffect,
-  useState,
-} from "react";
+const PoojaDetails = () => {
+  // स्टेट्स (States)
+  const [quantity, setQuantity] = useState(1);
+  const [isWishlist, setIsWishlist] = useState(false);
+  const [showCoupons, setShowCoupons] = useState(false);
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
 
-import "./AddtocartSection.css";
+  // आपकी इमेज गैलरी के लिए मॉक लिंक्स (इन्हें अपनी असली इमेजेस से बदलें)
+  const images = [
+    "https://images.unsplash.com/photo-1609137144813-2d201990da95?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1543157145-f78c636d023d?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
+  ];
 
-import {
-  FaHeart,
-  FaStar,
-  FaRegStar,
-  FaMinus,
-  FaPlus,
-  FaTruck,
-  FaMapMarkerAlt,
-  FaExchangeAlt,
-  FaHeadphones,
-  FaChevronRight,
-  FaTimes,
-  FaQuestionCircle,
-  FaBoxOpen,
-} from "react-icons/fa";
-
-import {
-  useParams,
-} from "react-router-dom";
-
-import API from "../../api/axios";
-
-const AddtocartSection = () => {
-  const { id } = useParams();
-
-  const [product, setProduct] =
-    useState(null);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  const [quantity, setQuantity] =
-    useState(1);
-
-  const [showPopup, setShowPopup] =
-    useState(false);
-
-  const [showCoupons, setShowCoupons] =
-    useState(false);
-
-  /* =====================================================
-     FETCH PRODUCT
-  ===================================================== */
-
-  useEffect(() => {
-    fetchProduct();
-  }, [id]);
-
-  const fetchProduct = async () => {
-    try {
-      const res = await API.get(
-        `/pooja/${id}`
-      );
-
-      if (res.data.success) {
-        setProduct(res.data.data);
-      }
-    } catch (error) {
-      console.log(
-        "FETCH PRODUCT ERROR :",
-        error
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* =====================================================
-     QUANTITY
-  ===================================================== */
-
-  const increaseQty = () => {
-    if (
-      product?.stock &&
-      quantity < product.stock
-    ) {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const decreaseQty = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  /* =====================================================
-     ADD TO CART
-  ===================================================== */
-
-  const handleAddToCart = () => {
-    alert(
-      `${quantity} item added to cart`
-    );
-  };
-
-  /* =====================================================
-     BUY NOW
-  ===================================================== */
-
-  const handleBuyNow = () => {
-    alert("Proceeding to checkout");
-  };
-
-  /* =====================================================
-     COPY COUPON
-  ===================================================== */
-
-  const handleCopyCoupon = () => {
-    navigator.clipboard.writeText(
-      "WELCOME5"
-    );
-
-    alert(
-      "Coupon copied successfully"
-    );
-  };
-
-  /* =====================================================
-     LOADING
-  ===================================================== */
-
-  if (loading) {
-    return (
-      <div className="addtocartSection__loading">
-        Loading...
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="addtocartSection__loading">
-        Product Not Found
-      </div>
-    );
-  }
-
-  /* =====================================================
-     PRICE
-  ===================================================== */
-
-  const discountPrice = Math.round(
-    product.price -
-      product.price * 0.05
-  );
-
-  const saveAmount =
-    product.price - discountPrice;
-
-  /* =====================================================
-     STARS
-  ===================================================== */
-
-  const renderStars = () => {
-    const fullStars = Math.floor(
-      product.rating || 0
-    );
-
-    const emptyStars =
-      5 - fullStars;
-
-    return (
-      <>
-        {[...Array(fullStars)].map(
-          (_, i) => (
-            <FaStar key={i} />
-          )
-        )}
-
-        {[...Array(emptyStars)].map(
-          (_, i) => (
-            <FaRegStar
-              key={i}
-            />
-          )
-        )}
-      </>
-    );
+  const handleQuantity = (type) => {
+    if (type === 'inc') setQuantity(prev => prev + 1);
+    if (type === 'dec' && quantity > 1) setQuantity(prev => prev - 1);
   };
 
   return (
-    <>
-      <section className="addtocartSection">
-        {/* =====================================================
-            TOP
-        ===================================================== */}
+    <div className="pooja-container">
+      
+      {/* हेडर ब्रेडक्रंब */}
+      <header className="breadcrumb">
+        <span>🏠</span>
+        <span className="separator">&gt;</span>
+        <span className="link">Pooja Essentials</span>
+        <span className="separator">&gt;</span>
+        <span className="current">Pooja Thali</span>
+      </header>
 
-        <div className="addtocartSection__top">
-          <div>
-            <h1 className="addtocartSection__title">
-              {product.title}
-            </h1>
-
-            {/* RATING */}
-
-            <div className="addtocartSection__ratingRow">
-              <span className="addtocartSection__rating">
-                {product.rating ||
-                  "0"}
-              </span>
-
-              <div className="addtocartSection__stars">
-                {renderStars()}
-              </div>
-
-              <span className="addtocartSection__reviews">
-                ({product.stock || 0}
-                {" "}In Stock)
-              </span>
-            </div>
-
-            {/* PRICE */}
-
-            <h2 className="addtocartSection__price">
-              ₹
-              {Number(
-                product.price
-              ).toLocaleString()}
-            </h2>
-          </div>
-
-          {/* WISHLIST */}
-
-          <button className="addtocartSection__wishlist">
-            <FaHeart />
-          </button>
-        </div>
-
-        {/* =====================================================
-            QUANTITY
-        ===================================================== */}
-
-        <div className="addtocartSection__quantityArea">
-          <h3 className="addtocartSection__quantityTitle">
-            Quantity
-          </h3>
-
-          <div className="addtocartSection__actionRow">
-            {/* QUANTITY BOX */}
-
-            <div className="addtocartSection__quantityBox">
-              <button
-                onClick={
-                  decreaseQty
-                }
-                className="addtocartSection__qtyBtn"
-              >
-                <FaMinus />
-              </button>
-
-              <span className="addtocartSection__qtyValue">
-                {quantity}
-              </span>
-
-              <button
-                onClick={
-                  increaseQty
-                }
-                className="addtocartSection__qtyBtn"
-              >
-                <FaPlus />
-              </button>
-            </div>
-
-            {/* ADD TO CART */}
-
-            <button
-              className="addtocartSection__cartBtn"
-              onClick={
-                handleAddToCart
-              }
+      {/* मुख्य लेआउट */}
+      <main className="main-content">
+        
+        {/* बायां भाग: मुख्य इमेज और स्लाइडर थंबनेल्स */}
+        <div className="left-column">
+          <div className="main-image-wrapper">
+            <img src={images[activeImageIdx]} alt="Pooja Thali" className="main-product-image" />
+            
+            <button 
+              className="slide-arrow prev" 
+              onClick={() => setActiveImageIdx(prev => prev === 0 ? images.length - 1 : prev - 1)}
             >
-              ADD TO CART
+              &#10094;
+            </button>
+            <button 
+              className="slide-arrow next" 
+              onClick={() => setActiveImageIdx(prev => prev === images.length - 1 ? 0 : prev + 1)}
+            >
+              &#10095;
             </button>
           </div>
 
-          {/* BUY NOW */}
+          {/* थंबनेल नीचे की पट्टी */}
+          <div className="thumbnail-slider">
+            {images.map((img, idx) => (
+              <div 
+                key={idx} 
+                className={`thumb-box ${activeImageIdx === idx ? 'active-thumb' : ''}`}
+                onClick={() => setActiveImageIdx(idx)}
+              >
+                <img src={img} alt="thumbnail" />
+              </div>
+            ))}
+          </div>
+        </div>
 
-          <button
-            className="addtocartSection__buyBtn"
-            onClick={
-              handleBuyNow
-            }
-          >
-            BUY NOW
+        {/* दायां भाग: प्रोडक्ट डिटेल्स और कूपन */}
+        <div className="right-column">
+          <div className="product-header">
+            <div className="title-row">
+              <h1>Brass Floral Meenakari Pooja Thali (10 Inch)</h1>
+              <button 
+                className={`wishlist-btn ${isWishlist ? 'fav' : ''}`} 
+                onClick={() => setIsWishlist(!isWishlist)}
+              >
+                ♥
+              </button>
+            </div>
+            
+            <div className="rating-row">
+              <span className="rating-num">5.0</span>
+              <span className="stars">★★★★★</span>
+              <span className="reviews-count">(6)</span>
+            </div>
+
+            <div className="price-tag">₹ 5,899.00</div>
+          </div>
+
+          <hr className="divider" />
+
+          {/* क्वांटिटी और कार्ट बटन्स */}
+          <div className="action-section">
+            <label className="section-label">Quantity</label>
+            <div className="cart-controls">
+              <div className="quantity-selector">
+                <button onClick={() => handleQuantity('dec')}>-</button>
+                <span>{quantity}</span>
+                <button onClick={() => handleQuantity('inc')}>+</button>
+              </div>
+              <button className="add-to-cart-btn" onClick={() => alert('Added to cart!')}>
+                ADD TO CART
+              </button>
+            </div>
+          </div>
+
+          {/* बाय नाऊ बटन */}
+          <button className="buy-now-btn" onClick={() => alert('Proceeding to Buy Now')}>
+            BUY NOW 
+            <span className="payment-icons">
+              <span>GPay</span><span>paytm</span><span>UPI</span>
+            </span>
+            <span className="arrow-icon">&gt;</span>
           </button>
-        </div>
 
-        {/* =====================================================
-            DELIVERY
-        ===================================================== */}
-
-        <div className="addtocartSection__deliverySection">
-          <div className="addtocartSection__deliveryTitle">
-            <FaMapMarkerAlt />
-            Estimated Delivery Time
-          </div>
-
-          <div className="addtocartSection__deliveryGrid">
-            <div className="addtocartSection__deliveryCard">
-              <div className="addtocartSection__deliveryIcon">
-                <FaTruck />
-              </div>
-
-              <div>
-                <h4>
-                  Mumbai
-                  <span>
-                    ⚡ Express
-                  </span>
-                </h4>
-
-                <p>
-                  May 13 -
-                  May 14
-                </p>
-              </div>
+          {/* एस्टिमेटेड डिलीवरी टाइम */}
+          <div className="delivery-box">
+            <div className="delivery-col">
+              <span className="del-title">📍 Estimated Delivery Time</span>
+              <span className="loc">Mumbai <strong className="express-tag">⚡ Express</strong></span>
+              <span className="dates">Jul 09 - Jul 10</span>
             </div>
-
-            <div className="addtocartSection__deliveryCard">
-              <div className="addtocartSection__deliveryIcon">
-                <FaTruck />
-              </div>
-
-              <div>
-                <h4>
-                  All Over
-                  India
-                </h4>
-
-                <p>
-                  May 15 -
-                  May 18
-                </p>
-              </div>
+            <div className="delivery-col border-left">
+              <span className="del-title">&nbsp;</span>
+              <span className="loc">All Over India</span>
+              <span className="dates">Jul 11 - Jul 14</span>
             </div>
           </div>
-        </div>
 
-        {/* =====================================================
-            COUPON
-        ===================================================== */}
-
-        <div className="addtocartSection__couponWrapper">
-          <div className="addtocartSection__couponTop">
-            <div className="addtocartSection__couponLeft">
-              <div className="addtocartSection__couponIcon">
-                %
+          {/* व्यू कूपन्स सेक्शन */}
+          <div className="coupon-container">
+            <div className="coupon-top-bar">
+              <div className="offer-info">
+                <span className="percent-badge">%</span>
+                <span>Get this for <strong className="bold-price">₹5,324</strong></span>
+                <span className="save-badge">Save ₹575</span>
               </div>
-
-              <div className="addtocartSection__couponContent">
-                <h3>
-                  Get this for
-                  <span>
-                    ₹
-                    {discountPrice.toLocaleString()}
-                  </span>
-                </h3>
-
-                <div className="addtocartSection__saveTag">
-                  Save ₹
-                  {saveAmount.toLocaleString()}
-                </div>
-              </div>
+              <button className="view-coupons-btn" onClick={() => setShowCoupons(!showCoupons)}>
+                {showCoupons ? 'Hide Coupons' : 'View Coupons'} 
+                <span className="coupon-count">2</span>
+                <span className="chevron">{showCoupons ? '▲' : '▼'}</span>
+              </button>
             </div>
 
-            <button
-              className="addtocartSection__couponToggle"
-              onClick={() =>
-                setShowCoupons(
-                  !showCoupons
-                )
-              }
-            >
-              {showCoupons
-                ? "Hide Coupons"
-                : "View Coupons"}
-
-              <span>
-                2
-              </span>
-            </button>
-          </div>
-
-          {/* DROPDOWN */}
-
-          {showCoupons && (
-            <div className="addtocartSection__couponDropdown">
-              <div className="addtocartSection__couponCard addtocartSection__couponCardActive">
-                <div className="addtocartSection__couponBadge">
-                  BEST OFFER
-                </div>
-
-                <h2>
-                  Get 5% Off
-                </h2>
-
-                <p>
-                  Extra 5% OFF
-                  on all Online
-                  Payments
-                </p>
-
-                <div className="addtocartSection__couponApps">
-                  GPay • Paytm •
-                  PhonePe
-                </div>
-              </div>
-
-              <div className="addtocartSection__couponCard">
-                <div className="addtocartSection__couponBadge addtocartSection__couponBadgeOrange">
-                  NEW CUSTOMERS
-                </div>
-
-                <h2>
-                  Get 5% Off
-                </h2>
-
-                <p>
-                  5% OFF On
-                  Your First
-                  Order Only
-                </p>
-
-                <div className="addtocartSection__couponBottom">
-                  <div className="addtocartSection__couponCode">
-                    CODE:
-                    <span>
-                      WELCOME5
-                    </span>
+            {/* इमेज 2 के अनुसार ड्रॉपडाउन होने वाला हिस्सा */}
+            {showCoupons && (
+              <div className="coupons-dropdown">
+                <div className="coupon-card green-card">
+                  <div className="card-headline">
+                    <span className="green-text">Get 5% Off</span>
+                    <span className="check-mark">✓</span>
                   </div>
+                  <p className="card-sub">Extra 5% OFF on all Online Payments</p>
+                  <div className="card-footer-icons">
+                    <span>GPay</span><span>paytm</span><span>PhonePe</span>
+                  </div>
+                </div>
 
-                  <button
-                    className="addtocartSection__copyBtn"
-                    onClick={
-                      handleCopyCoupon
-                    }
-                  >
-                    Copy
-                  </button>
+                <div className="coupon-card orange-card">
+                  <span className="new-cust-badge">New Customers</span>
+                  <div className="card-headline">
+                    <span className="orange-text">Get 5% Off</span>
+                  </div>
+                  <p className="card-sub">5% OFF on Your First Order Only</p>
+                  <div className="copy-code-box">
+                    <span className="code-text">WELCOME5</span>
+                    <button className="copy-btn" onClick={() => alert('Code Copied!')}>Copy</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-
-        {/* =====================================================
-            BULK DISCOUNT
-        ===================================================== */}
-
-        <div className="addtocartSection__bulkSection">
-          <h2 className="addtocartSection__bulkTitle">
-            Bulk Discounts
-            (Min. Quantity)
-          </h2>
-
-          <div className="addtocartSection__bulkItem">
-            <div>
-              <span className="addtocartSection__popular">
-                Most popular
-              </span>
-
-              <h3>
-                Buy 2 get 5%
-                off
-              </h3>
-
-              <p>
-                on each
-                product
-              </p>
-            </div>
-
-            <button>
-              GRAB THIS
-              DEAL
-            </button>
+            )}
           </div>
 
-          <div className="addtocartSection__bulkItem">
-            <div>
-              <h3>
-                Buy 3 get 8%
-                off
-              </h3>
-
-              <p>
-                on each
-                product
-              </p>
-            </div>
-
-            <button>
-              GRAB THIS
-              DEAL
-            </button>
-          </div>
-
-          <div className="addtocartSection__bulkItem addtocartSection__disabled">
-            <div>
-              <h3>
-                Buy 10 get
-                10% off
-              </h3>
-
-              <p>
-                on each
-                product
-              </p>
-            </div>
-
-            <button>
-              GRAB THIS
-              DEAL
-            </button>
-          </div>
-        </div>
-
-        {/* =====================================================
-            ENQUIRE
-        ===================================================== */}
-
-        <div className="addtocartSection__enquire">
-          <div className="addtocartSection__enquireLeft">
-            <div className="addtocartSection__enquireIcon">
-              📦
-            </div>
-
-            <h3>
-              Looking for
-              Bulk Pricing
-              (30+ Qty)?
-            </h3>
-          </div>
-
-          <button>
-            Enquire Now
-          </button>
-        </div>
-
-        {/* =====================================================
-            SHIPPING
-        ===================================================== */}
-
-        <div className="addtocartSection__serviceGrid">
-          <div className="addtocartSection__serviceCard">
-            <div className="addtocartSection__serviceIcon">
-              <FaTruck />
-            </div>
-
-            <div>
-              <h4>
-                Free
-                Shipping
-              </h4>
-            </div>
-          </div>
-
-          <div className="addtocartSection__serviceCard">
-            <div className="addtocartSection__serviceIcon">
-              <FaExchangeAlt />
-            </div>
-
-            <div>
-              <h4>
-                7 Days Easy
-                Returns
-              </h4>
-            </div>
-          </div>
-
-          <div className="addtocartSection__serviceCard">
-            <div className="addtocartSection__serviceIcon">
-              <FaMapMarkerAlt />
-            </div>
-
-            <div>
-              <h4>
-                Trusted by
-                3,00,000+
-              </h4>
-            </div>
-          </div>
-        </div>
-
-        {/* =====================================================
-            NEED HELP
-        ===================================================== */}
-
-        <div
-          className="addtocartSection__help"
-          onClick={() =>
-            setShowPopup(true)
-          }
-        >
-          <div className="addtocartSection__helpLeft">
-            <div className="addtocartSection__helpIcon">
-              <FaHeadphones />
-            </div>
-
-            <div>
-              <h3>
-                Need Help?
-              </h3>
-
-              <p>
-                Get
-                assistance or
-                bulk order
-                discounts
-              </p>
-            </div>
-          </div>
-
-          <FaChevronRight />
-        </div>
-
-        {/* =====================================================
-            SKU
-        ===================================================== */}
-
-        <div className="addtocartSection__sku">
-          <span>SKU:</span>
-
-          {product._id}
-        </div>
-      </section>
-
-      {/* =====================================================
-          POPUP
-      ===================================================== */}
-
-      {showPopup && (
-        <div className="addtocartSection__popupOverlay">
-          <div className="addtocartSection__popup">
-            <div className="addtocartSection__popupHeader">
-              <h2>
-                How can we
-                help you?
-              </h2>
-
-              <button
-                onClick={() =>
-                  setShowPopup(
-                    false
-                  )
-                }
-              >
-                <FaTimes />
-              </button>
-            </div>
-
-            <div className="addtocartSection__popupContent">
-              <div className="addtocartSection__popupCard">
-                <div className="addtocartSection__popupIcon">
-                  <FaBoxOpen />
-                </div>
-
-                <div>
-                  <h3>
-                    Bulk Order
-                    Inquiry
-                  </h3>
-
-                  <p>
-                    Get
-                    special
-                    discounts
-                    for orders
-                    above 30
-                    pieces
-                  </p>
-                </div>
+          {/* बल्क डिस्काउंट्स तालिका */}
+          <div className="bulk-discount-box">
+            <h3>BULK DISCOUNTS (MIN. QUANTITY)</h3>
+            <div className="discount-row active-row">
+              <div className="row-left">
+                <span className="popular-tag">Most popular</span>
+                <span>Buy 2 get 5% off on each product</span>
               </div>
-
-              <div className="addtocartSection__popupCard">
-                <div className="addtocartSection__popupIcon">
-                  <FaQuestionCircle />
-                </div>
-
-                <div>
-                  <h3>
-                    General
-                    Help
-                  </h3>
-
-                  <p>
-                    Questions
-                    about size,
-                    delivery,
-                    or other
-                    details
-                  </p>
-                </div>
-              </div>
+              <span className="added-text">✓ ADDED</span>
+            </div>
+            <div className="discount-row">
+              <span>Buy 3 get 8% off on each product</span>
+              <button className="grab-btn">GRAB THIS DEAL</button>
+            </div>
+            <div className="discount-row">
+              <span>Buy 10 get 10% off on each product</span>
+              <button className="grab-btn">GRAB THIS DEAL</button>
             </div>
           </div>
+
         </div>
-      )}
-    </>
+      </main>
+    </div>
   );
 };
 
-export default AddtocartSection;
+export default PoojaDetails;

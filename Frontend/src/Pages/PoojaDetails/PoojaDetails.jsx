@@ -1,7 +1,6 @@
 import React from "react";
-import "./PoojaDetails.css";
 
-import PoojaDetailsHome from "../../Components/PoojaDetailsHome/PoojaDetailsHome";
+import PoojaDetailsHome from "../../Components/PoojaDetailsHome/PoojaDetailsHome"
 import AddtocartSection from "../../Components/AddtocartSection/AddtocartSection";
 import Switchbar from "../../Components/Switchbar/Switchbar";
 import Youmight from "../../Components/Youmight/Youmight";
