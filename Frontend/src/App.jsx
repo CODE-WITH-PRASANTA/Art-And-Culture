@@ -28,6 +28,10 @@ import LoginForm from "./Components/LoginForm/LoginForm";
 import BrassDiyas from "./Pages/BrassDiyas/BrassDiyas";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Address from "./Components/Address/Address";
+import OverView from "./Components/OverView/OverView";
+import Order from "./Components/Order/Order";
+import AccountDetails from "./Components/AccountDetails/AccountDetails";
+import ContactUs from "./Components/ContactUs/ContactUs";
 
 
 function App() {
@@ -81,18 +85,19 @@ function App() {
   />
 
   <Route
-    path="orders"
-    element={<div>Orders Page</div>}
+    path="overview"
+    element={<OverView />}
   />
+   <Route path="orders" element={<Order />} />
 
   <Route
     path="details"
-    element={<div>Account Details</div>}
+    element={<AccountDetails />}
   />
 
   <Route
     path="contact"
-    element={<div>Contact Page</div>}
+    element={<ContactUs />} 
   />
 
 </Route>

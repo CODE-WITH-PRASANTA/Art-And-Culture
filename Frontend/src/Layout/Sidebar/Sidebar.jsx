@@ -51,8 +51,7 @@ const Sidebar = () => {
         {/* Overview */}
 
         <NavLink
-          end
-          to="/account"
+          to="/account/overview"
           className={({ isActive }) =>
             isActive ? "sidebarMenuItem active" : "sidebarMenuItem"
           }

@@ -1,0 +1,171 @@
+/* Container sizing and positioning */
+.accountDetailsContainer {
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Card framing matching the exact border-radius, color, and subtle card shadow */
+.accountDetailsCard {
+  width: 100%;
+  max-width: 850px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  padding: 2.5rem 2.5rem 3.5rem 2.5rem;
+  box-sizing: border-box;
+}
+
+/* Header style matching reference font weight and serif color */
+.accountDetailsHeaderTitle {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 2rem 0;
+  text-align: left;
+}
+
+/* List details structural layout */
+.accountDetailsList {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.5rem;
+}
+
+/* Row wrapper with soft grey bottom dividers exactly like the image */
+.accountDetailsRow {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.95rem;
+}
+
+.accountDetailsRow:last-child {
+  border-bottom: 1px solid #f5f5f5; /* Explicit line under total spent as well */
+}
+
+/* Left Label styling - flexible column layout, soft muted color */
+.accountDetailsLabel {
+  width: 25%;
+  color: #8e8e93;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Icon customization to match context styling elegantly */
+.accountDetailsIcon {
+  font-size: 1rem;
+  color: #a0a0a5;
+  flex-shrink: 0;
+}
+
+/* Right side content text alignment and coloring */
+.accountDetailsValue {
+  width: 75%;
+  color: #2c2c2e;
+  font-weight: 400;
+  text-align: left;
+  padding-left: 0.5rem;
+}
+
+/* Button section styling alignment */
+.accountDetailsActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Manage Address filled button styling matching color signature */
+.accountDetailsBtnManage {
+  background-color: #d4a347;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.accountDetailsBtnManage:hover {
+  background-color: #c29238;
+}
+
+/* Change Password outline button layout rules */
+.accountDetailsBtnPassword {
+  background-color: transparent;
+  color: #555559;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.accountDetailsBtnPassword:hover {
+  background-color: #fafafa;
+  border-color: #cccccc;
+}
+
+/* ================= RESPONSIVE DESIGN MEDIA QUERIES ================= */
+
+@media (max-width: 768px) {
+  .accountDetailsCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .accountDetailsRow {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.85rem 0;
+    gap: 0.35rem;
+  }
+
+  .accountDetailsLabel {
+    width: 100%;
+  }
+
+  .accountDetailsValue {
+    width: 100%;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .accountDetailsContainer {
+    padding: 1rem 0.5rem;
+  }
+
+  .accountDetailsCard {
+    box-shadow: none;
+    border: 1px solid #f0f0f0;
+    padding: 1.5rem 1rem;
+  }
+
+  .accountDetailsActions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .accountDetailsBtnManage,
+  .accountDetailsBtnPassword {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
