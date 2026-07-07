@@ -25,7 +25,7 @@ const Sidebar = () => {
               <FiChevronRight className="sidebarMiniArrow" />
             </h3>
 
-            <p>adyshabarik@gmail.com</p>
+            <p>adyasabarik@gmail.com</p>
           </div>
 
           <div className="sidebarAvatar">U</div>
@@ -51,11 +51,11 @@ const Sidebar = () => {
         {/* Overview */}
 
         <NavLink
-          to="/account/overview"
-          className={({ isActive }) =>
-            isActive ? "sidebarMenuItem active" : "sidebarMenuItem"
-          }
-        >
+              to="/account/overview"
+              className={({ isActive }) =>
+                isActive ? "sidebarMenuItem active" : "sidebarMenuItem"
+              }
+            >
           <div className="sidebarMenuLeft">
             <div className="sidebarIcon">
               <FiHome />
@@ -65,6 +65,7 @@ const Sidebar = () => {
               <h4>Overview</h4>
               <p>All details in one place</p>
             </div>
+            
           </div>
 
           <FiChevronRight className="sidebarArrow" />

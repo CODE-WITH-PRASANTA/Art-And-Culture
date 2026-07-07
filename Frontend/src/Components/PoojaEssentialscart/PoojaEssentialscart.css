@@ -1,0 +1,826 @@
+/*==================================================
+PoojaEssentialscart.css (Part 1)
+===================================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.PoojaEssentialscart{
+    width:100%;
+    display:flex;
+    gap:40px;
+    padding:50px 5%;
+    background:#fff;
+}
+
+/*==================================================
+SIDEBAR
+===================================================*/
+
+.pooja_sidebar{
+    width:280px;
+    flex-shrink:0;
+}
+
+.pooja_sidebar h2{
+    font-size:34px;
+    font-weight:500;
+    margin-bottom:35px;
+    color:#111;
+}
+
+.filter_box{
+    border-bottom:1px solid #ececec;
+    padding-bottom:25px;
+    margin-bottom:30px;
+}
+
+.filter_box:last-child{
+    border-bottom:none;
+}
+
+.filter_box h4{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    margin-bottom:18px;
+}
+
+.filter_box label{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+    color:#555;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.filter_box label:hover{
+    color:#d39b2a;
+}
+
+.filter_box input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    accent-color:#d39b2a;
+    cursor:pointer;
+}
+
+/*==================================================
+PRICE
+===================================================*/
+
+.price_slider{
+    width:100%;
+    margin:10px 0 25px;
+    accent-color:#d39b2a;
+    cursor:pointer;
+}
+
+.price_inputs{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.price_inputs input{
+    width:100%;
+    height:45px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    outline:none;
+    padding:0 12px;
+    font-size:15px;
+}
+
+.price_inputs span{
+    font-size:15px;
+    color:#555;
+}
+
+/*==================================================
+PRODUCT AREA
+===================================================*/
+
+.pooja_products{
+    flex:1;
+}
+
+/*==================================================
+TOP BAR
+===================================================*/
+
+.top_bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.featured{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:18px;
+    font-weight:500;
+    cursor:pointer;
+}
+
+/*==================================================
+VIEW ICONS
+===================================================*/
+
+.view_icons{
+    display:flex;
+    gap:12px;
+}
+
+.view_icons button{
+    width:45px;
+    height:45px;
+    border:1px solid #ddd;
+    background:#fff;
+    cursor:pointer;
+    transition:.35s;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+}
+
+.view_icons button:hover{
+    background:#d39b2a;
+    color:#fff;
+    border-color:#d39b2a;
+}
+
+.view_icons .active{
+    background:#d39b2a;
+    color:#fff;
+    border-color:#d39b2a;
+}
+
+/*==================================================
+GRID
+===================================================*/
+
+.products{
+    display:grid;
+    gap:28px;
+}
+
+.grid2{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.grid3{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.grid4{
+    grid-template-columns:repeat(4,1fr);
+}
+
+.grid5{
+    grid-template-columns:repeat(5,1fr);
+}
+
+/*==================================================
+LIST VIEW
+===================================================*/
+
+.list{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.list_card{
+    display:flex;
+    gap:35px;
+    border:1px solid #eee;
+    padding:20px;
+}
+
+.list_card .image_box{
+    width:320px;
+    flex-shrink:0;
+}
+
+.list_card .product_info{
+    padding-top:15px;
+}
+
+.list_card .description{
+    margin-top:15px;
+    color:#666;
+    line-height:1.8;
+}
+
+/*==================================================
+CARD
+===================================================*/
+
+.product_card{
+    position:relative;
+    transition:.35s;
+}
+
+.product_card:hover{
+    transform:translateY(-6px);
+}
+
+.image_box{
+    position:relative;
+    overflow:hidden;
+    background:#fafafa;
+}
+
+.image_box img{
+    width:100%;
+    display:block;
+    transition:.45s;
+}
+
+.image_box:hover img{
+    transform:scale(1.08);
+}
+
+.discount{
+    position:absolute;
+    top:18px;
+    left:18px;
+    background:#c15d15;
+    color:#fff;
+    padding:7px 14px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+    z-index:5;
+}
+
+/*==================================================
+INFO
+===================================================*/
+
+.product_info{
+    padding-top:18px;
+}
+
+.product_info h3{
+    font-size:18px;
+    line-height:1.6;
+    font-weight:500;
+    color:#222;
+    margin-bottom:12px;
+    transition:.3s;
+    cursor:pointer;
+}
+
+.product_info h3:hover{
+    color:#d39b2a;
+}
+
+.rating{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    color:#d39b2a;
+    margin-bottom:12px;
+}
+
+.rating_number,
+.review_count{
+    color:#666;
+    font-size:14px;
+}
+
+.price{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.price .new{
+    font-size:26px;
+    color:#c15d15;
+    font-weight:600;
+}
+
+.price .old{
+    color:#888;
+    text-decoration:line-through;
+    font-size:17px;
+}
+
+.description{
+    color:#666;
+    line-height:1.8;
+}/*==================================================
+PoojaEssentialscart.css (Part 2)
+Hover Effects • Quick Add • Responsive
+===================================================*/
+
+/*=========================
+IMAGE OVERLAY
+=========================*/
+
+.image_overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,.08);
+    opacity:0;
+    transition:.35s ease;
+}
+
+.image_box:hover .image_overlay{
+    opacity:1;
+}
+
+/*=========================
+RIGHT SIDE ICONS
+=========================*/
+
+.hover_icons{
+    position:absolute;
+    top:18px;
+    right:18px;
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+
+    transform:translateX(70px);
+    opacity:0;
+
+    transition:.35s ease;
+}
+
+.image_box:hover .hover_icons{
+    transform:translateX(0);
+    opacity:1;
+}
+
+.icon_btn{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+    border:none;
+
+    background:#fff;
+    color:#222;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
+
+    transition:.3s;
+
+    position:relative;
+}
+
+.icon_btn:hover{
+    background:#d39b2a;
+    color:#fff;
+}
+
+/*=========================
+ICON TOOLTIPS
+=========================*/
+
+.icon_btn::after{
+
+    content:attr(title);
+
+    position:absolute;
+
+    right:60px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    background:#222;
+    color:#fff;
+
+    padding:8px 14px;
+
+    border-radius:6px;
+
+    white-space:nowrap;
+
+    font-size:13px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.icon_btn:hover::after{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+/*=========================
+QUICK ADD BUTTON
+=========================*/
+
+.quick_add{
+
+    position:absolute;
+
+    left:15px;
+    right:15px;
+    bottom:15px;
+
+    height:50px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#fff;
+    color:#111;
+
+    font-size:15px;
+    font-weight:600;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    cursor:pointer;
+
+    transform:translateY(90px);
+
+    transition:.35s ease;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.image_box:hover .quick_add{
+
+    transform:translateY(0);
+
+}
+
+.quick_add:hover{
+
+    background:#d39b2a;
+    color:#fff;
+
+}
+
+.quick_add svg{
+
+    font-size:17px;
+
+}
+
+/*=========================
+QUICK ADD TOOLTIP
+=========================*/
+
+.quick_add::after{
+    position:absolute;
+
+    top:-42px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:#222;
+    color:#fff;
+
+    padding:7px 12px;
+
+    border-radius:5px;
+
+    white-space:nowrap;
+
+    font-size:13px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.quick_add:hover::after{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+/*=========================
+SMOOTH IMAGE EFFECT
+=========================*/
+
+.image_box img{
+    transition:.45s;
+}
+
+.image_box:hover img{
+    transform:scale(1.07);
+}
+
+/*=========================
+SCROLLBAR
+=========================*/
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#d39b2a;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#f5f5f5;
+}
+
+/*==================================================
+RESPONSIVE
+===================================================*/
+
+@media(max-width:1300px){
+
+.grid5{
+grid-template-columns:repeat(4,1fr);
+}
+
+}
+
+@media(max-width:1100px){
+
+.PoojaEssentialscart{
+gap:25px;
+padding:40px 3%;
+}
+
+.pooja_sidebar{
+width:240px;
+}
+
+.grid4{
+grid-template-columns:repeat(3,1fr);
+}
+
+.grid5{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+/*=========================
+TABLET
+=========================*/
+
+@media(max-width:992px){
+
+.PoojaEssentialscart{
+
+flex-direction:column;
+
+}
+
+.pooja_sidebar{
+
+width:100%;
+
+}
+
+.grid2,
+.grid3,
+.grid4,
+.grid5{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.list_card{
+
+flex-direction:column;
+
+}
+
+.list_card .image_box{
+
+width:100%;
+
+}
+
+.top_bar{
+
+flex-wrap:wrap;
+
+gap:20px;
+
+}
+
+}
+
+/*=========================
+MOBILE
+=========================*/
+
+@media(max-width:768px){
+
+.PoojaEssentialscart{
+
+padding:20px;
+
+}
+
+.top_bar{
+
+flex-direction:column;
+align-items:flex-start;
+
+}
+
+.view_icons{
+
+flex-wrap:wrap;
+
+}
+
+.grid2,
+.grid3,
+.grid4,
+.grid5{
+
+grid-template-columns:1fr;
+
+}
+
+.product_info h3{
+
+font-size:17px;
+
+}
+
+.price .new{
+
+font-size:22px;
+
+}
+
+.price .old{
+
+font-size:15px;
+
+}
+
+.price_inputs{
+
+flex-direction:column;
+
+}
+
+.price_inputs input{
+
+width:100%;
+
+}
+
+.quick_add{
+
+height:45px;
+font-size:14px;
+
+}
+
+.icon_btn{
+
+width:42px;
+height:42px;
+font-size:15px;
+
+}
+
+}
+
+/*=========================
+SMALL MOBILE
+=========================*/
+
+@media(max-width:480px){
+
+.PoojaEssentialscart{
+
+padding:15px;
+
+}
+
+.pooja_sidebar h2{
+
+font-size:28px;
+
+}
+
+.filter_box{
+
+margin-bottom:20px;
+
+}
+
+.filter_box h4{
+
+font-size:16px;
+
+}
+
+.filter_box label{
+
+font-size:14px;
+
+}
+
+.featured{
+
+font-size:16px;
+
+}
+
+.view_icons button{
+
+width:38px;
+height:38px;
+font-size:14px;
+
+}
+
+.discount{
+
+font-size:11px;
+padding:6px 10px;
+
+}
+
+.hover_icons{
+
+top:10px;
+right:10px;
+
+}
+
+.quick_add{
+
+left:10px;
+right:10px;
+bottom:10px;
+
+}
+
+}
+
+/*=========================
+HOVER TRANSITIONS
+=========================*/
+
+.product_card,
+.image_box,
+.product_info h3,
+.icon_btn,
+.quick_add,
+.view_icons button{
+
+transition:.35s ease;
+
+}
+
+.product_card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.product_info h3:hover{
+
+color:#d39b2a;
+
+}

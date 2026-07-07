@@ -1,90 +1,89 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FiUser, FiMail, FiPhone, FiCalendar, FiShoppingBag, FiDollarSign } from "react-icons/fi";
+import React, { useState } from "react";
+import "./AccountDetails.css";
+import {
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiCalendar,
+  FiShoppingBag,
+  FiDollarSign,
+  FiMapPin,
+  FiLock,
+} from "react-icons/fi";
 import "./AccountDetails.css";
 
 const AccountDetails = () => {
-  // Mock data matching the reference image exactly
-  const userData = {
-    name: "Saroj Kishor Sahoo", 
-    email: "santanuranjanbal@gmail.com",
-    phone: "+918260779490",
-    customerSince: "November 2025",
-    totalOrders: 0,
-    totalSpent: "₹ 0.00",
-  };
-
   return (
-    <div className="accountDetailsContainer">
-      <div className="accountDetailsCard">
-        {/* Component Title */}
-        <h2 className="accountDetailsHeaderTitle">Account Details</h2>
+    <div className="AccountDetails">
+      <div className="AccountDetails-card">
+        <h2 className="AccountDetails-title">Account Details</h2>
 
-        {/* Details Grid / Table rows */}
-        <div className="accountDetailsList">
-          
-          {/* Name Row */}
-          <div className="accountDetailsRow">
-            <div className="accountDetailsLabel">
-              <FiUser className="accountDetailsIcon" />
-              <span>Name</span>
+        <div className="AccountDetails-list">
+
+          <div className="AccountDetails-row">
+            <div className="AccountDetails-label">
+              <FiUser className="AccountDetails-icon" />
+              Name
             </div>
-            <div className="accountDetailsValue">{userData.name}</div>
+            <div className="AccountDetails-value"></div>
           </div>
 
-          {/* Email Row */}
-          <div className="accountDetailsRow">
-            <div className="accountDetailsLabel">
-              <FiMail className="accountDetailsIcon" />
-              <span>Email</span>
+          <div className="AccountDetails-row">
+            <div className="AccountDetails-label">
+              <FiMail className="AccountDetails-icon" />
+              Email
             </div>
-            <div className="accountDetailsValue">{userData.email}</div>
+            <div className="AccountDetails-value">
+            dipti0@gmail.com
+            </div>
           </div>
 
-          {/* Phone Row */}
-          <div className="accountDetailsRow">
-            <div className="accountDetailsLabel">
-              <FiPhone className="accountDetailsIcon" />
-              <span>Phone</span>
+          <div className="AccountDetails-row">
+            <div className="AccountDetails-label">
+              <FiPhone className="AccountDetails-icon" />
+              Phone
             </div>
-            <div className="accountDetailsValue">{userData.phone}</div>
+            <div className="AccountDetails-value">
+              +91 9876543225
+            </div>
           </div>
 
-          {/* Customer Since Row */}
-          <div className="accountDetailsRow">
-            <div className="accountDetailsLabel">
-              <FiCalendar className="accountDetailsIcon" />
-              <span>Customer Since</span>
+          <div className="AccountDetails-row">
+            <div className="AccountDetails-label">
+              <FiCalendar className="AccountDetails-icon" />
+              Customer Since
             </div>
-            <div className="accountDetailsValue">{userData.customerSince}</div>
+            <div className="AccountDetails-value"></div>
           </div>
 
-          {/* Total Orders Row */}
-          <div className="accountDetailsRow">
-            <div className="accountDetailsLabel">
-              <FiShoppingBag className="accountDetailsIcon" />
-              <span>Total Orders</span>
+          <div className="AccountDetails-row">
+            <div className="AccountDetails-label">
+              <FiShoppingBag className="AccountDetails-icon" />
+              Total Orders
             </div>
-            <div className="accountDetailsValue">{userData.totalOrders}</div>
+            <div className="AccountDetails-value">0</div>
           </div>
 
-          {/* Total Spent Row */}
-          <div className="accountDetailsRow">
-            <div className="accountDetailsLabel">
-              <FiDollarSign className="accountDetailsIcon" />
-              <span>Total Spent</span>
+          <div className="AccountDetails-row">
+            <div className="AccountDetails-label">
+              <FiDollarSign className="AccountDetails-icon" />
+              Total Spent
             </div>
-            <div className="accountDetailsValue">{userData.totalSpent}</div>
+            <div className="AccountDetails-value">
+              ₹ 0.00
+            </div>
           </div>
 
         </div>
 
-        {/* Action Buttons Section */}
-        <div className="accountDetailsActions">
-          <Link to="/account/address" className="accountDetailsBtnManage">
-            Manage Addresses (0)
-          </Link>
-          <button className="accountDetailsBtnPassword">
+        <div className="AccountDetails-buttons">
+          <button className="AccountDetails-addressBtn">
+            <FiMapPin />
+            Manage Addresses (1)
+          </button>
+
+          <button className="AccountDetails-passwordBtn">
+            <FiLock />
             Change Password
           </button>
         </div>

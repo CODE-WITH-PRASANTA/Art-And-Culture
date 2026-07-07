@@ -80,20 +80,20 @@ const BrassDiyasMain = () => {
         <div className="sidebar-header">
           <h2>Filters</h2>
           <button 
-            className="close-filter-btn" 
+            className="close-bass-filter-btn" 
             onClick={() => setIsMobileFilterOpen(false)}
           >
             <FaTimes />
           </button>
         </div>
 
-        <div className="filter-box">
-          <div className="filter-title" onClick={() => toggleFilter("purpose")}>
+        <div className="bass-filter-box">
+          <div className="bass-filter-title" onClick={() => toggleFilter("purpose")}>
             Purpose / Usecase
             {filters.purpose ? <FaChevronUp /> : <FaChevronDown />}
           </div>
           {filters.purpose && (
-            <div className="filter-content">
+            <div className="bass-filter-content">
               <label><input type="checkbox" /> Home</label>
               <label><input type="checkbox" /> Temple</label>
               <label><input type="checkbox" /> Decoration</label>
@@ -101,26 +101,26 @@ const BrassDiyasMain = () => {
           )}
         </div>
 
-        <div className="filter-box">
-          <div className="filter-title" onClick={() => toggleFilter("material")}>
+        <div className="bass-filter-box">
+          <div className="bass-filter-title" onClick={() => toggleFilter("material")}>
             Material
             {filters.material ? <FaChevronUp /> : <FaChevronDown />}
           </div>
           {filters.material && (
-            <div className="filter-content">
+            <div className="bass-filter-content">
               <label><input type="checkbox" /> Brass</label>
               <label><input type="checkbox" /> Copper</label>
             </div>
           )}
         </div>
 
-        <div className="filter-box">
-          <div className="filter-title" onClick={() => toggleFilter("price")}>
+        <div className="bass-filter-box">
+          <div className="bass-filter-title" onClick={() => toggleFilter("price")}>
             Price
             {filters.price ? <FaChevronUp /> : <FaChevronDown />}
           </div>
           {filters.price && (
-            <div className="filter-content">
+            <div className="bass-filter-content">
               <label><input type="checkbox" /> Under ₹1000</label>
               <label><input type="checkbox" /> ₹1000-3000</label>
               <label><input type="checkbox" /> Above ₹3000</label>
@@ -128,13 +128,13 @@ const BrassDiyasMain = () => {
           )}
         </div>
 
-        <div className="filter-box">
-          <div className="filter-title" onClick={() => toggleFilter("size")}>
+        <div className="bass-filter-box">
+          <div className="bass-filter-title" onClick={() => toggleFilter("size")}>
             Size Range
             {filters.size ? <FaChevronUp /> : <FaChevronDown />}
           </div>
           {filters.size && (
-            <div className="filter-content">
+            <div className="bass-filter-content">
               <label><input type="checkbox" /> Small</label>
               <label><input type="checkbox" /> Medium</label>
               <label><input type="checkbox" /> Large</label>
@@ -142,13 +142,13 @@ const BrassDiyasMain = () => {
           )}
         </div>
 
-        <div className="filter-box">
-          <div className="filter-title" onClick={() => toggleFilter("availability")}>
+        <div className="bass-filter-box">
+          <div className="bass-filter-title" onClick={() => toggleFilter("availability")}>
             Availability
             {filters.availability ? <FaChevronUp /> : <FaChevronDown />}
           </div>
           {filters.availability && (
-            <div className="filter-content">
+            <div className="bass-filter-content">
               <label><input type="checkbox" /> In Stock</label>
               <label><input type="checkbox" /> Out of Stock</label>
             </div>
@@ -160,7 +160,7 @@ const BrassDiyasMain = () => {
       <div className="brass-content">
         <div className="top-toolbar">
           <button 
-            className="mobile-filter-trigger" 
+            className="mobile-bass-filter-trigger" 
             onClick={() => setIsMobileFilterOpen(true)}
           >
             <FaFilter /> Filters
@@ -176,7 +176,7 @@ const BrassDiyasMain = () => {
 
         <div className="products-grid">
           {currentProducts.map((item) => (
-            <div className="product-card" key={item.id}>
+            <div className="bass-product-card" key={item.id}>
               <div className="image-box">
                 <img src={item.image} alt={item.title} />
                 <span className="discount">{item.discount}</span>

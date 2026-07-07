@@ -3,9 +3,8 @@
   display: flex;
   gap: 30px;
   padding: 20px;
-  padding-top: 100px;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1500px;
+  margin: auto;
   font-family: Arial, sans-serif;
   position: relative;
 }
@@ -30,7 +29,7 @@
   margin: 0;
 }
 
-.close-filter-btn {
+.close-bass-filter-btn {
   display: none;
   background: none;
   border: none;
@@ -39,14 +38,14 @@
   color: #333;
 }
 
-.filter-box {
+.bass-filter-box {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   margin-bottom: 15px;
   overflow: hidden;
 }
 
-.filter-title {
+.bass-filter-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,7 +57,7 @@
   user-select: none;
 }
 
-.filter-content {
+.bass-filter-content {
   padding: 12px;
   background-color: #fff;
   display: flex;
@@ -67,7 +66,7 @@
   border-top: 1px solid #e0e0e0;
 }
 
-.filter-content label {
+.bass-filter-content label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -89,7 +88,7 @@
   margin-bottom: 20px;
 }
 
-.mobile-filter-trigger {
+.mobile-bass-filter-trigger {
   display: none;
   align-items: center;
   gap: 8px;
@@ -121,12 +120,12 @@
 }
 
 /* Product Card Styling */
-.product-card {
+.bass-product-card {
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 20px;
   background: #fff;
-  width: 100%;
+  width: 350px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -134,7 +133,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.product-card:hover {
+.bass-product-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
@@ -173,7 +172,7 @@
   z-index: 1;
 }
 
-.product-card h4 {
+.bass-product-card h4 {
   font-size: 1.05rem;
   margin: 0 0 10px 0;
   color: #222;
@@ -280,7 +279,7 @@
     width: 100%;
   }
 
-  .mobile-filter-trigger {
+  .mobile-bass-filter-trigger {
     display: flex;
   }
 
@@ -314,7 +313,7 @@
     left: 0;
   }
 
-  .close-filter-btn {
+  .close-bass-filter-btn {
     display: block;
   }
 }
@@ -322,11 +321,11 @@
 /* Compact Mobile View (Enforcing 2 columns cleanly) */
 @media (max-width: 580px) {
   .products-grid {
-    grid-template-columns: repeat(2, 1fr); /* Forces exactly two columns */
+    grid-template-columns: repeat(1, 1fr); /* Forces exactly two columns */
     gap: 12px; /* Smaller gaps to save card content workspace */
   }
 
-  .product-card {
+  .bass-product-card {
     padding: 10px; /* Reduced card padding to allow text room */
   }
 
@@ -338,7 +337,7 @@
     padding: 6px;
   }
 
-  .product-card h4 {
+  .bass-product-card h4 {
     font-size: 0.85rem; /* Downscaled font size to prevent layout overlap */
     height: 2.8em;
     margin-bottom: 6px;

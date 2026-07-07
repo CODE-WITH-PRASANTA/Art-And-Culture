@@ -344,7 +344,7 @@ const Address = () => {
                 type="submit"
                 className="addressSaveBtn"
               >
-                Add a New Address
+              Save Your Address
               </button>
 
               <button
@@ -388,7 +388,7 @@ const Address = () => {
                 setShowForm(true)
               }
             >
-              Add Your First Address
+              Add Your  Address
             </button>
 
           </div>
