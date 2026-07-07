@@ -1,5 +1,4 @@
 import React from "react";
-import "./PoojaDetails.css";
 
 import PoojaDetailsHome from "../../Components/PoojaDetailsHome/PoojaDetailsHome";
 import AddtocartSection from "../../Components/AddtocartSection/AddtocartSection";

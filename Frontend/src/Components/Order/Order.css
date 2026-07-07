@@ -1,0 +1,133 @@
+/* Container sizing & centering */
+.orderContainer {
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Card layout matching reference shadow, border-radius, and background */
+.orderCard {
+  width: 100%;
+  max-width: 850px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  padding: 2.5rem 2rem 4rem 2rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Header style matching reference font weight and color */
+.orderHeaderTitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+  text-align: left;
+}
+
+/* Flex layout centering the empty status content */
+.orderEmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Icon container matching positioned subtle grey icon look */
+.orderIconWrapper {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderEmptyIcon {
+  font-size: 3.5rem;
+  color: #cccccc;
+  stroke-width: 1.2px; /* Thin, minimal stroke like the reference */
+}
+
+/* Title matching typography and muted grey color tone */
+.orderEmptyHeading {
+  font-family: Georgia, serif; /* Serific font styling as shown in image */
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #4a4a4a;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Sub-text paragraph description */
+.orderEmptyText {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+  color: #777777;
+  margin: 0 0 1.75rem 0;
+}
+
+/* Button style with specific mustard/gold background and smooth transitions */
+.orderStartShoppingBtn {
+  display: inline-block;
+  background-color: #d4a347; /* Precise color match for the action button */
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.65rem 1.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(212, 163, 71, 0.2);
+}
+
+.orderStartShoppingBtn:hover {
+  background-color: #c29238;
+}
+
+.orderStartShoppingBtn:active {
+  transform: scale(0.98);
+}
+
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+
+@media (max-width: 768px) {
+  .orderContainer {
+    padding: 1rem;
+  }
+  
+  .orderCard {
+    padding: 2rem 1.5rem 3rem 1.5rem;
+    border-radius: 8px;
+  }
+
+  .orderEmptyHeading {
+    font-size: 1.2rem;
+  }
+
+  .orderEmptyIcon {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .orderCard {
+    padding: 1.5rem 1rem 2.5rem 1rem;
+    box-shadow: none; /* Flat design look on small mobile devices */
+    border: 1px solid #f0f0f0;
+  }
+
+  .orderHeaderTitle {
+    font-size: 1.15rem;
+  }
+
+  .orderStartShoppingBtn {
+    width: 100%; /* Full width button layout for easier tapping on mobile */
+    box-sizing: border-box;
+  }
+}

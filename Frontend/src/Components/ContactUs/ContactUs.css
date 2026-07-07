@@ -1,0 +1,183 @@
+/* Container rules to align and fill space layout */
+.contactUsContainer {
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Card layout wrapper copying custom border, curve, and elevation profile */
+.contactUsCard {
+  width: 100%;
+  max-width: 850px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+  box-sizing: border-box;
+}
+
+/* Header style matching reference font-family and layout */
+.contactUsHeaderTitle {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.75rem 0;
+  text-align: left;
+}
+
+/* Central informational stack grid structure */
+.contactUsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  text-align: left;
+}
+
+/* Sub-section headers (Phone, Email, Address blocks) */
+.contactUsSectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.contactUsSectionHeading h3 {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #77777c;
+  margin: 0;
+}
+
+/* Specific icon adjustment with matching gold color styling */
+.contactUsIcon {
+  font-size: 1.05rem;
+  color: #d4a347;
+  flex-shrink: 0;
+}
+
+/* Block texts detailing support channels */
+.contactUsSectionBody {
+  padding-left: 1.55rem;
+  line-height: 1.6;
+}
+
+.contactUsSectionBody p {
+  margin: 0;
+}
+
+/* Text coloring variants matching image visuals exactly */
+.contactUsTimeText {
+  color: #77777c;
+}
+
+.contactUsHighlightText {
+  color: #d4a347;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.contactUsGoldLink {
+  color: #d4a347;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.contactUsGoldLink:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+.contactUsEmailText {
+  font-size: 1.05rem;
+}
+
+.contactUsMutedText {
+  color: #8e8e93;
+  font-size: 0.85rem;
+  margin-top: 0.15rem !important;
+}
+
+/* Address unique font setups */
+.contactUsAddressDetails {
+  color: #3a3a3c;
+}
+
+.contactUsCompanyTitle {
+  display: block;
+  font-weight: 600;
+  color: #2c2c2e;
+  margin-bottom: 0.2rem;
+}
+
+/* Bottom Divider line and Action button properties */
+.contactUsActionArea {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f2f2f7;
+  display: flex;
+  justify-content: center;
+}
+
+.contactUsBtnPage {
+  background-color: #d4a347;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.65rem 1.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(212, 163, 71, 0.15);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.contactUsBtnPage:hover {
+  background-color: #c29238;
+}
+
+.contactUsBtnPage:active {
+  transform: scale(0.98);
+}
+
+/* ================= COMPREHENSIVE RESPONSIVE STYLING ================= */
+
+@media (max-width: 768px) {
+  .contactUsCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .contactUsEmailText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactUsContainer {
+    padding: 1rem 0.5rem;
+  }
+
+  .contactUsCard {
+    box-shadow: none;
+    border: 1px solid #f0f0f0;
+    padding: 1.5rem 1rem;
+  }
+
+  .contactUsActionArea {
+    width: 100%;
+  }
+
+  .contactUsBtnPage {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
