@@ -6,8 +6,6 @@ import ShopDetailsAddToCart from "../../Components/ShopDetailsAddToCart/ShopDeta
 import ShopDetailsSwitchbar from "../../Components/ShopDetailsSwitchbar/ShopDetailsSwitchbar";
 import ShopDetailsYoumight from "../../Components/ShopDetailsYoumight/ShopDetailsYoumight";
 import ShopDetailsBread from "../../Components/ShopDetailsBread/ShopDetailsBread";
-import AddNow from "../../Components/AddNow/AddNow";
-import CustomerReviews from "../../Components/CustomerReviews/CustomerReviews";
 
 
 
@@ -30,10 +28,6 @@ const ShopDetails = () => {
     <ShopDetailsSwitchbar />
     <ShopDetailsYoumight />
   </div>
-    
-  
-    <AddNow />
-    <CustomerReviews />
 
 </div>
   );

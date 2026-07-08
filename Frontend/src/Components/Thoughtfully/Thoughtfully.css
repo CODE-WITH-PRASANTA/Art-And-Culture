@@ -1,0 +1,243 @@
+/* Thoughtfully.css */
+
+/* Component Outer Wrapper with Background same as reference image */
+.thoughtfully-container {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 40px 20px;
+  background-color: #f7e9cc; /* Authentic background tone matching reference */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.thoughtfully-container * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Centered Title Header --- */
+.thoughtfully-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.thoughtfully-header h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #3e2723; /* Warm Dark Brown tone */
+  letter-spacing: 0.5px;
+}
+
+.header-icon {
+  font-size: 1rem;
+  color: #3e2723;
+}
+
+/* --- Responsive Layout Grid --- */
+.products-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Breakpoints matching reference layout alignment */
+@media (min-width: 576px) {
+  .products-grid-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .products-grid-layout {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --- Product Individual Cards --- */
+.product-item-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* Image Frame Wrapper */
+.product-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Discount Tag style top-left */
+.discount-badge-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #a83214; /* Deep brick-red tone */
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 3px;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   HOVER ACTIONS EFFECT (Hidden by default, visible on hover)
+   ========================================================================== */
+.hover-actions-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.05); /* Very subtle overlay dim */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+/* Circle Action buttons alignment (Wishlist & View) */
+.action-circle-btn {
+  position: absolute;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.action-circle-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.action-circle-btn:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.05);
+}
+
+.wishlist-icon-btn {
+  top: 12px;
+}
+
+.view-icon-btn {
+  top: 56px;
+}
+
+/* Quick Add Button Bottom Center Alignment */
+.quick-add-action-btn {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px); /* Small reveal bounce lift */
+  width: calc(100% - 24px);
+  max-width: 280px;
+  height: 40px;
+  background-color: #ffffff;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quick-add-action-btn:hover {
+  background-color: #3e2723;
+  color: #ffffff;
+}
+
+/* Hover Trigger States */
+.product-item-card:hover .hover-actions-overlay {
+  opacity: 1;
+}
+
+.product-item-card:hover .quick-add-action-btn {
+  transform: translateX(-50%) translateY(0);
+}
+
+.product-item-card:hover .card-main-img {
+  transform: scale(1.02);
+}
+
+/* --- Card Details Typography & Info Alignment --- */
+.product-info-details {
+  padding: 12px 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-product-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4a3b32;
+  line-height: 1.4;
+}
+
+.card-ratings-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: #6d5c52;
+}
+
+.rating-score {
+  font-weight: 600;
+}
+
+.rating-stars-gold {
+  color: #dfa028; /* Golden stars matching reference */
+  letter-spacing: 1px;
+}
+
+.rating-reviews-count {
+  color: #8c7669;
+}
+
+/* Price block alignment */
+.card-price-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.price-new {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #2c1a11;
+}
+
+.price-old {
+  font-size: 0.85rem;
+  color: #8c7669;
+  text-decoration: line-through;
+}

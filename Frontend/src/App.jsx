@@ -24,7 +24,12 @@ import LoginForm from "./Components/LoginForm/LoginForm";
 import PoojaEssentialsMain from "./Pages/PoojaEssentialsMain/PoojaEssentialsMain";
 import Prints from "./Pages/Prints/Prints";
 import MainLayout from "./Layout/MainLayout/MainLayout";
-
+import Address from "./Components/Address/Address";
+import OverView from "./Components/OverView/OverView";
+import Order from "./Components/Order/Order";
+import AccountDetails from "./Components/AccountDetails/AccountDetails";
+import ContactUs from "./Components/ContactUs/ContactUs";
+import Wishlist from "./Components/Whislist/Wishlist";
 
 function App() {
   return (
@@ -33,6 +38,7 @@ function App() {
       <main style={{ minHeight: "80vh" }}>
         <Routes>
           <Route path="/home" element={<Home />} />
+          {/* General Routes */}
           <Route path="/shop" element={<ShopSec />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -48,21 +54,47 @@ function App() {
           <Route path="/homedecor" element={<HomeDecor />} />
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
-          <Route path="/poojadetails" element={<PoojaDetails/>}/>
-          <Route path="/shopdetails" element={<ShopDetails/>}/>
-          <Route path="/poojamain" element={<PoojaEssentialsMain />}/>
-          <Route path="/wood" element={<Prints />} />           
+          <Route path="/poojadetails" element={<PoojaDetails />} />
+          <Route path="/shopdetails" element={<ShopDetails />} />
+          <Route path="/poojamain" element={<PoojaEssentialsMain />} />
+          <Route path="/wood" element={<Prints />} />   
+          <Route path="wishlist" element={<Wishlist/>}/>
+          <Route path="/LoginForm" element={<LoginForm/>}/>
 
+          {/* ================= NESTED ACCOUNT ROUTING BLOCK ================= */}
+         <Route path="/account" element={<MainLayout />}>
 
+  <Route index element={<div>Overview Page</div>} />
 
-          {/* LAYOUT THINGS */}
-          <Route path="/Login" element={<MainLayout />} />     
+  <Route
+    path="address"
+    element={<Address />}
+  />
+
+  <Route
+    path="overview"
+    element={<OverView />}
+  />
+   <Route path="orders" element={<Order />} />
+
+  <Route
+    path="details"
+    element={<AccountDetails />}
+  />
+
+  <Route
+    path="contact"
+    element={<ContactUs />} 
+  />
+
+</Route>
+          {/* Layout Setup */}
+         
         </Routes>
       </main>
 
       <Footer />
       <FloatingIcons />
-      <PoojaEssentialsMain />
     </>
   );
 }

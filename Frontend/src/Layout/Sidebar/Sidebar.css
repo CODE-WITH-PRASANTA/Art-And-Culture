@@ -304,3 +304,104 @@
     font-size: 14px;
   }
 }
+/* एक्शन बटन्स का ग्रुप */
+.sidebarActionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* लॉगिन बटन स्टाइल */
+.sidebarLoginLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fdf8f7;
+  border: 1px solid #e2a299;
+  color: #A63626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.sidebarLoginLink:hover {
+  background: #A63626;
+  color: #ffffff;
+  border-color: #A63626;
+}
+
+.sidebarLoginLink svg {
+  font-size: 16px;
+}
+
+/* पॉपअप मॉडल स्टाइल (Modal Layout) */
+.sidebarModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.sidebarModalContainer {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  max-width: 900px; /* लॉगिन फॉर्म के दोनों सेक्शन समा सकें */
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+/* मॉडल क्लोज़ (Close) बटन */
+.sidebarModalCloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: #A63626;
+  color: white;
+  border: none;
+  font-size: 28px;
+  font-weight: 300;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2100;
+  transition: background 0.2s;
+}
+
+.sidebarModalCloseBtn:hover {
+  background: #852619;
+}
+
+/* एनीमेशन */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

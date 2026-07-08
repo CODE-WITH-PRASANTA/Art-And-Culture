@@ -1,0 +1,307 @@
+/* =========================================
+   ग्लोबल सेटअप और कंटेनर
+========================================= */
+.wishlist-container {
+  width: 100%;
+  min-height: 80vh;
+  background-color: #f8f5f2; /* इमेज का सिल्क बैकग्राउंड कलर */
+  font-family: 'Playfair Display', Georgia, serif; /* हेडिंग के लिए एलिगेंट लुक */
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   ब्रेडक्रंब और हेडर (Image 1 & 2)
+========================================= */
+.wishlist-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.wishlist-title {
+  font-size: 36px;
+  font-weight: 400;
+  color: #111;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.wishlist-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: #555;
+}
+
+.breadcrumb-link {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.breadcrumb-link:hover {
+  color: #a34000;
+}
+
+.breadcrumb-separator {
+  color: #999;
+}
+
+.breadcrumb-current {
+  color: #222;
+}
+
+/* =========================================
+   एम्प्टी विशलिस्ट स्टेट (Image 1)
+========================================= */
+.wishlist-empty-state {
+  text-align: center;
+  padding: 40px 10px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  color: #111;
+}
+
+.back-shopping-link {
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.back-shopping-link:hover {
+  color: #a34000;
+}
+
+/* =========================================
+   विशलिस्ट ग्रिड लेआउट (Image 2)
+========================================= */
+.wishlist-grid-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* डेस्कटॉप पर 4 कॉलम्स */
+  gap: 30px;
+}
+
+/* =========================================
+   प्रोडक्ट कार्ड और होवर इफेक्ट्स
+========================================= */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.product-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* डिस्काउंट बैज */
+.discount-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #bc4722; /* इमेज जैसा बर्न-ऑरेंज शेड */
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+/* एक्शन बटन (Heart, Eye) */
+.hover-action-icons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0; /* डिफ़ॉल्ट रूप से छुपे रहेंगे */
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.action-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.action-icon-btn:hover {
+  background-color: #f5ebe6;
+  transform: scale(1.05);
+}
+
+/* इमेज के अनुसार विशलिस्टेड हार्ट का बैकग्राउंड थोड़ा म्यूटेड कलर्ड है */
+.action-icon-btn.active-heart {
+  background-color: #f5ebe6;
+}
+
+/* सेलेक्ट ऑप्शंस ओवरले */
+.select-options-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  transform: translateY(101%); /* सामान्य तौर पर नीचे छुपा रहेगा */
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.select-options-btn {
+  width: 100%;
+  background-color: #ffffff;
+  color: #111;
+  border: none;
+  padding: 10px 0;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* कार्ड होवर ट्रिगर (ये दोनों इफ़ेक्ट्स एक साथ चलते हैं) */
+.product-card:hover .hover-action-icons {
+  opacity: 1;
+}
+
+.product-card:hover .select-options-overlay {
+  transform: translateY(0);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.03);
+}
+
+/* =========================================
+   प्रोडक्ट डिटेल्स (टेक्स्ट और प्राइज़)
+========================================= */
+.product-details {
+  padding-top: 15px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.product-title {
+  font-size: 15px;
+  font-weight: 400;
+  color: #111;
+  line-height: 1.4;
+  margin: 0 0 6px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.rating-num {
+  font-size: 13px;
+  color: #666;
+}
+
+.stars-row {
+  display: flex;
+  gap: 1px;
+}
+
+.product-price-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.price-from {
+  color: #bc4722;
+  font-weight: 500;
+}
+
+.current-price {
+  color: #bc4722;
+  font-weight: 600;
+}
+
+.old-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 13px;
+}
+
+/* =========================================
+   रिस्पॉन्सिव मीडिया क्वेरीज़ (सभी डिवाइसेज के लिए)
+========================================= */
+
+/* बड़ी स्क्रीन्स / लैपटॉप्स */
+@media (max-width: 1200px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* टैबलेट्स (Tablets) */
+@media (max-width: 768px) {
+  .wishlist-grid-wrapper {
+    padding: 0 15px;
+  }
+  .wishlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .wishlist-title {
+    font-size: 30px;
+  }
+  /* मोबाइल/टैबलेट पर होवर आइकॉन हमेशा विज़िबल रख सकते हैं बेहतर अनुभव के लिए */
+  .hover-action-icons {
+    opacity: 1;
+  }
+}
+
+/* छोटे मोबाइल फोन्स */
+@media (max-width: 480px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(1, 1fr); /* सिंगल कॉलम ग्रिड */
+    gap: 25px;
+  }
+  .wishlist-title {
+    font-size: 26px;
+  }
+}

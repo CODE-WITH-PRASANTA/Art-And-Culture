@@ -120,13 +120,9 @@ const Navbar = () => {
               <AiFillHeart />
             </Link>
 
-            <button
-              type="button"
-              className="icon-link navbarAccountBtn"
-              onClick={() => setShowLogin(true)}
-            >
-              <FaUserCircle />
-            </button>
+           <Link to="/account" className="navbarActionBox" onClick={closeMobileMenu}>
+    <FaUserCircle className="navbarActionIcon" />
+  </Link>
 
             {showLogin && (
               <div className="accountLoginOverlay" onClick={() => setShowLogin(false)}>

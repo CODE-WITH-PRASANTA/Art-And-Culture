@@ -1,0 +1,819 @@
+:root {
+  --primary-font: 'Playfair Display', serif;
+  --secondary-font: 'Montserrat', sans-serif;
+  --dark-color: #111111;
+  --light-gray: #f5f5f5;
+  --accent-orange: #f3a83b;
+  --red-badge: #e64a3b;
+}
+
+.ProductsContainer {
+  font-family: var(--secondary-font);
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  color: var(--dark-color);
+}
+
+.ProductsHeaderTitle {
+  font-family: var(--primary-font);
+  font-size: 2.8rem;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.ProductsMainLayout {
+  display: flex;
+  gap: 40px;
+  position: relative;
+}
+
+/* Fixed Sidebar Layout Configurations */
+.ProductsSidebar {
+  width: 250px;
+  position: fixed;
+  top: 180px; 
+  bottom: 20px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  z-index: 10;
+  padding-right: 15px;
+}
+
+/* Ensure right main area matches the gap offset created by fixed position */
+.ProductsGridArea {
+  flex-grow: 1;
+  margin-left: 290px; 
+}
+
+.ProductsFilterHeading {
+  font-family: var(--primary-font);
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+.ProductsDivider {
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 15px 0;
+}
+
+.ProductsFilterToggleBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ProductsFilterContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ProductsFilterContent.isOpen {
+  max-height: 200px;
+  padding: 10px 0;
+}
+
+.ProductsCheckboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.ProductsPriceSliderWrapper {
+  padding: 10px 5px;
+}
+
+.ProductsSliderRange {
+  width: 100%;
+  accent-color: #333;
+  margin-bottom: 15px;
+}
+
+.ProductsPriceInputRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ProductsPriceFieldBox {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 5px 8px;
+  width: 85px;
+}
+
+.ProductsPriceFieldBox span {
+  color: #777;
+  margin-right: 4px;
+}
+
+.ProductsPriceFieldBox input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.ProductsPriceToText {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Right Toolbar Options styling */
+.ProductsToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.ProductsCountText {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.ProductsSortDropdownWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ProductsSortLabel {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.ProductsSortDropdownBtn {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ProductsSortMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  list-style: none;
+  padding: 10px 0;
+  margin-top: 5px;
+  width: 220px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.ProductsSortMenu li {
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ProductsSortMenu li:hover, .ProductsSortMenu li.isActive {
+  background: #fcfcfc;
+  font-weight: 600;
+}
+
+/* Showcase Grid Cards */
+.ProductsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ProductsCard {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProductsCardImageWrapper {
+  position: relative;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+
+.ProductsCardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ProductsCard:hover .ProductsCardImage {
+  transform: scale(1.02);
+}
+
+.ProductsSaveBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: var(--red-badge);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.ProductsSoldOutBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #555;
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.ProductsHoverAddToCartBtn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  padding: 14px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+  z-index: 3;
+}
+
+.ProductsCardImageWrapper:hover .ProductsHoverAddToCartBtn {
+  transform: translateY(0);
+}
+
+.ProductsCardInfo {
+  padding: 15px 0;
+  text-align: left;
+}
+
+.ProductsCardTitle {
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  color: #333;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ProductsCardPriceRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.ProductsCurrentPrice {
+  color: var(--red-badge);
+  font-weight: 500;
+}
+
+.ProductsOldPrice {
+  color: #888;
+  text-decoration: line-through;
+}
+
+/* Floating Actions Elements */
+.ProductsStickyReviewsTab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: right bottom;
+  background: #111;
+  color: white;
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.ProductsWhatsAppFloat {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25d366;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  z-index: 99;
+}
+
+/* Sliding Cart Drawer Setup */
+.ProductsCartDrawerBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ProductsCartDrawerBackdrop.isOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ProductsCartDrawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 440px;
+  max-width: 100%;
+  height: 100%;
+  background: white;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProductsCartDrawerBackdrop.isOpen .ProductsCartDrawer {
+  transform: translateX(0);
+}
+
+.ProductsCartDrawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.ProductsCartDrawerHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.ProductsCloseDrawerBtn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.ProductsCartDrawerBody {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProductsCartDrawerItemRow {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.ProductsCartDrawerImg {
+  width: 75px;
+  height: 95px;
+  object-fit: cover;
+}
+
+.ProductsCartDrawerItemDetails {
+  flex-grow: 1;
+}
+
+.ProductsCartItemTitle {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.ProductsQuantitySelector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  width: fit-content;
+}
+
+.ProductsQuantitySelector.spaceTop {
+  margin-top: 10px;
+}
+
+.ProductsQuantitySelector button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.ProductsQuantitySelector input {
+  width: 32px;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.ProductsRemoveItemBtn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  margin-left: 15px;
+  font-size: 0.8rem;
+  color: #777;
+  cursor: pointer;
+}
+
+.ProductsCartDrawerItemPrices {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ProductsDrawerCurrPrice {
+  color: var(--red-badge);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.ProductsDrawerOldPrice {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 0.82rem;
+}
+
+.ProductsCrossSellSection {
+  background-color: #faf7f2;
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.ProductsCrossSellSection h4 {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.ProductsCrossSellCard {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.ProductsCrossSellCard img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+}
+
+.ProductsCrossSellCard div {
+  flex-grow: 1;
+}
+
+.ProductsCrossSellCard h5 {
+  font-size: 0.82rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.ProductsCrossSellCard p {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.ProductsCrossSellCard button {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  color: #444;
+}
+
+.ProductsCartDrawerFooter {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: auto;
+}
+
+.ProductsFooterNotesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.ProductsAddNoteLink {
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #555;
+}
+
+.ProductsTaxCalculationNotice {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.ProductsCheckoutBtn {
+  width: 100%;
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Detail Popup Modal Layer */
+.ProductsModalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.ProductsModalContent {
+  background: white;
+  width: 1050px;
+  max-width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 35px;
+}
+
+.ProductsModalCloseBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.ProductsModalFlexLayout {
+  display: flex;
+  gap: 40px;
+}
+
+.ProductsModalImageContainer {
+  flex: 1;
+  max-width: 50%;
+}
+
+.ProductsModalMainImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.ProductsModalInfoContainer {
+  flex: 1;
+  text-align: left;
+}
+
+.ProductsModalBrandTag {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  color: #777;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.ProductsModalTitleText {
+  font-family: var(--primary-font);
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 15px;
+}
+
+.ProductsModalPriceBlock {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.ProductsModalPrice {
+  font-size: 1.3rem;
+  color: var(--red-badge);
+  font-weight: 600;
+}
+
+.ProductsModalOldPrice {
+  font-size: 1.1rem;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.ProductsModalSaveBadge {
+  background-color: var(--red-badge);
+  color: white;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.ProductsTaxLabel {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.ProductsModalRatingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.ProductsStarFilled {
+  color: var(--accent-orange);
+  font-size: 0.9rem;
+}
+
+.ProductsReviewsCountText {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.ProductsConfigLabel {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.ProductsModalActionAddToCart {
+  width: 100%;
+  background-color: var(--accent-orange);
+  color: white;
+  border: none;
+  padding: 14px;
+  font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.ProductsModalActionBuyNow {
+  width: 100%;
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+}
+
+.ProductsTrustBadgesBlock {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.ProductsTrustBadgesBlock p {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ProductsTrustBadgesBlock ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ProductsShareBlockRow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.ProductsShareBlockRow span {
+  margin-right: 5px;
+}
+
+.ProductsShareBlockRow svg {
+  cursor: pointer;
+}
+
+/* Responsive Structural Media Queries */
+@media (max-width: 1100px) {
+  .ProductsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 850px) {
+  .ProductsMainLayout {
+    flex-direction: column;
+  }
+  .ProductsSidebar {
+    position: relative;
+    width: 100%;
+    top: 0;
+    bottom: auto;
+    overflow-y: visible;
+    padding-right: 0;
+    margin-bottom: 30px;
+  }
+  .ProductsGridArea {
+    margin-left: 0;
+  }
+  .ProductsModalFlexLayout {
+    flex-direction: column;
+  }
+  .ProductsModalImageContainer {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .ProductsGrid {
+    grid-template-columns: 1fr;
+  }
+  .ProductsHeaderTitle {
+    font-size: 2.2rem;
+  }
+  .ProductsCartDrawer {
+    width: 100%;
+  }
+}
