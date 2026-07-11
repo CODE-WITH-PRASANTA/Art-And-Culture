@@ -8,6 +8,15 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* Loading/Not found centering states */
+.sdac-loading {
+    padding: 40px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #71717a;
+}
+
 /* SLEEK SCROLLBARS FOR LUXURY UI Feel */
 .sdac::-webkit-scrollbar {
     width: 5px;
@@ -148,7 +157,64 @@
     margin-left: 4px;
 }
 
-/* FIXING SIZE COMPONENT (CLEAN & VISIBLE) */
+/* DESCRIPTION LAYOUT CONTEXTS */
+.sdac__description-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px !important;
+}
+
+.sdac__description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    transition: all 0.3s ease-in-out;
+}
+
+.sdac__description.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sdac__description.expanded {
+    display: block;
+    overflow: visible;
+}
+
+/* Premium Read More Toggle Button Placement */
+.sdac__read-more-btn {
+    background: none;
+    border: none;
+    color: #d4a73d;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 0;
+    align-self: flex-start;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.sdac__read-more-btn:hover {
+    color: #b88a24;
+}
+
+/* Structural Divider underneath description features */
+.sdac__description-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #e4e4e7 0%, rgba(228, 228, 231, 0.2) 100%);
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+/* FIXING SIZE COMPONENT */
 .sdac__sizeWrap {
     display: flex;
     flex-wrap: wrap;
@@ -317,10 +383,6 @@
     font-weight: 700;
     color: #18181b;
     margin-bottom: 2px;
-}
-
-.sdac__deliveryCard h5 span {
-    color: #d4a73d;
 }
 
 .sdac__deliveryCard p {
@@ -494,7 +556,7 @@
 
 .sdac__help:hover {
     background: #fafafa;
-    border-color: #ccf;
+    border-color: #ccccff;
 }
 
 .sdac__helpLeft {
@@ -561,7 +623,7 @@
 
 @media (max-width: 480px) {
     .sdac__cartRow {
-        flex-direction: row; /* Keeps design sleek even on minor spaces */
+        flex-direction: row;
     }
     .sdac__bulk {
         flex-direction: column;
@@ -585,4 +647,38 @@
     .sdac__featureIcon {
         margin-bottom: 0;
     }
+}
+/* Wraps the description so we can layer the fade overlay on top of it */
+.sdac__description-wrap {
+    position: relative;
+}
+
+.sdac__description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    transition: max-height 0.35s ease-in-out;
+}
+
+.sdac__description.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sdac__description.expanded {
+    display: block;
+    overflow: visible;
+}
+
+/* Soft fade at the bottom of the collapsed text, so it doesn't feel cut off */
+.sdac__description-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 90%);
+    pointer-events: none;
 }

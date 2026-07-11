@@ -17,6 +17,7 @@ const routeFolderMap = {
   "/api/testimonial": "uploads/testimonials",
   "/api/products": "uploads/products",
   "/api/freshcollection": "uploads/freshcollection",
+  "/api/shopview": "uploads/shopview",
 };
 
 /* ================= GET UPLOAD PATH ================= */

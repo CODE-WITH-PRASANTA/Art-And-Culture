@@ -55,7 +55,7 @@ function App() {
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/poojadetails" element={<PoojaDetails />} />
-          <Route path="/shopdetails" element={<ShopDetails />} />
+         <Route path="/shopdetails/:id" element={<ShopDetails />} />
           <Route path="/poojamain" element={<PoojaEssentialsMain />} />
           <Route path="/wood" element={<Prints />} />   
           <Route path="wishlist" element={<Wishlist/>}/>
