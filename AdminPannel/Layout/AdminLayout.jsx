@@ -6,24 +6,32 @@ import "./AdminLayout.css";
 
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // On mobile -> open/close the slide-in sidebar
+  // On desktop/tablet -> collapse to icon-only mode
+  const toggleSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setMobileOpen((prev) => !prev);
+    } else {
+      setCollapsed((prev) => !prev);
+    }
+  };
 
   return (
     <div className="admin-wrapper">
+      <Navbar toggleSidebar={toggleSidebar} />
 
-      {/* Full Navbar */}
-      <Navbar toggleSidebar={() => setCollapsed(!collapsed)} />
-
-      {/* Body */}
       <div className="admin-body">
+        <Sidebar
+          collapsed={collapsed}
+          mobileOpen={mobileOpen}
+          setMobileOpen={setMobileOpen}
+        />
 
-        {/* Sidebar */}
-        <Sidebar collapsed={collapsed} />
-
-        {/* Content */}
         <div className={collapsed ? "content expanded" : "content"}>
           <Outlet />
         </div>
-
       </div>
     </div>
   );

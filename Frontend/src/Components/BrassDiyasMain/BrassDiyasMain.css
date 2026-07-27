@@ -125,7 +125,7 @@
   border-radius: 8px;
   padding: 20px;
   background: #fff;
-  width: 350px;
+  width: 100%; /* FIXED: Swapped from fixed 350px to auto-scale inside grid fractions */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -260,7 +260,6 @@
 }
 
 /* --- Responsive Layout Breaks --- */
-
 @media (max-width: 992px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -283,7 +282,6 @@
     display: flex;
   }
 
-  /* Overlay sliding drawer backdrop style */
   .sidebar-overlay {
     position: fixed;
     top: 0;
@@ -318,15 +316,15 @@
   }
 }
 
-/* Compact Mobile View (Enforcing 2 columns cleanly) */
+/* Compact Mobile View */
 @media (max-width: 580px) {
   .products-grid {
-    grid-template-columns: repeat(1, 1fr); /* Forces exactly two columns */
-    gap: 12px; /* Smaller gaps to save card content workspace */
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 12px; 
   }
 
   .bass-product-card {
-    padding: 10px; /* Reduced card padding to allow text room */
+    padding: 10px; 
   }
 
   .image-box {
@@ -338,7 +336,7 @@
   }
 
   .bass-product-card h4 {
-    font-size: 0.85rem; /* Downscaled font size to prevent layout overlap */
+    font-size: 0.85rem; 
     height: 2.8em;
     margin-bottom: 6px;
   }
@@ -360,7 +358,6 @@
     font-size: 0.75rem;
   }
 
-  /* Clean up pagination spacing on extremely tight mobile screens */
   .pagination {
     gap: 6px;
   }

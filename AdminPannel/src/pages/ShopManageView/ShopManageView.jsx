@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './ShopManageView.css';
+import API, { BASE_URL } from "../../api/axios";
 
 const ShopManageView = () => {
   // --- Shop Details States ---
@@ -9,6 +10,15 @@ const ShopManageView = () => {
   const [oldPrice, setOldPrice] = useState('');
   const [newPrice, setNewPrice] = useState('');
   const [discount, setDiscount] = useState('');
+
+  // --- Added Missing States (Step 1) ---
+  const [productTitle, setProductTitle] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [imageRatio, setImageRatio] = useState("");
+  const [location, setLocation] = useState("");
+  const [deliveryTime, setDeliveryTime] = useState("");
+  const [guarantee, setGuarantee] = useState("none");
+  const [warranty, setWarranty] = useState("none");
 
   // --- Material Details States ---
   const [isMaterialOpen, setIsMaterialOpen] = useState(false);
@@ -71,17 +81,69 @@ const ShopManageView = () => {
     }
   };
 
-  // TinyMCE Default Configuration
-  const tinyMceConfig = {
-    height: 250,
-    menubar: false,
-    plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace editimage visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+  // --- Create Save Function (Step 3) ---
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+
+      images.forEach((img) => {
+        if (img) {
+          formData.append("images", img);
+        }
+      });
+
+      formData.append("productTitle", productTitle);
+      formData.append("oldPrice", oldPrice);
+      formData.append("newPrice", newPrice);
+      formData.append("quantity", quantity);
+      formData.append("imageRatio", imageRatio);
+      formData.append("location", location);
+      formData.append("deliveryTime", deliveryTime);
+      formData.append("guarantee", guarantee);
+      formData.append("warranty", warranty);
+      formData.append("mainMaterial", mainMaterial);
+      formData.append("productDetails", productDetails);
+      formData.append("aboutProduct", aboutProduct);
+      formData.append("sizeManagement", sizeManagement);
+
+      formData.append(
+        "faqs",
+        JSON.stringify(faqs)
+      );
+
+      const response = await API.post(
+        "/shopview/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
+
+      alert("Product Created Successfully");
+      console.log(response.data);
+
+    } catch (error) {
+      console.log(error);
+      alert(
+        error.response?.data?.message ||
+        "Failed to save product"
+      );
+    }
   };
+
+  // TinyMCE Default Configuration
+const tinyMceConfig = {
+  height: 250,
+  menubar: false,
+
+  plugins:
+    "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount",
+
+  toolbar:
+    "undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | link image | code fullscreen | help"
+};
 
   return (
     <div className="shop-manage-container">
@@ -125,11 +187,13 @@ const ShopManageView = () => {
                 </div>
               </div>
 
-              {/* 2. Product Title */}
+              {/* 2. Product Title (Connected Step 2) */}
               <div className="form-section">
                 <h3 className="section-heading">2. Product Title & Name</h3>
                 <input
                   type="text"
+                  value={productTitle}
+                  onChange={(e) => setProductTitle(e.target.value)}
                   placeholder="Enter product title or name..."
                   className="form-control"
                 />
@@ -178,7 +242,7 @@ const ShopManageView = () => {
                 </div>
               </div>
 
-              {/* 4. Quantity & Size */}
+              {/* 4. Quantity & Size (Connected Step 2) */}
               <div className="form-section">
                 <h3 className="section-heading">4. Available Quantity & Image Size</h3>
                 <div className="form-row">
@@ -186,13 +250,19 @@ const ShopManageView = () => {
                     <label>Available Quantity</label>
                     <input
                       type="number"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
                       placeholder="Enter stock quantity"
                       className="form-control"
                     />
                   </div>
                   <div className="form-group">
                     <label>Image Size / Ratio</label>
-                    <select className="form-control dropdown-select">
+                    <select 
+                      value={imageRatio}
+                      onChange={(e) => setImageRatio(e.target.value)}
+                      className="form-control dropdown-select"
+                    >
                       <option value="">Select Size</option>
                       <option value="1:1">Square (1:1)</option>
                       <option value="3:4">Portrait (3:4)</option>
@@ -202,7 +272,7 @@ const ShopManageView = () => {
                 </div>
               </div>
 
-              {/* 5. Delivery */}
+              {/* 5. Delivery (Connected Step 2) */}
               <div className="form-section">
                 <h3 className="section-heading">5. Delivery</h3>
                 <div className="form-row">
@@ -210,6 +280,8 @@ const ShopManageView = () => {
                     <label>Location / Region</label>
                     <input
                       type="text"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
                       placeholder="e.g., Mumbai, All Over India"
                       className="form-control"
                     />
@@ -218,6 +290,8 @@ const ShopManageView = () => {
                     <label>Estimated Delivery Time</label>
                     <input
                       type="text"
+                      value={deliveryTime}
+                      onChange={(e) => setDeliveryTime(e.target.value)}
                       placeholder="e.g., 6-7 days"
                       className="form-control"
                     />
@@ -225,13 +299,17 @@ const ShopManageView = () => {
                 </div>
               </div>
 
-              {/* 6. Guarantee & Warranty */}
+              {/* 6. Guarantee & Warranty (Connected Step 2) */}
               <div className="form-section">
                 <h3 className="section-heading">6. Guaranty & Warranty</h3>
                 <div className="form-row">
                   <div className="form-group">
                     <label>Guarantee Period</label>
-                    <select className="form-control dropdown-select">
+                    <select 
+                      value={guarantee}
+                      onChange={(e) => setGuarantee(e.target.value)}
+                      className="form-control dropdown-select"
+                    >
                       <option value="none">No Guarantee</option>
                       <option value="6-months">6 Months</option>
                       <option value="1-year">1 Year</option>
@@ -239,7 +317,11 @@ const ShopManageView = () => {
                   </div>
                   <div className="form-group">
                     <label>Warranty Period</label>
-                    <select className="form-control dropdown-select">
+                    <select 
+                      value={warranty}
+                      onChange={(e) => setWarranty(e.target.value)}
+                      className="form-control dropdown-select"
+                    >
                       <option value="none">No Warranty</option>
                       <option value="6-months">6 Months</option>
                       <option value="1-year">1 Year</option>
@@ -290,12 +372,15 @@ const ShopManageView = () => {
             <form onSubmit={(e) => e.preventDefault()} className="shop-form-flat">
               <div className="form-section">
                 <h3 className="section-heading">Manage Detailed Product Information</h3>
-                <Editor
-                  apiKey="8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu"
-                  init={tinyMceConfig}
-                  value={productDetails}
-                  onEditorChange={(content) => setProductDetails(content)}
-                />
+         <Editor
+  apiKey="8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu"
+  init={tinyMceConfig}
+  value={productDetails}
+  onEditorChange={(content) => {
+    const plainText = content.replace(/<[^>]+>/g, "").trim();
+    setProductDetails(plainText);
+  }}
+/>
               </div>
             </form>
           </div>
@@ -314,12 +399,15 @@ const ShopManageView = () => {
             <form onSubmit={(e) => e.preventDefault()} className="shop-form-flat">
               <div className="form-section">
                 <h3 className="section-heading">About of the Product Highlights</h3>
-                <Editor
-                  apiKey="8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu"
-                  init={tinyMceConfig}
-                  value={aboutProduct}
-                  onEditorChange={(content) => setAboutProduct(content)}
-                />
+ <Editor
+  apiKey="8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu"
+  init={tinyMceConfig}
+  value={aboutProduct}
+  onEditorChange={(content) => {
+    const plainText = content.replace(/<[^>]+>/g, "").trim();
+    setAboutProduct(plainText);
+  }}
+/>
               </div>
             </form>
           </div>
@@ -338,12 +426,15 @@ const ShopManageView = () => {
             <form onSubmit={(e) => e.preventDefault()} className="shop-form-flat">
               <div className="form-section">
                 <h3 className="section-heading">Size Management Guidelines & Instructions</h3>
-                <Editor
-                  apiKey="8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu"
-                  init={tinyMceConfig}
-                  value={sizeManagement}
-                  onEditorChange={(content) => setSizeManagement(content)}
-                />
+     <Editor
+  apiKey="8hswbe7bfeeneui9eb9gjgsym8ku30nx5gwre9808ajdzniu"
+  init={tinyMceConfig}
+  value={sizeManagement}
+  onEditorChange={(content) => {
+    const plainText = content.replace(/<[^>]+>/g, "").trim();
+    setSizeManagement(plainText);
+  }}
+/>
               </div>
             </form>
           </div>
@@ -406,9 +497,9 @@ const ShopManageView = () => {
         )}
       </div>
 
-      {/* Global Form Action Button */}
+      {/* Global Form Action Button (Connected Step 4) */}
       <div className="global-action-container">
-        <button type="button" className="submit-btn" onClick={() => alert('All sections saved successfully!')}>
+        <button type="button" className="submit-btn" onClick={handleSubmit}>
           Save All Changes
         </button>
       </div>

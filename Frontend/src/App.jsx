@@ -29,6 +29,7 @@ import OverView from "./Components/OverView/OverView";
 import Order from "./Components/Order/Order";
 import AccountDetails from "./Components/AccountDetails/AccountDetails";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import Wishlist from "./Components/Whislist/Wishlist";
 
 function App() {
   return (
@@ -36,8 +37,8 @@ function App() {
       <Navbar />
       <main style={{ minHeight: "80vh" }}>
         <Routes>
-          {/* General Routes */}
           <Route path="/" element={<Home />} />
+          {/* General Routes */}
           <Route path="/shop" element={<ShopSec />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -54,9 +55,11 @@ function App() {
           <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/poojadetails" element={<PoojaDetails />} />
-          <Route path="/shopdetails" element={<ShopDetails />} />
+         <Route path="/shopdetails/:id" element={<ShopDetails />} />
           <Route path="/poojamain" element={<PoojaEssentialsMain />} />
-          <Route path="/wood" element={<Prints />} />    
+          <Route path="/wood" element={<Prints />} />   
+          <Route path="wishlist" element={<Wishlist/>}/>
+          <Route path="/LoginForm" element={<LoginForm/>}/>
 
           {/* ================= NESTED ACCOUNT ROUTING BLOCK ================= */}
          <Route path="/account" element={<MainLayout />}>
