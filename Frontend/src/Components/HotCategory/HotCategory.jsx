@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./HotCategory.css";
 
 import {
@@ -6,6 +6,7 @@ import {
   FiX,
   FiChevronLeft,
   FiChevronRight,
+  FiArrowUpRight,
 } from "react-icons/fi";
 
 // =================== IMPORT IMAGES ===================
@@ -17,124 +18,282 @@ import blackwhite from "../../assets/category5.webp";
 import plants from "../../assets/category6.webp";
 
 // =================== DATA ===================
-const categoryData = [
-  {
-    title: "Drawing",
-    image: drawing,
-  },
+// Fixed Featured Item
+const featuredCategory = {
+  title: "Drawing",
+  subtitle: "Classic Sketches & Line Art",
+  image: drawing,
+};
+
+// Paginated Categories
+const paginatedCategoriesData = [
   {
     title: "Abstract",
+    subtitle: "Modern Expressions",
     image: abstract,
   },
   {
     title: "Modern",
+    subtitle: "Minimalist Aesthetic",
     image: modern,
   },
   {
     title: "Colorful Walls",
+    subtitle: "Vibrant & Bold Concepts",
     image: colorful,
   },
   {
     title: "Black & White",
+    subtitle: "Timeless Monochrome",
     image: blackwhite,
   },
   {
     title: "Plants",
+    subtitle: "Botanical Inspirations",
     image: plants,
   },
 ];
 
+const ITEMS_PER_PAGE = 4; // Adjust items displayed per page next to the fixed featured item
+
 const HotCategory = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [currentImage, setCurrentImage] = useState(null);
 
-  // Open Image
+  // Combine fixed + paginated data forLightbox sequence
+  const allCategoryData = [featuredCategory, ...paginatedCategoriesData];
+
+  // Pagination Calculations
+  const totalPages = Math.ceil(paginatedCategoriesData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const visiblePaginatedCards = paginatedCategoriesData.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
+  // Pagination Handlers
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  // Lightbox Handlers
   const openImage = (index) => {
     setCurrentImage(index);
   };
 
-  // Close Image
   const closeImage = () => {
     setCurrentImage(null);
   };
 
-  // Next Image
-  const nextImage = () => {
+  const nextImage = (e) => {
+    e?.stopPropagation();
     setCurrentImage((prev) =>
-      prev === categoryData.length - 1 ? 0 : prev + 1
+      prev === allCategoryData.length - 1 ? 0 : prev + 1
     );
   };
 
-  // Previous Image
-  const prevImage = () => {
+  const prevImage = (e) => {
+    e?.stopPropagation();
     setCurrentImage((prev) =>
-      prev === 0 ? categoryData.length - 1 : prev - 1
+      prev === 0 ? allCategoryData.length - 1 : prev - 1
     );
   };
+
+  // Keyboard navigation support
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (currentImage === null) return;
+      if (e.key === "Escape") closeImage();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentImage]);
 
   return (
     <>
       <section className="HotCategory">
-        <div className="HotCategory-container">
-          {categoryData.map((item, index) => (
-            <div
-              className="HotCategory-card"
-              key={index}
-              onClick={() => openImage(index)}
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="HotCategory-image"
-              />
+        {/* Section Header */}
+        <div className="HotCategory-header">
+          <span className="HotCategory-tagline">Curated Galleries</span>
+          <h2 className="HotCategory-mainTitle">Explore Hot Categories</h2>
+          <div className="HotCategory-divider" />
+        </div>
 
-              <div className="HotCategory-overlay">
-                <div className="HotCategory-titleBox">
-                  <FiImage className="HotCategory-titleIcon" />
-                  <span>{item.title}</span>
-                </div>
+        {/* Categories Grid Container */}
+        <div className="HotCategory-container">
+          
+          {/* FIXED FEATURED ITEM (Drawing) */}
+          <div
+            className="HotCategory-card featured"
+            onClick={() => openImage(0)}
+          >
+            <img
+              src={featuredCategory.image}
+              alt={featuredCategory.title}
+              className="HotCategory-image"
+            />
+
+            <div className="HotCategory-overlay">
+              <div className="HotCategory-badge">
+                <FiImage className="HotCategory-badgeIcon" />
+                <span>Featured</span>
+              </div>
+
+              <div className="HotCategory-details">
+                <h3>{featuredCategory.title}</h3>
+                <p>{featuredCategory.subtitle}</p>
+              </div>
+
+              <div className="HotCategory-actionBtn">
+                <FiArrowUpRight />
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* PAGINATED ITEMS */}
+          {visiblePaginatedCards.map((item, idx) => {
+            // Index in the combined `allCategoryData` array for Lightbox
+            const globalIndex = startIndex + idx + 1;
+
+            return (
+              <div
+                className="HotCategory-card"
+                key={globalIndex}
+                onClick={() => openImage(globalIndex)}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="HotCategory-image"
+                />
+
+                <div className="HotCategory-overlay">
+                  <div className="HotCategory-badge">
+                    <FiImage className="HotCategory-badgeIcon" />
+                    <span>Category</span>
+                  </div>
+
+                  <div className="HotCategory-details">
+                    <h3>{item.title}</h3>
+                    <p>{item.subtitle}</p>
+                  </div>
+
+                  <div className="HotCategory-actionBtn">
+                    <FiArrowUpRight />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
         </div>
+
+        {/* PAGINATION CONTROLS */}
+        {totalPages > 1 && (
+          <div className="HotCategory-pagination">
+            <button
+              className="HotCategory-pageBtn nav"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              aria-label="Previous Page"
+            >
+              <FiChevronLeft />
+            </button>
+
+            {Array.from({ length: totalPages }, (_, index) => {
+              const pageNum = index + 1;
+              return (
+                <button
+                  key={pageNum}
+                  className={`HotCategory-pageBtn ${
+                    currentPage === pageNum ? "active" : ""
+                  }`}
+                  onClick={() => handlePageChange(pageNum)}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+
+            <button
+              className="HotCategory-pageBtn nav"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              aria-label="Next Page"
+            >
+              <FiChevronRight />
+            </button>
+          </div>
+        )}
       </section>
 
       {/* ================= LIGHTBOX ================= */}
 
       {currentImage !== null && (
-        <div className="HotCategory-lightbox">
-          <button
-            className="HotCategory-close"
-            onClick={closeImage}
+        <div className="HotCategory-lightbox" onClick={closeImage}>
+          <div
+            className="HotCategory-lightboxContent"
+            onClick={(e) => e.stopPropagation()}
           >
-            <FiX />
-          </button>
+            {/* Lightbox Header / Info */}
+            <div className="HotCategory-lightboxHeader">
+              <div className="HotCategory-lightboxTitleGroup">
+                <h4>{allCategoryData[currentImage].title}</h4>
+                <span>{allCategoryData[currentImage].subtitle}</span>
+              </div>
 
-          <button
-            className="HotCategory-prev"
-            onClick={prevImage}
-          >
-            <FiChevronLeft />
-          </button>
+              <div className="HotCategory-lightboxRight">
+                <span className="HotCategory-counter">
+                  {currentImage + 1} / {allCategoryData.length}
+                </span>
 
-          <img
-            src={categoryData[currentImage].image}
-            alt=""
-            className="HotCategory-lightboxImage"
-          />
+                <button
+                  className="HotCategory-close"
+                  onClick={closeImage}
+                  aria-label="Close modal"
+                >
+                  <FiX />
+                </button>
+              </div>
+            </div>
 
-          <button
-            className="HotCategory-next"
-            onClick={nextImage}
-          >
-            <FiChevronRight />
-          </button>
+            {/* Lightbox Main Display Container */}
+            <div className="HotCategory-lightboxBody">
+              <button
+                className="HotCategory-navBtn prev"
+                onClick={prevImage}
+                aria-label="Previous Image"
+              >
+                <FiChevronLeft />
+              </button>
 
-          <div className="HotCategory-counter">
-            {currentImage + 1} / {categoryData.length}
-          </div>
+              <div className="HotCategory-imageWrapper">
+                <img
+                  src={allCategoryData[currentImage].image}
+                  alt={allCategoryData[currentImage].title}
+                  className="HotCategory-lightboxImage"
+                />
+              </div>
 
-          <div className="HotCategory-lightboxTitle">
-            {categoryData[currentImage].title}
+              <button
+                className="HotCategory-navBtn next"
+                onClick={nextImage}
+                aria-label="Next Image"
+              >
+                <FiChevronRight />
+              </button>
+            </div>
           </div>
         </div>
       )}

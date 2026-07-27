@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   HomeGifting Main Section
+========================================== */
+.HomeGifting {
+  width: 100%;
+  padding: 80px 32px;
+  background-color: #fdfbf7; /* Warm light backdrop */
+  background-repeat: repeat;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.HomeGifting-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Main Banner Card
+========================================== */
+.HomeGifting-card {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+}
+
+.HomeGifting-cardImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Gradient Overlay for Text Visibility */
+.HomeGifting-cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.45) 50%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  z-index: 1;
+}
+
+/* Red Vertical Ribbon Bookmark */
+.HomeGifting-ribbon {
+  position: absolute;
+  top: 0;
+  left: 36px;
+  width: 32px;
+  height: 130px;
+  background-color: #d33c2d;
+  z-index: 3;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================
+   Content Inside Card
+========================================== */
+.HomeGifting-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 0 0 110px;
+  max-width: 650px;
+  color: #ffffff;
+}
+
+/* Pill Tag */
+.HomeGifting-pillTag {
+  display: inline-block;
+  background-color: #d4a853; /* Warm gold */
+  color: #121212;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* Title */
+.HomeGifting-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0 0 18px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.HomeGifting-title span {
+  font-style: italic;
+  color: #f5d48c; /* Soft gold italic */
+  font-weight: 400;
+}
+
+/* Subtitle */
+.HomeGifting-subtitle {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 32px 0;
+  font-weight: 400;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Button Group */
+.HomeGifting-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Primary White Button */
+.HomeGifting-btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  color: #121212;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.HomeGifting-btnPrimary:hover {
+  background-color: #f3f3f3;
+  gap: 14px;
+}
+
+.HomeGifting-btnArrow {
+  font-size: 16px;
+}
+
+/* Secondary Outlined Glass Button */
+.HomeGifting-btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.HomeGifting-btnSecondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Floating Heart/Wishlist Button Bottom Right */
+.HomeGifting-heartBtn {
+  position: absolute;
+  bottom: 32px;
+  right: 48px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f05445 0%, #d33c2d 100%);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 6px 18px rgba(211, 60, 45, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.HomeGifting-heartBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(211, 60, 45, 0.6);
+}
+
+.HomeGifting-heartIcon {
+  font-size: 22px;
+}
+
+/* ==========================================
+   Responsive Adaptation
+========================================== */
+@media (max-width: 900px) {
+  .HomeGifting-card {
+    height: auto;
+    min-height: 440px;
+    padding: 60px 0;
+  }
+
+  .HomeGifting-content {
+    padding: 0 40px;
+    max-width: 100%;
+  }
+
+  .HomeGifting-ribbon {
+    left: 20px;
+    width: 26px;
+    height: 100px;
+  }
+
+  .HomeGifting-heartBtn {
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .HomeGifting-heartIcon {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .HomeGifting {
+    padding: 48px 16px;
+  }
+
+  .HomeGifting-card {
+    border-radius: 18px;
+  }
+
+  .HomeGifting-content {
+    padding: 40px 20px 60px 20px;
+  }
+
+  .HomeGifting-ribbon {
+    display: none; /* Hide ribbon on mobile to save space */
+  }
+
+  .HomeGifting-brDesktop {
+    display: none;
+  }
+
+  .HomeGifting-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .HomeGifting-btnPrimary,
+  .HomeGifting-btnSecondary {
+    justify-content: center;
+    width: 100%;
+  }
+}

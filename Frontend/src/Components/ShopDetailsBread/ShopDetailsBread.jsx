@@ -1,6 +1,7 @@
 import React from "react";
 import "./ShopDetailsBread.css";
 
+
 const galleryImages = [
   {
     id: 1,

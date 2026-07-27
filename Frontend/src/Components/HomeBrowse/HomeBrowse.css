@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   HomeBrowse Section
+========================================== */
+.HomeBrowse {
+  width: 100%;
+  padding: 80px 32px;
+  background-color: #fcf9f2; /* Warm background matching reference */
+  background-repeat: repeat;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.HomeBrowse-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Header Section
+========================================== */
+.HomeBrowse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 36px;
+}
+
+.HomeBrowse-titleGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.HomeBrowse-pillTag {
+  background-color: #121212;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.HomeBrowse-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.HomeBrowse-title span {
+  font-style: italic;
+  color: #c49a45; /* Gold italic accent */
+  font-weight: 400;
+}
+
+.HomeBrowse-allBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #222222;
+  border-bottom: 1.5px solid #222222;
+  padding-bottom: 3px;
+  transition: opacity 0.3s ease, gap 0.3s ease;
+}
+
+.HomeBrowse-allBtn:hover {
+  opacity: 0.75;
+  gap: 12px;
+}
+
+.HomeBrowse-headerArrow {
+  font-size: 18px;
+}
+
+/* ==========================================
+   Category Grid Layout (6 Columns)
+========================================== */
+.HomeBrowse-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+/* ==========================================
+   Individual Card Design
+========================================== */
+.HomeBrowse-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.HomeBrowse-card:hover {
+  transform: translateY(-4px);
+}
+
+.HomeBrowse-imageWrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1.1; /* Slight vertical rectangular height matching image */
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #eee;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.HomeBrowse-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.HomeBrowse-card:hover .HomeBrowse-image {
+  transform: scale(1.06);
+}
+
+/* Details below image */
+.HomeBrowse-details {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.HomeBrowse-categoryTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #222222;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.HomeBrowse-shopLink {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #c49a45;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  transition: gap 0.3s ease;
+}
+
+.HomeBrowse-card:hover .HomeBrowse-shopLink {
+  gap: 7px;
+}
+
+.HomeBrowse-shopArrow {
+  font-size: 12px;
+}
+
+/* ==========================================
+   Responsive Layout
+========================================== */
+@media (max-width: 1100px) {
+  .HomeBrowse-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 680px) {
+  .HomeBrowse {
+    padding: 50px 16px;
+  }
+
+  .HomeBrowse-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .HomeBrowse-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 14px;
+  }
+
+  .HomeBrowse-imageWrapper {
+    border-radius: 14px;
+  }
+
+  .HomeBrowse-categoryTitle {
+    font-size: 0.95rem;
+  }
+}

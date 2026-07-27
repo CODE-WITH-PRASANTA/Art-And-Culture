@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+/* ==========================================
+   HomeExplore Main Section
+========================================== */
+.HomeExplore {
+  width: 100%;
+  padding: 80px 32px;
+  background-color: #fcf9f2; /* Warm backdrop matching the image */
+  background-repeat: repeat;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.HomeExplore-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Header Section
+========================================== */
+.HomeExplore-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.HomeExplore-mainTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 500;
+  color: #1f1f1f;
+  margin: 0 0 6px 0;
+  line-height: 1;
+}
+
+.HomeExplore-mainTitle span {
+  font-style: italic;
+  font-weight: 400;
+  color: #c49a45;
+}
+
+.HomeExplore-subtitle {
+  font-size: 13px;
+  color: #777777;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+/* Shop More Button */
+.HomeExplore-shopMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #222222;
+  border-bottom: 1px solid #1f1f1f;
+  padding-bottom: 4px;
+  transition: opacity 0.3s ease, gap 0.3s ease;
+}
+
+.HomeExplore-shopMoreBtn:hover {
+  opacity: 0.75;
+  gap: 12px;
+}
+
+.HomeExplore-arrowIcon {
+  font-size: 18px;
+}
+
+/* ==========================================
+   Grid Layout (Asymmetric 5 Cards)
+========================================== */
+.HomeExplore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Individual Card Styling */
+.HomeExplore-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 290px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.card-goldsilver {
+  grid-column: span 2; /* 5th card spans 2 columns in bottom row */
+}
+
+.HomeExplore-cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.HomeExplore-card:hover .HomeExplore-cardImg {
+  transform: scale(1.05);
+}
+
+/* Dark Gradient Overlay for Text Readability */
+.HomeExplore-cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.2) 35%,
+    rgba(0, 0, 0, 0) 65%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.HomeExplore-card:hover .HomeExplore-cardOverlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+
+/* Overlay Card Content */
+.HomeExplore-cardContent {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  color: #ffffff;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.HomeExplore-cardTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.HomeExplore-cardTitle .italic-highlight {
+  font-style: italic;
+  color: #f7d188; /* Gold tint from the reference */
+  font-weight: 400;
+}
+
+.HomeExplore-cardSubtitle {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================
+   Responsive Adaptations
+========================================== */
+@media (max-width: 1024px) {
+  .HomeExplore {
+    padding: 60px 24px;
+  }
+
+  .HomeExplore-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .card-goldsilver {
+    grid-column: span 2;
+  }
+
+  .HomeExplore-card {
+    height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .HomeExplore {
+    padding: 48px 16px;
+  }
+
+  .HomeExplore-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .HomeExplore-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .card-goldsilver {
+    grid-column: span 1;
+  }
+
+  .HomeExplore-card {
+    height: 240px;
+  }
+
+  .HomeExplore-cardContent {
+    top: 18px;
+    left: 18px;
+    right: 18px;
+  }
+
+  .HomeExplore-cardTitle {
+    font-size: 1.5rem;
+  }
+
+  .HomeExplore-cardSubtitle {
+    font-size: 11px;
+  }
+}
