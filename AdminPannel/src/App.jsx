@@ -28,6 +28,8 @@ import FreshCollectionList from "./pages/FreshCollectionList/FreshCollectionList
 
 import LoginForm from "./pages/LoginForm/LoginForm";
 import Protected from "./pages/Protected/Protected";
+import AddOrder from "./pages/AddOrder/AddOrder";
+import AddnewProduct from "./pages/AddnewProduct/AddnewProduct";
 
 
 
@@ -75,98 +77,47 @@ const App = () => {
             path="dashboard"
             element={<Dashboard />}
           />
+          <Route path="/admin/products/all"element={<AddOrder/>}/>
+          <Route path="/admin/products/add"element={<AddnewProduct/>}/>
 
           {/* CONTACT */}
 
-          <Route
-            path="contact-table"
-            element={
-              <ContactTable />
-            }
-          />
+          
 
-          <Route
-            path="contact"
-            element={<Contact />}
-          />
+         
 
           {/* ORDERS */}
 
-          <Route
-            path="orders"
-            element={<Order />}
-          />
+          
 
           {/* POOJA */}
 
-          <Route
-            path="pooja"
-            element={<Pooja />}
-          />
+         
 
           {/* TESTIMONIAL */}
 
-          <Route
-            path="testimonial"
-            element={
-              <Testimonial />
-            }
-          />
 
           {/* BLOG */}
 
-          <Route
-            path="blog/post/:id?"
-            element={<Blog />}
-          />
-
-          <Route
-            path="blog/view"
-            element={<BlogView />}
-          />
+        
 
           {/* SHOP */}
 
-          <Route
-            path="sub/view/:id?"
-            element={
-              <ShopManagement />
-            }
-          />
+         
 
-          <Route
-            path="sub/list"
-            element={
-              <ShopListPage />
-            }
-          />
+         
 
           {/* CATEGORY */}
 
-          <Route
-            path="category/add"
-            element={
-              <CategoryManage />
-            }
-          />
+        
 
           {/* TEAM */}
 
-          <Route
-            path="team/members-post"
-            element={
-              <TeamMember />
-            }
-          />
+         
 
           {/* FRESH COLLECTION */}
 
-          <Route
-            path="fresh-collection"
-            element={
-              <FreshCollectionList />
-            }
-          />
+         
         </Route>
 
         {/* ================= INVALID ROUTE ================= */}
