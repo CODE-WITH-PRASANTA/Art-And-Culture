@@ -37,7 +37,7 @@ function App() {
       <Navbar />
       <main style={{ minHeight: "80vh" }}>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           {/* General Routes */}
           <Route path="/shop" element={<ShopSec />} />
           <Route path="/about" element={<About />} />
