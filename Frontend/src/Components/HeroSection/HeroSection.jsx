@@ -1,338 +1,179 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./HeroSection.css";
+import React, { useState, useEffect } from 'react';
+import { FiChevronLeft, FiChevronRight, FiArrowRight } from 'react-icons/fi';
+import './HeroSection.css';
 
-const SLIDES = [
+// Import local images from src/assets
+import bgPatternImg from '../../assets/Screenshot 2026-07-27 110029.png';
+import slide1Img from '../../assets/Priyanka_Svastika_Banner.webp';
+import slide2Img from '../../assets/Ganesha_Banner_2.webp';
+import slide3Img from '../../assets/mayur.webp';
+import slide4Img from '../../assets/Meenakari_Elephant_Banner.webp';
+
+const slidesData = [
   {
-    id: 1,
-    variant: "variant-1",
-    leftImage: "https://svastika.in/cdn/shop/files/Dagadushethchauki02.jpg?v=1750414277&width=360",
-    rightImage: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
-    title: "Divine & Idols",
-    lead: "Beautifully crafted idols bringing blessings to your home",
-    rightTitle: "Premium & Collections",
-    rightSubtitle: "New arrivals in idols, décor & spiritual essentials",
+    id: '01',
+    image: slide1Img,
+    badgeText: 'LOVED BY 2 MILLION+ HOMES',
+    subBadgeText: "THE PIECES WE'RE KNOWN FOR",
+    headingMain: 'Made slow.',
+    headingItalic: 'Loved most.',
+    description:
+      'The brass, silver and meenakari our homes reach for first — handmade, hand-finished, kept for years. No haste. No shortcuts.',
+    primaryBtnText: 'SHOP BESTSELLERS',
+    secondaryBtnText: 'EXPLORE COLLECTIONS',
   },
   {
-    id: 2,
-    variant: "variant-2",
-    leftImage: "https://cdn.pixabay.com/photo/2019/08/20/15/30/ganesh-4419043_640.jpg",
-    rightImage: "https://cdn.pixabay.com/photo/2019/08/20/15/30/ganesh-4419043_640.jpg",
-    title: "Hand-Carved <span class='accent-word'>Treasures</span>",
-    lead: "Artisan-crafted idols with centuries of tradition and spiritual significance",
-    rightTitle: "Curated Picks",
-    rightSubtitle: "Celebrate with pieces made by master craftsmen",
+    id: '02',
+    image: slide2Img,
+    badgeText: 'FOR THE DAILY POOJA',
+    subBadgeText: 'EVERYTHING THE POOJA ROOM ASKS FOR',
+    headingMain: 'Your pooja room,',
+    headingItalic: 'made ready.',
+    description:
+      'Diyas, thalis, bells and incense — the quiet essentials of the pooja room, cast and finished by hand. Everything your ritual needs.',
+    primaryBtnText: 'SHOP ESSENTIALS',
+    secondaryBtnText: null,
   },
   {
-    id: 3,
-    variant: "variant-3",
-    leftImage: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
-    rightImage: "https://cdn.pixabay.com/photo/2019/08/20/15/30/ganesh-4419043_640.jpg",
-    gridImage1: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
-    gridImage2: "https://img.freepik.com/free-vector/god-ganesha-illustration-happy-ganesh-chaturthi-card-background_1035-29412.jpg?t=st=1763490944~exp=1763494544~hmac=c60f488ec22ab8217b9d6e48a249a9114b1b504accd29adc69086066fa67141f&w=1060",
-    title: "Sacred <span class='title-gradient'>Elegance</span>",
-    lead: "Experience the perfect harmony of traditional craftsmanship and contemporary spiritual design in our exclusive collection",
-    features: [
-      "Handcrafted by Master Artisans",
-      "Premium Materials Only",
-      "Spiritual Authenticity",
-      "Lifetime Blessings"
-    ]
+    id: '03',
+    image: slide3Img,
+    badgeText: 'LEELA · LORD KRISHNA',
+    subBadgeText: 'HAND-FINISHED MURTIS',
+    headingMain: 'Bring home',
+    headingItalic: 'the leela.',
+    description:
+      'Krishna in brass, silver and gold plate — every murti hand-cast and finished, ready for the mandir or the shelf you love most.',
+    primaryBtnText: 'SHOP KRISHNA',
+    secondaryBtnText: 'SHOP THIS',
+  },
+  {
+    id: '04',
+    image: slide4Img,
+    badgeText: 'ART OF RAJASTHAN',
+    subBadgeText: 'HAND-PAINTED ENAMEL',
+    headingMain: 'A tradition you',
+    headingItalic: 'can hold.',
+    description:
+      "Jaipur's meenakari enamel, set by hand in brass — elephants, peacocks and camels in living colour, each a small heirloom in the making.",
+    primaryBtnText: 'SHOP MEENAKARI',
+    secondaryBtnText: 'SHOP THIS',
   },
 ];
 
-const Herosection = ({ interval = 5000 }) => {
-  const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const slidesCount = SLIDES.length;
-  const timerRef = useRef(null);
+const HeroSection = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
+  const totalSlides = slidesData.length;
 
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  // Automatic slide transition every 4 seconds for a smooth slideshow effect
   useEffect(() => {
-    if (!isPaused) {
-      timerRef.current = setInterval(() => {
-        setIndex((i) => (i + 1) % slidesCount);
-      }, interval);
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPaused, interval, slidesCount]);
+    const timer = setInterval(() => {
+      handleNext();
+    }, 4000);
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "ArrowLeft") setIndex((i) => (i - 1 + slidesCount) % slidesCount);
-      if (e.key === "ArrowRight") setIndex((i) => (i + 1) % slidesCount);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [slidesCount]);
-
-  const goTo = (i) => setIndex(((i % slidesCount) + slidesCount) % slidesCount);
-
-  const onTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    setIsPaused(true);
-  };
-  const onTouchMove = (e) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-  const onTouchEnd = () => {
-    if (touchStartX.current != null && touchEndX.current != null) {
-      const diff = touchStartX.current - touchEndX.current;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) setIndex((i) => (i + 1) % slidesCount);
-        else setIndex((i) => (i - 1 + slidesCount) % slidesCount);
-      }
-    }
-    touchStartX.current = null;
-    touchEndX.current = null;
-    setIsPaused(false);
-  };
+    return () => clearInterval(timer);
+  }, [currentIndex]);
 
   return (
-    <section
-      className="hero-container"
-      aria-label="Hero showcase carousel"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={() => setIsPaused(false)}
-      style={{ position: "relative" }}
+    <div
+      className="HeroSection"
+      style={{ backgroundImage: `url(${bgPatternImg})` }}
     >
-      <div className="hero-overlay" aria-hidden="true">
-        <div className="floating-particles">
-          <span className="particle particle-1" />
-          <span className="particle particle-2" />
-          <span className="particle particle-3" />
-          <span className="particle particle-4" />
-        </div>
-      </div>
+      {slidesData.map((slide, index) => {
+        const isActive = index === currentIndex;
+        return (
+          <div
+            key={slide.id}
+            className={`HeroSection-slide ${isActive ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${slide.image})` }}
+          >
+            {/* Dark overlay for optimal text readability */}
+            <div className="HeroSection-overlay" />
 
-      <div
-        className="hero-carousel-wrapper"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        aria-live="polite"
-      >
-        {SLIDES.map((s, i) => {
-          const active = i === index;
-          const slideStyle = active
-            ? {
-                position: "relative",
-                zIndex: 3,
-                opacity: 1,
-                transition: "opacity 600ms ease",
-                display: "grid",
-              }
-            : {
-                position: "absolute",
-                inset: 0,
-                zIndex: 1,
-                opacity: 0,
-                transition: "opacity 600ms ease",
-                display: "grid",
-                pointerEvents: "none",
-              };
+            {/* Slide Content */}
+            <div className="HeroSection-content">
+              {/* Badges Container */}
+              <div className="HeroSection-badgeGroup">
+                <span className="HeroSection-badge">{slide.badgeText}</span>
+                <span className="HeroSection-subBadge">{slide.subBadgeText}</span>
+              </div>
 
-          return (
-            <div
-              key={s.id}
-              className={`hero-content ${s.variant}`}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${i + 1} of ${slidesCount}`}
-              style={slideStyle}
-            >
-              {/* Variant 1 - Original Design */}
-              {s.variant === "variant-1" && (
-                <>
-                  <article className="left-card" tabIndex={0}>
-                    <div className="left-card-inner">
-                      <div className="card-image--side">
-                        <img src={s.leftImage} alt="Divine Idol" loading="lazy" />
-                        <div className="image-shine" aria-hidden />
-                      </div>
+              {/* Headings */}
+              <h1 className="HeroSection-title">
+                {slide.headingMain}{' '}
+                <span className="HeroSection-titleItalic">{slide.headingItalic}</span>
+              </h1>
 
-                      <div className="text-content--side">
-                        <h1 className="fashion-text">
-                          <span className="text-gradient">{s.title}</span>
-                        </h1>
+              {/* Description */}
+              <p className="HeroSection-description">{slide.description}</p>
 
-                        <p className="lead-copy">{s.lead}</p>
-
-                        <button className="shop-button" aria-label="Shop now">
-                          <span className="button-text">Shop Now</span>
-                          
-                        </button>
-
-                        <p className="dress-more-text">
-                          <a href="#" className="text-underline">
-                            All God &amp; Idols
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article className="right-card" tabIndex={0}>
-                    <div className="right-card-full">
-                      <img
-                        className="right-full-image"
-                        src={s.rightImage}
-                        alt="New Collection"
-                        loading="lazy"
-                      />
-
-                      <div className="right-overlay-content">
-                        <div className="right-overlay-inner">
-                          <h3 className="right-card-title">{s.rightTitle}</h3>
-                          <p className="right-card-subtitle">{s.rightSubtitle}</p>
-                          <button className="view-collection-btn" aria-label="View collection">
-                            Shop Now
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="image-shine" aria-hidden />
-                    </div>
-                  </article>
-                </>
-              )}
-
-              {/* Variant 2 - Premium Gallery Style */}
-              {s.variant === "variant-2" && (
-                <>
-                  <article className="left-card left-card--tall" tabIndex={0}>
-                    <div className="left-card-inner left-card-inner--stacked">
-                      <div className="text-content--side text-content--glass">
-                        <div className="card-badge premium">Artisan Crafted</div>
-                        <h2
-                          className="fashion-text variant2-title"
-                          dangerouslySetInnerHTML={{ __html: s.title }}
-                        />
-                        <p className="lead-copy premium">{s.lead}</p>
-                        <div className="variant-2-ctas">
-                          <button className="shop-button premium" aria-label="Shop collection">
-                            Explore Collection
-                          </button>
-                          <button className="view-collection-btn secondary premium" aria-label="View craftsmanship">
-                            Our Craftsmanship
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article className="right-card right-card--frame" tabIndex={0}>
-                    <div className="right-card-full">
-                      <img
-                        className="right-full-image"
-                        src={s.rightImage}
-                        alt="Artisan Collection"
-                        loading="lazy"
-                      />
-                      <div className="frame-accent" aria-hidden />
-                      <div className="image-shine" aria-hidden />
-                    </div>
-                  </article>
-                </>
-              )}
-
-              {/* Variant 3 - Immersive Showcase Style */}
-              {s.variant === "variant-3" && (
-                <>
-
-                <article className="right-card right-card--frame" tabIndex={0}>
-                    <div className="right-card-full">
-                      <img
-                        className="right-full-image"
-                        src={s.rightImage}
-                        alt="Artisan Collection"
-                        loading="lazy"
-                      />
-                      <div className="frame-accent" aria-hidden />
-                      <div className="image-shine" aria-hidden />
-                    </div>
-                  </article>
-                  
-                  <article className="left-card left-card--tall" tabIndex={0}>
-                    <div className="left-card-inner left-card-inner--stacked">
-                      <div className="text-content--side text-content--glass">
-                        <div className="card-badge premium">Artisan Crafted</div>
-                        <h2
-                          className="fashion-text variant2-title"
-                          dangerouslySetInnerHTML={{ __html: s.title }}
-                        />
-                        <p className="lead-copy premium">{s.lead}</p>
-                        <div className="variant-2-ctas">
-                          <button className="shop-button premium" aria-label="Shop collection">
-                            Explore Collection
-                          </button>
-                          <button className="view-collection-btn secondary premium" aria-label="View craftsmanship">
-                            Our Craftsmanship
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-
-                  
-                </>
-              )}
+              {/* Action Buttons */}
+              <div className="HeroSection-actions">
+                {slide.primaryBtnText && (
+                  <button className="HeroSection-btnPrimary">
+                    <span>{slide.primaryBtnText}</span>
+                    <FiArrowRight className="HeroSection-btnIcon" />
+                  </button>
+                )}
+                {slide.secondaryBtnText && (
+                  <button className="HeroSection-btnSecondary">
+                    {slide.secondaryBtnText}
+                  </button>
+                )}
+              </div>
             </div>
-          );
-        })}
+          </div>
+        );
+      })}
+
+      {/* Top Right Counter */}
+      <div className="HeroSection-counter">
+        {slidesData[currentIndex].id} / 0{totalSlides}
       </div>
 
-      {/* Dot Controls */}
-      <div
-        className="carousel-controls"
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 24,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 12,
-          zIndex: 6,
-          pointerEvents: "auto",
-        }}
-      >
-        <div
-          className="dots"
-          role="tablist"
-          aria-label="Select slide"
-          style={{ display: "flex", gap: 8 }}
+      {/* Side Navigation Arrows */}
+      <div className="HeroSection-nav">
+        <button
+          className="HeroSection-navBtn"
+          onClick={handlePrev}
+          aria-label="Previous Slide"
         >
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              aria-selected={i === index}
-              role="tab"
-              style={{
-                width: 12,
-                height: 12,
-                borderRadius: 999,
-                background: i === index ? "var(--premium-gold)" : "rgba(255,255,255,0.28)",
-                border: "none",
-                padding: 0,
-                cursor: "pointer",
-                boxShadow: i === index ? "0 6px 18px rgba(212, 175, 55, 0.4)" : "none",
-                transition: "all 0.3s ease",
-              }}
-            />
-          ))}
-        </div>
+          <FiChevronLeft />
+        </button>
+        <button
+          className="HeroSection-navBtn"
+          onClick={handleNext}
+          aria-label="Next Slide"
+        >
+          <FiChevronRight />
+        </button>
       </div>
-    </section>
+
+      {/* Bottom Pagination Indicators */}
+      <div className="HeroSection-pagination">
+        {slidesData.map((_, index) => (
+          <button
+            key={index}
+            className={`HeroSection-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => goToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default Herosection;
+export default HeroSection;
