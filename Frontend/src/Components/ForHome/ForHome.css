@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap');
+
+.for-home {
+  width: 100%;
+  background-color: #f7f3e9; /* Reference background cream color */
+  padding: 70px 20px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  color: #333333;
+}
+
+.for-home__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Styling */
+.for-home__header {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.for-home__subtitle {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: #c5a059; /* Soft Gold Accent */
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.for-home__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: #2b2b2b;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* Top 3 Main Cards Grid */
+.for-home__main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 35px;
+}
+
+.for-home__main-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 35px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.for-home__main-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.for-home__main-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ebd9b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c5a059;
+  font-size: 20px;
+  margin-bottom: 22px;
+}
+
+.for-home__main-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.for-home__main-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Bottom 4 Highlight Cards Grid */
+.for-home__highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.for-home__highlight-card {
+  background-color: transparent;
+  border: 1px solid #e2d9c7;
+  border-radius: 14px;
+  padding: 28px 20px;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.for-home__highlight-card:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.for-home__highlight-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #ebd9b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7d5e23;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.for-home__highlight-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2b2b2b;
+  margin: 0 0 6px 0;
+}
+
+.for-home__highlight-subtitle {
+  font-size: 12px;
+  color: #777777;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Responsiveness (Tablets & Mobiles) */
+@media (max-width: 1024px) {
+  .for-home__title {
+    font-size: 34px;
+  }
+
+  .for-home__main-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .for-home__highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .for-home {
+    padding: 50px 16px;
+  }
+
+  .for-home__title {
+    font-size: 28px;
+  }
+
+  .for-home__main-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .for-home__highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .for-home__main-card {
+    padding: 26px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .for-home__highlight-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .for-home__subtitle {
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .for-home__title {
+    font-size: 24px;
+  }
+}

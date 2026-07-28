@@ -1,380 +1,465 @@
-import React, { useEffect, useState } from "react";
-import "./BrassDiyasMain.css";
-import { useNavigate } from "react-router-dom";
-import {
-  FaChevronDown,
-  FaChevronUp,
-  FaStar,
-  FaFilter,
-  FaTimes,
-} from "react-icons/fa";
+import React, { useState } from 'react';
+import './BrassDiyasMain.css';
+import { FaHeart, FaShoppingBag, FaStar, FaWhatsapp } from 'react-icons/fa';
 
-import API, { BASE_URL } from "../../api/axios";
+// --- इमेज इंपोर्ट्स ---
+import img1 from '../../assets/Balaji_Face_Idol.webp';
+import img2 from '../../assets/Lord-Balaji.webp';
+import img3 from '../../assets/Balaji_Pocket.webp';
+import img4 from '../../assets/svastika-lord-balaji-srinivas.webp';
+import img5 from '../../assets/Lakshmi.webp';
+import img6 from '../../assets/Charan01.webp';
+import img7 from '../../assets/Newkrishnaframe01_1.jpg';
+import img8 from '../../assets/Tirupati_Balaji_01_.webp';
+import img9 from '../../assets/Brass_Lord_Balaji.webp';
+import img10 from '../../assets/BalajiFaceIdolwithBalajiPocketTemple01.webp';
+import img11 from '../../assets/Shanku_Chakra_with_Tirupati_Balaji.webp';
+import img12 from '../../assets/LordBalajiandSinduriHanumanMurti01.webp';
 
 const BrassDiyasMain = () => {
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [sortOption, setSortOption] = useState("Featured");
-  const navigate = useNavigate();
-
-  const itemsPerPage = 6;
-
-  // Track accordion toggles for the filters sidebar
-  const [openSections, setOpenSections] = useState({
-    purpose: true,
-    material: true,
-    price: true,
-    size: true,
-    availability: true,
+  // Checkbox State Management
+  const [selectedFilters, setSelectedFilters] = useState({
+    Gifting: false,
+    'Home Decor': false,
+    'Table Decor': false,
+    'Pooja Room': false,
+    Vastu: false,
+    'Wall Hanging': false,
+    'Premium Resin': false,
+    'Pure Brass': false,
+    '1-5 inches': false,
+    '6-10 inches': false,
+    '11-15 inches': false,
+    'In stock': false,
+    'Out of stock': false,
   });
 
-  // Track selection values for filtering logic
-  const [filters, setFilters] = useState({
-    purpose: [],      
-    material: [],     
-    priceRange: "",   
-    size: [],         
-    inStockOnly: false,
-  });
+  // Price Slider State
+  const [maxPrice, setMaxPrice] = useState(19900);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  // Dropdown State
+  const [sortOption, setSortOption] = useState('Best selling');
 
- const fetchProducts = async () => {
-  try {
-    const response = await API.get("/shopview/all");
-
-    console.log("All Products:", response.data.data);
-
-    if (response.data.success) {
-      setProducts(response.data.data);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-  const toggleSection = (section) => {
-    setOpenSections((prev) => ({
+  // Checkbox Toggle Handler
+  const handleCheckboxChange = (filter) => {
+    setSelectedFilters((prev) => ({
       ...prev,
-      [section]: !prev[section],
+      [filter]: !prev[filter],
     }));
   };
 
-  const handleFilterChange = (category, value) => {
-    setFilters((prev) => {
-      if (category === "inStockOnly") {
-        return { ...prev, inStockOnly: !prev.inStockOnly };
-      }
-      if (category === "priceRange") {
-        return { ...prev, priceRange: prev.priceRange === value ? "" : value };
-      }
-
-      const currentValues = prev[category];
-      const updatedValues = currentValues.includes(value)
-        ? currentValues.filter((item) => item !== value)
-        : [...currentValues, value];
-
-      return { ...prev, [category]: updatedValues };
+  // Clear All Filters
+  const handleClearAll = () => {
+    const cleared = {};
+    Object.keys(selectedFilters).forEach((key) => {
+      cleared[key] = false;
     });
+    setSelectedFilters(cleared);
+    setMaxPrice(19900);
   };
 
-  // --- Dynamic Filtering Logic ---
-  const filteredProducts = products.filter((item) => {
-    if (filters.purpose.length > 0 && (!item.purpose || !filters.purpose.includes(item.purpose))) {
-      return false;
-    }
-    if (filters.material.length > 0 && (!item.material || !filters.material.includes(item.material))) {
-      return false;
-    }
-    if (filters.size.length > 0 && (!item.size || !filters.size.includes(item.size))) {
-      return false;
-    }
-    if (filters.inStockOnly && (!item.quantity || item.quantity <= 0)) {
-      return false;
-    }
-    if (filters.priceRange) {
-      const price = item.newPrice;
-      if (filters.priceRange === "under-500" && price >= 500) return false;
-      if (filters.priceRange === "500-1000" && (price < 500 || price > 1000)) return false;
-      if (filters.priceRange === "above-1000" && price <= 1000) return false;
-    }
-    return true;
+  // WhatsApp Handler
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '919876543210';
+    const message = encodeURIComponent('Hello! I need help choosing a product.');
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  };
+
+  const products = [
+    {
+      id: 1,
+      name: 'Lord Balaji Face Idol | Pure Silver Plated',
+      rating: 4.9,
+      reviews: 277,
+      price: 1249,
+      oldPrice: 1999,
+      image: img1,
+      badge: 'Perfect Decor',
+      purpose: ['Gifting', 'Table Decor', 'Home Decor'],
+      material: 'Pure Brass',
+      size: '1-5 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 2,
+      name: 'Balaji Charan with Shanku Chakra Namam - Gold Plated (2 Inch)',
+      rating: 4.9,
+      reviews: 266,
+      price: 1249,
+      oldPrice: 1999,
+      image: img2,
+      badge: 'Best for Car',
+      purpose: ['Gifting', 'Table Decor', 'Vastu'],
+      material: 'Premium Resin',
+      size: '1-5 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 3,
+      name: 'Svastika Balaji Pocket Temple - Gold Plated',
+      rating: 4.9,
+      reviews: 285,
+      price: 1249,
+      oldPrice: 1499,
+      image: img3,
+      purpose: ['Gifting', 'Pooja Room'],
+      material: 'Premium Resin',
+      size: '1-5 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 4,
+      name: 'Lord Balaji (Srinivasa Mangapuram) Idol - Gold & Silver Plated (8 Inch)',
+      rating: 5.0,
+      reviews: 37,
+      price: 6249,
+      oldPrice: 6999,
+      image: img4,
+      purpose: ['Pooja Room', 'Home Decor'],
+      material: 'Pure Brass',
+      size: '6-10 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 5,
+      name: 'Lord Balaji (Srinivasa Mangapuram) Idol - Antique Finish (8 Inch)',
+      rating: 5.0,
+      reviews: 37,
+      price: 2949,
+      oldPrice: 3999,
+      image: img5,
+      purpose: ['Pooja Room', 'Vastu'],
+      material: 'Pure Brass',
+      size: '6-10 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 6,
+      name: 'Gajalakshmi Tirupati Balaji Murti - Gold & Silver Plated',
+      rating: 5.0,
+      reviews: 2,
+      price: 5199,
+      oldPrice: null,
+      image: img6,
+      purpose: ['Pooja Room', 'Home Decor', 'Gifting'],
+      material: 'Pure Brass',
+      size: '6-10 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 7,
+      name: 'Brass Tirupati Balaji Lakshmi Divine Diya (5.5 Inch)',
+      rating: 5.0,
+      reviews: 10,
+      price: 3849,
+      oldPrice: 4999,
+      image: img7,
+      purpose: ['Pooja Room', 'Gifting'],
+      material: 'Pure Brass',
+      size: '1-5 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 8,
+      name: 'Lord Balaji Face Idol - Silver Plated (4 Inch) with Balaji Charan...',
+      rating: 5.0,
+      reviews: 2,
+      price: 1949,
+      oldPrice: 2699,
+      image: img8,
+      purpose: ['Table Decor', 'Vastu'],
+      material: 'Premium Resin',
+      size: '1-5 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 9,
+      name: 'Tirupati Balaji - Wall Hanging Face Art Decor (12 inch)',
+      rating: 4.7,
+      reviews: 3,
+      price: 2149,
+      oldPrice: 3999,
+      image: img9,
+      purpose: ['Wall Hanging', 'Home Decor'],
+      material: 'Pure Brass',
+      size: '11-15 inches',
+      isSoldOut: true,
+    },
+    {
+      id: 10,
+      name: 'Brass Tirupati Balaji Idol (Venkateshwara) with Garuda Base (6 Inch)',
+      rating: 4.9,
+      reviews: 15,
+      price: 6199,
+      oldPrice: 6299,
+      image: img10,
+      purpose: ['Pooja Room', 'Table Decor'],
+      material: 'Pure Brass',
+      size: '6-10 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 11,
+      name: 'Brass Lord Balaji and Mata Lakshmi For Pooja Room - 6 Inch',
+      rating: 4.8,
+      reviews: 16,
+      price: 4899,
+      oldPrice: 9999,
+      image: img11,
+      purpose: ['Pooja Room'],
+      material: 'Pure Brass',
+      size: '6-10 inches',
+      isSoldOut: false,
+    },
+    {
+      id: 12,
+      name: 'Lord Balaji Face Idol - Silver Plated (4 Inch) with Pocket Temple',
+      rating: 5.0,
+      reviews: 5,
+      price: 2149,
+      oldPrice: 2850,
+      image: img12,
+      purpose: ['Gifting', 'Vastu'],
+      material: 'Premium Resin',
+      size: '1-5 inches',
+      isSoldOut: false,
+    },
+  ];
+
+  // फ़िल्टरिंग लॉजिक
+  const activeFilters = Object.keys(selectedFilters).filter((key) => selectedFilters[key]);
+
+  const filteredProducts = products.filter((product) => {
+    if (product.price > maxPrice) return false;
+    if (activeFilters.length === 0) return true;
+
+    return activeFilters.every((filter) => {
+      if (['Gifting', 'Home Decor', 'Table Decor', 'Pooja Room', 'Vastu', 'Wall Hanging'].includes(filter)) {
+        return product.purpose.includes(filter);
+      }
+      if (['Premium Resin', 'Pure Brass'].includes(filter)) {
+        return product.material === filter;
+      }
+      if (['1-5 inches', '6-10 inches', '11-15 inches'].includes(filter)) {
+        return product.size === filter;
+      }
+      if (filter === 'In stock') return !product.isSoldOut;
+      if (filter === 'Out of stock') return product.isSoldOut;
+
+      return true;
+    });
   });
 
-  // --- Dynamic Sorting Logic ---
+  // सॉर्टिंग लॉजिक
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortOption === "Price Low to High") {
-      return a.newPrice - b.newPrice;
-    }
-    if (sortOption === "Price High to Low") {
-      return b.newPrice - a.newPrice;
-    }
-    if (sortOption === "Newest") {
-      return new Date(b.createdAt || b._id) - new Date(a.createdAt || a._id);
-    }
+    if (sortOption === 'Price, low to high') return a.price - b.price;
+    if (sortOption === 'Price, high to low') return b.price - a.price;
+    if (sortOption === 'Alphabetically, A-Z') return a.name.localeCompare(b.name);
+    if (sortOption === 'Alphabetically, Z-A') return b.name.localeCompare(a.name);
     return 0;
   });
 
-  // --- Pagination Calculations ---
-  const indexOfLastProduct = currentPage * itemsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filters, sortOption]);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <div className="brass-page">
-      {isMobileFilterOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setIsMobileFilterOpen(false)}
-        />
-      )}
-
-      {/* Sidebar - Matching your accurate CSS structure */}
-      <div className={`brass-sidebar ${isMobileFilterOpen ? "open" : ""}`}>
-        <div className="sidebar-header">
-          <h2>Filters</h2>
-          <button
-            className="close-bass-filter-btn"
-            onClick={() => setIsMobileFilterOpen(false)}
-          >
-            <FaTimes />
-          </button>
-        </div>
-
-        {/* Purpose */}
-        <div className="bass-filter-box">
-          <div className="bass-filter-title" onClick={() => toggleSection("purpose")}>
-            <span>Purpose</span>
-            {openSections.purpose ? <FaChevronUp /> : <FaChevronDown />}
+    <div className="brass-diyas-main">
+      <div className="brass-diyas-main__container">
+        {/* ================= LEFT SIDEBAR ================= */}
+        <aside className="brass-diyas-main__sidebar">
+          <div className="brass-diyas-main__sidebar-header">
+            <h3 className="brass-diyas-main__refine-title">
+              Refine <span className="brass-diyas-main__refine-count">{activeFilters.length}</span>
+            </h3>
+            <button className="brass-diyas-main__clear-btn" onClick={handleClearAll}>
+              Clear all
+            </button>
           </div>
-          {openSections.purpose && (
-            <div className="bass-filter-content">
-              {["Pooja", "Decoration", "Gifting"].map((opt) => (
-                <label key={opt}>
-                  <input
-                    type="checkbox"
-                    checked={filters.purpose.includes(opt)}
-                    onChange={() => handleFilterChange("purpose", opt)}
-                  />
-                  <span>{opt}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
 
-        {/* Material */}
-        <div className="bass-filter-box">
-          <div className="bass-filter-title" onClick={() => toggleSection("material")}>
-            <span>Material</span>
-            {openSections.material ? <FaChevronUp /> : <FaChevronDown />}
-          </div>
-          {openSections.material && (
-            <div className="bass-filter-content">
-              {["Brass", "Bronze", "Copper"].map((opt) => (
-                <label key={opt}>
-                  <input
-                    type="checkbox"
-                    checked={filters.material.includes(opt)}
-                    onChange={() => handleFilterChange("material", opt)}
-                  />
-                  <span>{opt}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Price Range */}
-        <div className="bass-filter-box">
-          <div className="bass-filter-title" onClick={() => toggleSection("price")}>
-            <span>Price Range</span>
-            {openSections.price ? <FaChevronUp /> : <FaChevronDown />}
-          </div>
-          {openSections.price && (
-            <div className="bass-filter-content">
-              {[
-                { label: "Under ₹500", value: "under-500" },
-                { label: "₹500 - ₹1000", value: "500-1000" },
-                { label: "Above ₹1000", value: "above-1000" },
-              ].map((opt) => (
-                <label key={opt.value}>
-                  <input
-                    type="checkbox"
-                    checked={filters.priceRange === opt.value}
-                    onChange={() => handleFilterChange("priceRange", opt.value)}
-                  />
-                  <span>{opt.label}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Size */}
-        <div className="bass-filter-box">
-          <div className="bass-filter-title" onClick={() => toggleSection("size")}>
-            <span>Size</span>
-            {openSections.size ? <FaChevronUp /> : <FaChevronDown />}
-          </div>
-          {openSections.size && (
-            <div className="bass-filter-content">
-              {["Small", "Medium", "Large"].map((opt) => (
-                <label key={opt}>
-                  <input
-                    type="checkbox"
-                    checked={filters.size.includes(opt)}
-                    onChange={() => handleFilterChange("size", opt)}
-                  />
-                  <span>{opt}</span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Availability */}
-        <div className="bass-filter-box">
-          <div className="bass-filter-title" onClick={() => toggleSection("availability")}>
-            <span>Availability</span>
-            {openSections.availability ? <FaChevronUp /> : <FaChevronDown />}
-          </div>
-          {openSections.availability && (
-            <div className="bass-filter-content">
-              <label>
+          {/* Filter 1: Purpose / Usecase */}
+          <div className="brass-diyas-main__filter-group">
+            <h4 className="brass-diyas-main__filter-title">PURPOSE / USECASE</h4>
+            {['Gifting', 'Home Decor', 'Table Decor', 'Pooja Room', 'Vastu', 'Wall Hanging'].map((item) => (
+              <label key={item} className="brass-diyas-main__checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filters.inStockOnly}
-                  onChange={() => handleFilterChange("inStockOnly")}
+                  checked={selectedFilters[item]}
+                  onChange={() => handleCheckboxChange(item)}
                 />
-                <span>Exclude Out of Stock</span>
+                <span>{item}</span>
               </label>
+            ))}
+          </div>
+
+          {/* Filter 2: Material */}
+          <div className="brass-diyas-main__filter-group">
+            <h4 className="brass-diyas-main__filter-title">MATERIAL</h4>
+            {['Premium Resin', 'Pure Brass'].map((item) => (
+              <label key={item} className="brass-diyas-main__checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={selectedFilters[item]}
+                  onChange={() => handleCheckboxChange(item)}
+                />
+                <span>{item}</span>
+              </label>
+            ))}
+          </div>
+
+          {/* Dynamic Price Filter */}
+          <div className="brass-diyas-main__filter-group">
+            <h4 className="brass-diyas-main__filter-title">PRICE</h4>
+            <input
+              type="range"
+              min="0"
+              max="19900"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              className="brass-diyas-main__price-slider"
+            />
+            <div className="brass-diyas-main__price-display">
+              <span>₹0</span>
+              <span>₹{Number(maxPrice).toLocaleString('en-IN')}</span>
             </div>
-          )}
-        </div>
-      </div>
+          </div>
 
-      {/* Products Content Area */}
-      <div className="brass-content">
-        <div className="top-toolbar">
-          <button
-            className="mobile-bass-filter-trigger"
-            onClick={() => setIsMobileFilterOpen(true)}
-          >
-            <FaFilter /> Filters
-          </button>
+          {/* Filter 3: Size Range */}
+          <div className="brass-diyas-main__filter-group">
+            <h4 className="brass-diyas-main__filter-title">SIZE RANGE</h4>
+            {['1-5 inches', '6-10 inches', '11-15 inches'].map((item) => (
+              <label key={item} className="brass-diyas-main__checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={selectedFilters[item]}
+                  onChange={() => handleCheckboxChange(item)}
+                />
+                <span>{item}</span>
+              </label>
+            ))}
+          </div>
 
-          <select
-            className="sort-dropdown"
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-          >
-            <option value="Featured">Featured</option>
-            <option value="Newest">Newest</option>
-            <option value="Price Low to High">Price Low to High</option>
-            <option value="Price High to Low">Price High to Low</option>
-          </select>
-        </div>
+          {/* Filter 4: Availability */}
+          <div className="brass-diyas-main__filter-group">
+            <h4 className="brass-diyas-main__filter-title">AVAILABILITY</h4>
+            {['In stock', 'Out of stock'].map((item) => (
+              <label key={item} className="brass-diyas-main__checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={selectedFilters[item]}
+                  onChange={() => handleCheckboxChange(item)}
+                />
+                <span>{item}</span>
+              </label>
+            ))}
+          </div>
 
-        <div className="products-grid">
-          {currentProducts.length > 0 ? (
-            currentProducts.map((item) => (
-             <div
-  className="bass-product-card"
-  key={item._id}
-  onClick={() => navigate(`/shopdetails/${item._id}`)}
-  style={{ cursor: "pointer" }}
->
-                <div className="image-box">
-                  <img
-                    src={
-                      item.images?.length > 0
-                        ? `${BASE_URL}/uploads/shopview/${item.images[0]}`
-                        : "/placeholder.jpg"
-                    }
-                    alt={item.productTitle}
-                  />
-                  {item.discount > 0 && (
-                    <span className="discount">-{item.discount}%</span>
-                  )}
-                </div>
-
-                <div className="product-info">
-                  <h4>{item.productTitle}</h4>
-
-                  <div className="rating">
-                    {[...Array(5)].map((_, i) => (
-                      <FaStar key={i} />
-                    ))}
-                    <span>({item.reviewCount || 0})</span>
-                  </div>
-
-                  <div className="price-box">
-                    <span className="price">₹{item.newPrice}</span>
-                    {item.oldPrice && (
-                      <span className="old-price">₹{item.oldPrice}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: "40px 0" }}>
-              <h2>No Products Found</h2>
-              <p>Try resetting your selection criteria filters.</p>
+          {/* WhatsApp Support Box */}
+          <div className="brass-diyas-main__whatsapp-box">
+            <div className="brass-diyas-main__whatsapp-header">
+              <span className="brass-diyas-main__whatsapp-icon">💬</span>
+              <span className="brass-diyas-main__whatsapp-tag">NOT SURE WHICH?</span>
             </div>
-          )}
-        </div>
-
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="pagination">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-              className="page-btn nav-btn"
-            >
-              Previous
-            </button>
-
-            <div className="page-numbers">
-              {[...Array(totalPages)].map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={`page-btn ${
-                    currentPage === index + 1 ? "active" : ""
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
-
-            <button
-              disabled={currentPage === totalPages}
-              onClick={() => handlePageChange(currentPage + 1)}
-              className="page-btn nav-btn"
-            >
-              Next
+            <p className="brass-diyas-main__whatsapp-desc">
+              Tell us the occasion and our team will help you choose.
+            </p>
+            <button className="brass-diyas-main__whatsapp-btn" onClick={handleWhatsAppClick}>
+              Ask on WhatsApp <FaWhatsapp className="brass-diyas-main__wa-icon" />
             </button>
           </div>
-        )}
+        </aside>
+
+        {/* ================= RIGHT PRODUCTS AREA ================= */}
+        <main className="brass-diyas-main__products-area">
+          {/* Top Bar Header */}
+          <div className="brass-diyas-main__products-header">
+            <span className="brass-diyas-main__products-count">{sortedProducts.length} products</span>
+
+            <div className="brass-diyas-main__sort-wrapper">
+              <span className="brass-diyas-main__sort-label">SORT</span>
+              <select
+                className="brass-diyas-main__sort-dropdown"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+              >
+                <option value="Featured">Featured</option>
+                <option value="Most relevant">Most relevant</option>
+                <option value="Best selling">Best selling</option>
+                <option value="Alphabetically, A-Z">Alphabetically, A-Z</option>
+                <option value="Alphabetically, Z-A">Alphabetically, Z-A</option>
+                <option value="Price, low to high">Price, low to high</option>
+                <option value="Price, high to low">Price, high to low</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Selected Active Tags */}
+          <div className="brass-diyas-main__active-tags">
+            {activeFilters.map((filterName) => (
+              <span key={filterName} className="brass-diyas-main__active-tag">
+                {filterName}{' '}
+                <button onClick={() => handleCheckboxChange(filterName)}>×</button>
+              </span>
+            ))}
+          </div>
+
+          {/* Product Grid */}
+          <div className="brass-diyas-main__products-grid">
+            {sortedProducts.length > 0 ? (
+              sortedProducts.map((product) => (
+                <div key={product.id} className="brass-diyas-main__product-card">
+                  {/* Image Area */}
+                  <div className="brass-diyas-main__image-container">
+                    <img src={product.image} alt={product.name} className="brass-diyas-main__product-img" />
+
+                    {product.badge && <span className="brass-diyas-main__card-badge">{product.badge}</span>}
+                    {product.isSoldOut && <span className="brass-diyas-main__sold-out-badge">SOLD OUT</span>}
+
+                    {/* Hover Overlay Buttons */}
+                    <div className="brass-diyas-main__hover-overlay">
+                      <button className="brass-diyas-main__wishlist-btn" title="Add to Wishlist">
+                        <FaHeart />
+                      </button>
+                      {!product.isSoldOut && (
+                        <button className="brass-diyas-main__cart-btn">
+                          <FaShoppingBag /> ADD TO CART
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Card Details */}
+                  <div className="brass-diyas-main__product-info">
+                    <h3 className="brass-diyas-main__product-name">{product.name}</h3>
+
+                    {/* Rating */}
+                    <div className="brass-diyas-main__product-rating">
+                      <span className="brass-diyas-main__stars">
+                        {[...Array(5)].map((_, i) => (
+                          <FaStar key={i} className="brass-diyas-main__star-icon" />
+                        ))}
+                      </span>
+                      <span className="brass-diyas-main__rating-num">{product.rating}</span>
+                      <span className="brass-diyas-main__review-num">({product.reviews})</span>
+                    </div>
+
+                    {/* Pricing */}
+                    <div className="brass-diyas-main__product-price">
+                      <span className="brass-diyas-main__current-price">
+                        ₹{product.price.toLocaleString('en-IN')}.00
+                      </span>
+                      {product.oldPrice && (
+                        <span className="brass-diyas-main__old-price">
+                          ₹{product.oldPrice.toLocaleString('en-IN')}.00
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="brass-diyas-main__no-products">
+                <p>कोई प्रोडक्ट नहीं मिला। कृपया फ़िल्टर बदलें।</p>
+              </div>
+            )}
+          </div>
+        </main>
       </div>
     </div>
   );

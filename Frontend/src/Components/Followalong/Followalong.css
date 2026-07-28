@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap');
+
+.followalong {
+  width: 100%;
+  background-color: #f7f3e9; /* रेफरेंस इमेज का क्रीमी बैकग्राउंड कलर */
+  padding: 60px 20px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  color: #333333;
+}
+
+.followalong__container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Header Styling */
+.followalong__header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.followalong__subtitle {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: #c5a059; /* सॉफ्ट गोल्ड कलर */
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.followalong__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 500;
+  color: #2b2b2b;
+  margin: 0;
+}
+
+.followalong__highlight {
+  font-style: italic;
+  font-weight: 400;
+  color: #c5a059;
+}
+
+/* Slider Wrapper */
+.followalong__slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+/* Scrollable Track */
+.followalong__slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 5px;
+  scrollbar-width: none; /* Firefox में स्क्रॉलबार छिपाएं */
+}
+
+.followalong__slider::-webkit-scrollbar {
+  display: none; /* Chrome / Safari में स्क्रॉलबार छिपाएं */
+}
+
+/* Square Card Item Styling */
+.followalong__card {
+  min-width: 190px;
+  max-width: 190px;
+  height: 190px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.followalong__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.followalong__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card Hover Instagram Overlay */
+.followalong__card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.followalong__card:hover .followalong__card-overlay {
+  opacity: 1;
+}
+
+.followalong__overlay-icon {
+  color: #ffffff;
+  font-size: 24px;
+}
+
+/* Circular Slider Navigation Arrows */
+.followalong__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e2d9c7;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 13px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.followalong__arrow:hover {
+  background-color: #fcfbf7;
+  color: #c5a059;
+  border-color: #c5a059;
+}
+
+.followalong__arrow--left {
+  left: -18px;
+}
+
+.followalong__arrow--right {
+  right: -18px;
+}
+
+/* Bottom Instagram Pill Button */
+.followalong__btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.followalong__instagram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 1px solid #d8ccb6;
+  background-color: #ffffff;
+  color: #4a4a4a;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.followalong__instagram-btn:hover {
+  border-color: #c5a059;
+  color: #c5a059;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.followalong__insta-icon {
+  font-size: 15px;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .followalong__title {
+    font-size: 32px;
+  }
+
+  .followalong__card {
+    min-width: 170px;
+    max-width: 170px;
+    height: 170px;
+  }
+}
+
+@media (max-width: 768px) {
+  .followalong {
+    padding: 45px 16px;
+  }
+
+  .followalong__title {
+    font-size: 28px;
+  }
+
+  .followalong__card {
+    min-width: 150px;
+    max-width: 150px;
+    height: 150px;
+  }
+
+  .followalong__arrow--left {
+    left: -10px;
+  }
+
+  .followalong__arrow--right {
+    right: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .followalong__card {
+    min-width: 135px;
+    max-width: 135px;
+    height: 135px;
+  }
+
+  .followalong__title {
+    font-size: 24px;
+  }
+
+  .followalong__instagram-btn {
+    padding: 8px 18px;
+    font-size: 12px;
+  }
+}

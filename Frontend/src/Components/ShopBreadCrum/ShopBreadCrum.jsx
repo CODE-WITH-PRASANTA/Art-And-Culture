@@ -1,42 +1,42 @@
-import React from 'react'
-import './ShopBreadCrum.css'
-import aboutImg from "../../assets/art-5.webp";
-
+import React from 'react';
+import './ShopBreadCrum.css';
 
 const ShopBreadCrum = () => {
   return (
-    <div>
-      <div className="Shop-wrapper">
-      
-            {/* HERO SECTION */}
-            <section
-              className="Shop-hero-section"
-              style={{ backgroundImage: `url(${aboutImg})` }}
-            >
-             <div className="Shop-left">
-                <h1>
-                  Shop <br />
-                  <span>Authentic Indian Art & Handicrafts</span>
-                </h1>
-                <p className="Shop-subtitle">
-                 Discover authentic Indian handicrafts, temple art, divine statues, Lipan art, and essential pooja items crafted by skilled Indian artists. Each piece reflects India’s cultural heritage and devotion, offering meaningful idols and traditional art for your home or gifting.
-                </p>
-              </div>
-      
-            </section>
-      
-            {/* BREADCRUMB */}
-            <div className="breadcrumb-wrapper">
-              <div className="breadcrumb-box">
-                <span>Home</span>
-                <span className="dash">-</span>
-                <span className="active">Shop</span>
-              </div>
-            </div>
-      
-          </div>
-    </div>
-  )
-}
+    <div className="shop-breadcrumb-container">
+      {/* Golden Top Banner */}
+      <div className="top-announcement-bar">
+        <span>✦ FREE SHIPPING & COD ACROSS INDIA ✦</span>
+      </div>
 
-export default ShopBreadCrum
+      {/* Main Dark Breadcrumb Content Area */}
+      <div className="breadcrumb-main-content">
+        {/* Subtitle with lines */}
+        <div className="brand-subtitle-wrapper">
+          <span className="subtitle-line"></span>
+          <span className="brand-subtitle">THE ART AND CULTURE'S</span>
+          <span className="subtitle-line"></span>
+        </div>
+
+        {/* Main Title */}
+        <h1 className="breadcrumb-main-title">Tirupati Balaji</h1>
+
+        {/* Description Paragraph */}
+        <p className="breadcrumb-description">
+          The deity most kept in South Indian homes, made as a standing
+          murti, a crowned face, a pair of feet that fit anywhere, and a
+          face large enough for a wall.
+        </p>
+
+        {/* Bottom Highlights / Features */}
+        <div className="breadcrumb-badges">
+          <span>Authentic & True</span>
+          <span className="badge-separator">•</span>
+          <span>7 Days Easy Return</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ShopBreadCrum;

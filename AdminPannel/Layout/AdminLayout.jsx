@@ -8,8 +8,7 @@ const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // On mobile -> open/close the slide-in sidebar
-  // On desktop/tablet -> collapse to icon-only mode
+  // Toggle sidebar behavior based on screen size
   const toggleSidebar = () => {
     if (window.innerWidth <= 768) {
       setMobileOpen((prev) => !prev);
@@ -29,7 +28,11 @@ const AdminLayout = () => {
           setMobileOpen={setMobileOpen}
         />
 
-        <div className={collapsed ? "content expanded" : "content"}>
+        <div
+          className={`content ${collapsed ? "expanded" : ""} ${
+            mobileOpen ? "mobile-shift" : ""
+          }`}
+        >
           <Outlet />
         </div>
       </div>
