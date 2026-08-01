@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   HomeMedia Main Container
+========================================== */
+.HomeMedia {
+  width: 100%;
+  padding: 80px 0 80px 32px;
+  background-color: #111111;
+  background-repeat: repeat;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.HomeMedia-container {
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Header Section
+========================================== */
+.HomeMedia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-right: 32px;
+  margin-bottom: 32px;
+}
+
+.HomeMedia-titleGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.HomeMedia-pillTag {
+  background-color: #d4a853;
+  color: #121212;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.HomeMedia-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.HomeMedia-subtitle {
+  font-size: 13px;
+  color: #a0a0a0;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Navigation Controls */
+.HomeMedia-navControls {
+  display: flex;
+  gap: 12px;
+}
+
+.HomeMedia-navBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.HomeMedia-navBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+
+/* ==========================================
+   Reel Cards Slider
+========================================== */
+.HomeMedia-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 20px;
+  padding-right: 32px;
+}
+
+/* Hide scrollbar */
+.HomeMedia-slider::-webkit-scrollbar {
+  display: none;
+}
+.HomeMedia-slider {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Reel Card Styling */
+.HomeMedia-card {
+  position: relative;
+  flex: 0 0 210px;
+  height: 370px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #1e1e1e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.HomeMedia-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient Overlay */
+.HomeMedia-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+/* Card Badge */
+.HomeMedia-cardBadge {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Play Button */
+.HomeMedia-playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.HomeMedia-card:hover .HomeMedia-playBtn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: #ffffff;
+}
+
+.HomeMedia-playIcon {
+  color: #121212;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+/* Card Content */
+.HomeMedia-cardContent {
+  position: absolute;
+  bottom: 16px;
+  left: 14px;
+  right: 14px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.HomeMedia-cardTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.35;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.HomeMedia-productsCount {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .HomeMedia {
+    padding: 60px 0 60px 16px;
+  }
+
+  .HomeMedia-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-right: 16px;
+    margin-bottom: 24px;
+  }
+
+  .HomeMedia-navControls {
+    align-self: flex-end;
+  }
+
+  .HomeMedia-card {
+    flex: 0 0 170px;
+    height: 310px;
+  }
+
+  .HomeMedia-cardTitle {
+    font-size: 10.5px;
+  }
+}

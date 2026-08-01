@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   HomeMyth Main Section
+========================================== */
+.HomeMyth {
+  width: 100%;
+  padding: 80px 32px;
+  background-color: #fdfbf7; /* Warm off-white backdrop */
+  background-repeat: repeat;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.HomeMyth-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   Header Section
+========================================== */
+.HomeMyth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.HomeMyth-titleGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.HomeMyth-greenTag {
+  background-color: #43815b; /* Muted Green Badge */
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.HomeMyth-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* Know More Top Right Link */
+.HomeMyth-knowMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #222222;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: gap 0.3s ease;
+}
+
+.HomeMyth-knowMore:hover {
+  gap: 12px;
+}
+
+.HomeMyth-knowMoreArrow {
+  font-size: 14px;
+}
+
+/* ==========================================
+   Category Filter Buttons
+========================================== */
+.HomeMyth-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.HomeMyth-filterBtn {
+  background-color: transparent;
+  border: 1px solid #e2ddd3;
+  color: #222222;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.HomeMyth-filterBtn.active {
+  background-color: #121212;
+  border-color: #121212;
+  color: #ffffff;
+}
+
+.HomeMyth-filterBtn:hover:not(.active) {
+  border-color: #999999;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================
+   4-Card Grid
+========================================== */
+.HomeMyth-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Individual Card */
+.HomeMyth-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Card Image Wrapper */
+.HomeMyth-cardImgWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Square cards matching reference */
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background-color: #eae5dc;
+}
+
+.HomeMyth-cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.HomeMyth-card:hover .HomeMyth-cardImg {
+  transform: scale(1.05);
+}
+
+/* Badge Top Right of Image */
+.HomeMyth-cardBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(20, 20, 20, 0.55);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+/* Card Body Content */
+.HomeMyth-cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.HomeMyth-cardDate {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.HomeMyth-cardTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1f1f1f;
+  margin: 0;
+  line-height: 1.25;
+  transition: color 0.25s ease;
+}
+
+.HomeMyth-card:hover .HomeMyth-cardTitle {
+  color: #c49a45; /* Soft gold highlight on hover */
+}
+
+/* ==========================================
+   Responsive Adaptations
+========================================== */
+@media (max-width: 1024px) {
+  .HomeMyth-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .HomeMyth {
+    padding: 50px 16px;
+  }
+
+  .HomeMyth-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .HomeMyth-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .HomeMyth-cardTitle {
+    font-size: 1.2rem;
+  }
+}

@@ -1,116 +1,82 @@
 import React, { useEffect, useState } from "react";
-import API, { BASE_URL } from "../../api/axios";
 import "./Testimonial.css";
 
+// Static testimonial data (Frontend Mock Data)
+const mockTestimonials = [
+  {
+    id: 1,
+    name: "Priya Sharma",
+    role: "Verified Buyer",
+    message:
+      "The brass murti I ordered surpassed all my expectations. The craftsmanship and hand-finishing details are breathtaking!",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+  },
+  {
+    id: 2,
+    name: "Rajesh Kumar",
+    role: "Devotee",
+    message:
+      "Our home pooja room feels complete now. The quality of the brass diya and thali set is top notch.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
+  },
+  {
+    id: 3,
+    name: "Ananya Patel",
+    role: "Art Collector",
+    message:
+      "The Meenakari Jaipur artwork is living color in our home. Exceptional service and packaging!",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+  },
+  {
+    id: 4,
+    name: "Vikram Malhotra",
+    role: "Regular Customer",
+    message:
+      "Handmade quality you can truly feel. Bought the Krishna murti and it has become the centerpiece of our home.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200",
+  },
+];
+
 const Testimonial = () => {
-  const [testimonials, setTestimonials] = useState([]);
   const [index, setIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  // ================= IMAGE FIX =================
-  const getImageUrl = (path) => {
-    if (!path) return "https://via.placeholder.com/100";
-
-    if (path.startsWith("http")) return path;
-
-    const cleanPath = path.replace(/^\/+/, "");
-    return `${BASE_URL}/${cleanPath}`;
-  };
-
-  // ================= FETCH =================
-  const fetchTestimonials = async () => {
-    try {
-      const res = await API.get("/testimonial");
-
-      const data = Array.isArray(res.data)
-        ? res.data
-        : res.data.data || res.data.testimonials || [];
-
-      setTestimonials(data);
-    } catch (error) {
-      console.log("Fetch Error:", error);
-      setTestimonials([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTestimonials();
-  }, []);
 
   // ================= AUTO SLIDER =================
   useEffect(() => {
-    if (testimonials.length === 0) return;
-
     const slider = setInterval(() => {
-      setIndex((prev) => (prev + 1) % testimonials.length);
+      setIndex((prev) => (prev + 1) % mockTestimonials.length);
     }, 3500);
 
     return () => clearInterval(slider);
-  }, [testimonials]);
-
-  // ================= LOADING =================
-  if (loading) {
-    return (
-      <section className="testimonial-section">
-        <div className="testimonial-container">
-          <h2 className="testimonial-title">
-            Loading Testimonials...
-          </h2>
-        </div>
-      </section>
-    );
-  }
+  }, []);
 
   return (
     <section className="testimonial-section">
       <div className="testimonial-container">
-
-        <h2 className="testimonial-title">
-          Sacred Experiences
-        </h2>
-
+        <h2 className="testimonial-title">Sacred Experiences</h2>
         <p className="testimonial-subtitle">
           Trusted by thousands of devotees
         </p>
 
         {/* ================= SLIDER ================= */}
         <div className="testimonial-slider">
-          {testimonials.map((item, i) => {
+          {mockTestimonials.map((item, i) => {
             const position =
               i === index
                 ? "active"
-                : i ===
-                  (index - 1 + testimonials.length) %
-                    testimonials.length
+                : i === (index - 1 + mockTestimonials.length) % mockTestimonials.length
                 ? "prev"
-                : i === (index + 1) % testimonials.length
+                : i === (index + 1) % mockTestimonials.length
                 ? "next"
                 : "hidden";
 
             return (
-              <div
-                key={item._id}
-                className={`testimonial-card ${position}`}
-              >
+              <div key={item.id} className={`testimonial-card ${position}`}>
                 <div className="quote">❝</div>
 
-                {/* ✅ FIXED message field */}
-                <p className="testimonial-text">
-                  {item.message || "No message available"}
-                </p>
+                <p className="testimonial-text">{item.message}</p>
 
                 <div className="testimonial-user">
-                  {/* ✅ FIXED image */}
-                  <img
-                    src={getImageUrl(item.image)}
-                    alt={item.name}
-                    onError={(e) => {
-                      e.target.src =
-                        "https://via.placeholder.com/100?text=User";
-                    }}
-                  />
+                  <img src={item.image} alt={item.name} />
 
                   <div>
                     <h4>{item.name}</h4>
@@ -124,7 +90,7 @@ const Testimonial = () => {
 
         {/* ================= DOTS ================= */}
         <div className="testimonial-dots">
-          {testimonials.map((_, i) => (
+          {mockTestimonials.map((_, i) => (
             <span
               key={i}
               className={i === index ? "dot active" : "dot"}
@@ -132,7 +98,6 @@ const Testimonial = () => {
             />
           ))}
         </div>
-
       </div>
     </section>
   );

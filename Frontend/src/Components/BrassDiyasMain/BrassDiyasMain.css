@@ -1,369 +1,403 @@
-/* Base Page Layout */
-.brass-page {
-  display: flex;
-  gap: 30px;
-  padding: 20px;
-  max-width: 1500px;
-  margin: auto;
-  font-family: Arial, sans-serif;
-  position: relative;
+.brass-diyas-main {
+  width: 100%;
+  background-color: #fdfbf7;
+  min-height: 100vh;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  color: #333333;
 }
 
-/* --- Sidebar / Filter Section --- */
-.brass-sidebar {
-  width: 240px;
+.brass-diyas-main__container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+}
+
+/* Sidebar Styling */
+.brass-diyas-main__sidebar {
+  width: 260px;
   flex-shrink: 0;
 }
 
-.sidebar-header {
+.brass-diyas-main__sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #f0f0f0;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  border-bottom: 1px solid #ebe5d9;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
 }
 
-.brass-sidebar h2 {
-  font-size: 1.3rem;
+.brass-diyas-main__refine-title {
+  font-size: 20px;
+  font-weight: 600;
   margin: 0;
 }
 
-.close-bass-filter-btn {
-  display: none;
+.brass-diyas-main__refine-count {
+  background-color: #c39d63;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-size: 11px;
+}
+
+.brass-diyas-main__clear-btn {
   background: none;
   border: none;
-  font-size: 1.25rem;
+  color: #e57e62;
+  text-decoration: underline;
   cursor: pointer;
-  color: #333;
+  font-size: 13px;
 }
 
-.bass-filter-box {
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+.brass-diyas-main__filter-group {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #f0e9dd;
+  padding-bottom: 20px;
+}
+
+.brass-diyas-main__filter-title {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: #777;
+  font-weight: 600;
   margin-bottom: 15px;
-  overflow: hidden;
 }
 
-.bass-filter-title {
+.brass-diyas-main__checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.brass-diyas-main__checkbox-label input {
+  accent-color: #c39d63;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Range Slider */
+.brass-diyas-main__price-slider {
+  width: 100%;
+  accent-color: #c39d63;
+  cursor: pointer;
+}
+
+.brass-diyas-main__price-display {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  background-color: #f9f9f9;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.9rem;
-  user-select: none;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 8px;
 }
 
-.bass-filter-content {
-  padding: 12px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-top: 1px solid #e0e0e0;
+/* WhatsApp Box */
+.brass-diyas-main__whatsapp-box {
+  background-color: #e8f3ec;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
-.bass-filter-content label {
+.brass-diyas-main__whatsapp-header {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 8px;
+}
+
+.brass-diyas-main__whatsapp-tag {
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.brass-diyas-main__whatsapp-desc {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.brass-diyas-main__whatsapp-btn {
+  background: none;
+  border: none;
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
-  font-size: 0.85rem;
-}
-
-/* --- Main Content Section --- */
-.brass-content {
-  flex-grow: 1;
-  max-width: 1000px;
-}
-
-.top-toolbar {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
+  border-bottom: 1.5px solid #2e7d32;
+  padding-bottom: 2px;
+}
+
+/* Main Products Section */
+.brass-diyas-main__products-area {
+  flex-grow: 1;
+}
+
+.brass-diyas-main__products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.mobile-bass-filter-trigger {
-  display: none;
+.brass-diyas-main__products-count {
+  font-size: 14px;
+  color: #666;
+}
+
+.brass-diyas-main__sort-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brass-diyas-main__sort-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.brass-diyas-main__sort-dropdown {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #dcd3c5;
+  background-color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+}
+
+.brass-diyas-main__active-tags {
+  margin-bottom: 20px;
+}
+
+.brass-diyas-main__active-tag {
+  background-color: #f5eedf;
+  color: #333;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
 }
 
-.sort-dropdown {
-  padding: 8px 10px;
-  font-size: 0.85rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  background-color: #fff;
+.brass-diyas-main__active-tag button {
+  background: none;
+  border: none;
   cursor: pointer;
+  font-size: 14px;
 }
 
-/* --- Products Grid --- */
-.products-grid {
+/* Product Grid */
+.brass-diyas-main__products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 40px;
+  gap: 25px;
 }
 
-/* Product Card Styling */
-.bass-product-card {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 20px;
-  background: #fff;
-  width: 100%; /* FIXED: Swapped from fixed 350px to auto-scale inside grid fractions */
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s, box-shadow 0.2s;
+.brass-diyas-main__product-card {
+  background-color: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-.bass-product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.image-box {
+/* Image Container */
+.brass-diyas-main__image-container {
   position: relative;
   width: 100%;
-  padding-top: 100%;
-  margin-bottom: 16px;
-  background-color: #f7f7f7;
-  border-radius: 6px;
+  height: 280px;
+  border-radius: 16px;
   overflow: hidden;
+  perspective: 1000px;
 }
 
-.image-box img {
-  position: absolute;
-  top: 0;
-  left: 0;
+.brass-diyas-main__product-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 10px;
-  box-sizing: border-box;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.discount {
+.brass-diyas-main__product-card:hover .brass-diyas-main__product-img {
+  transform: scale(1.05);
+}
+
+.brass-diyas-main__card-badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #d9534f;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #444;
+}
+
+.brass-diyas-main__sold-out-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #333;
   color: #fff;
-  padding: 4px 8px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  border-radius: 3px;
-  z-index: 1;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
 }
 
-.bass-product-card h4 {
-  font-size: 1.05rem;
-  margin: 0 0 10px 0;
-  color: #222;
-  line-height: 1.4;
-  height: 2.8em;
-  overflow: hidden;
+/* Hover Overlay Buttons */
+.brass-diyas-main__hover-overlay {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px) rotateX(-15deg);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.rating {
+.brass-diyas-main__product-card:hover .brass-diyas-main__hover-overlay {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+
+.brass-diyas-main__wishlist-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
-  gap: 4px;
-  color: #ffb400;
-  font-size: 0.9rem;
-  margin-bottom: 12px;
+  justify-content: center;
+  cursor: pointer;
+  color: #444;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s;
 }
 
-.rating span {
-  color: #777;
-  margin-left: 4px;
+.brass-diyas-main__wishlist-btn:hover {
+  background: #ffffff;
+  color: #e57e62;
 }
 
-.price-box {
+.brass-diyas-main__cart-btn {
+  flex-grow: 1;
+  background: rgba(60, 40, 30, 0.85);
+  backdrop-filter: blur(5px);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-  flex-wrap: wrap;
+  cursor: pointer;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s;
 }
 
-.price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #111;
+.brass-diyas-main__cart-btn:hover {
+  background: rgba(30, 20, 10, 0.95);
 }
 
-.old-price {
-  font-size: 0.9rem;
+/* Product Details */
+.brass-diyas-main__product-info {
+  padding: 15px 5px;
+}
+
+.brass-diyas-main__product-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+  color: #222;
+}
+
+.brass-diyas-main__product-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.brass-diyas-main__star-icon {
+  color: #fbc02d;
+  font-size: 12px;
+}
+
+.brass-diyas-main__rating-num {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.brass-diyas-main__review-num {
+  font-size: 12px;
   color: #888;
+}
+
+.brass-diyas-main__product-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brass-diyas-main__current-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+}
+
+.brass-diyas-main__old-price {
+  font-size: 13px;
+  color: #aaa;
   text-decoration: line-through;
 }
 
-/* --- Pagination Controls --- */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-top: 30px;
-  width: 100%;
+.brass-diyas-main__no-products {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #777;
 }
 
-.page-numbers {
-  display: flex;
-  gap: 6px;
-}
-
-.page-btn {
-  padding: 8px 14px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.page-btn:hover:not(:disabled) {
-  background-color: #f0f0f0;
-  border-color: #bbb;
-}
-
-.page-btn.active {
-  background-color: #000;
-  color: #fff;
-  border-color: #000;
-}
-
-.page-btn:disabled {
-  color: #ccc;
-  border-color: #eee;
-  cursor: not-allowed;
-}
-
-/* --- Responsive Layout Breaks --- */
-@media (max-width: 992px) {
-  .products-grid {
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .brass-diyas-main__products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Mobile Screens Styling Breakpoint */
 @media (max-width: 768px) {
-  .brass-page {
+  .brass-diyas-main__container {
     flex-direction: column;
-    padding-top: 40px;
   }
-
-  .top-toolbar {
-    justify-content: space-between;
+  .brass-diyas-main__sidebar {
     width: 100%;
   }
-
-  .mobile-bass-filter-trigger {
-    display: flex;
-  }
-
-  .sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 999;
-  }
-
-  .brass-sidebar {
-    position: fixed;
-    top: 0;
-    left: -280px;
-    width: 280px;
-    height: 100%;
-    background-color: #fff;
-    z-index: 1000;
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    transition: left 0.3s ease-in-out;
-  }
-
-  .brass-sidebar.open {
-    left: 0;
-  }
-
-  .close-bass-filter-btn {
-    display: block;
-  }
-}
-
-/* Compact Mobile View */
-@media (max-width: 580px) {
-  .products-grid {
-    grid-template-columns: repeat(1, 1fr); 
-    gap: 12px; 
-  }
-
-  .bass-product-card {
-    padding: 10px; 
-  }
-
-  .image-box {
-    margin-bottom: 8px;
-  }
-
-  .image-box img {
-    padding: 6px;
-  }
-
-  .bass-product-card h4 {
-    font-size: 0.85rem; 
-    height: 2.8em;
-    margin-bottom: 6px;
-  }
-
-  .rating {
-    font-size: 0.75rem;
-    margin-bottom: 8px;
-  }
-
-  .price-box {
-    gap: 4px;
-  }
-
-  .price {
-    font-size: 0.95rem;
-  }
-
-  .old-price {
-    font-size: 0.75rem;
-  }
-
-  .pagination {
-    gap: 6px;
-  }
-  
-  .page-btn {
-    padding: 6px 10px;
-    font-size: 0.8rem;
+  .brass-diyas-main__products-grid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

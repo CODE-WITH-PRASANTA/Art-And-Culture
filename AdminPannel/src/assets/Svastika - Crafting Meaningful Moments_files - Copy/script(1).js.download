@@ -1,0 +1,337 @@
+(()=>{var X="https://reporting.pickrr.com/api/ve1/dashboard-service/subscription/plan",q=async(e,t)=>{try{let o=localStorage.getItem("userManagementToken"),n=await(await fetch(X,{method:"POST",headers:{"Content-Type":"application/json","x-user-token":o},body:JSON.stringify({filterKey:"product",filterValue:{productId:e.toString(),sellerDomain:t}})})).json();return n?.status&&n?.data?.planData?n.data:null}catch(o){return console.error("Plan fetch failed",o),null}};var k=()=>window.ShopifyAnalytics?.meta?.product?.id,B=()=>window.ShopifyAnalytics?.meta?.product?.handle,N=()=>document.getElementById("sellerDomain")?.value??window.Shopify?.shop,y=()=>document.querySelector("[name='id']")?.value||window.ShopifyAnalytics?.meta?.selectedVariantId||window.ShopifyAnalytics?.meta?.product?.variants?.[0]?.id,E=()=>window.ShopifyAnalytics?.meta?.product,M=()=>{try{let t=document.querySelector(".sr-subscribe-btn").closest("form"),o=t.getAttribute("action")||"",r=new FormData(t),n=parseInt(r.get("quantity"),10);return n&&n>0?n:1}catch{return 1}},O=(e,t=40)=>e.length>t?e.slice(0,t)+"...":e,z=()=>{let e=window.shiprocketSnsConfig||{};return{injectContainer:C(),marginTop:e?.marginTop||0,marginBottom:e?.marginBottom||0,buttonText:e?.buttonText,buttonTextColor:e?.buttonTextColor||"#0A0A0A",buttonBorderColor:e?.buttonBorderColor||"#0000001A",buttonBgColor:e?.buttonBgColor||"#FFFFFF"}},C=()=>{let e=window.shiprocketSnsConfig||{};if(e.injectSelector){let n=document.querySelector(e.injectSelector);if(n)return n}if(e.injectClassName){let n=e.injectClassName.replace(".",""),u=document.querySelector(`.${n}`);if(u)return u}let t=document.querySelector(".shiprocket-headless[data-type='product']");if(t)return t;let o=document.querySelector('form[action*="/cart/add"]')||document.querySelector("product-form form");if(o)return o;let r=document.querySelector('[name="add"]')||document.querySelector('button[type="submit"]');return r?.parentElement?r.parentElement:null},Z=async(e,t,o=null,r=null,n=null,u=null)=>{try{let p={method:t,headers:{"Content-Type":"application/json",...u&&{...u}},...n&&{body:JSON.stringify(n)}},b=await fetch(e,p);if(!b.ok){typeof r=="function"&&r(b.status);return}let h=await b.json();typeof o=="function"&&o(h);let a={};return b?.headers?.forEach((d,m)=>{a[m]=d}),{body:h,headers:a}}catch(p){typeof r=="function"&&r(p.message)}},H=e=>{try{Z("https://events.pickrr.com/collect","POST",null,function(t){},{etype:e?.name,ppath:e?.ppath?e?.ppath:"",usid:e?.usid?e?.usid:"",uuid:e?.uuid?e?.uuid:"",et:new Date().toISOString(),ptype:e?.category?e?.category:"",data:{env:"PROD",payload:JSON.stringify({...e?.payload&&e?.payload,site:window.location.host}),...e?.additionalData||{}}})}catch{}};var V=(e,t,o)=>{if(!e){alert("Select variant");return}if(!window.shiprocketCheckoutDirectHandler){console.error("Shiprocket checkout not found");return}let r={...t,startDate:o?.startDate||"",endDate:o?.endDate||"",failSafeCod:o?.failSafeCod??!1,subscriptionPlanName:o?.subscriptionPlanName||""},n=btoa(JSON.stringify(r));window.shiprocketCheckoutDirectHandler({type:"product",cartAttributes:{fastrrSbo:n},products:[{productId:k(),variantId:e,quantity:M()}]})};var _=`<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_3452_7596)">
+            <path d="M7.5 13.75C10.9518 13.75 13.75 10.9518 13.75 7.5C13.75 4.04822 10.9518 1.25 7.5 1.25C4.04822 1.25 1.25 4.04822 1.25 7.5C1.25 10.9518 4.04822 13.75 7.5 13.75Z" stroke="#272727" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M7.5 10V7.5" stroke="#272727" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M7.5 5H7.50583" stroke="#272727" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+        <defs>
+            <clipPath id="clip0_3452_7596">
+                <rect width="15" height="15" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>`,R=`<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6.25L6 18.75" stroke="#0A0A0A" stroke-width="1.33319" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 6.25L18 18.75" stroke="#0A0A0A" stroke-width="1.33319" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    `,J=`<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6.25L6 18.75" stroke="#fff" stroke-width="1.33319" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 6.25L18 18.75" stroke="#fff" stroke-width="1.33319" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    `;var A=`*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.sr-subscribe-btn {
+  width: 100%;
+  border: 1px solid #0000001A;
+  background-color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0A0A0A;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.sr-subscribe-modal-overlay {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sr-subscribe-modal-w-100 {
+  width: 100%;
+}
+
+.sr-subscribe-modal-container {
+  width: 50%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border: 0.56px solid #0000001A;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #fff;
+  position: relative;
+}
+
+.sr-subscribe-modal-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sr-subscribe-modal-header {
+  font-size: 16px;
+  font-weight: 600;
+  color:#0A0A0A;
+  white-space: nowrap;
+  overflow: hidden;   
+  text-overflow: ellipsis;
+}
+
+.sr-subscribe-modal-header-price {
+  padding-right: 12px;
+}
+
+.sr-subscribe-modal-subheader {
+  color: #717182;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;   
+  text-overflow: ellipsis;
+}
+
+.sr-subscribe-modal-close {
+  position: absolute;
+  top:5px;
+  right: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sr-subscribe-modal-inputHeader {
+  color:#0A0A0A;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.sr-subscribe-modal-select {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #D3D3D3;
+  padding: 10px;
+  color: #0A0A0A;
+  font-size: 12px;
+  font-weight: 400;
+  box-shadow: none;
+  white-space: nowrap;
+  overflow: hidden;   
+  text-overflow: ellipsis;
+  outline: none;
+}
+
+.sr-subscribe-modal-option {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;   
+  text-overflow: ellipsis;
+}
+
+.sr-subscribe-modal-proceed {
+  background-color: #3476E6;
+  border-radius: 8px;
+  padding: 8px 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:#FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.sr-subscribe-modal-planList {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-top: 12px;
+}
+
+.sr-subscribe-modal-planOption {
+  border: 0.56px solid #0000001A;
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #0A0A0A;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.sr-subscribe-modal-planOption-mostpopular {
+  position: absolute;
+  right: 10px;
+  top:-10px;
+  font-size: 9px;
+  font-weight: 500;
+  color:#FFFFFF;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background-color: #00A63E;
+}
+
+.sr-subscribe-modal-planOptionData {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.sr-subscribe-modal-prevPrice {
+  color:#807B7B;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: line-through;
+  margin-right: 5px;
+}
+
+.sr-subscribe-modal-newPrice {
+  color:#0A0A0A;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sr-subscribe-modal-helperContainer {
+  background-color: #F7F7F7;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px;
+}
+
+.sr-subscribe-modal-helperHeader {
+  color:#272727;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sr-subscribe-modal-helperSubtext {
+  color:#272727;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.sr-subscribe-modal-planSave {
+  background-color: #DCFCE7;
+  border-radius: 8px;
+  color: #008236;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+
+.sr-subscribe-modal-plans {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+
+  .sr-subscribe-modal-close {
+    position: absolute;
+    z-index: 10000;
+  }
+
+  .sr-subscribe-modal-container {
+    width: 95%;
+    max-width: 95%;
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+    animation: sr-slide-up 0.3s ease-out;
+  }
+
+  .sr-subscribe-modal-overlay {
+    align-items: flex-end !important;
+  }
+
+  @keyframes sr-slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .sr-subscribe-modal-close {
+    top: -40px;
+    right: 50%;
+    transform: translateX(50%);
+    background: #000;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+`;var Y=e=>{let t=document.querySelector(".sr-sns-modal-shadow-host");t&&t.remove();let o=y(),r=null,n=B(),u=E(),p=u?.variants||[],b=(window.innerWidth??0)<768,h=Object.keys(e?.planData||{}),a=h?.length?h.filter(i=>e?.planData?.[i]?.length):[],d=u?.variants?.filter(i=>a.includes((i?.id||"").toString()))||[],m=(i=[])=>i.length?i.every(l=>l?.discountAmount===i[0]?.discountAmount&&l?.discountType===i[0]?.discountType):!1,f=document.createElement("div");f.className="sr-sns-modal-shadow-host",f.setAttribute("style","display:block !important");let c=f.attachShadow({mode:"open"}),w=document.createElement("style");w.textContent=A,c.appendChild(w);let g=document.createElement("div");g.className="sr-subscribe-modal-overlay",g.innerHTML=`
+    <div class="sr-subscribe-modal-container">
+      <span class="sr-subscribe-modal-close">${b?J:R}</span>
+      <div class="sr-subscribe-modal-w-100">
+        <div class="sr-subscribe-modal-header-container">
+          <div class="sr-subscribe-modal-header" title="${e?.subscriptionPlanName}">${e?.subscriptionPlanName??"Subscription Plan"}</div>
+          <div class="sr-subscribe-modal-header-price"></div>
+        </div>
+        <div class="sr-subscribe-modal-subheader">Choose how often you'd like to receive ${n??"product"}</div>
+      </div>
+
+      <div class="sr-subscribe-modal-variant sr-subscribe-modal-w-100"></div>
+      <div class="sr-subscribe-modal-plans"></div>
+
+      <div class="sr-subscribe-modal-helperContainer">
+        <div class="sr-subscribe-modal-infoIcon">${_}</div>
+        <div>
+          <div class="sr-subscribe-modal-helperHeader">
+            Subscription items must be purchased separately.
+          </div>
+          <div class="sr-subscribe-modal-helperSubtext">
+            You can pause or cancel your subscription anytime by reaching out to the seller on ${e?.sellerEmail??""}
+          </div>
+        </div>
+      </div>
+      <button class="sr-subscribe-modal-proceed">
+        Proceed to Checkout
+      </button>
+    </div>
+  `,c.appendChild(g),document.body.appendChild(f),c.querySelector(".sr-subscribe-modal-close").onclick=()=>f.remove(),g.onclick=i=>{i.target===g&&f.remove()};let U=c.querySelector(".sr-subscribe-modal-variant"),T=c.querySelector(".sr-subscribe-modal-plans"),F=c.querySelector(".sr-subscribe-modal-header-price");U.innerHTML=`
+    <div class="sr-subscribe-modal-inputHeader">Select Variant</div>
+    ${d?.length>1?`<select class="sr-subscribe-modal-select">
+          ${d.map(i=>`
+              <option class="sr-subscribe-modal-option" value="${i.id}"
+                ${i.id==o?"selected":""}>
+                ${O(i.name,40)}
+              </option>`).join("")}
+         </select>`:`<div class="sr-subscribe-modal-select" title="${d?.[0]?.name}">
+           ${d?.[0]?.name??""}
+         </div>`}
+  `;let $=()=>{let i=d?.length&&d?.filter(s=>s?.id?.toString()===o)?.length?o:d?.[0]?.id,l=e?.planData[i]||[],j=p?.filter(s=>s?.id==i)?.[0]||{},I=m(l),L=!l?.[0]?.discountAmount,W=l.some(s=>s?.popular),S=(j?.price||0)/100,G=l?.[0]?.discountType==="FLAT"?Math.max(0,S-(l?.[0]?.discountAmount??0)):Math.max(0,S*(1-(l?.[0]?.discountAmount??0)/100));if(I?F.innerHTML=`
+        ${L?"":`<span class="sr-subscribe-modal-prevPrice">\u20B9${S}</span>`}
+        <span class="sr-subscribe-modal-newPrice">
+          \u20B9${L?S:G.toFixed(2)}
+        </span>
+      `:F.innerHTML="",!l.length){T.innerHTML="<p>No plans available</p>";return}T.innerHTML=`
+      <div class="sr-subscribe-modal-inputHeader">Subscription Plan </div>
+      <div class="sr-subscribe-modal-planList">${l.map((s,v)=>{let x=(j?.price||0)/100,K=s?.discountType==="FLAT"?Math.max(0,x-(s?.discountAmount??0)):Math.max(0,x*(1-(s?.discountAmount??0)/100)),P=!s?.discountAmount;return`
+              <div class="sr-subscribe-modal-planOption" data-index="${v}">
+                <div class="sr-subscribe-modal-planOptionData">
+                  <input type="radio" name="plan" value="${v}" ${(W?s?.popular:v===0)?"checked":""} />
+                  <span> Every ${s?.intervalFrequency??""} ${(s?.interval??"").toLowerCase()}</span>
+                  ${P?"":`<span class="sr-subscribe-modal-planSave">Save  ${s?.discountType==="FLAT"?"\u20B9":""}${s?.discountAmount??""}${s?.discountType==="FLAT"?"":"%"}</span>`}
+                </div>
+                ${I?"":`<div>
+                      ${P?"":`<span class="sr-subscribe-modal-prevPrice">\u20B9${x}</span>`}
+                      <span class="sr-subscribe-modal-newPrice">\u20B9${P?x:K.toFixed(2)}</span>
+                     </div>`}
+                ${s?.popular?'<div class="sr-subscribe-modal-planOption-mostpopular">Most Popular</div>':""}
+              </div>
+            `}).join("")}</div>`,c.querySelectorAll(".sr-subscribe-modal-planOption").forEach(s=>{s.onclick=()=>{let v=Number(s.dataset.index),x=s.querySelector("input[name='plan']");x.checked=!0,r=l[v]}}),r=l[0]||null};$();let D=c.querySelector(".sr-subscribe-modal-select");D&&(D.onchange=i=>{o=i.target.value,$()}),c.querySelector(".sr-subscribe-modal-proceed").onclick=()=>{if(!r){alert("Please select a plan");return}V(o,r,e)}};var Q=e=>{let t=z(),o=t?.injectContainer;if(!o||document.querySelector(".sr-sns-shadow-host"))return;let r=y(),n=(e?.planData?.[r]||[])?.filter(m=>m?.popular)?.[0]??{},u=n?.discountAmount?`${n?.discountType==="FLAT"?"\u20B9":""}${n?.discountAmount}${n?.discountType!=="FLAT"?"%":""}`:0,p=document.createElement("div");p.className="sr-sns-shadow-host";let b=p.attachShadow({mode:"open"}),h=document.createElement("style");h.textContent=A,b.appendChild(h);let a=document.createElement("button");a.className="sr-subscribe-btn",a.type="button",a.innerText=t?.buttonText?t?.buttonText:u?`Subscribe & Save up to ${u}`:"Subscribe & Save",a.style.backgroundColor=t?.buttonBgColor,a.style.borderColor=t?.buttonBorderColor,a.style.color=t?.buttonTextColor,a.style.marginTop=`${t?.marginTop}px`,a.style.marginBottom=`${t?.marginBottom}px`,a.onclick=()=>{Y(e),H({name:"S&S button clicked",payload:{variant:y()}})},b.appendChild(a),p.setAttribute("style","display:block !important"),o.appendChild(p);let d=()=>{let m=y(),f=e?.planData?.[m]?.length,c=(e?.planData?.[m]||[])?.filter(g=>g?.popular)?.[0]??{},w=c?.discountAmount?`${c?.discountType==="FLAT"?"\u20B9":""}${c?.discountAmount}${c?.discountType!=="FLAT"?"%":""}`:0;a.innerText=t?.buttonText?t?.buttonText:w?`Subscribe & Save up to ${w}`:"Subscribe & Save",a.style.display=f?"block":"none"};d(),document.addEventListener("change",m=>{m.target.name==="id"&&d()})};var te=async()=>{console.log("Subscription App Loaded");let e=k(),t=N();if(!e||!t)return;let o=await q(e,t);if(!o?.planData||Object.keys(o?.planData||{})?.length===0)return;let r=setInterval(()=>{C()&&(Q(o),clearInterval(r))},500)};setTimeout(te,1e3);})();
