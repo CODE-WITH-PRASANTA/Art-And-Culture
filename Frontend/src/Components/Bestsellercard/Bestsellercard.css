@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500&display=swap');
+
+.Bestsellercard {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7f4ea; /* Fallback warm cream background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Bestsellercard-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Header Styling */
+.Bestsellercard-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.Bestsellercard-subtitle {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c09d58;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.Bestsellercard-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.Bestsellercard-ampersand {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.Bestsellercard-italic {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #c09d58;
+}
+
+/* Top Section - 3 Cards */
+.Bestsellercard-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.Bestsellercard-top-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 36px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Bestsellercard-top-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.Bestsellercard-icon-wrapper.circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #d8be82;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b08d46;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.Bestsellercard-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.Bestsellercard-card-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0;
+}
+
+/* Bottom Section - 4 Feature Cards */
+.Bestsellercard-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.Bestsellercard-bottom-card {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(220, 210, 190, 0.6);
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+
+.Bestsellercard-bottom-card:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.Bestsellercard-icon-wrapper.filled {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f3ebd8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b08d46;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.Bestsellercard-feature-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+}
+
+.Bestsellercard-feature-subtitle {
+  font-size: 13px;
+  color: #777777;
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .Bestsellercard-top-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Bestsellercard-bottom-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .Bestsellercard {
+    padding: 40px 16px;
+  }
+
+  .Bestsellercard-title {
+    font-size: 30px;
+  }
+
+  .Bestsellercard-top-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .Bestsellercard-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .Bestsellercard-top-card {
+    padding: 26px 20px;
+  }
+}

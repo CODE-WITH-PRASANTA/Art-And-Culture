@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap');
+
+.ExploreCollectionHero {
+  width: 100%;
+  min-height: 380px;
+  background-color: #1a1412; /* Dark rich brown fallback */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.ExploreCollectionHero-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtag with Horizontal Lines */
+.ExploreCollectionHero-subtag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ExploreCollectionHero-line {
+  width: 32px;
+  height: 1px;
+  background-color: #a88d5e; /* Soft metallic gold */
+  display: inline-block;
+  opacity: 0.8;
+}
+
+.ExploreCollectionHero-tag-text {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3.5px;
+  color: #d1b882; /* Warm subtle gold */
+  text-transform: uppercase;
+}
+
+/* Main Title */
+.ExploreCollectionHero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 58px;
+  font-weight: 400;
+  color: #f7f3eb;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+/* Description Text */
+.ExploreCollectionHero-description {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #d4cfc7;
+  font-weight: 300;
+  max-width: 580px;
+  margin: 0 0 28px 0;
+  letter-spacing: 0.2px;
+}
+
+.ExploreCollectionHero-desktop-break {
+  display: block;
+}
+
+/* Bottom Features Line */
+.ExploreCollectionHero-features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #e2dad0;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.ExploreCollectionHero-dot {
+  color: #a88d5e;
+  font-size: 10px;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ExploreCollectionHero {
+    min-height: 320px;
+    padding: 50px 16px;
+  }
+
+  .ExploreCollectionHero-title {
+    font-size: 42px;
+    margin-bottom: 12px;
+  }
+
+  .ExploreCollectionHero-description {
+    font-size: 13.5px;
+    margin-bottom: 22px;
+  }
+
+  .ExploreCollectionHero-desktop-break {
+    display: inline;
+  }
+
+  .ExploreCollectionHero-line {
+    width: 20px;
+  }
+
+  .ExploreCollectionHero-features {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ExploreCollectionHero-title {
+    font-size: 36px;
+  }
+
+  .ExploreCollectionHero-tag-text {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+  }
+}
