@@ -21,6 +21,7 @@ import {
   ChevronRight,
   User,
   X,
+  BookOpen, // Blog Management के लिए आइकन जोड़ा गया
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -242,6 +243,19 @@ const Sidebar = ({ collapsed = false, mobileOpen = false, setMobileOpen = () => 
           >
             <Star size={18} />
             {showLabels && <span>Reviews</span>}
+          </NavLink>
+
+          {/* ================= BLOG MANAGEMENT (SINGLE) ================= */}
+
+          <NavLink
+            to="/admin/blogs"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
+            }
+          >
+            <BookOpen size={18} />
+            {showLabels && <span>Blog Management</span>}
           </NavLink>
 
           {/* ================= COUPONS (SINGLE) ================= */}

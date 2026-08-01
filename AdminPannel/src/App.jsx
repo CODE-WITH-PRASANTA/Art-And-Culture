@@ -30,6 +30,10 @@ import LoginForm from "./pages/LoginForm/LoginForm";
 import Protected from "./pages/Protected/Protected";
 import AddOrder from "./pages/AddOrder/AddOrder";
 import AddnewProduct from "./pages/AddnewProduct/AddnewProduct";
+import Reviews from "./Component/Reviews/Reviews";
+import BlogManagement from "./Component/BlogManagement/BlogManagement";
+import Customer from "./Component/Customer/Customer";
+import Cupons from "./Component/Cupons/Cupons";
 
 
 
@@ -79,6 +83,11 @@ const App = () => {
           />
           <Route path="/admin/products/all"element={<AddOrder/>}/>
           <Route path="/admin/products/add"element={<AddnewProduct/>}/>
+          <Route path="/admin/reviews"element={<Reviews/>}/>
+          <Route path="/admin/blogs"element={<BlogManagement/>}/>
+          <Route path="/admin/customers"element={<Customer/>}/>
+          <Route path="/admin/coupons"element={<Cupons/>}/>
+
 
           {/* CONTACT */}
 
