@@ -757,6 +757,28 @@ const Sidebar = ({
                 Add Category
               </span>
             </NavLink>
+
+             <NavLink
+              to="/admin/category/attribute"
+              onClick={
+                closeMobile
+              }
+              className={({
+                isActive,
+              }) =>
+                isActive
+                  ? "Sidebar-subLink Sidebar-subLink--active"
+                  : "Sidebar-subLink"
+              }
+            >
+              <Plus size={15} />
+
+              <span>
+               Attribute
+              </span>
+            </NavLink>
+
+
           </div>
         </div>
 

@@ -11,9 +11,8 @@ import {
 
 import AdminLayout from "../Layout/AdminLayout";
 
+// Pages
 import Dashboard from "./pages/Dashboard/Dashboard";
-import ContactTable from "./Component/ContactTable/ContactTable";
-
 import Order from "./pages/Order/Order";
 import Pooja from "./pages/Pooja/Pooja";
 import Testimonial from "./pages/Testimonial/Testimonial";
@@ -25,11 +24,16 @@ import ShopListPage from "./pages/ShopListPage/ShopListPage";
 import CategoryManage from "./pages/CategoryManage/CategoryManage";
 import TeamMember from "./pages/TeamMember/TeamMember";
 import FreshCollectionList from "./pages/FreshCollectionList/FreshCollectionList";
-
 import LoginForm from "./pages/LoginForm/LoginForm";
 import Protected from "./pages/Protected/Protected";
 
-
+// Components
+import ContactTable from "./Component/ContactTable/ContactTable";
+import Categories from "./Component/Categories/Categories";
+import Atttributes from "./Component/Attributes/Attributes";
+import Attributes from "./Component/Attributes/Attributes";
+import Addnewcategory from "./Component/Addnewcategory/Addnewcategory";
+import Orders from "./pages/Orders/Orders";
 
 const App = () => {
   return (
@@ -64,7 +68,7 @@ const App = () => {
             </Protected>
           }
         >
-          {/* DASHBOARD */}
+          {/* ================= DASHBOARD ================= */}
 
           <Route
             index
@@ -76,13 +80,11 @@ const App = () => {
             element={<Dashboard />}
           />
 
-          {/* CONTACT */}
+          {/* ================= CONTACT ================= */}
 
           <Route
             path="contact-table"
-            element={
-              <ContactTable />
-            }
+            element={<ContactTable />}
           />
 
           <Route
@@ -90,30 +92,34 @@ const App = () => {
             element={<Contact />}
           />
 
-          {/* ORDERS */}
+          {/* ================= ORDERS ================= */}
 
           <Route
-            path="orders"
+            path="order"
             element={<Order />}
           />
 
-          {/* POOJA */}
+           <Route
+            path="orders"
+            element={<Orders />}
+          />
+
+
+          {/* ================= POOJA ================= */}
 
           <Route
             path="pooja"
             element={<Pooja />}
           />
 
-          {/* TESTIMONIAL */}
+          {/* ================= TESTIMONIAL ================= */}
 
           <Route
             path="testimonial"
-            element={
-              <Testimonial />
-            }
+            element={<Testimonial />}
           />
 
-          {/* BLOG */}
+          {/* ================= BLOG ================= */}
 
           <Route
             path="blog/post/:id?"
@@ -125,47 +131,55 @@ const App = () => {
             element={<BlogView />}
           />
 
-          {/* SHOP */}
+          {/* ================= SHOP ================= */}
 
           <Route
             path="sub/view/:id?"
-            element={
-              <ShopManagement />
-            }
+            element={<ShopManagement />}
           />
 
           <Route
             path="sub/list"
-            element={
-              <ShopListPage />
-            }
+            element={<ShopListPage />}
           />
 
-          {/* CATEGORY */}
+          {/* ================= CATEGORY MANAGEMENT ================= */}
+
+          {/* <Route
+            path="category/add"
+            element={<CategoryManage />}
+          /> */}
+
+          {/* ================= CATEGORIES ================= */}
 
           <Route
             path="category/add"
-            element={
-              <CategoryManage />
-            }
+            element={<Categories />}
+          />
+          <Route
+            path="newcategory/add"
+            element={<Addnewcategory />}
           />
 
-          {/* TEAM */}
+          {/* ================= TEAM ================= */}
 
           <Route
             path="team/members-post"
-            element={
-              <TeamMember />
-            }
+            element={<TeamMember />}
           />
 
-          {/* FRESH COLLECTION */}
+
+           <Route
+            path="category/attribute"
+            element={<Attributes />}
+          />
+         
+
+          {/* ================= FRESH COLLECTION ================= */}
 
           <Route
             path="fresh-collection"
-            element={
-              <FreshCollectionList />
-            }
+            element={<FreshCollectionList />}
           />
         </Route>
 
