@@ -58,7 +58,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ✅ FIX: pointer-events must not block nav links — handle via CSS z-index */}
       <div
         className={`mobile-menu-overlay ${mobileMenuOpen ? "active" : ""}`}
         onClick={closeMobileMenu}
@@ -85,7 +84,6 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* ✅ FIX: Each link uses onClick={closeMobileMenu} and has z-index above overlay */}
             <div className="nav-links-container">
               <Link to="/" onClick={closeMobileMenu}>
                 <FaHome /> Home
@@ -116,17 +114,23 @@ const Navbar = () => {
 
           <div className="navbar-actions">
 
-            <Link to="/wishlist" className="icon-link" onClick={closeMobileMenu}>
-              <AiFillHeart />
-            </Link>
+            <div className="navbar-actions-cluster">
+              <Link to="/wishlist" className="icon-link" onClick={closeMobileMenu}>
+                <AiFillHeart />
+              </Link>
 
-            <button
-              type="button"
-              className="icon-link navbarAccountBtn"
-              onClick={() => setShowLogin(true)}
-            >
-              <FaUserCircle />
-            </button>
+              <Link to="/account" className="navbarActionBox" onClick={closeMobileMenu}>
+                <FaUserCircle className="navbarActionIcon" />
+              </Link>
+
+              <button
+                type="button"
+                className="icon-link cartnav__btn"
+                onClick={() => setOpenCart(true)}
+              >
+                <FaShoppingCart />
+              </button>
+            </div>
 
             {showLogin && (
               <div className="accountLoginOverlay" onClick={() => setShowLogin(false)}>
@@ -145,15 +149,9 @@ const Navbar = () => {
               </div>
             )}
 
-            <button
-              type="button"
-              className="icon-link cartnav__btn"
-              onClick={() => setOpenCart(true)}
-            >
-              <FaShoppingCart />
-            </button>
-
             {openCart && <ShopCart onClose={() => setOpenCart(false)} />}
+
+            <span className="navbar-actions-divider" aria-hidden="true" />
 
             <button
               type="button"

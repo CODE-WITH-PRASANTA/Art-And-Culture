@@ -1,14 +1,10 @@
 import React from 'react'
 import "./PoojaEssentials.css"
-import PoojaEssentialsBreadCrum from '../../Components/PoojaEssentialsBreadCrum/PoojaEssentialsBreadCrum'
-import FestiveGrid from '../../Components/FestiveGrid/FestiveGrid'
-
+import Products from '../../Components/Products/Products'
 const PoojaEssentials = () => {
   return (
     <>
-    <PoojaEssentialsBreadCrum/>
-    <FestiveGrid/>
-    
+    <Products/>
     </>
   )
 }

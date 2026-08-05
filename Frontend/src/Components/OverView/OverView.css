@@ -1,0 +1,121 @@
+/* Container Layout */
+.overview-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: #fcfbfa;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card Styling */
+.overview-card {
+  background-color: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+/* Header Section inside Card */
+.overview-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.overview-card-title {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.overview-see-all-btn {
+  background: none;
+  border: none;
+  color: #c59b4f;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.overview-see-all-btn:hover {
+  color: #b0873e;
+}
+
+/* Empty State Content Area */
+.overview-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.overview-icon-wrapper {
+  color: #d1d5db;
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.overview-empty-heading {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #2d2d2d;
+  margin: 0 0 4px 0;
+}
+
+.overview-empty-text {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 280px;
+  margin: 0 0 24px 0;
+  line-height: 1.4;
+}
+
+/* Golden Primary Action Button */
+.overview-action-btn {
+  background-color: #c59b4f;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.overview-action-btn:hover {
+  background-color: #b0873e;
+}
+
+.overview-action-btn:active {
+  transform: scale(0.98);
+}
+
+/* Responsive adjustments for tablet and desktop viewports */
+@media (min-width: 768px) {
+  .overview-container {
+    padding: 24px;
+  }
+  
+  .overview-card {
+    padding: 32px;
+  }
+}

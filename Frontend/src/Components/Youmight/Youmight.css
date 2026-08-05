@@ -1,572 +1,289 @@
-/* =========================================
-   Youmight.css
-========================================= */
+/* Youmight.css */
 
-* {
+/* Outer Section Setup with Soft Grey/Off-white Background from reference */
+.youmight-section-container {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 50px 20px;
+  background-color: #f7f5f6; /* Matching the exact background color of reference */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.youmight-section-container * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
-.youmight {
-  width: 100%;
-  padding: 50px 4%;
-  background: #f8f5f1;
-  overflow: hidden;
+/* Section Title alignment */
+.youmight-main-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 35px;
+  letter-spacing: 0.5px;
 }
 
-/* =========================================
-   TOP
-========================================= */
-
-.youmight__top {
+/* Relative Carousel Wrapper to layout navigation arrows */
+.youmight-carousel-wrapper {
+  position: relative;
+  max-width: 1250px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+}
 
-  margin-bottom: 30px;
+/* --- Responsive Layout Grid (4 columns default) --- */
+.youmight-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
-.youmight__heading {
-  font-size: clamp(26px, 3vw, 42px);
-  font-weight: 700;
-  color: #1c1c1c;
-  font-family: serif;
-  line-height: 1.3;
-}
-
-/* =========================================
-   ARROWS
-========================================= */
-
-.youmight__arrowRow {
-  display: flex;
-  gap: 10px;
-}
-
-.youmight__arrow {
-  width: 46px;
-  height: 46px;
-
+/* --- Carousel Navigation Buttons (Arrows) --- */
+.carousel-nav-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
   border-radius: 50%;
-  border: none;
-
-  background: #fff;
-  color: #222;
-
-  cursor: pointer;
-
-  font-size: 15px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  transition: 0.3s ease;
-
-  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+  font-size: 0.75rem;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  z-index: 10;
+  transition: all 0.2s ease;
 }
 
-.youmight__arrow:hover {
-  background: #c89028;
-  color: #fff;
+.carousel-nav-arrow:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-50%) scale(1.05);
 }
 
-/* =========================================
-   SLIDER
-========================================= */
+.arrow-left {
+  left: -15px;
+}
 
-.youmight__slider {
+.arrow-right {
+  right: -15px;
+}
+
+/* --- Individual Product Card Layout --- */
+.youmight-product-card {
   display: flex;
-  gap: 24px;
-
-  overflow-x: auto;
-  scroll-behavior: smooth;
-
-  scrollbar-width: none;
-
-  padding-bottom: 10px;
-}
-
-.youmight__slider::-webkit-scrollbar {
-  display: none;
-}
-
-/* =========================================
-   CARD
-========================================= */
-
-.youmight__card {
-  min-width: 320px;
-  max-width: 320px;
-  width: 320px;
-
-  flex-shrink: 0;
-
+  flex-direction: column;
   background: transparent;
-
-  transition: 0.35s ease;
 }
 
-.youmight__card:hover {
-  transform: translateY(-4px);
-}
-
-/* =========================================
-   IMAGE WRAPPER
-========================================= */
-
-.youmight__imageWrapper {
+/* Image Wrapper Box */
+.youmight-img-box {
   position: relative;
-
   width: 100%;
-  height: 340px;
-
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
   overflow: hidden;
-
-  border-radius: 24px;
-
-  background: #f2e2b9;
+  background-color: #fff;
 }
 
-/* =========================================
-   IMAGE
-========================================= */
-
-.youmight__image {
+.youmight-card-img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-  display: block;
-
-  transition: 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
-.youmight__card:hover .youmight__image {
+/* Discount Badge Tag placement top-left */
+.youmight-discount-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #a1361a; /* Deep Terracotta Red */
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 3px;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   HOVER INTERACTIONS EFFECT (Hidden by default, reveals on Hover)
+   ========================================================================== */
+.youmight-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.03); /* Subtle dim layer */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+/* Actions Utility Circle Buttons (Wishlist & View) */
+.youmight-circle-btn {
+  position: absolute;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.youmight-circle-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.youmight-circle-btn:hover {
+  background-color: #f9f9f9;
   transform: scale(1.05);
 }
 
-/* =========================================
-   DISCOUNT
-========================================= */
-
-.youmight__discount {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-
-  background: #b84e08;
-  color: #fff;
-
-  padding: 8px 14px;
-  border-radius: 30px;
-
-  font-size: 13px;
-  font-weight: 600;
-
-  z-index: 10;
+.wishlist-icon {
+  top: 12px;
 }
 
-/* =========================================
-   ICONS
-========================================= */
+.view-icon {
+  top: 52px;
+}
 
-.youmight__icons {
+/* Quick Add Button Center-Bottom Positioning */
+.youmight-quickadd-btn {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: calc(100% - 24px);
+  height: 38px;
+  background-color: #ffffff;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+.youmight-quickadd-btn:hover {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Trigger overlays on card Hover state */
+.youmight-product-card:hover .youmight-hover-overlay {
+  opacity: 1;
+}
+
+.youmight-product-card:hover .youmight-quickadd-btn {
+  transform: translateX(-50%) translateY(0);
+}
+
+.youmight-product-card:hover .youmight-card-img {
+  transform: scale(1.02);
+}
+
+/* --- Product Text Descriptions Details --- */
+.youmight-info-box {
+  padding: 12px 2px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
-  opacity: 0;
-  transform: translateX(16px);
-
-  transition: 0.35s ease;
-
-  z-index: 10;
+  gap: 5px;
 }
 
-.youmight__card:hover .youmight__icons {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.youmight__icon {
-  width: 48px;
-  height: 48px;
-
-  border-radius: 50%;
-  border: none;
-
-  background: #fff;
-  color: #222;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 16px;
-
-  transition: 0.3s ease;
-
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.youmight__icon:hover {
-  background: #c89028;
-  color: #fff;
-}
-
-.youmight__iconActive {
-  background: #c14d00;
-  color: #fff;
-}
-
-/* =========================================
-   QUICK BUTTON
-========================================= */
-
-.youmight__quickBtn {
-  position: absolute;
-
-  left: 50%;
-  bottom: 42px;
-
-  transform: translateX(-50%);
-
-  width: calc(100% - 56px);
-  height: 58px;
-
-  border: none;
-  border-radius: 16px;
-
-  background: #fff;
-  color: #222;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  z-index: 12;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transition: 0.35s ease;
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-.youmight__card:hover .youmight__quickBtn {
-  opacity: 1;
-  visibility: visible;
-  bottom: 54px;
-}
-
-.youmight__quickBtn:hover {
-  background: #c89028;
-  color: #fff;
-}
-
-/* =========================================
-   DOTS
-========================================= */
-
-.youmight__dots {
-  position: absolute;
-
-  left: 50%;
-  bottom: 16px;
-
-  transform: translateX(-50%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  z-index: 20;
-}
-
-.youmight__dot {
-  width: 9px;
-  height: 9px;
-
-  border-radius: 50%;
-  border: none;
-
-  cursor: pointer;
-
-  background: rgba(255, 255, 255, 0.55);
-
-  transition: 0.3s ease;
-}
-
-.youmight__dot:hover {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.youmight__dotActive {
-  width: 24px;
-  height: 9px;
-
-  border-radius: 20px;
-
-  background: #fff;
-}
-
-/* =========================================
-   CONTENT
-========================================= */
-
-.youmight__content {
-  padding-top: 18px;
-}
-
-/* =========================================
-   TITLE
-========================================= */
-
-.youmight__title {
-  font-size: 20px;
-  line-height: 1.6;
-  color: #1f1f1f;
-
-  margin-bottom: 14px;
-
+.youmight-product-name {
+  font-size: 0.85rem;
   font-weight: 500;
-
-  min-height: 64px;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-
-  overflow: hidden;
+  color: #333;
+  line-height: 1.4;
 }
 
-/* =========================================
-   RATING
-========================================= */
+/* Ratings Line alignment */
+.youmight-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: #555;
+}
 
-.youmight__rating {
+.youmight-rating-score {
+  font-weight: 600;
+}
+
+.youmight-stars-gold {
+  color: #dfa028; /* Golden stars from reference */
+  letter-spacing: 0.5px;
+}
+
+.youmight-reviews-count {
+  color: #777;
+}
+
+/* Price Line Alignment */
+.youmight-price-row {
   display: flex;
   align-items: center;
   gap: 8px;
-
-  margin-bottom: 14px;
-
-  flex-wrap: wrap;
+  margin-top: 2px;
 }
 
-.youmight__rating span {
-  font-size: 14px;
-  color: #333;
-}
-
-.youmight__stars {
-  display: flex;
-  gap: 3px;
-
-  color: #d4a548;
-  font-size: 14px;
-}
-
-.youmight__rating p {
-  font-size: 14px;
-  color: #444;
-}
-
-/* =========================================
-   PRICE
-========================================= */
-
-.youmight__priceRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.youmight__price {
-  font-size: 24px;
+.youmight-price-current {
+  font-size: 0.9rem;
   font-weight: 700;
   color: #222;
 }
 
-.youmight__oldPrice {
-  font-size: 18px;
-  color: #777;
+.youmight-price-old {
+  font-size: 0.82rem;
+  color: #888;
   text-decoration: line-through;
 }
 
-/* =========================================
-   LARGE TABLET
-========================================= */
-
-@media (max-width: 1200px) {
-  .youmight__heading {
-    font-size: 36px;
-  }
-
-  .youmight__card {
-    min-width: 280px;
-    max-width: 280px;
-    width: 280px;
-  }
-
-  .youmight__imageWrapper {
-    height: 300px;
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (Ensures grid handles all screen scales)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .youmight-products-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns on tablet sizes */
   }
 }
-
-/* =========================================
-   TABLET
-========================================= */
 
 @media (max-width: 768px) {
-  .youmight {
-    padding: 40px 18px;
+  .youmight-products-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns on large mobile sizes */
   }
-
-  .youmight__top {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 24px;
+  .carousel-nav-arrow {
+    display: none; /* Hide desktop arrows on mobile, letting user scroll naturally */
   }
-
-  .youmight__heading {
-    font-size: 30px;
-  }
-
-  .youmight__card {
-    min-width: 260px;
-    max-width: 260px;
-    width: 260px;
-  }
-
-  .youmight__imageWrapper {
-    height: 280px;
-  }
-
-  .youmight__title {
-    font-size: 17px;
-    min-height: 56px;
-  }
-
-  .youmight__price {
-    font-size: 22px;
-  }
-
-  .youmight__oldPrice {
-    font-size: 16px;
-  }
-
-  .youmight__rating span,
-  .youmight__rating p,
-  .youmight__stars {
-    font-size: 13px;
-  }
-
-  .youmight__icon {
-    width: 42px;
-    height: 42px;
-    font-size: 14px;
-  }
-
-  .youmight__quickBtn {
-    height: 50px;
-    font-size: 14px;
-
-    width: calc(100% - 40px);
-  }
-
-  .youmight__discount {
-    font-size: 12px;
-    padding: 7px 12px;
+  .youmight-products-grid {
+    overflow-x: auto;
+    gap: 15px;
   }
 }
 
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 480px) {
-  .youmight {
-    padding: 35px 14px;
-  }
-
-  .youmight__card {
-    min-width: 100%;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .youmight__heading {
-    font-size: 24px;
-  }
-
-  .youmight__imageWrapper {
-    height: 260px;
-  }
-
-  .youmight__title {
-    font-size: 16px;
-    min-height: auto;
-  }
-
-  .youmight__price {
-    font-size: 20px;
-  }
-
-  .youmight__oldPrice {
-    font-size: 14px;
-  }
-
-  .youmight__arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 13px;
-  }
-
-  .youmight__quickBtn {
-    width: calc(100% - 30px);
-    height: 46px;
-    font-size: 13px;
-
-    bottom: 44px;
-  }
-
-  .youmight__card:hover .youmight__quickBtn {
-    bottom: 52px;
-  }
-
-  .youmight__icon {
-    width: 38px;
-    height: 38px;
-    font-size: 13px;
-  }
-
-  .youmight__discount {
-    top: 12px;
-    left: 12px;
-  }
-
-  .youmight__icons {
-    top: 12px;
-    right: 12px;
-  }
-
-  .youmight__dots {
-    bottom: 12px;
+  .youmight-products-grid {
+    grid-template-columns: repeat(1, 1fr); /* 1 Column on thin mobile screens */
   }
 }

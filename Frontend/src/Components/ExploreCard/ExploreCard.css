@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500&display=swap');
+
+.ExploreCard {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7f4ea; /* Fallback warm cream background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ExploreCard-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Header Styling */
+.ExploreCard-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.ExploreCard-subtitle {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c09d58;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.ExploreCard-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ExploreCard-ampersand {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.ExploreCard-italic {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #c09d58;
+}
+
+/* Top Section - 3 Cards */
+.ExploreCard-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.ExploreCard-top-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 36px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ExploreCard-top-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.ExploreCard-icon-wrapper.circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #d8be82;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b08d46;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.ExploreCard-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.ExploreCard-card-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0;
+}
+
+/* Bottom Section - 4 Feature Cards */
+.ExploreCard-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ExploreCard-bottom-card {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(220, 210, 190, 0.6);
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+
+.ExploreCard-bottom-card:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.ExploreCard-icon-wrapper.filled {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f3ebd8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b08d46;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.ExploreCard-feature-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+}
+
+.ExploreCard-feature-subtitle {
+  font-size: 13px;
+  color: #777777;
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .ExploreCard-top-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ExploreCard-bottom-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ExploreCard {
+    padding: 40px 16px;
+  }
+
+  .ExploreCard-title {
+    font-size: 30px;
+  }
+
+  .ExploreCard-top-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ExploreCard-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ExploreCard-top-card {
+    padding: 26px 20px;
+  }
+}

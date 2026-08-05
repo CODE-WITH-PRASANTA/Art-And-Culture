@@ -1,145 +1,55 @@
 // src/Layout/Sidebar.jsx
 
-import React, {
-  useState,
-  useEffect,
-} from "react";
-
-import {
-  NavLink,
-  useLocation,
-} from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
-  Phone,
-  ShoppingCart,
-  Newspaper,
   Package,
-  MessageSquare,
+  List,
+  Plus,
+  Tag,
+  SlidersHorizontal,
+  ShoppingCart,
+  Users,
+  Star,
+  Ticket,
+  Image,
   Settings,
+  FileText,
   LogOut,
   ChevronDown,
   ChevronRight,
-  List,
-  Eye,
-  Gift,
-  Tag,
-  Plus,
-  Sparkles,
-  Gem,
+  User,
+  X,
+  BookOpen, // Blog Management के लिए आइकन जोड़ा गया
 } from "lucide-react";
 
 import "./Sidebar.css";
 
-const Sidebar = ({
-  collapsed,
-  mobileOpen,
-  setMobileOpen,
-}) => {
-  const location =
-    useLocation();
+const Sidebar = ({ collapsed = false, mobileOpen = false, setMobileOpen = () => {} }) => {
+  const location = useLocation();
+  const [openMenu, setOpenMenu] = useState(null);
 
-  const [openMenu, setOpenMenu] =
-    useState(null);
+  // Labels should always show on mobile (when the drawer is open),
+  // and only hide on desktop when explicitly collapsed.
+  const showLabels = mobileOpen ? true : !collapsed;
 
-  // ================= AUTO OPEN =================
+  // ================= AUTO OPEN FOR MULTI-LEVEL MENUS =================
 
   useEffect(() => {
-    const path =
-      location.pathname;
+    const path = location.pathname;
 
-    if (
-      path.startsWith(
-        "/admin/dashboard"
-      )
-    ) {
-      setOpenMenu(
-        "dashboard"
-      );
-    } else if (
-      path.startsWith(
-        "/admin/contact-table"
-      )
-    ) {
-      setOpenMenu(
-        "contactTable"
-      );
-    } else if (
-      path.startsWith(
-        "/admin/contact"
-      )
-    ) {
-      setOpenMenu(
-        "contact"
-      );
-    } else if (
-      path.startsWith(
-        "/admin/orders"
-      )
-    ) {
-      setOpenMenu("orders");
-    } else if (
-      path.startsWith(
-        "/admin/pooja"
-      )
-    ) {
-      setOpenMenu("pooja");
-    } else if (
-      path.startsWith(
-        "/admin/testimonial"
-      )
-    ) {
-      setOpenMenu(
-        "testimonial"
-      );
-    } else if (
-      path.startsWith(
-        "/admin/sub"
-      )
-    ) {
-      setOpenMenu("sub");
-    } else if (
-      path.startsWith(
-        "/admin/blog"
-      )
-    ) {
-      setOpenMenu("blog");
-    } else if (
-      path.startsWith(
-        "/admin/team"
-      )
-    ) {
-      setOpenMenu("team");
-    } else if (
-      path.startsWith(
-        "/admin/category"
-      )
-    ) {
-      setOpenMenu(
-        "category"
-      );
-    } else if (
-      path.startsWith(
-        "/admin/fresh-collection"
-      )
-    ) {
-      setOpenMenu(
-        "freshCollection"
-      );
+    if (path.startsWith("/admin/products")) {
+      setOpenMenu("products");
+    } else {
+      setOpenMenu(null);
     }
   }, [location.pathname]);
 
   // ================= TOGGLE MENU =================
 
-  const toggleMenu = (
-    menu
-  ) => {
-    setOpenMenu(
-      openMenu === menu
-        ? null
-        : menu
-    );
+  const toggleMenu = (menu) => {
+    setOpenMenu(openMenu === menu ? null : menu);
   };
 
   // ================= MOBILE CLOSE =================
@@ -149,797 +59,285 @@ const Sidebar = ({
   };
 
   return (
-    <div
-      className={`Sidebar-container
-      ${
-        collapsed
-          ? "Sidebar-container--collapsed"
-          : ""
-      }
-      ${
-        mobileOpen
-          ? "Sidebar-container--mobileOpen"
-          : ""
-      }
-    `}
-    >
-      {/* ================= TOP ================= */}
+    <>
+      {mobileOpen && (
+        <div className="Sidebar-overlay" onClick={closeMobile} aria-hidden="true" />
+      )}
 
-      <div className="Sidebar-top">
-        <div className="Sidebar-logoBox">
-          A
+      <div
+        className={`Sidebar-container 
+        ${collapsed && !mobileOpen ? "Sidebar-container--collapsed" : ""} 
+        ${mobileOpen ? "Sidebar-container--mobileOpen" : ""}
+      `}
+      >
+        {/* ================= TOP ================= */}
+
+        <div className="Sidebar-top">
+          <div className="Sidebar-topLeft">
+            <div className="Sidebar-logoBox">A</div>
+
+            {showLabels && (
+              <div className="Sidebar-logoText">
+                <h2>Admin Panel</h2>
+                <p>Management System</p>
+              </div>
+            )}
+          </div>
+
+          {/* CLOSE BUTTON — MOBILE ONLY */}
+          <button
+            type="button"
+            className="Sidebar-closeBtn"
+            onClick={closeMobile}
+            aria-label="Close sidebar"
+          >
+            <X size={20} />
+          </button>
         </div>
 
-        {!collapsed && (
-          <div className="Sidebar-logoText">
-            <h2>
-              Admin Panel
-            </h2>
+        {/* ================= MENU ================= */}
 
-            <p>
-              Management
-              System
-            </p>
-          </div>
-        )}
-      </div>
+        <div className="Sidebar-menu">
+          {/* ================= DASHBOARD (SINGLE) ================= */}
 
-      {/* ================= MENU ================= */}
-
-      <div className="Sidebar-menu">
-
-        {/* ================= DASHBOARD ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "dashboard"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "dashboard"
-              )
+          <NavLink
+            to="/admin/dashboard"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
             }
           >
             <LayoutDashboard size={18} />
+            {showLabels && <span>Dashboard</span>}
+          </NavLink>
 
-            {!collapsed && (
-              <>
-                <span>
-                  Dashboard
-                </span>
+          {/* ================= PRODUCTS (DROPDOWN) ================= */}
 
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "dashboard" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/dashboard"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-
-              <span>
-                Dashboard
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= CONTACT TABLE ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "contactTable"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
           <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "contactTable"
-              )
-            }
+            className={`Sidebar-dropdown ${
+              openMenu === "products" ? "Sidebar-dropdown--open" : ""
+            }`}
           >
-            <MessageSquare size={18} />
-
-            {!collapsed && (
-              <>
-                <span>
-                  Contact Table
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "contactTable" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/contact-table"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
+            <div
+              className="Sidebar-link Sidebar-dropdownHeader"
+              onClick={() => toggleMenu("products")}
             >
-              <Eye size={15} />
+              <Package size={18} />
 
-              <span>
-                Contact Table
-              </span>
-            </NavLink>
+              {showLabels && (
+                <>
+                  <span>Products</span>
+                  <div className="Sidebar-arrow">
+                    {openMenu === "products" ? (
+                      <ChevronDown size={16} />
+                    ) : (
+                      <ChevronRight size={16} />
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="Sidebar-submenu">
+              <NavLink
+                to="/admin/products/all"
+                onClick={closeMobile}
+                className={({ isActive }) =>
+                  isActive
+                    ? "Sidebar-subLink Sidebar-subLink--active"
+                    : "Sidebar-subLink"
+                }
+              >
+                <List size={14} />
+                <span>All Products</span>
+              </NavLink>
+
+              <NavLink
+                to="/admin/products/add"
+                onClick={closeMobile}
+                className={({ isActive }) =>
+                  isActive
+                    ? "Sidebar-subLink Sidebar-subLink--active"
+                    : "Sidebar-subLink"
+                }
+              >
+                <Plus size={14} />
+                <span>Add New Product</span>
+              </NavLink>
+
+              <NavLink
+                to="/admin/products/categories"
+                onClick={closeMobile}
+                className={({ isActive }) =>
+                  isActive
+                    ? "Sidebar-subLink Sidebar-subLink--active"
+                    : "Sidebar-subLink"
+                }
+              >
+                <Tag size={14} />
+                <span>Categories</span>
+              </NavLink>
+
+              <NavLink
+                to="/admin/products/attributes"
+                onClick={closeMobile}
+                className={({ isActive }) =>
+                  isActive
+                    ? "Sidebar-subLink Sidebar-subLink--active"
+                    : "Sidebar-subLink"
+                }
+              >
+                <SlidersHorizontal size={14} />
+                <span>Attributes</span>
+              </NavLink>
+            </div>
           </div>
-        </div>
 
-        {/* ================= CONTACT ================= */}
+          {/* ================= ORDERS (SINGLE) ================= */}
 
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "contact"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "contact"
-              )
-            }
-          >
-            <Phone size={18} />
-
-            {!collapsed && (
-              <>
-                <span>
-                  Contact
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "contact" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/contact"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-
-              <span>
-                Contact View
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= ORDERS ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "orders"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "orders"
-              )
+          <NavLink
+            to="/admin/orders"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
             }
           >
             <ShoppingCart size={18} />
+            {showLabels && <span>Orders</span>}
+          </NavLink>
 
-            {!collapsed && (
-              <>
-                <span>
-                  Orders
-                </span>
+          {/* ================= CATEGORIES (SINGLE) ================= */}
 
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "orders" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/orders"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-
-              <span>
-                Orders View
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= POOJA ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "pooja"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "pooja"
-              )
-            }
-          >
-            <Sparkles size={18} />
-
-            {!collapsed && (
-              <>
-                <span>
-                  Pooja
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "pooja" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/pooja"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-
-              <span>
-                Pooja View
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= TEAM ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "team"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "team"
-              )
-            }
-          >
-            <Gift size={18} />
-
-            {!collapsed && (
-              <>
-                <span>
-                  Team Members
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "team" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/team/members-post"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Package size={15} />
-
-              <span>
-                Post Team
-                Members
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= BLOG ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "blog"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "blog"
-              )
-            }
-          >
-            <Newspaper size={18} />
-
-            {!collapsed && (
-              <>
-                <span>
-                  Blog
-                  Management
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "blog" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/blog/post"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={16} />
-
-              <span>
-                Blog Post
-              </span>
-            </NavLink>
-
-            <NavLink
-              to="/admin/blog/view"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <List size={16} />
-
-              <span>
-                Blog View
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= TESTIMONIAL ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "testimonial"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "testimonial"
-              )
-            }
-          >
-            <Settings size={18} />
-
-            {!collapsed && (
-              <>
-                <span>
-                  Testimonial
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "testimonial" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/testimonial"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-
-              <span>
-                Testimonial
-                View
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= CATEGORY ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "category"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "category"
-              )
+          <NavLink
+            to="/admin/categories"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
             }
           >
             <Tag size={18} />
+            {showLabels && <span>Categories</span>}
+          </NavLink>
 
-            {!collapsed && (
-              <>
-                <span>
-                  Category
-                </span>
+          {/* ================= CUSTOMERS (SINGLE) ================= */}
 
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "category" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/category/add"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Plus size={15} />
-
-              <span>
-                Add Category
-              </span>
-            </NavLink>
-
-             <NavLink
-              to="/admin/category/attribute"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Plus size={15} />
-
-              <span>
-               Attribute
-              </span>
-            </NavLink>
-
-
-          </div>
-        </div>
-
-        {/* ================= SHOP ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "sub"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "sub"
-              )
+          <NavLink
+            to="/admin/customers"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
             }
           >
-            <Package size={18} />
+            <Users size={18} />
+            {showLabels && <span>Customers</span>}
+          </NavLink>
 
-            {!collapsed && (
-              <>
-                <span>
-                  Shop
-                  Management
-                </span>
+          {/* ================= REVIEWS (SINGLE) ================= */}
 
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "sub" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/sub/view"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={16} />
-
-              <span>
-                Shop View
-              </span>
-            </NavLink>
-
-            <NavLink
-              to="/admin/sub/list"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <List size={16} />
-
-              <span>
-                Shop List
-              </span>
-            </NavLink>
-          </div>
-        </div>
-
-        {/* ================= FRESH COLLECTION ================= */}
-
-        <div
-          className={`Sidebar-dropdown ${
-            openMenu ===
-            "freshCollection"
-              ? "Sidebar-dropdown--open"
-              : ""
-          }`}
-        >
-          <div
-            className="Sidebar-link Sidebar-dropdownHeader"
-            onClick={() =>
-              toggleMenu(
-                "freshCollection"
-              )
+          <NavLink
+            to="/admin/reviews"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
             }
           >
-            <Gem size={18} />
+            <Star size={18} />
+            {showLabels && <span>Reviews</span>}
+          </NavLink>
 
-            {!collapsed && (
+          {/* ================= BLOG MANAGEMENT (SINGLE) ================= */}
+
+          <NavLink
+            to="/admin/blogs"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
+            }
+          >
+            <BookOpen size={18} />
+            {showLabels && <span>Blog Management</span>}
+          </NavLink>
+
+          {/* ================= COUPONS (SINGLE) ================= */}
+
+          <NavLink
+            to="/admin/coupons"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
+            }
+          >
+            <Ticket size={18} />
+            {showLabels && <span>Coupons</span>}
+          </NavLink>
+
+          {/* ================= BANNERS (SINGLE) ================= */}
+
+          <NavLink
+            to="/admin/banners"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
+            }
+          >
+            <Image size={18} />
+            {showLabels && <span>Banners</span>}
+          </NavLink>
+
+          {/* ================= SETTINGS (SINGLE) ================= */}
+
+          <NavLink
+            to="/admin/settings"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
+            }
+          >
+            <Settings size={18} />
+            {showLabels && <span>Settings</span>}
+          </NavLink>
+
+          {/* ================= REPORTS (SINGLE) ================= */}
+
+          <NavLink
+            to="/admin/reports"
+            onClick={closeMobile}
+            className={({ isActive }) =>
+              `Sidebar-link ${isActive ? "Sidebar-link--active" : ""}`
+            }
+          >
+            <FileText size={18} />
+            {showLabels && <span>Reports</span>}
+          </NavLink>
+        </div>
+
+        {/* ================= FOOTER ================= */}
+
+        <div className="Sidebar-footer">
+          <div className="Sidebar-profileCard">
+            <div className="Sidebar-profileAvatar">
+              <User size={18} />
+              <span className="Sidebar-onlineDot" />
+            </div>
+
+            {showLabels && (
               <>
-                <span>
-                  Fresh Collection
-                </span>
-
-                <div className="Sidebar-arrow">
-                  {openMenu ===
-                  "freshCollection" ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <ChevronRight size={16} />
-                  )}
+                <div className="Sidebar-profileInfo">
+                  <p className="Sidebar-profileName">Admin User</p>
+                  <p className="Sidebar-profileRole">Super Admin</p>
                 </div>
+                <ChevronDown size={15} className="Sidebar-profileChevron" />
               </>
             )}
           </div>
 
-          <div className="Sidebar-submenu">
-            <NavLink
-              to="/admin/fresh-collection"
-              onClick={
-                closeMobile
-              }
-              className={({
-                isActive,
-              }) =>
-                isActive
-                  ? "Sidebar-subLink Sidebar-subLink--active"
-                  : "Sidebar-subLink"
-              }
-            >
-              <Eye size={15} />
-
-              <span>
-                Fresh Collection
-              </span>
-            </NavLink>
-          </div>
+          <button className="Sidebar-logoutBtn">
+            <LogOut size={18} />
+            {showLabels && <span>Logout</span>}
+          </button>
         </div>
       </div>
-
-      {/* ================= FOOTER ================= */}
-
-      <div className="Sidebar-footer">
-        <button className="Sidebar-logoutBtn">
-          <LogOut size={18} />
-
-          {!collapsed && (
-            <span>
-              Logout
-            </span>
-          )}
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

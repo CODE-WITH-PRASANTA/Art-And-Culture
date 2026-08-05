@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./ShopDetailsYoumight.css";
+import API from "../../api/axios";
 
 import {
   FiFileText,
@@ -8,204 +9,211 @@ import {
   FiHelpCircle,
   FiPlus,
   FiMinus,
+  FiTruck,
+  FiShield,
+  FiMapPin
 } from "react-icons/fi";
 
-const ShopDetailsYoumight = () => {
+const ShopDetailsYoumight = ({ productId }) => {
+  const [details, setDetails] = useState(null);
+  const [loading, setLoading] = useState(false); // 1. Default to false so it doesn't flash infinitely if ID is missing
   const [activeTab, setActiveTab] = useState("about");
   const [openFaq, setOpenFaq] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(""); // Track explicit errors
 
-  const scrollToSection = (id) => {
+  const cleanText = (value) => {
+    if (!value) return "";
+    return value.replace(/<[^>]*>/g, "").trim();
+  };
+
+  const splitData = (value) => {
+    if (!value) return [];
+    return cleanText(value)
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  };
+
+  useEffect(() => {
+    // Check if productId is missing or invalid
+    if (!productId) {
+      console.warn("ShopDetailsYoumight: Missing or invalid productId prop:", productId);
+      setDetails(null);
+      setLoading(false);
+      return; 
+    }
+
+    setLoading(true);
+    setDetails(null);
+    setErrorMessage("");
+    setActiveTab("about");
+    setOpenFaq(null);
+
+    let isMounted = true;
+
+    const fetchProductDetails = async () => {
+      try {
+        console.log(`Fetching from: ${API.defaults.baseURL || ""}/shopview/${productId}`);
+        const response = await API.get(`/shopview/${productId}`);
+        
+        console.log("SHOPVIEW DATA RECEIVED:", response.data);
+
+        if (isMounted) {
+          if (response.data && response.data.data) {
+            setDetails(response.data.data);
+          } else {
+            // Data key missing in API structure
+            setErrorMessage("Invalid data format returned by server.");
+          }
+        }
+      } catch (error) {
+        console.error("FETCH DETAILS CRITICAL ERROR:", error);
+        if (isMounted) {
+          const apiMsg = error.response?.data?.message || error.response?.data;
+          setErrorMessage(apiMsg || error.message || "Network Error");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false); // Guaranteed fallback closure
+        }
+      }
+    };
+
+    fetchProductDetails();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [productId]);
+
+  const scrollSection = (id) => {
     setActiveTab(id);
-
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
-      block: "start",
+      block: "start"
     });
   };
 
-  const faqs = [
-    {
-      q: "How long does the gold/silver plating last?",
-      a: "With proper care and maintenance, the plating remains beautiful for years."
-    },
-    {
-      q: "Can these idols be customized?",
-      a: "Yes, customization options are available for selected products."
-    },
-    {
-      q: "Is there any plating quality guarantee?",
-      a: "Every product undergoes strict quality inspection before dispatch."
-    },
-    {
-      q: "Are these idols suitable for gifting?",
-      a: "Absolutely. They are perfect for festivals, weddings and housewarming gifts."
-    }
-  ];
+  // UI Handlers based on state
+  if (loading) {
+    return <div className="shopdetails-loading">Loading Product Details (ID: {productId || "None"})...</div>;
+  }
+
+  if (errorMessage) {
+    return <div className="shopdetails-loading" style={{ color: "red" }}>Error: {errorMessage}</div>;
+  }
+
+  if (!details) {
+    return <div className="shopdetails-loading">No product profile loaded. Check backend connectivity.</div>;
+  }
+
+  const sizes = splitData(details.sizeManagement);
 
   return (
     <section className="shopdetailsyoumight">
-
-      {/* Switch Navigation */}
-
+      {/* ================= TAB BUTTON ================= */}
       <div className="shopdetailsyoumight__switchbar">
         <button
-          className={`shopdetailsyoumight__tab ${
-            activeTab === "about" ? "active" : ""
-          }`}
-          onClick={() => scrollToSection("about")}
+          className={`shopdetailsyoumight__tab ${activeTab === "about" ? "active" : ""}`}
+          onClick={() => scrollSection("about")}
         >
-          <FiFileText />
-          About Product
+          <FiFileText /> About Product
         </button>
 
         <button
-          className={`shopdetailsyoumight__tab ${
-            activeTab === "size" ? "active" : ""
-          }`}
-          onClick={() => scrollToSection("size")}
+          className={`shopdetailsyoumight__tab ${activeTab === "size" ? "active" : ""}`}
+          onClick={() => scrollSection("size")}
         >
-          <FiPackage />
-          Size & Weight
+          <FiPackage /> Size
         </button>
 
         <button
-          className={`shopdetailsyoumight__tab ${
-            activeTab === "material" ? "active" : ""
-          }`}
-          onClick={() => scrollToSection("material")}
+          className={`shopdetailsyoumight__tab ${activeTab === "material" ? "active" : ""}`}
+          onClick={() => scrollSection("material")}
         >
-          <FiLayers />
-          Material
+          <FiLayers /> Material
         </button>
 
         <button
-          className={`shopdetailsyoumight__tab ${
-            activeTab === "faq" ? "active" : ""
-          }`}
-          onClick={() => scrollToSection("faq")}
+          className={`shopdetailsyoumight__tab ${activeTab === "faq" ? "active" : ""}`}
+          onClick={() => scrollSection("faq")}
         >
-          <FiHelpCircle />
-          FAQs
+          <FiHelpCircle /> FAQs
         </button>
       </div>
 
-      {/* About Product */}
-
-      <div
-        id="about"
-        className="shopdetailsyoumight__card"
-      >
-        <h3>
-          <FiFileText />
-          About the Product
-        </h3>
-
-        <p>
-          Bring home the sacred presence of Murugan through this
-          finely crafted 999 silver-plated idol.
-        </p>
-
-        <p>
-          The design features divine detailing and premium
-          craftsmanship, symbolizing courage, wisdom,
-          protection and positivity.
-        </p>
-
-        <p>
-          Perfect for pooja spaces, office desks,
-          study tables and gifting purposes.
-        </p>
+      {/* ================= PRODUCT INFORMATION ================= */}
+      <div className="shopdetailsyoumight__card">
+        <h3>Product Information</h3>
+        <p><b>Product Name:</b> {details.productTitle}</p>
+        <p><b>Quantity:</b> {details.quantity}</p>
+        <p><b>New Price:</b> ₹{details.newPrice}</p>
+        <p><b>Old Price:</b> ₹{details.oldPrice}</p>
+        <p><b>Discount:</b> {details.discount}%</p>
       </div>
 
-      {/* Size */}
-
-      <div
-        id="size"
-        className="shopdetailsyoumight__card"
-      >
-        <h3>
-          <FiPackage />
-          Size & Weight
-        </h3>
-
-        <div className="shopdetailsyoumight__sizegrid">
-          <div className="shopdetailsyoumight__sizebox">
-            <h4>3.5 Inch</h4>
-            <ul>
-              <li>4.8 × 8.5 cm</li>
-              <li>2 × 3.5 inch</li>
-              <li>Weight : 80g</li>
-            </ul>
-          </div>
-
-          <div className="shopdetailsyoumight__sizebox">
-            <h4>5 Inch</h4>
-            <ul>
-              <li>6.8 × 13 cm</li>
-              <li>3 × 5 inch</li>
-              <li>Weight : 210g</li>
-            </ul>
-          </div>
-        </div>
+      {/* ================= ABOUT PRODUCT ================= */}
+      <div id="about" className="shopdetailsyoumight__card">
+        <h3><FiFileText /> About Product</h3>
+        <p>{details.aboutProduct ? cleanText(details.aboutProduct) : cleanText(details.productDetails)}</p>
       </div>
 
-      {/* Material */}
-
-      <div
-        id="material"
-        className="shopdetailsyoumight__card"
-      >
-        <h3>
-          <FiLayers />
-          Product Material
-        </h3>
-
-        <p>
-          Crafted using premium quality resin and
-          finished with high-quality silver plating
-          for an elegant devotional appearance.
-        </p>
-      </div>
-
-      {/* FAQ */}
-
-      <div
-        id="faq"
-        className="shopdetailsyoumight__card"
-      >
-        <h2 className="shopdetailsyoumight__faqtitle">
-          Frequently Asked Questions
-        </h2>
-
-        {faqs.map((item, index) => (
-          <div
-            key={index}
-            className="shopdetailsyoumight__faqitem"
-          >
-            <button
-              className="shopdetailsyoumight__faqquestion"
-              onClick={() =>
-                setOpenFaq(
-                  openFaq === index ? null : index
-                )
-              }
-            >
-              <span>{item.q}</span>
-
-              {openFaq === index ? (
-                <FiMinus />
-              ) : (
-                <FiPlus />
-              )}
-            </button>
-
-            {openFaq === index && (
-              <div className="shopdetailsyoumight__faqanswer">
-                {item.a}
+      {/* ================= SIZE MANAGEMENT ================= */}
+      <div id="size" className="shopdetailsyoumight__card">
+        <h3><FiPackage /> Size Options</h3>
+        {sizes.length > 0 ? (
+          <div className="shopdetailsyoumight__sizegrid">
+            {sizes.map((size, index) => (
+              <div className="shopdetailsyoumight__sizebox" key={index}>
+                <h4>{size}</h4>
+                <ul>
+                  {details.imageRatio && <li>Image Ratio: {details.imageRatio}</li>}
+                  {details.deliveryTime && <li>Delivery: {details.deliveryTime}</li>}
+                </ul>
               </div>
-            )}
+            ))}
           </div>
-        ))}
+        ) : (
+          <p>No size information available</p>
+        )}
+      </div>
+
+      {/* ================= MATERIAL ================= */}
+      <div id="material" className="shopdetailsyoumight__card">
+        <h3><FiLayers /> Material Details</h3>
+        <p>{details.mainMaterial ? cleanText(details.mainMaterial) : "No material information available"}</p>
+      </div>
+
+      {/* ================= DELIVERY & WARRANTY ================= */}
+      <div className="shopdetailsyoumight__card">
+        <h3><FiTruck /> Delivery & Protection</h3>
+        <p><FiMapPin />&nbsp;<b>Location:</b> {details.location || "Not available"}</p>
+        <p><b>Delivery Time:</b> {details.deliveryTime || "Not available"}</p>
+        <p><FiShield />&nbsp;<b>Guarantee:</b> {details.guarantee || "Not available"}</p>
+        <p><b>Warranty:</b> {details.warranty || "Not available"}</p>
+      </div>
+
+      {/* ================= FAQ SECTION ================= */}
+      <div id="faq" className="shopdetailsyoumight__card">
+        <h2 className="shopdetailsyoumight__faqtitle">Frequently Asked Questions</h2>
+        {details.faqs && details.faqs.length > 0 ? (
+          details.faqs.map((item, index) => (
+            <div className="shopdetailsyoumight__faqitem" key={index}>
+              <button
+                className="shopdetailsyoumight__faqquestion"
+                onClick={() => setOpenFaq(openFaq === index ? null : index)}
+              >
+                <span>{item.question}</span>
+                {openFaq === index ? <FiMinus /> : <FiPlus />}
+              </button>
+              {openFaq === index && (
+                <div className="shopdetailsyoumight__faqanswer">{item.answer}</div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>No FAQ available for this product.</p>
+        )}
       </div>
     </section>
   );

@@ -26,6 +26,12 @@ import TeamMember from "./pages/TeamMember/TeamMember";
 import FreshCollectionList from "./pages/FreshCollectionList/FreshCollectionList";
 import LoginForm from "./pages/LoginForm/LoginForm";
 import Protected from "./pages/Protected/Protected";
+import AddOrder from "./pages/AddOrder/AddOrder";
+import AddnewProduct from "./pages/AddnewProduct/AddnewProduct";
+import Reviews from "./Component/Reviews/Reviews";
+import BlogManagement from "./Component/BlogManagement/BlogManagement";
+import Customer from "./Component/Customer/Customer";
+import Cupons from "./Component/Cupons/Cupons";
 
 // Components
 import ContactTable from "./Component/ContactTable/ContactTable";
@@ -79,6 +85,13 @@ const App = () => {
             path="dashboard"
             element={<Dashboard />}
           />
+          <Route path="/admin/products/all"element={<AddOrder/>}/>
+          <Route path="/admin/products/add"element={<AddnewProduct/>}/>
+          <Route path="/admin/reviews"element={<Reviews/>}/>
+          <Route path="/admin/blogs"element={<BlogManagement/>}/>
+          <Route path="/admin/customers"element={<Customer/>}/>
+          <Route path="/admin/coupons"element={<Cupons/>}/>
+
 
           {/* ================= CONTACT ================= */}
 
@@ -86,11 +99,9 @@ const App = () => {
             path="contact-table"
             element={<ContactTable />}
           />
+          
 
-          <Route
-            path="contact"
-            element={<Contact />}
-          />
+         
 
           {/* ================= ORDERS ================= */}
 
@@ -98,6 +109,7 @@ const App = () => {
             path="order"
             element={<Order />}
           />
+          
 
            <Route
             path="orders"
@@ -107,10 +119,7 @@ const App = () => {
 
           {/* ================= POOJA ================= */}
 
-          <Route
-            path="pooja"
-            element={<Pooja />}
-          />
+         
 
           {/* ================= TESTIMONIAL ================= */}
 
@@ -121,15 +130,7 @@ const App = () => {
 
           {/* ================= BLOG ================= */}
 
-          <Route
-            path="blog/post/:id?"
-            element={<Blog />}
-          />
-
-          <Route
-            path="blog/view"
-            element={<BlogView />}
-          />
+        
 
           {/* ================= SHOP ================= */}
 
@@ -142,6 +143,9 @@ const App = () => {
             path="sub/list"
             element={<ShopListPage />}
           />
+         
+
+         
 
           {/* ================= CATEGORY MANAGEMENT ================= */}
 
@@ -160,6 +164,7 @@ const App = () => {
             path="newcategory/add"
             element={<Addnewcategory />}
           />
+        
 
           {/* ================= TEAM ================= */}
 
@@ -167,6 +172,7 @@ const App = () => {
             path="team/members-post"
             element={<TeamMember />}
           />
+         
 
 
            <Route
@@ -181,6 +187,7 @@ const App = () => {
             path="fresh-collection"
             element={<FreshCollectionList />}
           />
+         
         </Route>
 
         {/* ================= INVALID ROUTE ================= */}

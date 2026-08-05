@@ -1,0 +1,186 @@
+/* --- Collection.css --- */
+
+.collection {
+  width: 100%;
+  background-color: #fcfbf7; /* Off-white warm background */
+  padding: 60px 40px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.collection__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header Area */
+.collection__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 35px;
+}
+
+.collection__section-subtitle {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #c39d63; /* Elegant Gold */
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.collection__section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  color: #333333;
+  font-weight: 500;
+  margin: 0;
+}
+
+.collection__highlight-text {
+  font-style: italic;
+  color: #c39d63;
+  font-weight: 400;
+}
+
+/* Navigation Buttons */
+.collection__slider-arrows {
+  display: flex;
+  gap: 12px;
+}
+
+.collection__nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #e0d8cd;
+  background: #ffffff;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.collection__nav-btn:hover {
+  border-color: #c39d63;
+  color: #c39d63;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Horizontal Scroll Slider Track */
+.collection__slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 15px;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.collection__slider::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+/* Arched Card Styling */
+.collection__arch-card {
+  min-width: 220px;
+  max-width: 220px;
+  height: 340px;
+  position: relative;
+  border-top-left-radius: 110px; /* Creates the top arch dome shape */
+  border-top-right-radius: 110px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid #d4af37; /* Thin Gold Border around arch */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.collection__arch-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.collection__arch-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card Bottom Dark Gradient & Text Overlay */
+.collection__arch-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 12px 15px 12px;
+  background: linear-gradient(to top, rgba(20, 10, 5, 0.92) 0%, rgba(20, 10, 5, 0.5) 60%, transparent 100%);
+  text-align: center;
+  color: #ffffff;
+}
+
+.collection__card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.collection__card-subtitle {
+  font-size: 11px;
+  color: #e5c185; /* Soft gold subtitle color */
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .collection {
+    padding: 40px 20px;
+  }
+
+  .collection__section-title {
+    font-size: 28px;
+  }
+
+  .collection__arch-card {
+    min-width: 180px;
+    max-width: 180px;
+    height: 290px;
+    border-top-left-radius: 90px;
+    border-top-right-radius: 90px;
+  }
+
+  .collection__card-title {
+    font-size: 13px;
+  }
+
+  .collection__card-subtitle {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection__arch-card {
+    min-width: 150px;
+    max-width: 150px;
+    height: 250px;
+    border-top-left-radius: 75px;
+    border-top-right-radius: 75px;
+  }
+
+  .collection__nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+}
