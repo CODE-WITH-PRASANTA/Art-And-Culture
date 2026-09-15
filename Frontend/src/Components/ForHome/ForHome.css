@@ -2,7 +2,15 @@
 
 .for-home {
   width: 100%;
-  background-color: #f7f3e9; /* Reference background cream color */
+  /* Exact geometric diamond background pattern matching reference */
+  background-color: #fffaf2;
+  background-image: linear-gradient(135deg, rgba(234, 221, 205, 0.28) 25%, transparent 25%),
+                    linear-gradient(225deg, rgba(234, 221, 205, 0.28) 25%, transparent 25%),
+                    linear-gradient(45deg, rgba(234, 221, 205, 0.28) 25%, transparent 25%),
+                    linear-gradient(315deg, rgba(234, 221, 205, 0.28) 25%, #fffaf2 25%);
+  background-position: 40px 0, 40px 0, 0 0, 0 0;
+  background-size: 80px 80px;
+  background-repeat: repeat;
   padding: 70px 20px;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
@@ -99,7 +107,7 @@
 }
 
 .for-home__highlight-card {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid #e2d9c7;
   border-radius: 14px;
   padding: 28px 20px;
@@ -113,7 +121,7 @@
 }
 
 .for-home__highlight-card:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .for-home__highlight-icon-wrapper {

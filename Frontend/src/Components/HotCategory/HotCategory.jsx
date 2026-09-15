@@ -60,7 +60,7 @@ const HotCategory = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentImage, setCurrentImage] = useState(null);
 
-  // Combine fixed + paginated data forLightbox sequence
+  // Combine fixed + paginated data for Lightbox sequence
   const allCategoryData = [featuredCategory, ...paginatedCategoriesData];
 
   // Pagination Calculations

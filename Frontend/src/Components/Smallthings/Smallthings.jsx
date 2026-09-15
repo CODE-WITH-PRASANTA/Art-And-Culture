@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Smallthings.css';
+import bgPattern from '../../assets/Artall background.webp'; 
 
 const Smallthings = () => {
   // Accordion open/close state
@@ -63,7 +64,10 @@ const Smallthings = () => {
   ];
 
   return (
-    <section className="small-things">
+    <section 
+      className="small-things"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
       <div className="small-things__container">
         {/* Top Tag Header */}
         <div className="small-things__header">
@@ -103,15 +107,7 @@ const Smallthings = () => {
           })}
         </div>
 
-        {/* Footer Link */}
-        <div className="small-things__footer">
-          <span className="small-things__footer-text">
-            Still curious?{' '}
-            <a href="#all-faqs" className="small-things__footer-link">
-              See all FAQs →
-            </a>
-          </span>
-        </div>
+       
       </div>
     </section>
   );

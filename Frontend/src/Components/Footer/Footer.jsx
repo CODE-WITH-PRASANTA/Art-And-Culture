@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
-import logo from "../../assets/Art and Culture Logo.webp";
+import logo from "../../assets/Artlogo.webp";
 
 const Footer = () => {
 
@@ -126,7 +126,7 @@ const Footer = () => {
 
       {/* TOP STRIP */}
       <div className="footer-top-line">
-        <p>✨ Think positive. Feel positive. Live positive ✨</p>
+        <p>✨  Don't hold it. Live it. Spread it. ✨</p>
       </div>
 
       {/* MAIN FOOTER */}

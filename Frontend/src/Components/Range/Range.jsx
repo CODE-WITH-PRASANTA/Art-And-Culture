@@ -18,7 +18,7 @@ const Range = () => {
         {/* Main Title */}
         <h2 className="range__title">The Balaji range</h2>
 
-        {/* Intro Paragraph (First Image Content) */}
+        {/* Intro Paragraph */}
         <p className="range__intro">
           Everything we make bearing Venkateswara, not only the mandir murti. Balaji, Venkateswara, Srinivasa and Govinda are names for the same deity, the form of Vishnu at Tirumala. In South Indian households he is the most kept deity of all, and this is the collection our customers return to most often.
         </p>
@@ -40,7 +40,7 @@ const Range = () => {
           </p>
         </div>
 
-        {/* Collapsible Content Area (Second & Third Images) */}
+        {/* Collapsible Content Area */}
         <div className={`range__collapsible ${isExpanded ? 'range__collapsible--expanded' : ''}`}>
           <div className="range__collapsible-inner">
             <div className="range__section">

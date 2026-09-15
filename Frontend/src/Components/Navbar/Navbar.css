@@ -66,9 +66,7 @@ body.menu-open {
 }
 
 /* ==========================================================================
-   CENTER: Desktop Links — premium pill highlight, evenly spaced
-   No underline. Hover only fires on hover-capable devices, so nothing
-   ever stays "stuck" after a tap on mobile.
+   CENTER: Desktop Links
    ========================================================================== */
 .navbar-links {
   display: flex;
@@ -236,7 +234,7 @@ body.menu-open {
 }
 
 /* ==========================================================================
-   Backdrops and Overlays (Fixed Layer Hierarchies)
+   Backdrops and Overlays
    ========================================================================== */
 .quote-info-overlay {
   display: none;
@@ -260,7 +258,7 @@ body.menu-open {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 998; /* below the sliding drawer */
+  z-index: 998;
 }
 
 .mobile-menu-overlay.active {
@@ -300,7 +298,6 @@ body.menu-open {
     height: 42px;
   }
 
-  /* Side Drawer Structure Transformation */
   .navbar-links {
     position: fixed;
     top: 0;
@@ -315,16 +312,15 @@ body.menu-open {
     padding: 0;
     box-shadow: -8px 0 30px rgba(0, 0, 0, 0.16);
     transition: right 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 999; /* above the overlay */
-    pointer-events: none; /* disabled while closed */
+    z-index: 999;
+    pointer-events: none;
   }
 
   .navbar-links.active {
     right: 0;
-    pointer-events: all; /* enabled only while open */
+    pointer-events: all;
   }
 
-  /* Fixed Top Control Area Header inside Mobile View */
   .mobile-menu-header {
     display: flex;
     align-items: center;
@@ -362,7 +358,6 @@ body.menu-open {
     border-color: var(--primary-color);
   }
 
-  /* Primary Navigation Scroller Context */
   .nav-links-container {
     display: flex;
     flex-direction: column;
@@ -372,7 +367,6 @@ body.menu-open {
     gap: 6px;
   }
 
-  /* Mobile links: rounded highlight box, no underline, no stuck hover */
   .navbar-links a {
     width: 100%;
     display: flex;
@@ -393,7 +387,6 @@ body.menu-open {
     transform: scale(0.98);
   }
 
-  /* Decorative Minimal Footer Wrapper base */
   .mobile-menu-footer {
     padding: 22px;
     text-align: center;
@@ -410,7 +403,6 @@ body.menu-open {
     opacity: 0.6;
   }
 
-  /* Sizing optimizations for utilities */
   .navbar-actions {
     gap: 8px;
   }
@@ -446,7 +438,7 @@ body.menu-open {
   .navbar-actions {
     gap: 6px;
   }
-  .navbar-actions-cluster .icon-link:first-child {
+  .navbar-actions-cluster .icon-link:nth-child(2) {
     display: none;
   }
   .navbar-quote-btn {

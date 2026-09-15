@@ -2,7 +2,14 @@
 
 .followalong {
   width: 100%;
-  background-color: #f7f3e9; /* रेफरेंस इमेज का क्रीमी बैकग्राउंड कलर */
+  background-color: #fffaf2;
+  background-image: linear-gradient(135deg, rgba(234, 221, 205, 0.28) 25%, transparent 25%),
+                    linear-gradient(225deg, rgba(234, 221, 205, 0.28) 25%, transparent 25%),
+                    linear-gradient(45deg, rgba(234, 221, 205, 0.28) 25%, transparent 25%),
+                    linear-gradient(315deg, rgba(234, 221, 205, 0.28) 25%, #fffaf2 25%);
+  background-position: 40px 0, 40px 0, 0 0, 0 0;
+  background-size: 80px 80px;
+  background-repeat: repeat;
   padding: 60px 20px;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
@@ -23,7 +30,7 @@
 .followalong__subtitle {
   font-size: 11px;
   letter-spacing: 2.5px;
-  color: #c5a059; /* सॉफ्ट गोल्ड कलर */
+  color: #c5a059;
   font-weight: 600;
   text-transform: uppercase;
   display: block;
@@ -52,18 +59,20 @@
   margin-bottom: 35px;
 }
 
-/* Scrollable Track */
+/* Scrollable Track with strict snapping */
 .followalong__slider {
   display: flex;
   gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 10px 5px;
-  scrollbar-width: none; /* Firefox में स्क्रॉलबार छिपाएं */
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory; /* एक बार में सही कार्ड पर रुकने के लिए */
 }
 
 .followalong__slider::-webkit-scrollbar {
-  display: none; /* Chrome / Safari में स्क्रॉलबार छिपाएं */
+  display: none;
 }
 
 /* Square Card Item Styling */
@@ -78,6 +87,7 @@
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: start; /* कार्ड की शुरुआत पर स्नैप होगा */
 }
 
 .followalong__card:hover {
@@ -120,8 +130,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #ffffff;
   border: 1px solid #e2d9c7;
@@ -131,23 +141,23 @@
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  font-size: 13px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
 .followalong__arrow:hover {
-  background-color: #fcfbf7;
-  color: #c5a059;
-  border-color: #c5a059;
+  background-color: #2b2b2b;
+  color: #ffffff;
+  border-color: #2b2b2b;
 }
 
 .followalong__arrow--left {
-  left: -18px;
+  left: -20px;
 }
 
 .followalong__arrow--right {
-  right: -18px;
+  right: -20px;
 }
 
 /* Bottom Instagram Pill Button */
@@ -160,13 +170,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 24px;
+  padding: 12px 28px;
   border-radius: 30px;
   border: 1px solid #d8ccb6;
   background-color: #ffffff;
   color: #4a4a4a;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
@@ -204,26 +214,33 @@
     font-size: 28px;
   }
 
+  /* मोबाइल स्क्रीन पर कार्ड की चौड़ाई को पूरी तरह सेट करें ताकि 1-by-1 दिखे */
   .followalong__card {
-    min-width: 150px;
-    max-width: 150px;
-    height: 150px;
+    min-width: 75vw;
+    max-width: 75vw;
+    height: 280px;
+  }
+
+  .followalong__arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
   }
 
   .followalong__arrow--left {
-    left: -10px;
+    left: -5px;
   }
 
   .followalong__arrow--right {
-    right: -10px;
+    right: -5px;
   }
 }
 
 @media (max-width: 480px) {
   .followalong__card {
-    min-width: 135px;
-    max-width: 135px;
-    height: 135px;
+    min-width: 82vw;
+    max-width: 82vw;
+    height: 260px;
   }
 
   .followalong__title {
@@ -231,7 +248,7 @@
   }
 
   .followalong__instagram-btn {
-    padding: 8px 18px;
+    padding: 10px 20px;
     font-size: 12px;
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './HomeExplore.css';
 import { HiOutlineArrowLongRight } from 'react-icons/hi2';
 
@@ -79,10 +80,10 @@ const HomeExplore = () => {
             </p>
           </div>
 
-          <a href="#shop" className="HomeExplore-shopMoreBtn">
+          <Link to="/shop" className="HomeExplore-shopMoreBtn">
             <span>SHOP MORE</span>
             <HiOutlineArrowLongRight className="HomeExplore-arrowIcon" />
-          </a>
+          </Link>
         </div>
 
         {/* Categories Asymmetric Grid */}
