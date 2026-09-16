@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./FloatingIcons.css";
 
-import { FaWhatsapp, FaPhoneAlt, FaArrowUp } from "react-icons/fa";
+import { FaWhatsapp, FaPhoneAlt, FaArrowUp, FaInstagram, FaFacebookF } from "react-icons/fa";
 
 const FloatingIcons = () => {
 
@@ -31,6 +31,7 @@ const FloatingIcons = () => {
       <a
         href="tel:+917016201096"
         className="floating-icons__btn floating-icons__call"
+        aria-label="Call Us"
       >
         <FaPhoneAlt />
       </a>
@@ -41,8 +42,31 @@ const FloatingIcons = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="floating-icons__btn floating-icons__whatsapp"
+        aria-label="WhatsApp"
       >
         <FaWhatsapp />
+      </a>
+
+      {/* INSTAGRAM BUTTON */}
+      <a
+        href="https://www.instagram.com/theartandculturehub?stkn=bjRzemdzN3hmcnJu"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-icons__btn floating-icons__instagram"
+        aria-label="Instagram"
+      >
+        <FaInstagram />
+      </a>
+
+      {/* FACEBOOK BUTTON */}
+      <a
+        href="https://www.facebook.com/share/19fpzCPwLG/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-icons__btn floating-icons__facebook"
+        aria-label="Facebook"
+      >
+        <FaFacebookF />
       </a>
 
       {/* SCROLL TO TOP */}
@@ -50,6 +74,7 @@ const FloatingIcons = () => {
         <button
           className="floating-icons__btn floating-icons__top"
           onClick={scrollToTop}
+          aria-label="Scroll to Top"
         >
           <FaArrowUp />
         </button>

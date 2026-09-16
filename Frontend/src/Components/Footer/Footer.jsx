@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import "./Footer.css";
 import logo from "../../assets/Artlogo.webp";
 
@@ -295,20 +296,20 @@ const Footer = () => {
 
                 <div className="social-icons">
 
-                  <a href="#">
-                    FB
+                  <a href="https://www.facebook.com/share/19fpzCPwLG/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <FaFacebookF />
                   </a>
 
-                  <a href="#">
-                    IG
+                  <a href="https://www.instagram.com/theartandculturehub?stkn=bjRzemdzN3hmcnJu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <FaInstagram />
                   </a>
 
-                  <a href="#">
-                    X
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                    <FaTwitter />
                   </a>
 
-                  <a href="#">
-                    YT
+                  <a href="https://youtube.com/@artandculturehub-v4o?si=bRHZ2R34QxWwc6KF" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <FaYoutube />
                   </a>
 
                 </div>

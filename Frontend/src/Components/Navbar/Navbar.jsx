@@ -12,7 +12,6 @@ import "./Navbar.css";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
-  const [openQuotePanel, setOpenQuotePanel] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
@@ -42,18 +41,6 @@ const Navbar = () => {
     setMobileMenuOpen(false);
     document.body.classList.remove("menu-open");
   };
-
-  const portalNode = typeof document !== "undefined" ? document.body : null;
-
-  const panel = (
-    <>
-      <div
-        className={`quote-info-overlay ${openQuotePanel ? "show" : ""}`}
-        onClick={() => setOpenQuotePanel(false)}
-        aria-hidden={!openQuotePanel}
-      />
-    </>
-  );
 
   return (
     <>
@@ -150,8 +137,6 @@ const Navbar = () => {
 
             {openCart && <ShopCart onClose={() => setOpenCart(false)} />}
 
-            <span className="navbar-actions-divider" aria-hidden="true" />
-
             <button
               type="button"
               className="quote-box-icon-btn mobile-hamburger-btn"
@@ -161,14 +146,9 @@ const Navbar = () => {
               <FaBars />
             </button>
 
-            <Link to="/get-quote" className="navbar-quote-btn" onClick={closeMobileMenu}>
-              Get Free Quotes
-            </Link>
-
           </div>
         </div>
       </header>
-      {portalNode ? ReactDOM.createPortal(panel, portalNode) : null}
     </>
   );
 };

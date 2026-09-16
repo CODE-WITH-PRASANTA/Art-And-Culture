@@ -1,12 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@600;700&display=swap');
+
 /* =========================================
    MAIN SECTION
 ========================================= */
 
 .kindergartenSection {
+  position: relative;
   width: 100%;
-  padding: 120px 8%;
-  background: #f6f3ee;
+  background-image: url('../../assets/Artall background.webp');
+  background-repeat: repeat;
+  background-position: center;
+  padding: 80px 5%;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
+}
+
+/* Light transparency layer for pattern watermark effect */
+.kindergartenSection__overlay-tint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.kindergartenSection__container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* =========================================
@@ -15,10 +40,8 @@
 
 .kindergartenSection__top {
   width: 100%;
-  max-width: 900px;
-
-  margin: 0 auto 75px;
-
+  max-width: 750px;
+  margin: 0 auto 50px;
   text-align: center;
 }
 
@@ -26,41 +49,36 @@
 
 .kindergartenSection__tag {
   display: inline-block;
-
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
-
-  letter-spacing: 4px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-
-  color: #b88a42;
-
-  margin-bottom: 18px;
+  color: #C4622D;
+  background: rgba(196, 98, 45, 0.1);
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
 }
 
 /* TITLE */
 
 .kindergartenSection__title {
-  font-size: 64px;
-  line-height: 1.1;
-  font-weight: 600;
-
-  color: #c89a45;
-
-  font-family: "Playfair Display", serif;
-
-  margin-bottom: 24px;
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #2D1F18;
+  font-family: "Merriweather", serif;
+  margin-bottom: 14px;
 }
 
 /* SUBTITLE */
 
 .kindergartenSection__subtitle {
-  font-size: 19px;
-  line-height: 1.9;
-
-  color: #444;
-
-  max-width: 760px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #55443d;
+  font-weight: 400;
+  max-width: 650px;
   margin: auto;
 }
 
@@ -70,11 +88,9 @@
 
 .kindergartenSection__grid {
   width: 100%;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
-  gap: 30px;
+  gap: 24px;
 }
 
 /* =========================================
@@ -83,60 +99,40 @@
 
 .kindergartenSection__card {
   position: relative;
-
-  background: rgba(255, 255, 255, 0.82);
-
-  backdrop-filter: blur(14px);
-
-  border-radius: 28px;
-
-  padding: 48px 34px;
-
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 32px 24px;
   text-align: center;
-
   overflow: hidden;
-
-  transition: all 0.45s ease;
-
-  border: 1px solid rgba(255, 255, 255, 0.5);
-
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.04),
-    0 2px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(45, 31, 24, 0.06);
 }
 
 /* HOVER */
 
 .kindergartenSection__card:hover {
-  transform: translateY(-12px);
-
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.10),
-    0 10px 24px rgba(0, 0, 0, 0.05);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(45, 31, 24, 0.12);
 }
 
 /* TOP SHINE EFFECT */
 
 .kindergartenSection__card::before {
   content: "";
-
   position: absolute;
   top: 0;
   left: -120%;
-
   width: 80%;
   height: 100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.45),
-      transparent
-    );
-
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
   transform: skewX(-20deg);
-
   transition: 0.8s;
 }
 
@@ -149,36 +145,28 @@
 ========================================= */
 
 .kindergartenSection__iconWrap {
-  width: 82px;
-  height: 82px;
-
-  margin: 0 auto 28px;
-
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(200, 154, 69, 0.16),
-      rgba(176, 96, 29, 0.08)
-    );
-
-  box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.6),
-    0 10px 24px rgba(200, 154, 69, 0.12);
+  background: linear-gradient(
+    135deg,
+    rgba(196, 98, 45, 0.12),
+    rgba(122, 46, 27, 0.06)
+  );
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8),
+              0 6px 16px rgba(196, 98, 45, 0.1);
 }
 
 /* ICON */
 
 .kindergartenSection__icon {
-  width: 34px;
-  height: 34px;
-
-  color: #b0601d;
+  width: 26px;
+  height: 26px;
+  color: #C4622D;
 }
 
 /* =========================================
@@ -186,99 +174,48 @@
 ========================================= */
 
 .kindergartenSection__cardTitle {
-  font-size: 34px;
+  font-size: 18px;
   line-height: 1.3;
-  font-weight: 500;
-
-  color: #b0601d;
-
-  font-family: "Playfair Display", serif;
-
-  margin-bottom: 18px;
+  font-weight: 700;
+  color: #2D1F18;
+  font-family: "Merriweather", serif;
+  margin-bottom: 10px;
 }
 
 /* CARD TEXT */
 
 .kindergartenSection__cardText {
-  font-size: 17px;
-  line-height: 1.9;
-
-  color: #444;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #55443d;
 }
 
 /* =========================================
-   LARGE SCREEN
+   LARGE SCREEN & LAPTOP MEDIA QUERIES
 ========================================= */
 
-@media (max-width: 1400px) {
-
-  .kindergartenSection__title {
-    font-size: 56px;
-  }
-
-  .kindergartenSection__cardTitle {
-    font-size: 30px;
-  }
-}
-
-/* =========================================
-   LAPTOP
-========================================= */
-
-@media (max-width: 1150px) {
-
-  .kindergartenSection {
-    padding: 100px 6%;
-  }
-
+@media (max-width: 1100px) {
   .kindergartenSection__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    gap: 20px;
   }
-
   .kindergartenSection__title {
-    font-size: 50px;
+    font-size: 32px;
   }
 }
 
-/* =========================================
-   TABLET
-========================================= */
-
 @media (max-width: 768px) {
-
   .kindergartenSection {
-    padding: 80px 5%;
+    padding: 60px 20px;
   }
-
   .kindergartenSection__top {
-    margin-bottom: 55px;
+    margin-bottom: 35px;
   }
-
   .kindergartenSection__title {
-    font-size: 42px;
-  }
-
-  .kindergartenSection__subtitle {
-    font-size: 16px;
-    line-height: 1.8;
-  }
-
-  .kindergartenSection__grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .kindergartenSection__card {
-    padding: 42px 28px;
-  }
-
-  .kindergartenSection__cardTitle {
     font-size: 28px;
   }
-
-  .kindergartenSection__cardText {
-    font-size: 15px;
+  .kindergartenSection__subtitle {
+    font-size: 14px;
   }
 }
 
@@ -286,37 +223,16 @@
    MOBILE
 ========================================= */
 
-@media (max-width: 480px) {
-
-  .kindergartenSection__tag {
-    font-size: 12px;
-    letter-spacing: 3px;
+@media (max-width: 576px) {
+  .kindergartenSection__grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
   }
-
-  .kindergartenSection__title {
-    font-size: 34px;
-  }
-
-  .kindergartenSection__subtitle {
-    font-size: 15px;
-  }
-
-  .kindergartenSection__iconWrap {
-    width: 72px;
-    height: 72px;
-  }
-
-  .kindergartenSection__icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .kindergartenSection__cardTitle {
-    font-size: 24px;
-  }
-
   .kindergartenSection__card {
-    border-radius: 22px;
-    padding: 36px 24px;
+    padding: 28px 20px;
+  }
+  .kindergartenSection__title {
+    font-size: 24px;
   }
 }

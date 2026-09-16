@@ -1,6 +1,8 @@
 import React from "react";
 import "./Contactcardsection.css";
 
+import bgPattern from "../../assets/Artall background.webp";
+
 export default function ContactCards() {
   const cards = [
     {
@@ -24,10 +26,15 @@ export default function ContactCards() {
   ];
 
   return (
-    <section className="contactux-root" aria-labelledby="contactux-heading">
-      <div className="contactux-inner">
+    <section 
+      className="contactux-root" 
+      aria-labelledby="contactux-heading"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
+      <div className="contactux-overlay-tint"></div>
 
-        {/* PREMIUM TOP LABEL */}
+      <div className="contactux-inner">
+        {/* TOP LABEL */}
         <div className="contactux-heading">
           <span>Get In Touch</span>
         </div>

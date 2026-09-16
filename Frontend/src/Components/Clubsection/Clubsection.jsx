@@ -1,12 +1,16 @@
 import React from "react";
 import "./Clubsection.css";
 
+import bgPattern from "../../assets/Artall background.webp";
+
 const Clubsection = () => {
   return (
-    <section className="clubSection">
-
-      {/* BACKGROUND GLOW */}
-      <div className="clubSection__glow"></div>
+    <section 
+      className="clubSection"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
+      {/* BACKGROUND OVERLAY TINT */}
+      <div className="clubSection__overlay-tint"></div>
 
       {/* CONTENT */}
       <div className="clubSection__container">
@@ -20,10 +24,7 @@ const Clubsection = () => {
         </h2>
 
         <p className="clubSection__description">
-          Experience the difference of Svastika —
-          where every piece carries positive energy,
-          enhances your space, and helps create a more
-          beautiful and meaningful world.
+          Experience the difference of Svastika — where every piece carries positive energy, enhances your space, and helps create a more beautiful and meaningful world.
         </p>
 
         {/* BUTTON */}
@@ -32,7 +33,6 @@ const Clubsection = () => {
         </button>
 
       </div>
-
     </section>
   );
 };

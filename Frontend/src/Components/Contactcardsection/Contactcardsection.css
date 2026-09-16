@@ -1,96 +1,121 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Poppins:wght@300;400;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@600;700&display=swap');
 
 :root{
-  --contactux-yellow: #ffd32a;
-  --contactux-neutral: #ffffff;
-  --contactux-text: #0f1724;
-  --contactux-muted: #6b7280;
+  --contactux-primary: #C4622D;
   --contactux-hover: #7a2e1b;
-  --contactux-radius: 16px;
+  --contactux-text: #2D1F18;
+  --contactux-muted: #55443d;
+  --contactux-radius: 12px;
 }
 
-/* ROOT SMALL + CLEAN */
+/* ROOT SECTION WITH PATTERN BG */
 .contactux-root {
-  background: #ffffff;
-  padding: 36px 16px; /* reduced */
-  font-family: "Poppins", sans-serif;
+  position: relative;
+  background-image: url('../../assets/Artall background.webp');
+  background-repeat: repeat;
+  background-position: center;
+  padding: 80px 5%;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* Light transparency tint overlay */
+.contactux-overlay-tint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* CONTAINER */
+.contactux-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 /* HEADING */
 .contactux-heading {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
+
 .contactux-heading span {
-  font-size: 14px;
+  display: inline-block;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 2px;
-  color: #7a2e1b;
+  letter-spacing: 1.5px;
+  color: var(--contactux-primary);
+  background: rgba(196, 98, 45, 0.1);
+  padding: 5px 12px;
+  border-radius: 4px;
   text-transform: uppercase;
 }
 
-/* CONTAINER */
-.contactux-inner {
-  max-width: 1050px;
-  margin: 0 auto;
-}
-
-/* GRID SMALL */
+/* GRID */
 .contactux-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px; /* reduced */
+  gap: 24px;
 }
 
-/* CARD PREMIUM */
+/* CARD */
 .contactux-card {
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: var(--contactux-radius);
-  padding: 24px 16px; /* reduced */
-  border: 2px solid #ffd32a;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  padding: 32px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(45, 31, 24, 0.06);
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   transition: all 0.3s ease;
 }
 
-/* HOVER PREMIUM */
+/* HOVER */
 .contactux-card:hover,
 .contactux-card:focus {
-  transform: translateY(-6px) scale(1.02);
-  border-color: var(--contactux-hover);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  border-color: rgba(196, 98, 45, 0.3);
+  box-shadow: 0 18px 40px rgba(45, 31, 24, 0.12);
 }
 
 /* ICON */
 .contactux-icon-wrap {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .contactux-icon-circle {
-  width: 74px;
-  height: 74px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffd32a, #ffb400);
+  background: linear-gradient(135deg, rgba(196, 98, 45, 0.12), rgba(122, 46, 27, 0.06));
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 6px 16px rgba(196, 98, 45, 0.1);
 }
 
 .contactux-card:hover .contactux-icon-circle {
   background: var(--contactux-hover);
-  box-shadow: 0 10px 30px rgba(122,46,27,0.3);
+  box-shadow: 0 10px 25px rgba(122, 46, 27, 0.25);
 }
 
 /* ICON SVG */
 .contactux-icon-svg {
-  width: 34px;
-  height: 34px;
-  color: #111;
-  transition: 0.3s;
+  width: 24px;
+  height: 24px;
+  color: var(--contactux-primary);
+  transition: 0.3s ease;
 }
 
 .contactux-card:hover .contactux-icon-svg {
@@ -99,14 +124,15 @@
 
 /* TEXT */
 .contactux-title {
-  font-family: "Baloo 2", cursive;
-  font-size: 16px;
+  font-family: "Merriweather", serif;
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 6px;
+  color: var(--contactux-text);
+  margin-bottom: 8px;
 }
 
 .contactux-line {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--contactux-muted);
 }
 
@@ -116,31 +142,38 @@
 @media (max-width: 992px) {
   .contactux-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
+  .contactux-root {
+    padding: 50px 20px;
+  }
+
   .contactux-grid {
     grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
   }
 
   .contactux-card {
-    padding: 20px 14px;
+    padding: 26px 16px;
   }
 
   .contactux-icon-circle {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
   }
 
   .contactux-icon-svg {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
   }
 
   .contactux-title {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .contactux-line {
@@ -150,7 +183,9 @@
 
 /* REDUCED MOTION */
 @media (prefers-reduced-motion: reduce) {
-  .contactux-card {
+  .contactux-card,
+  .contactux-icon-circle,
+  .contactux-icon-svg {
     transition: none;
   }
 }

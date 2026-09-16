@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./Contactformsection.css";
 import kidImg from "../../assets/k-5.webp";
+import bgPattern from "../../assets/Artall background.webp";
 import API from "../../api/axios";
 
 export default function ContactFormSection() {
-
   /* =========================
-      STATES
+     STATES
   ========================= */
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,7 +19,7 @@ export default function ContactFormSection() {
   const [loading, setLoading] = useState(false);
 
   /* =========================
-      HANDLE CHANGE
+     HANDLE CHANGE
   ========================= */
   const handleChange = (e) => {
     setFormData({
@@ -29,7 +29,7 @@ export default function ContactFormSection() {
   };
 
   /* =========================
-      HANDLE SUBMIT
+     HANDLE SUBMIT
   ========================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +47,6 @@ export default function ContactFormSection() {
     }
 
     try {
-
       setLoading(true);
 
       /* SEND DATA */
@@ -71,7 +70,6 @@ export default function ContactFormSection() {
       });
 
     } catch (error) {
-
       console.log(error);
 
       if (error.response) {
@@ -89,12 +87,16 @@ export default function ContactFormSection() {
   };
 
   return (
-    <section className="contactformux-root">
+    <section 
+      className="contactformux-root"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
+      <div className="contactformux-overlay-tint"></div>
 
       <div className="contactformux-inner">
 
         {/* ====================================
-                LEFT SECTION
+                LEFT SECTION (FORM)
         ==================================== */}
         <div className="contactformux-left">
 
@@ -107,9 +109,7 @@ export default function ContactFormSection() {
           </h2>
 
           <p className="contactformux-subtitle">
-            We would love to hear from you. Send us your
-            questions, feedback, or creative ideas and
-            our team will get back to you as soon as possible.
+            We would love to hear from you. Send us your questions, feedback, or creative ideas and our team will get back to you as soon as possible.
           </p>
 
           {/* FORM */}
@@ -123,9 +123,7 @@ export default function ContactFormSection() {
 
               {/* FIRST NAME */}
               <label className="contactformux-label">
-
                 First Name
-
                 <input
                   type="text"
                   name="firstName"
@@ -134,14 +132,11 @@ export default function ContactFormSection() {
                   onChange={handleChange}
                   className="contactformux-input"
                 />
-
               </label>
 
               {/* LAST NAME */}
               <label className="contactformux-label">
-
                 Last Name
-
                 <input
                   type="text"
                   name="lastName"
@@ -150,7 +145,6 @@ export default function ContactFormSection() {
                   onChange={handleChange}
                   className="contactformux-input"
                 />
-
               </label>
 
             </div>
@@ -160,9 +154,7 @@ export default function ContactFormSection() {
 
               {/* EMAIL */}
               <label className="contactformux-label">
-
                 Email Address
-
                 <input
                   type="email"
                   name="email"
@@ -171,14 +163,11 @@ export default function ContactFormSection() {
                   onChange={handleChange}
                   className="contactformux-input"
                 />
-
               </label>
 
               {/* PHONE */}
               <label className="contactformux-label">
-
                 Phone Number
-
                 <input
                   type="text"
                   name="phone"
@@ -187,16 +176,13 @@ export default function ContactFormSection() {
                   onChange={handleChange}
                   className="contactformux-input"
                 />
-
               </label>
 
             </div>
 
             {/* MESSAGE */}
             <label className="contactformux-label">
-
               Message
-
               <textarea
                 name="message"
                 placeholder="Write your message here..."
@@ -204,7 +190,6 @@ export default function ContactFormSection() {
                 onChange={handleChange}
                 className="contactformux-textarea"
               ></textarea>
-
             </label>
 
             {/* BUTTON */}
@@ -221,7 +206,7 @@ export default function ContactFormSection() {
         </div>
 
         {/* ====================================
-                RIGHT SECTION
+                RIGHT SECTION (IMAGE)
         ==================================== */}
         <div className="contactformux-right">
 
@@ -230,17 +215,13 @@ export default function ContactFormSection() {
 
           {/* IMAGE WRAP */}
           <div className="contactformux-kid-wrap">
-
             <div className="contactformux-kid-frame">
-
               <img
                 src={kidImg}
                 alt="Kid Painting"
                 className="contactformux-kidimg"
               />
-
             </div>
-
           </div>
 
         </div>
