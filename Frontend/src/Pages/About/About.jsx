@@ -11,6 +11,7 @@ import Clubsection from '../../Components/Clubsection/Clubsection.jsx'
 
 
 import AboutBreadCrum from '../../Components/AboutBreadCrum/AboutBreadCrum.jsx'
+import AboutReview from '../../Components/AboutReview/AboutReview.jsx'
 
 const About = () => {
   return (
@@ -21,6 +22,7 @@ const About = () => {
       <Teachersection/>
       <Registersection/>
       <Kindergartensection/>
+      <AboutReview/>
       <Clubsection/>
       
       

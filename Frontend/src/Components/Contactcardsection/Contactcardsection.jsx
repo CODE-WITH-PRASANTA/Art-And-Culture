@@ -7,20 +7,20 @@ export default function ContactCards() {
   const cards = [
     {
       key: "phone",
-      title: "Phone No",
-      line: "+44 (0) 207 689 7888",
+      title: "Phone Nos",
+      line: "+91-7302577395 / +91 80765 52275",
       icon: "phone",
     },
     {
       key: "hours",
       title: "Monday to Friday",
-      line: "8.30am — 02.00pm",
+      line: "9.00am — 07.00pm",
       icon: "clock",
     },
     {
       key: "email",
       title: "Email Address",
-      line: "user@domainname.com",
+      line: "artandculturehub@gmail.com",
       icon: "mail",
     },
   ];

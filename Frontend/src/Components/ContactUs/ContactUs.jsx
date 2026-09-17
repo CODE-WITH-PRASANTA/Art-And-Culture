@@ -20,10 +20,10 @@ const ContactUs = () => {
             <div className="contactUsSectionBody">
               <p className="contactUsTimeText">9am - 6pm (Mon-Sat)</p>
               <p>
-                Call: <a href="tel:+919429690080" className="contactUsHighlightText">+91 94296 90080</a>
+                Call: <a href="tel:+917302577395" className="contactUsHighlightText">+91 7302577395</a>
               </p>
               <p>
-                WhatsApp: <a href="https://wa.me/919429690080" target="_blank" rel="noreferrer" className="contactUsGoldLink">Chat on WhatsApp</a>
+                WhatsApp: <a href="https://wa.me/7302577395" target="_blank" rel="noreferrer" className="contactUsGoldLink">Chat on WhatsApp</a>
               </p>
             </div>
           </div>
@@ -36,7 +36,7 @@ const ContactUs = () => {
             </div>
             <div className="contactUsSectionBody">
               <p>
-                <a href="mailto:contact@svastika.in" className="contactUsGoldLink contactUsEmailText">contact@svastika.in</a>
+                <a href="mailto:artandculturehub@gmail.com" className="contactUsGoldLink contactUsEmailText">artandculturehub@gmail.com</a>
               </p>
               <p className="contactUsMutedText">Response within 4-6 working hours</p>
             </div>
@@ -50,9 +50,10 @@ const ContactUs = () => {
             </div>
             <div className="contactUsSectionBody contactUsAddressDetails">
               <strong className="contactUsCompanyTitle">Wildship Enterprises Private Limited (Svastika)</strong>
-              <p>604-606, Kailas Corporate Lounge,</p>
-              <p>Hiranandani Link Road,</p>
-              <p>Vikhroli (W), Mumbai - 400079</p>
+              <p>92, Mansi Vihar, Sanjay Nagar
+Sector 23, </p>
+              <p>Ghaziabad 201002,</p>
+              <p>UttarPradesh 201002</p>
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ export default function ContactFormSection() {
   /* =========================
      STATES
   ========================= */
+  const [userType, setUserType] = useState("provider"); // "provider" or "customer"
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -49,16 +51,25 @@ export default function ContactFormSection() {
     try {
       setLoading(true);
 
+      // Endpoint switches depending on whether they are applying as a Provider (employee/artisan) or Customer
+      const endpoint = userType === "provider" ? "/provider-apply" : "/contact";
+
+      const payload = {
+        ...formData,
+        role: userType, // passing role info
+      };
+
       /* SEND DATA */
-      const response = await API.post(
-        "/contact",
-        formData
-      );
+      const response = await API.post(endpoint, payload);
 
       console.log(response.data);
 
       /* SUCCESS */
-      alert("Message Sent Successfully ✅");
+      const successMsg =
+        userType === "provider"
+          ? "Provider Application Sent Successfully ✅ Our team will review and connect with you."
+          : "Message Sent Successfully ✅";
+      alert(successMsg);
 
       /* RESET */
       setFormData({
@@ -101,16 +112,47 @@ export default function ContactFormSection() {
         <div className="contactformux-left">
 
           <p className="contactformux-topline">
-            HAVE ANY QUESTIONS? SO PLEASE
+            {userType === "provider" ? "JOIN OUR TEAM / ARTISAN NETWORK" : "HAVE ANY QUESTIONS? SO PLEASE"}
           </p>
 
           <h2 className="contactformux-title">
-            Feel Free To Contact!
+            {userType === "provider" ? "Join As A Provider!" : "Feel Free To Contact!"}
           </h2>
 
           <p className="contactformux-subtitle">
-            We would love to hear from you. Send us your questions, feedback, or creative ideas and our team will get back to you as soon as possible.
+            {userType === "provider" 
+              ? "Are you an artisan, skilled worker, or looking to join our growing network? Fill out the form below to apply."
+              : "We would love to hear from you. Send us your questions, feedback, or creative ideas and our team will get back to you as soon as possible."}
           </p>
+
+          {/* SWITCH BAR SECTION */}
+          <div className="contactformux-switch-bar">
+            <label className={`contactformux-switch-label ${userType === "provider" ? "active" : ""}`}>
+              <input
+                type="radio"
+                name="userType"
+                value="provider"
+                checked={userType === "provider"}
+                onChange={() => setUserType("provider")}
+                className="contactformux-radio"
+              />
+              <span className="radio-custom"></span>
+              Provider
+            </label>
+
+            <label className={`contactformux-switch-label ${userType === "customer" ? "active" : ""}`}>
+              <input
+                type="radio"
+                name="userType"
+                value="customer"
+                checked={userType === "customer"}
+                onChange={() => setUserType("customer")}
+                className="contactformux-radio"
+              />
+              <span className="radio-custom"></span>
+              Customer
+            </label>
+          </div>
 
           {/* FORM */}
           <form
@@ -182,10 +224,10 @@ export default function ContactFormSection() {
 
             {/* MESSAGE */}
             <label className="contactformux-label">
-              Message
+              {userType === "provider" ? "Why do you want to join us / Experience details" : "Message"}
               <textarea
                 name="message"
-                placeholder="Write your message here..."
+                placeholder={userType === "provider" ? "Share your background, skills, or experience..." : "Write your message here..."}
                 value={formData.message}
                 onChange={handleChange}
                 className="contactformux-textarea"
@@ -198,7 +240,7 @@ export default function ContactFormSection() {
               className="contactformux-btn"
               disabled={loading}
             >
-              {loading ? "Sending..." : "Send Message"}
+              {loading ? "Sending..." : userType === "provider" ? "Submit Application" : "Send Message"}
             </button>
 
           </form>

@@ -57,7 +57,6 @@ const Navbar = () => {
           </Link>
 
           <nav className={`navbar-links ${mobileMenuOpen ? "active" : ""}`}>
-
             <div className="mobile-menu-header">
               <span className="mobile-menu-title">Menu</span>
               <button
@@ -99,23 +98,24 @@ const Navbar = () => {
           </nav>
 
           <div className="navbar-actions">
-
+            {/* Re-ordered cluster: Cart -> Wishlist -> Profile */}
             <div className="navbar-actions-cluster">
-              <Link to="/account" className="navbarActionBox" onClick={closeMobileMenu}>
-                <FaUserCircle className="navbarActionIcon" />
-              </Link>
-
-              <Link to="/wishlist" className="icon-link" onClick={closeMobileMenu}>
-                <AiFillHeart />
-              </Link>
-
               <button
                 type="button"
                 className="icon-link cartnav__btn"
+                title="Cart"
                 onClick={() => setOpenCart(true)}
               >
                 <FaShoppingCart />
               </button>
+
+              <Link to="/wishlist" className="icon-link" title="Wishlist" onClick={closeMobileMenu}>
+                <AiFillHeart />
+              </Link>
+
+              <Link to="/account" className="navbarActionBox" title="Account" onClick={closeMobileMenu}>
+                <FaUserCircle className="navbarActionIcon" />
+              </Link>
             </div>
 
             {showLogin && (

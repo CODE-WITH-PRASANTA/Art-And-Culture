@@ -29,7 +29,7 @@ const FloatingIcons = () => {
 
       {/* CALL BUTTON */}
       <a
-        href="tel:+917016201096"
+        href="tel:+917302577395"
         className="floating-icons__btn floating-icons__call"
         aria-label="Call Us"
       >
@@ -38,7 +38,7 @@ const FloatingIcons = () => {
 
       {/* WHATSAPP BUTTON */}
       <a
-        href="https://wa.me/917016201096"
+        href="https://wa.me/917302577395"
         target="_blank"
         rel="noopener noreferrer"
         className="floating-icons__btn floating-icons__whatsapp"
