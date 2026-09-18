@@ -1,428 +1,399 @@
-import React, { useState } from 'react';
-import { 
-  FaChevronDown, 
-  FaChevronUp, 
-  FaPlus, 
-  FaMinus, 
-  FaTimes, 
-  FaStar, 
-  FaLock, 
-  FaWhatsapp, 
-  FaFacebookF, 
-  FaPinterestP, 
-  FaTwitter, 
-  FaTelegramPlane 
-} from 'react-icons/fa';
-import './Products.css';
+import React, { useMemo, useState } from "react";
+import "./Products.css";
 
-// --- Local Asset Image Imports ---
-// Replace these paths with your actual saved file names
-import imgIdol1 from '../../assets/Lord_Vishnu.webp';
-import imgIdol2 from '../../assets/Lord-Jagannath.webp';
-import imgIdol3 from '../../assets/Lord-Shiva.webp';
-import imgIdol4 from '../../assets/Lord-Buddha.webp';
-import imgIdol5 from '../../assets/Lord-Hanuman.webp';
-import imgIdol6 from '../../assets/Lord-Tirupati-Balaji-Venkateswara-24-Karat-Gold-Silver-Plated-Idol.webp';
-import imgIdol7 from '../../assets/Lord-Ganesha.webp';
-import imgIdol8 from '../../assets/Lord-Jagannath.webp';
-import imgIdol9 from '../../assets/Lord-Shiva.webp';
+const FILTER_GROUPS = [
+  {
+    title: "TRAININGS",
+    items: [
+      "Lippan Art",
+      "Mandala Art",
+      "Mosaic Art",
+      "Resin Art",
+      "Jharoka Art",
+    ],
+  },
+  {
+    title: "WORKSHOPS",
+    items: ["Canvas Painting", "Pencil Sketch"],
+  },
+];
 
-const initialProducts = [
+const PRODUCTS = [
   {
     id: 1,
-    title: "10 inch silver coated Dhanalaxmi idol | Silver Lakshmi Murti Standing on Lotus | Lakshmi Idol on Lotus | Lakshmi Idol for Pooja | Diwali Dhanteras gift",
-    price: 8949,
-    oldPrice: 20000,
-    saveAmount: 11051,
-    image: imgIdol1,
-    inStock: true,
+    title: "5 Days Lippan Art Basic Course",
+    category: "Lippan Art",
+    price: 999,
+    image:
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 1,
   },
   {
     id: 2,
-    title: "12 inch Original Gold & Silver Coated Premium Krishna Idol | Beautiful Idol of Krishna | Shree Krishna Murti | Mandir Murti Pooja Item",
-    price: 19999,
-    oldPrice: 40000,
-    saveAmount: 20001,
-    image: imgIdol2,
-    inStock: true,
+    title: "5 Days Lippan Art Advance Course",
+    category: "Lippan Art",
+    price: 1999,
+    image:
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 2,
   },
   {
     id: 3,
-    title: "24k Pure 5 inch Gold Coated Hanuman Idol for Pooja Room | Sitting Bajrangbali Murti for Home | Hanuman Murti for Office Car Dashboard | Hanuman Statue for Diwali House Warming | Hanuman Murti for Wedding Gift",
-    price: 2349,
-    oldPrice: 4200,
-    saveAmount: 1851,
-    image: imgIdol3,
-    inStock: true,
+    title: "5 Days Lippan Art Expert Course",
+    category: "Lippan Art",
+    price: 2999,
+    image:
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=85&w=900",
+    badge: "Coming Soon",
+    order: 3,
   },
   {
     id: 4,
-    title: "3 Inch Ganesh Murti on Lotus | Authentic Gold Coated Ganesh Idol For Home | Sitting Ganesh Statue | Small Size Ganesh Murti | House Warming Gift",
-    price: 2099,
-    oldPrice: 5000,
-    saveAmount: 2901,
-    image: imgIdol4,
-    inStock: true,
+    title: "Mandala Art Basic Workshop",
+    category: "Mandala Art",
+    price: 799,
+    image:
+      "https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 4,
   },
   {
     id: 5,
-    title: "3 inch Gold Coated Krishna Idol | Blue Baby Krishna Murti | Lord Krishna Idol Blue | Baby Krishna Crawling with Makhan Idol | Multicolour",
+    title: "Mandala Art Advanced Workshop",
+    category: "Mandala Art",
     price: 1499,
-    oldPrice: 3000,
-    saveAmount: 1501,
-    image: imgIdol5,
-    inStock: true,
+    image:
+      "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 5,
   },
   {
     id: 6,
-    title: "3 inch Laxmi Murti on Lotus| Gold Coated Lakshmi Idol | Dhan Laxmi Hindu Goddess | Lakshmi devi idol| Hindu Goddess of Wealth for Mandir | Lakshmi Maa Sculpture",
-    price: 2049,
-    oldPrice: 5000,
-    saveAmount: 2951,
-    image: imgIdol6,
-    inStock: true,
+    title: "Mosaic Art Creative Course",
+    category: "Mosaic Art",
+    price: 1299,
+    image:
+      "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 6,
   },
   {
     id: 7,
-    title: "3-inch Pure Gold Coated Vastu Panchmukhi Hanuman Idol for Door Entrance | Five Face Bajrang Bali Murti for Mandir | Bajrangbali Murti Gold | Home Office Decor | Hanuman Murti for Temple",
-    price: 2949,
-    oldPrice: 9999,
-    saveAmount: 7050,
-    image: imgIdol7,
-    inStock: true,
+    title: "Mosaic Art Premium Workshop",
+    category: "Mosaic Art",
+    price: 1899,
+    image:
+      "https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&q=85&w=900",
+    badge: "Coming Soon",
+    order: 7,
   },
   {
     id: 8,
-    title: "4 inch Hanuman Murti Idol | Silver Coated Hanumanji Murti for Temple | Small Size Bajrangbali Murti Statue for Pooja Room| Standing Hanuman Statue | Hindu God of Devotion",
-    price: 1320,
-    oldPrice: 2400,
-    saveAmount: 1080,
-    image: imgIdol8,
-    inStock: true,
+    title: "Resin Art Beginner Course",
+    category: "Resin Art",
+    price: 1099,
+    image:
+      "https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 8,
   },
   {
     id: 9,
-    title: "6 Inch Silver Ganesh Idol For Home on Singhasan | Lord Ganesh Murti | Hindu God of Luck | Home Decor Gift | Pooja Room Gift | Housewarming Gift | Singhasan Ganesh",
-    price: 10599,
-    oldPrice: 19999,
-    saveAmount: 9400,
-    image: imgIdol9,
-    inStock: false,
-  }
+    title: "Resin Art Professional Course",
+    category: "Resin Art",
+    price: 2199,
+    image:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 9,
+  },
+  {
+    id: 10,
+    title: "Traditional Jharoka Art Course",
+    category: "Jharoka Art",
+    price: 1599,
+    image:
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 10,
+  },
+  {
+    id: 11,
+    title: "Canvas Painting Masterclass",
+    category: "Canvas Painting",
+    price: 899,
+    image:
+      "https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 11,
+  },
+  {
+    id: 12,
+    title: "Pencil Sketch Professional Workshop",
+    category: "Pencil Sketch",
+    price: 699,
+    image:
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=85&w=900",
+    badge: null,
+    order: 12,
+  },
 ];
 
+const FALLBACK_IMAGE =
+  "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%23f3f1ec'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23bdb6a8' text-anchor='middle' dy='.3em'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+
+const ProductImage = ({ src, alt, children }) => {
+  const [status, setStatus] = useState("loading");
+
+  return (
+    <div
+      className={`product-image-container${
+        status !== "loading" ? " is-loaded" : ""
+      }`}
+    >
+      <img
+        src={status === "error" ? FALLBACK_IMAGE : src}
+        alt={alt}
+        className={`product-img${status !== "loading" ? " is-loaded" : ""}`}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setStatus((s) => (s === "error" ? s : "loaded"))}
+        onError={() => setStatus("error")}
+      />
+      {children}
+    </div>
+  );
+};
+
 const Products = () => {
-  const [isAvailabilityOpen, setIsAvailabilityOpen] = useState(false);
-  const [isPriceOpen, setIsPriceOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  
-  const [stockFilter, setStockFilter] = useState({ inStock: false, outOfStock: false });
-  const [priceRange, setPriceRange] = useState(155000);
-  const [sortOption, setSortOption] = useState("Alphabetically, A-Z");
+  const [filters, setFilters] = useState({
+    "Lippan Art": true,
+    "Mandala Art": false,
+    "Mosaic Art": false,
+    "Resin Art": false,
+    "Jharoka Art": false,
+    "Canvas Painting": false,
+    "Pencil Sketch": false,
+  });
 
-  const [cartItem, setCartItem] = useState(null);
-  const [cartQuantity, setCartQuantity] = useState(1);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [sortBy, setSortBy] = useState("Best selling");
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [detailQuantity, setDetailQuantity] = useState(1);
+  const activeFilters = Object.keys(filters).filter((key) => filters[key]);
 
-  // Filter & Sort Computations
-  let filteredProducts = [...initialProducts];
+  const handleCheckboxChange = (name) => {
+    setFilters((prev) => ({
+      ...prev,
+      [name]: !prev[name],
+    }));
+  };
 
-  if (stockFilter.inStock || stockFilter.outOfStock) {
-    filteredProducts = filteredProducts.filter(p => {
-      if (stockFilter.inStock && p.inStock) return true;
-      if (stockFilter.outOfStock && !p.inStock) return true;
-      return false;
+  const handleClearAll = () => {
+    const cleared = {};
+    Object.keys(filters).forEach((key) => {
+      cleared[key] = false;
     });
-  }
+    setFilters(cleared);
+  };
 
-  filteredProducts = filteredProducts.filter(p => p.price <= priceRange);
+  const filteredProducts = useMemo(() => {
+    let result = [...PRODUCTS];
 
-  if (sortOption === "Alphabetically, A-Z") {
-    filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (sortOption === "Alphabetically, Z-A") {
-    filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
-  } else if (sortOption === "Price, low to high") {
-    filteredProducts.sort((a, b) => a.price - b.price);
-  } else if (sortOption === "Price, high to low") {
-    filteredProducts.sort((a, b) => b.price - a.price);
-  }
+    if (activeFilters.length > 0) {
+      result = result.filter((product) =>
+        activeFilters.includes(product.category)
+      );
+    }
 
-  const handleAddToCart = (product) => {
-    setCartItem(product);
-    setCartQuantity(1);
-    setIsCartOpen(true);
+    switch (sortBy) {
+      case "Price: Low to High":
+        result.sort((a, b) => a.price - b.price);
+        break;
+      case "Price: High to Low":
+        result.sort((a, b) => b.price - a.price);
+        break;
+      case "Newest":
+        result.sort((a, b) => b.order - a.order);
+        break;
+      case "Best selling":
+      default:
+        result.sort((a, b) => a.order - b.order);
+        break;
+    }
+
+    return result;
+  }, [filters, sortBy, activeFilters]);
+
+  const formatPrice = (price) => {
+    return `₹${price.toLocaleString("en-IN")}/-`;
   };
 
   return (
-    <div className="ProductsContainer">
-      <h1 className="ProductsHeaderTitle">Pooja Essentials</h1>
-      
-      <div className="ProductsMainLayout">
-        {/* Left Fixed Sidebar View */}
-        <aside className="ProductsSidebar">
-          <h2 className="ProductsFilterHeading">Filters</h2>
-          <hr className="ProductsDivider" />
+    <section className="products-container">
+      {/* ================= TOP BAR ================= */}
+      <div className="products-header-bar">
+        <div className="header-left">
+          <div className="refine-heading">
+            <span>Refine</span>
+            <span className="refine-badge">{activeFilters.length}</span>
+          </div>
 
-          {/* Availability Block */}
-          <div className="ProductsFilterSection">
-            <button 
-              className="ProductsFilterToggleBtn" 
-              onClick={() => setIsAvailabilityOpen(!isAvailabilityOpen)}
+          {activeFilters.length > 0 && (
+            <button
+              type="button"
+              className="top-clear-btn"
+              onClick={handleClearAll}
             >
-              <span>Availability</span>
-              {isAvailabilityOpen ? <FaChevronUp /> : <FaChevronDown />}
+              Clear all
             </button>
-            <div className={`ProductsFilterContent ${isAvailabilityOpen ? 'isOpen' : ''}`}>
-              <label className="ProductsCheckboxLabel">
-                <input 
-                  type="checkbox" 
-                  checked={stockFilter.inStock}
-                  onChange={(e) => setStockFilter({...stockFilter, inStock: e.target.checked})} 
-                />
-                <span>In stock ({initialProducts.filter(p => p.inStock).length})</span>
-              </label>
-              <label className="ProductsCheckboxLabel">
-                <input 
-                  type="checkbox" 
-                  checked={stockFilter.outOfStock}
-                  onChange={(e) => setStockFilter({...stockFilter, outOfStock: e.target.checked})} 
-                />
-                <span>Out of stock ({initialProducts.filter(p => !p.inStock).length})</span>
-              </label>
-            </div>
-          </div>
-          <hr className="ProductsDivider" />
-
-          {/* Price Range Area */}
-          <div className="ProductsFilterSection">
-            <button 
-              className="ProductsFilterToggleBtn" 
-              onClick={() => setIsPriceOpen(!isPriceOpen)}
-            >
-              <span>Price</span>
-              {isPriceOpen ? <FaChevronUp /> : <FaChevronDown />}
-            </button>
-            <div className={`ProductsFilterContent ${isPriceOpen ? 'isOpen' : ''}`}>
-              <div className="ProductsPriceSliderWrapper">
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="155000" 
-                  value={priceRange} 
-                  onChange={(e) => setPriceRange(Number(e.target.value))} 
-                  className="ProductsSliderRange"
-                />
-                <div className="ProductsPriceInputRow">
-                  <div className="ProductsPriceFieldBox">
-                    <span>₹</span>
-                    <input type="number" value="0" readOnly />
-                  </div>
-                  <span className="ProductsPriceToText">to</span>
-                  <div className="ProductsPriceFieldBox">
-                    <span>₹</span>
-                    <input 
-                      type="number" 
-                      value={priceRange} 
-                      onChange={(e) => setPriceRange(Number(e.target.value))}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        {/* Scrollable Content Workspace */}
-        <main className="ProductsGridArea">
-          <div className="ProductsToolbar">
-            <span className="ProductsCountText">{filteredProducts.length} products</span>
-            <div className="ProductsSortDropdownWrapper">
-              <span className="ProductsSortLabel">Sort by</span>
-              <button className="ProductsSortDropdownBtn" onClick={() => setIsSortOpen(!isSortOpen)}>
-                {sortOption} <FaChevronDown className="ProductsSortChevron" />
-              </button>
-              
-              {isSortOpen && (
-                <ul className="ProductsSortMenu">
-                  {["Featured", "Most relevant", "Best selling", "Alphabetically, A-Z", "Alphabetically, Z-A", "Price, low to high", "Price, high to low", "Date, old to new", "Date, new to old"].map((opt) => (
-                    <li 
-                      key={opt} 
-                      className={sortOption === opt ? "isActive" : ""}
-                      onClick={() => { setSortOption(opt); setIsSortOpen(false); }}
-                    >
-                      {opt} {sortOption === opt && "✓"}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-
-          <div className="ProductsGrid">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="ProductsCard">
-                <div className="ProductsCardImageWrapper">
-                  <img src={product.image} alt="Idol" className="ProductsCardImage" />
-                  
-                  {!product.inStock && <span className="ProductsSoldOutBadge">SOLD OUT</span>}
-                  
-                  {product.inStock && (
-                    <span 
-                      className="ProductsSaveBadge"
-                      onClick={() => setSelectedProduct(product)}
-                    >
-                      SAVE RS. {product.saveAmount.toLocaleString('en-IN')}.00
-                    </span>
-                  )}
-                  
-                  {product.inStock && (
-                    <button className="ProductsHoverAddToCartBtn" onClick={() => handleAddToCart(product)}>
-                      <FaPlus /> Add to cart
-                    </button>
-                  )}
-                </div>
-                
-                <div className="ProductsCardInfo">
-                  <h3 className="ProductsCardTitle">{product.title}</h3>
-                  <div className="ProductsCardPriceRow">
-                    <span className="ProductsCurrentPrice">Rs. {product.price.toLocaleString('en-IN')}.00</span>
-                    <span className="ProductsOldPrice">Rs. {product.oldPrice.toLocaleString('en-IN')}.00</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </main>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="ProductsStickyReviewsTab">
-        <span>★ Reviews</span>
-      </div>
-
-      <a href="https://wa.me/#" target="_blank" rel="noreferrer" className="ProductsWhatsAppFloat">
-        <FaWhatsapp />
-      </a>
-
-      {/* Slide-out Drawer Panel */}
-      <div className={`ProductsCartDrawerBackdrop ${isCartOpen ? 'isOpen' : ''}`} onClick={() => setIsCartOpen(false)}>
-        <div className="ProductsCartDrawer" onClick={(e) => e.stopPropagation()}>
-          <div className="ProductsCartDrawerHeader">
-            <h3><span className="ProductsCartIconBag">👜</span> {cartQuantity} item</h3>
-            <button className="ProductsCloseDrawerBtn" onClick={() => setIsCartOpen(false)}><FaTimes /></button>
-          </div>
-          
-          {cartItem && (
-            <div className="ProductsCartDrawerBody">
-              <div className="ProductsCartDrawerItemRow">
-                <img src={cartItem.image} alt="Cart item" className="ProductsCartDrawerImg" />
-                <div className="ProductsCartDrawerItemDetails">
-                  <p className="ProductsCartItemTitle">{cartItem.title}</p>
-                  <div className="ProductsQuantitySelector">
-                    <button onClick={() => setCartQuantity(Math.max(1, cartQuantity - 1))}><FaMinus /></button>
-                    <input type="text" value={cartQuantity} readOnly />
-                    <button onClick={() => setCartQuantity(cartQuantity + 1)}><FaPlus /></button>
-                    <button className="ProductsRemoveItemBtn" onClick={() => setCartItem(null)}>Remove</button>
-                  </div>
-                </div>
-                <div className="ProductsCartDrawerItemPrices">
-                  <span className="ProductsDrawerCurrPrice">Rs. {cartItem.price.toLocaleString('en-IN')}.00</span>
-                  <span className="ProductsDrawerOldPrice">Rs. {cartItem.oldPrice.toLocaleString('en-IN')}.00</span>
-                </div>
-              </div>
-
-              <div className="ProductsCrossSellSection">
-                <h4>YOU MAY ALSO LIKE</h4>
-                {initialProducts.slice(0, 2).map(item => (
-                  <div key={item.id} className="ProductsCrossSellCard">
-                    <img src={item.image} alt="Suggested" />
-                    <div>
-                      <h5>{item.title.substring(0, 24)}...</h5>
-                      <button onClick={() => handleAddToCart(item)}>+ Add to cart</button>
-                    </div>
-                    <p>Rs. {item.price.toLocaleString('en-IN')}.00</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="ProductsCartDrawerFooter">
-                <div className="ProductsFooterNotesWrapper">
-                  <span className="ProductsAddNoteLink">Add order note</span>
-                  <span className="ProductsTaxCalculationNotice">Shipping & taxes calculated at checkout</span>
-                </div>
-                <button className="ProductsCheckoutBtn">
-                  <FaLock /> CHECKOUT • RS. {(cartItem.price * cartQuantity).toLocaleString('en-IN')}.00
-                </button>
-              </div>
-            </div>
           )}
         </div>
-      </div>
 
-      {/* Overlay Modal Popups */}
-      {selectedProduct && (
-        <div className="ProductsModalBackdrop" onClick={() => setSelectedProduct(null)}>
-          <div className="ProductsModalContent" onClick={(e) => e.stopPropagation()}>
-            <button className="ProductsModalCloseBtn" onClick={() => setSelectedProduct(null)}><FaTimes /></button>
-            <div className="ProductsModalFlexLayout">
-              <div className="ProductsModalImageContainer">
-                <img src={selectedProduct.image} alt="Detail view" className="ProductsModalMainImg" />
-              </div>
-              <div className="ProductsModalInfoContainer">
-                <span className="ProductsModalBrandTag">999 SILVER COATED</span>
-                <h2 className="ProductsModalTitleText">{selectedProduct.title}</h2>
-                <div className="ProductsModalPriceBlock">
-                  <span className="ProductsModalPrice">Rs. {selectedProduct.price.toLocaleString('en-IN')}.00</span>
-                  <span className="ProductsModalOldPrice">Rs. {selectedProduct.oldPrice.toLocaleString('en-IN')}.00</span>
-                  <span className="ProductsModalSaveBadge">SAVE RS. {selectedProduct.saveAmount.toLocaleString('en-IN')}.00</span>
-                </div>
-                <p className="ProductsTaxLabel">Tax included.</p>
-                
-                <div className="ProductsModalRatingRow">
-                  <div className="ProductsStars">
-                    {[...Array(5)].map((_, i) => <FaStar key={i} className="ProductsStarFilled" />)}
-                  </div>
-                  <span className="ProductsReviewsCountText">31 reviews</span>
-                </div>
+        <div className="header-right">
+          <span className="products-count">
+            {filteredProducts.length}{" "}
+            {filteredProducts.length === 1 ? "product" : "products"}
+          </span>
 
-                <div className="ProductsModalOrderConfig">
-                  <span className="ProductsConfigLabel">Quantity:</span>
-                  <div className="ProductsQuantitySelector spaceTop">
-                    <button onClick={() => setDetailQuantity(Math.max(1, detailQuantity - 1))}><FaMinus /></button>
-                    <input type="text" value={detailQuantity} readOnly />
-                    <button onClick={() => setDetailQuantity(detailQuantity + 1)}><FaPlus /></button>
-                  </div>
-                </div>
-
-                <button className="ProductsModalActionAddToCart" onClick={() => { handleAddToCart(selectedProduct); setSelectedProduct(null); }}>
-                  ADD TO CART
-                </button>
-                <button className="ProductsModalActionBuyNow">BUY IT NOW</button>
-
-                <div className="ProductsTrustBadgesBlock">
-                  <p>Free Shipping • Safe Shopping</p>
-                  <ul>
-                    <li>• Free Cash on Delivery</li>
-                    <li>• Secure Online payment methods</li>
-                  </ul>
-                </div>
-
-                <div className="ProductsShareBlockRow">
-                  <span>Share</span>
-                  <FaFacebookF />
-                  <FaPinterestP />
-                  <FaTwitter />
-                  <FaTelegramPlane />
-                </div>
-              </div>
+          <div className="sort-wrapper">
+            <span className="sort-label">SORT</span>
+            <div className="select-container">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="sort-select"
+                aria-label="Sort products"
+              >
+                <option value="Best selling">Best selling</option>
+                <option value="Price: Low to High">Price: Low to High</option>
+                <option value="Price: High to Low">Price: High to Low</option>
+                <option value="Newest">Newest</option>
+              </select>
             </div>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+
+      {/* ================= MOBILE TOP FILTER CHIPS BAR ================= */}
+      <div className="mobile-top-filters-container">
+        <div className="mobile-filters-scroll">
+          {FILTER_GROUPS.map((group) => (
+            <div key={group.title} className="mobile-filter-group-inline">
+              <span className="mobile-group-label">{group.title}:</span>
+              {group.items.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={`mobile-filter-pill ${
+                    filters[item] ? "active" : ""
+                  }`}
+                  onClick={() => handleCheckboxChange(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ================= MAIN CONTENT ================= */}
+      <div className="products-layout">
+        {/* DESKTOP SIDEBAR */}
+        <aside className="filter-sidebar">
+          <div className="filter-sidebar-top">
+            <div className="sidebar-refine">
+              <span>Refine</span>
+              <span className="refine-badge">{activeFilters.length}</span>
+            </div>
+
+            <button
+              type="button"
+              className="sidebar-clear"
+              onClick={handleClearAll}
+            >
+              Clear all
+            </button>
+          </div>
+
+          {FILTER_GROUPS.map((group) => (
+            <div className="filter-section" key={group.title}>
+              <h3>{group.title}</h3>
+
+              <div className="filter-options">
+                {group.items.map((item) => (
+                  <label
+                    key={item}
+                    className={`filter-option ${
+                      filters[item] ? "checked" : ""
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={filters[item]}
+                      onChange={() => handleCheckboxChange(item)}
+                    />
+                    <span className="custom-checkbox">
+                      {filters[item] && (
+                        <svg viewBox="0 0 12 12" aria-hidden="true">
+                          <path d="M2 6.2 4.7 9 10 3" />
+                        </svg>
+                      )}
+                    </span>
+                    <span className="filter-name">{item}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
+        </aside>
+
+        {/* PRODUCT AREA */}
+        <main className="products-grid-area">
+          {filteredProducts.length > 0 ? (
+            <div className="products-grid">
+              {filteredProducts.map((product) => (
+                <article className="product-card" key={product.id}>
+                  <ProductImage src={product.image} alt={product.title}>
+                    <div className="product-price-pill">
+                      {formatPrice(product.price)}
+                    </div>
+
+                    {product.badge && (
+                      <div className="coming-soon-wrapper">
+                        <div className="coming-soon-banner">
+                          <span>{product.badge}</span>
+                        </div>
+                      </div>
+                    )}
+                  </ProductImage>
+
+                  <div className="product-info">
+                    <p className="product-category">{product.category}</p>
+                    <h2>{product.title}</h2>
+                    <span className="product-price">
+                      {formatPrice(product.price)}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-products">
+              <div className="empty-icon">
+                <span>⌕</span>
+              </div>
+              <h2>No products found</h2>
+              <p>Try selecting another category or clear your filters.</p>
+              <button type="button" onClick={handleClearAll}>
+                Clear filters
+              </button>
+            </div>
+          )}
+        </main>
+      </div>
+    </section>
   );
 };
 

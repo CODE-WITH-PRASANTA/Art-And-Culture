@@ -8,7 +8,7 @@ export default function ContactFormSection() {
   /* =========================
      STATES
   ========================= */
-  const [userType, setUserType] = useState("provider"); // "provider" or "customer"
+  const [userType, setUserType] = useState("provider"); // "provider", "customer", or "wholesaler"
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -51,8 +51,13 @@ export default function ContactFormSection() {
     try {
       setLoading(true);
 
-      // Endpoint switches depending on whether they are applying as a Provider (employee/artisan) or Customer
-      const endpoint = userType === "provider" ? "/provider-apply" : "/contact";
+      // Endpoint switches depending on whether they are applying as an Artiste, Customer, or Wholesaler
+      let endpoint = "/contact";
+      if (userType === "provider") {
+        endpoint = "/provider-apply";
+      } else if (userType === "wholesaler") {
+        endpoint = "/wholesaler-apply";
+      }
 
       const payload = {
         ...formData,
@@ -64,11 +69,13 @@ export default function ContactFormSection() {
 
       console.log(response.data);
 
-      /* SUCCESS */
-      const successMsg =
-        userType === "provider"
-          ? "Provider Application Sent Successfully ✅ Our team will review and connect with you."
-          : "Message Sent Successfully ✅";
+      /* SUCCESS MESSAGE */
+      let successMsg = "Message Sent Successfully ✅";
+      if (userType === "provider") {
+        successMsg = "Artiste Application Sent Successfully ✅ Our team will review and connect with you.";
+      } else if (userType === "wholesaler") {
+        successMsg = "Wholesaler Inquiry Sent Successfully ✅ Our business team will reach out soon.";
+      }
       alert(successMsg);
 
       /* RESET */
@@ -97,6 +104,50 @@ export default function ContactFormSection() {
     }
   };
 
+  /* =========================
+     DYNAMIC CONTENT HELPERS
+  ========================= */
+  const getToplineText = () => {
+    if (userType === "provider") return "JOIN OUR ARTISTE NETWORK";
+    if (userType === "wholesaler") return "PARTNER WITH US / WHOLESALE";
+    return "HAVE ANY QUESTIONS? SO PLEASE";
+  };
+
+  const getTitleText = () => {
+    if (userType === "provider") return "Join As An Artiste!";
+    if (userType === "wholesaler") return "Join As A Wholesaler!";
+    return "Feel Free To Contact!";
+  };
+
+  const getSubtitleText = () => {
+    if (userType === "provider") {
+      return "Are you a creative artiste, skilled creator, or looking to showcase your craft in our growing network? Fill out the form below.";
+    }
+    if (userType === "wholesaler") {
+      return "Looking to buy in bulk or establish a business partnership? Provide your business details below to get special wholesale access.";
+    }
+    return "We would love to hear from you. Send us your questions, feedback, or creative ideas and our team will get back to you as soon as possible.";
+  };
+
+  const getMessageLabel = () => {
+    if (userType === "provider") return "Why do you want to join us / Artiste Experience details";
+    if (userType === "wholesaler") return "Business Name / Bulk Requirement Details";
+    return "Message";
+  };
+
+  const getMessagePlaceholder = () => {
+    if (userType === "provider") return "Share your creative background, skills, or portfolio details...";
+    if (userType === "wholesaler") return "Tell us about your store, expected volume, or requirements...";
+    return "Write your message here...";
+  };
+
+  const getSubmitButtonText = () => {
+    if (loading) return "Sending...";
+    if (userType === "provider") return "Submit Artiste Application";
+    if (userType === "wholesaler") return "Submit Wholesale Inquiry";
+    return "Send Message";
+  };
+
   return (
     <section 
       className="contactformux-root"
@@ -111,19 +162,11 @@ export default function ContactFormSection() {
         ==================================== */}
         <div className="contactformux-left">
 
-          <p className="contactformux-topline">
-            {userType === "provider" ? "JOIN OUR TEAM / ARTISAN NETWORK" : "HAVE ANY QUESTIONS? SO PLEASE"}
-          </p>
+          <p className="contactformux-topline">{getToplineText()}</p>
 
-          <h2 className="contactformux-title">
-            {userType === "provider" ? "Join As A Provider!" : "Feel Free To Contact!"}
-          </h2>
+          <h2 className="contactformux-title">{getTitleText()}</h2>
 
-          <p className="contactformux-subtitle">
-            {userType === "provider" 
-              ? "Are you an artisan, skilled worker, or looking to join our growing network? Fill out the form below to apply."
-              : "We would love to hear from you. Send us your questions, feedback, or creative ideas and our team will get back to you as soon as possible."}
-          </p>
+          <p className="contactformux-subtitle">{getSubtitleText()}</p>
 
           {/* SWITCH BAR SECTION */}
           <div className="contactformux-switch-bar">
@@ -137,7 +180,7 @@ export default function ContactFormSection() {
                 className="contactformux-radio"
               />
               <span className="radio-custom"></span>
-              Provider
+              Artiste
             </label>
 
             <label className={`contactformux-switch-label ${userType === "customer" ? "active" : ""}`}>
@@ -151,6 +194,19 @@ export default function ContactFormSection() {
               />
               <span className="radio-custom"></span>
               Customer
+            </label>
+
+            <label className={`contactformux-switch-label ${userType === "wholesaler" ? "active" : ""}`}>
+              <input
+                type="radio"
+                name="userType"
+                value="wholesaler"
+                checked={userType === "wholesaler"}
+                onChange={() => setUserType("wholesaler")}
+                className="contactformux-radio"
+              />
+              <span className="radio-custom"></span>
+              Wholesaler
             </label>
           </div>
 
@@ -224,10 +280,10 @@ export default function ContactFormSection() {
 
             {/* MESSAGE */}
             <label className="contactformux-label">
-              {userType === "provider" ? "Why do you want to join us / Experience details" : "Message"}
+              {getMessageLabel()}
               <textarea
                 name="message"
-                placeholder={userType === "provider" ? "Share your background, skills, or experience..." : "Write your message here..."}
+                placeholder={getMessagePlaceholder()}
                 value={formData.message}
                 onChange={handleChange}
                 className="contactformux-textarea"
@@ -240,7 +296,7 @@ export default function ContactFormSection() {
               className="contactformux-btn"
               disabled={loading}
             >
-              {loading ? "Sending..." : userType === "provider" ? "Submit Application" : "Send Message"}
+              {getSubmitButtonText()}
             </button>
 
           </form>
