@@ -1,307 +1,1173 @@
-/* =========================================
-   ग्लोबल सेटअप और कंटेनर
-========================================= */
-.wishlist-container {
+/* =========================================================
+   WISHLIST PAGE
+   PREMIUM / RESPONSIVE / REFERENCE STYLE
+========================================================= */
+
+.wishlist-page {
+  --cream: #faf7ef;
+  --cream-light: #fffdf8;
+  --card: #ffffff;
+  --black: #151515;
+  --text: #222222;
+  --muted: #747474;
+  --brown: #4b1723;
+  --brown-light: #6d3440;
+  --gold: #c99a55;
+  --gold-light: #d7b57a;
+  --border: #e8e0d2;
+
+  position: relative;
+
   width: 100%;
-  min-height: 80vh;
-  background-color: #f8f5f2; /* इमेज का सिल्क बैकग्राउंड कलर */
-  font-family: 'Playfair Display', Georgia, serif; /* हेडिंग के लिए एलिगेंट लुक */
-  padding: 60px 20px;
+  min-height: 100vh;
+
   box-sizing: border-box;
+
+  overflow: hidden;
+
+  padding:
+    20px
+    20px
+    70px;
+
+  background:
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(255, 255, 255, 0.95),
+      transparent 35%
+    ),
+    #faf7ef;
+
+  color: var(--text);
+
+  font-family:
+    "Poppins",
+    "Montserrat",
+    Arial,
+    sans-serif;
 }
 
-/* =========================================
-   ब्रेडक्रंब और हेडर (Image 1 & 2)
-========================================= */
-.wishlist-header {
-  text-align: center;
-  margin-bottom: 60px;
+
+/* =========================================================
+   BACKGROUND GEOMETRIC PATTERN
+========================================================= */
+
+.wishlist-bg-pattern {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.65;
+
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 48.5%,
+      rgba(183, 164, 125, 0.18) 49%,
+      rgba(183, 164, 125, 0.18) 50%,
+      transparent 50.5%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 48.5%,
+      rgba(183, 164, 125, 0.18) 49%,
+      rgba(183, 164, 125, 0.18) 50%,
+      transparent 50.5%
+    );
+
+  background-size:
+    108px 108px,
+    108px 108px;
+
+  background-position:
+    0 0,
+    0 0;
 }
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.wishlist-header {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  text-align: center;
+
+  margin:
+    0
+    auto
+    29px;
+}
+
+
+/* =========================================================
+   DECORATIVE HEADING
+========================================================= */
+
+.wishlist-heading-decoration {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 11px;
+
+  width: 150px;
+
+  margin:
+    0
+    auto
+    8px;
+}
+
+
+.heading-line {
+  width: 45px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #c7a875
+    );
+}
+
+
+.heading-line:last-child {
+  background:
+    linear-gradient(
+      90deg,
+      #c7a875,
+      transparent
+    );
+}
+
+
+.heading-diamond {
+  color: #b18a4e;
+
+  font-size: 8px;
+
+  transform: rotate(45deg);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
 
 .wishlist-title {
-  font-size: 36px;
+  margin: 0;
+
+  color: #101010;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 42px;
+
+  line-height: 1.05;
+
   font-weight: 400;
-  color: #111;
-  margin-bottom: 15px;
-  letter-spacing: 0.5px;
+
+  letter-spacing: -0.7px;
 }
+
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
 
 .wishlist-breadcrumb {
   display: flex;
+
   align-items: center;
+
   justify-content: center;
-  gap: 8px;
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 14px;
-  color: #555;
+
+  gap: 6px;
+
+  margin-top: 9px;
+
+  color: #565656;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 12px;
+
+  line-height: 1;
 }
 
-.breadcrumb-link {
+
+.breadcrumb-home {
+  border: none;
+
+  padding: 0;
+
+  background: transparent;
+
+  color: #353535;
+
+  font: inherit;
+
   cursor: pointer;
-  transition: color 0.2s;
+
+  transition:
+    color 0.2s ease;
 }
 
-.breadcrumb-link:hover {
-  color: #a34000;
+
+.breadcrumb-home:hover {
+  color: var(--brown);
 }
 
-.breadcrumb-separator {
+
+.wishlist-breadcrumb svg {
   color: #999;
 }
 
-.breadcrumb-current {
-  color: #222;
-}
 
-/* =========================================
-   एम्प्टी विशलिस्ट स्टेट (Image 1)
-========================================= */
-.wishlist-empty-state {
-  text-align: center;
-  padding: 40px 10px;
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 16px;
-  color: #111;
-}
+/* =========================================================
+   PRODUCT SECTION
+========================================================= */
 
-.back-shopping-link {
-  text-decoration: underline;
-  cursor: pointer;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.back-shopping-link:hover {
-  color: #a34000;
-}
-
-/* =========================================
-   विशलिस्ट ग्रिड लेआउट (Image 2)
-========================================= */
-.wishlist-grid-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-.wishlist-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* डेस्कटॉप पर 4 कॉलम्स */
-  gap: 30px;
-}
-
-/* =========================================
-   प्रोडक्ट कार्ड और होवर इफेक्ट्स
-========================================= */
-.product-card {
-  display: flex;
-  flex-direction: column;
-  background: transparent;
-}
-
-.product-image-container {
+.wishlist-products-section {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  cursor: pointer;
-}
 
-.product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-/* डिस्काउंट बैज */
-.discount-badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: #bc4722; /* इमेज जैसा बर्न-ऑरेंज शेड */
-  color: #fff;
-  font-family: system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 20px;
   z-index: 2;
+
+  width: 100%;
+
+  max-width: 790px;
+
+  margin: 0 auto;
 }
 
-/* एक्शन बटन (Heart, Eye) */
-.hover-action-icons {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  opacity: 0; /* डिफ़ॉल्ट रूप से छुपे रहेंगे */
-  transition: opacity 0.3s ease;
-  z-index: 3;
-}
 
-.action-icon-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: none;
-  display: flex;
-  align-items: center;
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.wishlist-products {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 237px);
+
   justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: background-color 0.2s, transform 0.2s;
+
+  gap: 25px;
 }
 
-.action-icon-btn:hover {
-  background-color: #f5ebe6;
-  transform: scale(1.05);
-}
 
-/* इमेज के अनुसार विशलिस्टेड हार्ट का बैकग्राउंड थोड़ा म्यूटेड कलर्ड है */
-.action-icon-btn.active-heart {
-  background-color: #f5ebe6;
-}
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
 
-/* सेलेक्ट ऑप्शंस ओवरले */
-.select-options-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 12px;
+.wishlist-product-card {
+  position: relative;
+
+  width: 237px;
+
   box-sizing: border-box;
-  transform: translateY(101%); /* सामान्य तौर पर नीचे छुपा रहेगा */
-  transition: transform 0.3s ease;
-  z-index: 2;
+
+  overflow: hidden;
+
+  background: var(--card);
+
+  border-radius: 5px;
+
+  box-shadow:
+    0 4px 14px rgba(55, 42, 27, 0.12),
+    0 1px 3px rgba(55, 42, 27, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.select-options-btn {
+
+.wishlist-product-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 28px rgba(55, 42, 27, 0.16),
+    0 2px 6px rgba(55, 42, 27, 0.08);
+}
+
+
+/* =========================================================
+   IMAGE BOX
+========================================================= */
+
+.wishlist-image-box {
+  position: relative;
+
   width: 100%;
-  background-color: #ffffff;
-  color: #111;
+
+  height: 205px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f2f2ef,
+      #e8e8e5
+    );
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.wishlist-product-image {
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transition:
+    transform 0.55s cubic-bezier(
+      0.2,
+      0.7,
+      0.2,
+      1
+    );
+}
+
+
+.wishlist-product-card:hover
+.wishlist-product-image {
+  transform: scale(1.055);
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.wishlist-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.04),
+      transparent 25%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.05)
+    );
+}
+
+
+/* =========================================================
+   DISCOUNT
+========================================================= */
+
+.wishlist-discount {
+  position: absolute;
+
+  top: 9px;
+
+  left: 9px;
+
+  z-index: 5;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 31px;
+
+  max-width: 78px;
+
+  box-sizing: border-box;
+
+  padding:
+    4px
+    7px;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #431727,
+      #571d2d
+    );
+
+  color: white;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8.5px;
+
+  line-height: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.2px;
+
+  text-align: left;
+
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.wishlist-actions {
+  position: absolute;
+
+  top: 9px;
+
+  right: 9px;
+
+  z-index: 6;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.wishlist-action {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 34px;
+
+  height: 34px;
+
+  padding: 0;
+
   border: none;
-  padding: 10px 0;
-  font-family: system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  color: #1b1b1b;
+
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.14);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
-/* कार्ड होवर ट्रिगर (ये दोनों इफ़ेक्ट्स एक साथ चलते हैं) */
-.product-card:hover .hover-action-icons {
-  opacity: 1;
+
+.wishlist-action:hover {
+  transform: scale(1.08);
+
+  background: #fff;
+
+  color: var(--brown);
 }
 
-.product-card:hover .select-options-overlay {
-  transform: translateY(0);
+
+.wishlist-heart {
+  color: #5b2430;
+
+  background: #f9f2eb;
 }
 
-.product-card:hover .product-image {
-  transform: scale(1.03);
+
+/* =========================================================
+   SELECT OPTIONS
+========================================================= */
+
+.wishlist-option-area {
+  position: absolute;
+
+  left: 9px;
+
+  right: 9px;
+
+  bottom: 9px;
+
+  z-index: 7;
 }
 
-/* =========================================
-   प्रोडक्ट डिटेल्स (टेक्स्ट और प्राइज़)
-========================================= */
-.product-details {
-  padding-top: 15px;
-  font-family: system-ui, -apple-system, sans-serif;
+
+.wishlist-option-button {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  width: 100%;
+
+  height: 33px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 3px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  color: #171717;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.13);
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.product-title {
-  font-size: 15px;
+
+.wishlist-option-button:hover {
+  background: var(--brown);
+
+  color: white;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PRODUCT DETAILS
+========================================================= */
+
+.wishlist-product-details {
+  box-sizing: border-box;
+
+  padding:
+    10px
+    21px
+    17px;
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.wishlist-category {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #a27b43;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  line-height: 12px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.wishlist-product-title {
+  margin:
+    0
+    0
+    7px;
+
+  min-height: 36px;
+
+  color: #151515;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 14px;
+
+  line-height: 18px;
+
   font-weight: 400;
-  color: #111;
-  line-height: 1.4;
-  margin: 0 0 6px 0;
+
   display: -webkit-box;
+
   -webkit-line-clamp: 2;
+
   -webkit-box-orient: vertical;
+
   overflow: hidden;
 }
 
-.product-rating {
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.wishlist-rating {
   display: flex;
+
   align-items: center;
-  gap: 6px;
+
+  gap: 7px;
+
   margin-bottom: 8px;
 }
 
-.rating-num {
-  font-size: 13px;
-  color: #666;
+
+.wishlist-rating-number {
+  color: #3f3f3f;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 11px;
+
+  line-height: 1;
 }
 
-.stars-row {
+
+.wishlist-stars {
   display: flex;
+
+  align-items: center;
+
   gap: 1px;
 }
 
-.product-price-row {
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.wishlist-price {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
+
+  align-items: baseline;
+
+  gap: 7px;
+
+  white-space: nowrap;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
-.price-from {
-  color: #bc4722;
+
+.wishlist-from {
+  color: var(--brown);
+
+  font-size: 13px;
+
   font-weight: 500;
 }
 
-.current-price {
-  color: #bc4722;
+
+.wishlist-current-price {
+  color: var(--brown);
+
+  font-size: 14px;
+
   font-weight: 600;
 }
 
-.old-price {
-  color: #999;
+
+.wishlist-old-price {
+  color: #777;
+
+  font-size: 12px;
+
   text-decoration: line-through;
+}
+
+
+/* =========================================================
+   EMPTY WISHLIST
+========================================================= */
+
+.wishlist-empty {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(
+    520px,
+    calc(100% - 30px)
+  );
+
+  margin:
+    50px
+    auto
+    0;
+
+  padding:
+    45px
+    25px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.86);
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 8px 25px rgba(60, 40, 20, 0.08);
+}
+
+
+.empty-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 70px;
+
+  height: 70px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 50%;
+
+  color: var(--brown);
+
+  background: #f6eee7;
+}
+
+
+.wishlist-empty h2 {
+  margin:
+    0
+    0
+    8px;
+
+  color: #191919;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 25px;
+
+  font-weight: 400;
+}
+
+
+.wishlist-empty p {
+  max-width: 380px;
+
+  margin:
+    0
+    auto
+    22px;
+
+  color: #777;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   font-size: 13px;
+
+  line-height: 21px;
 }
 
-/* =========================================
-   रिस्पॉन्सिव मीडिया क्वेरीज़ (सभी डिवाइसेज के लिए)
-========================================= */
 
-/* बड़ी स्क्रीन्स / लैपटॉप्स */
-@media (max-width: 1200px) {
-  .wishlist-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.empty-shopping-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  height: 42px;
+
+  padding:
+    0
+    22px;
+
+  border: none;
+
+  border-radius: 3px;
+
+  background: var(--brown);
+
+  color: white;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
-/* टैबलेट्स (Tablets) */
-@media (max-width: 768px) {
-  .wishlist-grid-wrapper {
-    padding: 0 15px;
+
+.empty-shopping-button:hover {
+  background: #35101a;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1100px) {
+
+  .wishlist-page {
+    padding-top: 20px;
   }
-  .wishlist-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .wishlist-products-section {
+    max-width: 510px;
   }
+
+
+  .wishlist-products {
+    grid-template-columns:
+      repeat(2, 237px);
+
+    gap: 18px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+
+  .wishlist-page {
+    padding:
+      28px
+      11px
+      50px;
+  }
+
+
+  .wishlist-header {
+    margin-bottom: 28px;
+  }
+
+
   .wishlist-title {
-    font-size: 30px;
+    font-size: 35px;
   }
-  /* मोबाइल/टैबलेट पर होवर आइकॉन हमेशा विज़िबल रख सकते हैं बेहतर अनुभव के लिए */
-  .hover-action-icons {
-    opacity: 1;
+
+
+  .wishlist-products-section {
+    width: 100%;
   }
+
+
+  .wishlist-products {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    width: 100%;
+  }
+
+
+  .wishlist-product-card {
+    width: 100%;
+  }
+
+
+  .wishlist-image-box {
+    height: auto;
+
+    aspect-ratio: 1 / 0.91;
+  }
+
+
+  .wishlist-discount {
+    top: 7px;
+
+    left: 7px;
+
+    max-width: 67px;
+
+    min-height: 27px;
+
+    padding:
+      3px
+      5px;
+
+    font-size: 7px;
+
+    line-height: 8px;
+  }
+
+
+  .wishlist-actions {
+    top: 7px;
+
+    right: 7px;
+
+    gap: 5px;
+  }
+
+
+  .wishlist-action {
+    width: 29px;
+
+    height: 29px;
+  }
+
+
+  .wishlist-action svg {
+    width: 15px;
+
+    height: 15px;
+  }
+
+
+  .wishlist-option-area {
+    left: 6px;
+
+    right: 6px;
+
+    bottom: 6px;
+  }
+
+
+  .wishlist-option-button {
+    height: 29px;
+
+    font-size: 8px;
+
+    gap: 2px;
+  }
+
+
+  .wishlist-option-button svg {
+    width: 10px;
+
+    height: 10px;
+  }
+
+
+  .wishlist-product-details {
+    padding:
+      8px
+      9px
+      13px;
+  }
+
+
+  .wishlist-category {
+    font-size: 6.5px;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 2px;
+  }
+
+
+  .wishlist-product-title {
+    min-height: 32px;
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+
+    line-height: 15px;
+  }
+
+
+  .wishlist-rating {
+    gap: 5px;
+
+    margin-bottom: 6px;
+  }
+
+
+  .wishlist-rating-number {
+    font-size: 9px;
+  }
+
+
+  .wishlist-stars {
+    gap: 0;
+  }
+
+
+  .wishlist-stars svg {
+    width: 10px;
+
+    height: 10px;
+  }
+
+
+  .wishlist-price {
+    gap: 3px;
+  }
+
+
+  .wishlist-from {
+    font-size: 9px;
+  }
+
+
+  .wishlist-current-price {
+    font-size: 10px;
+  }
+
+
+  .wishlist-old-price {
+    font-size: 8px;
+  }
+
 }
 
-/* छोटे मोबाइल फोन्स */
-@media (max-width: 480px) {
-  .wishlist-grid {
-    grid-template-columns: repeat(1, 1fr); /* सिंगल कॉलम ग्रिड */
-    gap: 25px;
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .wishlist-page {
+    padding-left: 8px;
+
+    padding-right: 8px;
   }
-  .wishlist-title {
-    font-size: 26px;
+
+
+  .wishlist-products {
+    gap: 7px;
   }
+
+
+  .wishlist-product-details {
+    padding-left: 7px;
+
+    padding-right: 7px;
+  }
+
+
+  .wishlist-product-title {
+    font-size: 10px;
+
+    line-height: 14px;
+  }
+
+
+  .wishlist-from {
+    font-size: 8px;
+  }
+
+
+  .wishlist-current-price {
+    font-size: 9px;
+  }
+
+
+  .wishlist-old-price {
+    font-size: 7.5px;
+  }
+
 }

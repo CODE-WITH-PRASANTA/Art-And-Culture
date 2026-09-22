@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './HomeMyth.css';
 
 // React Icons
 import { HiOutlineArrowRight } from 'react-icons/hi2';
-
-// Background Pattern Import
-import bgPattern from '../../assets/whitebg.png'; // Adjust path as needed
 
 // 4 Card Image Imports
 import img1 from '../../assets/white-gold-lord-krishna-with-cow-idol-marble-finish-home-decor_1.webp';
@@ -59,10 +57,7 @@ const HomeMyth = () => {
   ];
 
   return (
-    <section
-      className="HomeMyth"
-      style={{ backgroundImage: `url(${bgPattern})` }}
-    >
+    <section className="HomeMyth">
       <div className="HomeMyth-container">
         
         {/* Header Section */}
@@ -74,10 +69,11 @@ const HomeMyth = () => {
             <h2 className="HomeMyth-title">Gyaan & Myths</h2>
           </div>
 
-          <a href="#all-blogs" className="HomeMyth-knowMore">
+          {/* Updated to use React Router Link pointing to /blog */}
+          <Link to="/blog" className="HomeMyth-knowMore">
             <span>KNOW MORE</span>
             <HiOutlineArrowRight className="HomeMyth-knowMoreArrow" />
-          </a>
+          </Link>
         </div>
 
         {/* Category Filters */}

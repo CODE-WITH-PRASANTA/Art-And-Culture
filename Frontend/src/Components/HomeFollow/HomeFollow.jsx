@@ -6,7 +6,7 @@ import { FaInstagram } from 'react-icons/fa';
 import { BsChevronLeft, BsChevronRight, BsDiamondFill } from 'react-icons/bs';
 
 // Background Pattern Import
-import bgPattern from '../../assets/whitebg.png'; // Adjust path if needed
+import bgPattern from '../../assets/Artall background.webp'; // Adjust path if needed
 
 // 6 Gallery Image Imports
 import instaImg1 from '../../assets/pic1.jpg';
@@ -19,12 +19,12 @@ import instaImg6 from '../../assets/pic6.jpg';
 const HomeFollow = () => {
   const scrollRef = useRef(null);
 
-  // Instagram Profile Link
-  const instagramUrl = 'https://www.instagram.com/svastika.in';
+  // Updated Instagram Profile Link
+  const instagramUrl = 'https://www.instagram.com/theartandculturehub?stkn=bjRzemdzN3hmcnJu';
 
   // 6 Instagram Posts
   const posts = [
-    { id: 1, image: instaImg1, alt: 'Svastika branding post' },
+    { id: 1, image: instaImg1, alt: 'Art & Culture branding post' },
     { id: 2, image: instaImg2, alt: 'Artisans shoot behind the scenes' },
     { id: 3, image: instaImg3, alt: 'Puri Jagannath temple visit' },
     { id: 4, image: instaImg4, alt: 'Spiritual story telling' },
@@ -51,7 +51,7 @@ const HomeFollow = () => {
         <div className="HomeFollow-header">
           <div className="HomeFollow-tagline">
             <BsDiamondFill className="HomeFollow-tagIcon" />
-            <span>@SVASTIKA.IN</span>
+            <span>@theartandculturehub</span>
           </div>
 
           <h2 className="HomeFollow-title">
@@ -115,7 +115,7 @@ const HomeFollow = () => {
             className="HomeFollow-followBtn"
           >
             <FaInstagram className="HomeFollow-btnInstaIcon" />
-            <span>Follow @svastika.in</span>
+            <span>Follow @theartandculturehub</span>
           </a>
         </div>
 

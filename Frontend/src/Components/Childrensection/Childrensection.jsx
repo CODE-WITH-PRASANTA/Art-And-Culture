@@ -1,77 +1,64 @@
-// Childrensection.jsx
-
 import React from "react";
 import "./Childrensection.css";
 
 import aboutImage from "../../assets/About1.webp";
+import bgPattern from "../../assets/Artall background.webp";
 
 const Childrensection = () => {
   return (
-    <section className="childrenSection">
+    <section 
+      className="childrenSection"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
+      <div className="childrenSection__overlay-tint"></div>
+      
       <div className="childrenSection__container">
 
         {/* =========================
             LEFT CONTENT
         ========================= */}
-
         <div className="childrenSection__content">
+          <div className="childrenSection__tag-wrapper">
+            <span className="childrenSection__tag">OUR STORY</span>
+          </div>
 
-          <span className="childrenSection__tag">
-            OUR STORY
-          </span>
-
-          <h1 className="childrenSection__title">
+          <h2 className="childrenSection__title">
             Where Art, Culture & Purpose Come Together
-          </h1>
+          </h2>
 
           <p className="childrenSection__description">
-           Every meaningful creation begins with a story. Ours began with a simple belief—that art should inspire, culture should be preserved, and every handcrafted piece should carry a deeper purpose.
-           Founded in 2022, our journey started with a vision to transform everyday décor and gifting into timeless expressions of heritage, craftsmanship, and positive energy. Inspired by India's rich artistic traditions and cultural legacy, we carefully design and curate products that celebrate creativity while adding elegance and meaning to modern living spaces.
+            Every meaningful creation begins with a story. Ours began with a simple belief—that art should inspire, culture should be preserved, and every handcrafted piece should carry a deeper purpose.
           </p>
 
           <p className="childrenSection__description">
-            Our mission is to bring together art, culture, sustainability, and craftsmanship to create products that enrich homes, strengthen relationships, and preserve the beauty of handmade traditions for generations to come.
+            Founded in 2022, our journey started with a vision to transform everyday décor and gifting into timeless expressions of heritage, craftsmanship, and positive energy.
           </p>
 
-          <button className="childrenSection__button">
-            Explore More
-          </button>
-
+          <div className="childrenSection__action">
+            <button className="childrenSection__button">
+              Explore More
+            </button>
+          </div>
         </div>
 
         {/* =========================
             RIGHT IMAGE SECTION
         ========================= */}
-
         <div className="childrenSection__imageWrapper">
-
           <div className="childrenSection__imageCard">
-
             <img
               src={aboutImage}
               alt="Luxury Interior"
               className="childrenSection__image"
             />
 
-            {/* Overlay */}
-            <div className="childrenSection__overlay"></div>
+            <div className="childrenSection__image-overlay"></div>
 
-            {/* Floating Glass Card */}
             <div className="childrenSection__floatingCard">
-
-              <h4>
-                Premium Decor
-              </h4>
-
-              <p>
-                Crafted with elegance,
-                luxury & positive energy
-              </p>
-
+              <h4>Premium Decor</h4>
+              <p>Crafted with elegance, luxury & positive energy</p>
             </div>
-
           </div>
-
         </div>
 
       </div>

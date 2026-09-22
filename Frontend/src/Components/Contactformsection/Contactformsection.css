@@ -1,86 +1,116 @@
-/* ContactFormSection.css
-   Updated image framing & decoration to match the reference.
-   Unique prefix: contactformux-
-*/
-
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Poppins:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@600;700&display=swap');
 
 :root {
-  --cfux-text: #000;
-  --cfux-muted: #555;
-  --cfux-border: #e6e6e6;
-  --cfux-accent: #7a2e1b; /* requested pink replacement */
+  --cfux-text: #2D1F18;
+  --cfux-muted: #55443d;
+  --cfux-border: rgba(196, 98, 45, 0.2);
+  --cfux-accent: #7a2e1b;
+  --cfux-primary: #C4622D;
   --cfux-yellow: #ffd42a;
 }
 
-/* root container */
+/* root container with pattern background */
 .contactformux-root {
-  padding: 60px 20px;
-  background: #fff;
-  font-family: "Poppins", sans-serif;
+  position: relative;
+  padding: 80px 5%;
+  background-repeat: repeat;
+  background-position: center;
+  font-family: 'Inter', sans-serif;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Light transparency layer for watermark effect */
+.contactformux-overlay-tint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* inner layout */
 .contactformux-inner {
-  max-width: 1300px;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  align-items: flex-start;
-  gap: 40px;
+  align-items: center;
+  gap: 50px;
 }
 
 /* left column (form) */
-.contactformux-left { flex: 1; }
+.contactformux-left { 
+  flex: 1; 
+}
 
 .contactformux-topline {
-  letter-spacing: 3px;
-  color: var(--cfux-accent);
+  display: inline-block;
+  font-size: 11px;
   font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--cfux-primary);
+  background: rgba(196, 98, 45, 0.1);
+  padding: 5px 12px;
+  border-radius: 4px;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .contactformux-title {
-  font-family: "Baloo 2", cursive;
-  font-size: 58px;
-  font-weight: 800;
-  margin-bottom: 32px;
-  color: #000;
+  font-family: "Merriweather", serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: var(--cfux-text);
 }
 
-.contactformux-form { width: 100%; }
+.contactformux-subtitle {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--cfux-muted);
+  margin-bottom: 24px;
+}
+
+.contactformux-form { 
+  width: 100%; 
+}
 
 .contactformux-row {
   display: flex;
-  gap: 22px;
-  margin-bottom: 22px;
+  gap: 20px;
+  margin-bottom: 16px;
 }
 
 .contactformux-label {
   width: 100%;
-  font-size: 16px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--cfux-text);
 }
 
-.contactformux-required { color: var(--cfux-accent); }
-
 .contactformux-input,
 .contactformux-textarea {
   width: 100%;
-  height: 60px;
-  border-radius: 12px;
-  border: 2px solid var(--cfux-border);
-  margin-top: 8px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid var(--cfux-border);
+  margin-top: 6px;
   padding: 0 16px;
-  font-size: 16px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
   transition: border-color 0.2s ease, box-shadow 0.18s ease;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
 }
 
 .contactformux-textarea {
-  height: 150px;
+  height: 120px;
   resize: vertical;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -88,46 +118,53 @@
 
 .contactformux-input:focus,
 .contactformux-textarea:focus {
-  border-color: var(--cfux-accent);
+  border-color: var(--cfux-primary);
   outline: none;
-  box-shadow: 0 6px 22px rgba(122,46,27,0.08);
+  box-shadow: 0 4px 16px rgba(196, 98, 45, 0.15);
 }
 
 .contactformux-btn {
   background: var(--cfux-accent);
   color: #fff;
   border: none;
-  border-radius: 40px;
-  padding: 16px 40px;
-  font-size: 18px;
+  border-radius: 6px;
+  padding: 12px 28px;
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
   margin-top: 20px;
-  transition: transform 160ms ease, background 160ms ease;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 12px rgba(122, 46, 27, 0.2);
 }
-.contactformux-btn:hover { transform: translateY(-3px); background: #5e2013; }
+
+.contactformux-btn:hover { 
+  background: #5e2213; 
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 16px rgba(122, 46, 27, 0.3);
+}
 
 /* right column (image area) */
 .contactformux-right {
-  width: 520px;
+  width: 450px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 520px; /* ensures the blob and image have room */
+  min-height: 450px;
 }
 
 /* yellow blob behind */
 .contactformux-yellowblob {
   position: absolute;
-  width: 520px;
-  height: 520px;
+  width: 420px;
+  height: 420px;
   background: var(--cfux-yellow);
   border-radius: 30% 60% 40% 70%;
-  top: 20px;
-  right: 0;
+  top: 15px;
+  right: 15px;
   z-index: 1;
-  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.08));
+  opacity: 0.85;
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.06));
 }
 
 /* wrapper that centers & sizes the frame */
@@ -137,35 +174,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
 }
 
-/* the framed image: create white double border & clipped octagon-ish shape */
+/* the framed image */
 .contactformux-kid-frame {
-  width: 420px;
-  height: 420px;
+  width: 360px;
+  height: 360px;
   display: block;
-  border-radius: 20px;
-  padding: 10px; /* outer white border thickness */
-  background: #fff; /* creates the white ring */
+  border-radius: 12px;
+  padding: 8px;
+  background: #fff;
   box-sizing: border-box;
   transform: rotate(-1.5deg);
-  box-shadow: 0 18px 44px rgba(0,0,0,0.12);
+  box-shadow: 0 16px 35px rgba(45, 31, 24, 0.12);
   position: relative;
-  overflow: visible;
-  /* second inner white ring */
-  border: 6px solid #fff;
+  border: 4px solid #fff;
 }
 
 /* actual image inside: clipped to an octagon-like polygon */
 .contactformux-kidimg {
   width: 100%;
   height: 100%;
+  object-type: cover;
   object-fit: cover;
   display: block;
-  border-radius: 12px;
-  /* large clip-path to create rounded octagon */
+  border-radius: 8px;
   clip-path: polygon(
     50% 2%,
     82% 8%,
@@ -178,84 +213,106 @@
     4% 32%,
     18% 8%
   );
-  transition: transform 420ms cubic-bezier(.2,.9,.3,1), filter 300ms ease;
+  transition: transform 0.4s ease, filter 0.3s ease;
   transform-origin: center;
-  display: block;
 }
 
-/* hover/focus on the whole frame produces a mild zoom and brighter image */
 .contactformux-kid-frame:hover .contactformux-kidimg,
 .contactformux-kid-frame:focus-within .contactformux-kidimg {
-  transform: scale(1.03) translateY(-6px);
+  transform: scale(1.03);
   filter: brightness(1.03);
 }
 
-/* decorative rainbow SVG positioned over blob */
-.contactformux-rainbow {
-  position: absolute;
-  width: 220px;
-  height: auto;
-  right: 28px;
-  bottom: -26px;
-  z-index: 3;
-  opacity: 0.98;
-  transform: rotate(-6deg);
+/* =========================
+   SWITCH BAR STYLING
+========================= */
+.contactformux-switch-bar {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(196, 98, 45, 0.15);
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+.contactformux-switch-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cfux-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.contactformux-switch-label.active {
+  color: var(--cfux-accent);
+}
+
+.contactformux-radio {
+  accent-color: var(--cfux-accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 /* RESPONSIVE ADJUSTMENTS */
-@media (max-width: 1150px) {
-  .contactformux-inner { gap: 22px; }
-  .contactformux-right { width: 420px; min-height: 420px; }
-  .contactformux-yellowblob { width: 420px; height: 420px; top: 16px; }
-  .contactformux-kid-wrap { width: 360px; height: 360px; }
-  .contactformux-kid-frame { width: 300px; height: 300px; padding: 8px; border-width:6px; }
-}
-
-@media (max-width: 900px) {
-  .contactformux-inner {
+@media (max-width: 1024px) {
+  .contactformux-inner { 
     flex-direction: column;
     align-items: center;
+    gap: 40px;
   }
-  .contactformux-right {
-    order: -1;
-    width: 88%;
-    min-height: 320px;
-    margin-bottom: 18px;
+  .contactformux-right { 
+    order: -1; 
+    width: 100%;
+    min-height: 360px;
   }
-  .contactformux-yellowblob {
-    width: 360px;
-    height: 360px;
-    top: 0;
-    right: 0;
+  .contactformux-title { 
+    font-size: 30px; 
   }
-  .contactformux-kid-wrap { width: 320px; height: 320px; }
-  .contactformux-kid-frame { width: 260px; height: 260px; padding: 8px; }
-  .contactformux-kidimg { clip-path: polygon(
-    50% 3%,
-    80% 9%,
-    95% 30%,
-    95% 70%,
-    80% 91%,
-    50% 97%,
-    20% 91%,
-    5% 70%,
-    5% 30%,
-    20% 9%
-  ); }
-  .contactformux-title { text-align: center; font-size: 40px; }
 }
 
-/* small phones */
 @media (max-width: 520px) {
-  .contactformux-inner { padding: 0 12px; }
-  .contactformux-kid-wrap { width: 240px; height: 240px; }
-  .contactformux-yellowblob { width: 280px; height: 280px; right: -12px; top: 6px; }
-  .contactformux-kid-frame { width: 210px; height: 210px; padding: 6px; }
-  .contactformux-kidimg { border-radius: 10px; }
-  .contactformux-title { font-size: 32px; text-align: center; }
+  .contactformux-root {
+    padding: 50px 20px;
+  }
+  .contactformux-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .contactformux-switch-bar {
+    width: 100%;
+    justify-content: space-around;
+  }
+  .contactformux-kid-wrap { 
+    width: 280px; 
+    height: 280px; 
+  }
+  .contactformux-yellowblob { 
+    width: 280px; 
+    height: 280px; 
+  }
+  .contactformux-kid-frame { 
+    width: 240px; 
+    height: 240px; 
+  }
+  .contactformux-title { 
+    font-size: 24px; 
+  }
+  .contactformux-subtitle {
+    font-size: 13.5px;
+  }
 }
 
 /* accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .contactformux-kidimg, .contactformux-kid-frame { transition: none !important; transform: none !important; }
+  .contactformux-kidimg, .contactformux-kid-frame { 
+    transition: none !important; 
+    transform: none !important; 
+  }
 }

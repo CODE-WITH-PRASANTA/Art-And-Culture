@@ -21,7 +21,7 @@ import Terms from "./Components/Termandcondition/Termandcondition";
 import PoojaDetails from "./Pages/PoojaDetails/PoojaDetails";
 import ShopDetails from "./Pages/ShopDetails/ShopDetails";
 import LoginForm from "./Components/LoginForm/LoginForm";
-import PoojaEssentialsMain from "./Pages/PoojaEssentialsMain/PoojaEssentialsMain";
+
 import Prints from "./Pages/Prints/Prints";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import Address from "./Components/Address/Address";
@@ -60,6 +60,8 @@ function App() {
           <Route path="/poojadetails" element={<PoojaDetails />} />
          <Route path="/shopdetails" element={<ShopDetails />} />
           <Route path="/poojamain" element={<PoojaEssentialsMain />} />
+         <Route path="/shopdetails/:id" element={<ShopDetails />} />
+         <Route path="/poojamain"element={<PoojaEssentials/>}/>
           <Route path="/wood" element={<Prints />} />   
           <Route path="wishlist" element={<Wishlist/>}/>
           <Route path="/LoginForm" element={<LoginForm/>}/>

@@ -6,13 +6,12 @@ import { AiFillHeart } from "react-icons/ai";
 import { FaUserCircle, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { FaHome, FaBlog } from "react-icons/fa";
 import { MdCategory, MdOutlineLocalFlorist } from "react-icons/md";
-import logo from "../../assets/Art and Culture Logo.webp";
+import logo from "../../assets/Artlogo.webp";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
-  const [openQuotePanel, setOpenQuotePanel] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
@@ -38,23 +37,10 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => setMobileMenuOpen((s) => !s);
 
-  // ✅ KEY FIX: close menu first, then let Link handle navigation
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
     document.body.classList.remove("menu-open");
   };
-
-  const portalNode = typeof document !== "undefined" ? document.body : null;
-
-  const panel = (
-    <>
-      <div
-        className={`quote-info-overlay ${openQuotePanel ? "show" : ""}`}
-        onClick={() => setOpenQuotePanel(false)}
-        aria-hidden={!openQuotePanel}
-      />
-    </>
-  );
 
   return (
     <>
@@ -71,7 +57,6 @@ const Navbar = () => {
           </Link>
 
           <nav className={`navbar-links ${mobileMenuOpen ? "active" : ""}`}>
-
             <div className="mobile-menu-header">
               <span className="mobile-menu-title">Menu</span>
               <button
@@ -95,7 +80,7 @@ const Navbar = () => {
                 <FaBlog /> Blog
               </Link>
               <Link to="/Pooja-essentials" onClick={closeMobileMenu}>
-                <MdOutlineLocalFlorist /> Pooja Essentials
+                <MdOutlineLocalFlorist /> Trainings/Workshops
               </Link>
               <Link to="/about" onClick={closeMobileMenu}>
                 <FaUserCircle /> About
@@ -113,23 +98,24 @@ const Navbar = () => {
           </nav>
 
           <div className="navbar-actions">
-
+            {/* Re-ordered cluster: Cart -> Wishlist -> Profile */}
             <div className="navbar-actions-cluster">
-              <Link to="/wishlist" className="icon-link" onClick={closeMobileMenu}>
-                <AiFillHeart />
-              </Link>
-
-              <Link to="/account" className="navbarActionBox" onClick={closeMobileMenu}>
-                <FaUserCircle className="navbarActionIcon" />
-              </Link>
-
               <button
                 type="button"
                 className="icon-link cartnav__btn"
+                title="Cart"
                 onClick={() => setOpenCart(true)}
               >
                 <FaShoppingCart />
               </button>
+
+              <Link to="/wishlist" className="icon-link" title="Wishlist" onClick={closeMobileMenu}>
+                <AiFillHeart />
+              </Link>
+
+              <Link to="/account" className="navbarActionBox" title="Account" onClick={closeMobileMenu}>
+                <FaUserCircle className="navbarActionIcon" />
+              </Link>
             </div>
 
             {showLogin && (
@@ -151,8 +137,6 @@ const Navbar = () => {
 
             {openCart && <ShopCart onClose={() => setOpenCart(false)} />}
 
-            <span className="navbar-actions-divider" aria-hidden="true" />
-
             <button
               type="button"
               className="quote-box-icon-btn mobile-hamburger-btn"
@@ -162,14 +146,9 @@ const Navbar = () => {
               <FaBars />
             </button>
 
-            <Link to="/get-quote" className="navbar-quote-btn" onClick={closeMobileMenu}>
-              Get Free Quotes
-            </Link>
-
           </div>
         </div>
       </header>
-      {portalNode ? ReactDOM.createPortal(panel, portalNode) : null}
     </>
   );
 };

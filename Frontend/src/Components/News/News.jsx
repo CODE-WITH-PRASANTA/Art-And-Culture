@@ -2,7 +2,7 @@ import React from "react";
 import "./News.css";
 
 const News = () => {
-  const text = "Think positive. Feel positive. Live positive";
+  const text = " Don't hold it. Live it. Spread it.";
   const ICON = "✦"; // you can change this to ★ • ⭑ etc.
 
   // create repeated items for smooth marquee

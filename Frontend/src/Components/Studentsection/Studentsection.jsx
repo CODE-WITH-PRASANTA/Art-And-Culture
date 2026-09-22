@@ -2,10 +2,16 @@ import React from "react";
 import "./Studentsection.css";
 
 import philosophyImage from "../../assets/Philosphy.webp";
+import bgPattern from "../../assets/Artall background.webp";
 
 const Studentsection = () => {
   return (
-    <section className="studentSection">
+    <section 
+      className="studentSection"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
+      <div className="studentSection__overlay-tint"></div>
+
       <div className="studentSection__wrapper">
 
         {/* LEFT IMAGE */}
@@ -15,30 +21,29 @@ const Studentsection = () => {
             alt="Our Philosophy"
             className="studentSection__image"
           />
-
           <div className="studentSection__overlay"></div>
         </div>
 
         {/* RIGHT CONTENT */}
         <div className="studentSection__content">
 
-          <span className="studentSection__tag">
-            OUR PHILOSOPHY
-          </span>
+          <div className="studentSection__tag-wrapper">
+            <span className="studentSection__tag">
+              OUR PHILOSOPHY
+            </span>
+          </div>
 
           <h2 className="studentSection__title">
-            Crafted Through
-            <br />
+            Crafted Through <br />
             Art, Culture & Timeless Elegance
           </h2>
 
           <p className="studentSection__description">
-            We believe that true luxury is more than exceptional design—it is the harmony of art, culture, heritage. Every piece we create reflects a commitment to preserving traditional artistry while embracing modern sophistication, transforming everyday spaces into expressions of beauty and meaning.
-            
+            We believe that true luxury is more than exceptional design—it is the harmony of art, culture, heritage. Every piece we create reflects a commitment to preserving traditional artistry while embracing modern sophistication.
           </p>
 
           <p className="studentSection__description">
-            Our philosophy is rooted in creating products that tell stories, preserve traditions, and inspire positive living. Whether it's luxury home décor, handcrafted art, cultural accents, or premium gifting, every collection is designed to enrich your surroundings with warmth, authenticity, and timeless style.
+            Our philosophy is rooted in creating products that tell stories, preserve traditions, and inspire positive living, designed to enrich your surroundings with warmth and authenticity.
           </p>
 
           <div className="studentSection__buttonWrap">

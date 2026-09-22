@@ -9,7 +9,7 @@ const cards = [
     label: "For Craftsmen",
     tag: "Basic",
     status: "Starting At $49",
-    img:"https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg",
+    img: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658377_640.jpg",
     type: "raw",
     features: ["Natural Material", "Customizable", "DIY Projects", "Budget Friendly"],
     stats: { quality: 3, difficulty: 4, value: 5 }
@@ -21,7 +21,7 @@ const cards = [
     label: "For Artisans",
     tag: "Advanced",
     status: "Starting At $129",
-    img: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658378_640.jpg", // Partially carved idol
+    img: "https://cdn.pixabay.com/photo/2024/03/27/07/14/ai-generated-8658378_640.jpg",
     type: "semi",
     features: ["Partially Carved", "Smooth Edges", "Ready for Finishing", "Time Saving"],
     stats: { quality: 4, difficulty: 3, value: 4 }
@@ -33,7 +33,7 @@ const cards = [
     label: "For Collectors",
     tag: "Premium",
     status: "Starting At $299",
-    img: "https://cdn.pixabay.com/photo/2023/09/09/16/03/ai-generated-8243405_640.jpg", // Finished polished idol
+    img: "https://cdn.pixabay.com/photo/2023/09/09/16/03/ai-generated-8243405_640.jpg",
     type: "finished",
     features: ["Fully Polished", "High Quality", "Ready to Display", "Premium Finish"],
     stats: { quality: 5, difficulty: 1, value: 3 }
@@ -66,7 +66,7 @@ const Typesofidols = () => {
             <div className="card-main">
               <div className="card-content">
                 <div className="card-text">
-                  <h2 className="card-title">{card.title}</h2>
+                  <h3 className="card-title">{card.title}</h3>
                   <p className="card-subtitle">{card.subtitle}</p>
                   
                   {/* Features */}

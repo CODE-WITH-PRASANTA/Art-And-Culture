@@ -1,33 +1,40 @@
 import React from "react";
 import "./Contactcardsection.css";
 
+import bgPattern from "../../assets/Artall background.webp";
+
 export default function ContactCards() {
   const cards = [
     {
       key: "phone",
-      title: "Phone No",
-      line: "+44 (0) 207 689 7888",
+      title: "Phone Nos",
+      line: "+91-7302577395 / +91 80765 52275",
       icon: "phone",
     },
     {
       key: "hours",
       title: "Monday to Friday",
-      line: "8.30am — 02.00pm",
+      line: "9.00am — 07.00pm",
       icon: "clock",
     },
     {
       key: "email",
       title: "Email Address",
-      line: "user@domainname.com",
+      line: "artandculturehub@gmail.com",
       icon: "mail",
     },
   ];
 
   return (
-    <section className="contactux-root" aria-labelledby="contactux-heading">
-      <div className="contactux-inner">
+    <section 
+      className="contactux-root" 
+      aria-labelledby="contactux-heading"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
+      <div className="contactux-overlay-tint"></div>
 
-        {/* PREMIUM TOP LABEL */}
+      <div className="contactux-inner">
+        {/* TOP LABEL */}
         <div className="contactux-heading">
           <span>Get In Touch</span>
         </div>
