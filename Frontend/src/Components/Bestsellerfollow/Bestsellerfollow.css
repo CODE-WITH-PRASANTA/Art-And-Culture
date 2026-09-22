@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   Bestsellerfollow Main Section
+========================================== */
+.Bestsellerfollow {
+  width: 100%;
+  padding: 80px 32px;
+  background-color: #fdfbf7; /* Off-white warm background */
+  background-repeat: repeat;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #222222;
+}
+
+.Bestsellerfollow-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ==========================================
+   Header Styling
+========================================== */
+.Bestsellerfollow-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.Bestsellerfollow-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c49a45;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.Bestsellerfollow-tagIcon {
+  font-size: 6px;
+}
+
+.Bestsellerfollow-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.Bestsellerfollow-title span {
+  font-style: italic;
+  color: #c49a45; /* Gold italic accent */
+  font-weight: 400;
+}
+
+/* ==========================================
+   Carousel & Cards Styling
+========================================== */
+.Bestsellerfollow-carouselWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.Bestsellerfollow-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 4px;
+  width: 100%;
+}
+
+/* Hide Scrollbar */
+.Bestsellerfollow-track::-webkit-scrollbar {
+  display: none;
+}
+.Bestsellerfollow-track {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Circular Side Arrow Navigation Buttons */
+.Bestsellerfollow-navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #e5e0d8;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #222222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.Bestsellerfollow-navBtn:hover {
+  background-color: #121212;
+  color: #ffffff;
+  border-color: #121212;
+}
+
+.Bestsellerfollow-navBtn.left {
+  left: -18px;
+}
+
+.Bestsellerfollow-navBtn.right {
+  right: -18px;
+}
+
+/* Card Styling */
+.Bestsellerfollow-card {
+  position: relative;
+  flex: 0 0 190px;
+  height: 220px;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  background-color: #eae5dc;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.Bestsellerfollow-cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* Instagram Hover Overlay */
+.Bestsellerfollow-cardOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.Bestsellerfollow-instaHoverIcon {
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.Bestsellerfollow-card:hover .Bestsellerfollow-cardOverlay {
+  opacity: 1;
+}
+
+.Bestsellerfollow-card:hover .Bestsellerfollow-cardImg {
+  transform: scale(1.06);
+}
+
+/* ==========================================
+   Bottom Action Button
+========================================== */
+.Bestsellerfollow-action {
+  margin-top: 36px;
+}
+
+.Bestsellerfollow-followBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 1px solid #e0d8c8;
+  background-color: #ffffff;
+  color: #222222;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.Bestsellerfollow-btnInstaIcon {
+  font-size: 15px;
+  color: #222222;
+  transition: color 0.3s ease;
+}
+
+.Bestsellerfollow-followBtn:hover {
+  background-color: #121212;
+  color: #ffffff;
+  border-color: #121212;
+}
+
+.Bestsellerfollow-followBtn:hover .Bestsellerfollow-btnInstaIcon {
+  color: #ffffff;
+}
+
+/* ==========================================
+   Responsive Adaptations
+========================================== */
+@media (max-width: 768px) {
+  .Bestsellerfollow {
+    padding: 50px 16px;
+  }
+
+  .Bestsellerfollow-navBtn {
+    display: none; /* Hide arrows on touch devices; rely on horizontal swipe */
+  }
+
+  .Bestsellerfollow-card {
+    flex: 0 0 160px;
+    height: 190px;
+  }
+
+  .Bestsellerfollow-action {
+    margin-top: 28px;
+  }
+}

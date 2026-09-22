@@ -30,6 +30,9 @@ import Order from "./Components/Order/Order";
 import AccountDetails from "./Components/AccountDetails/AccountDetails";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import Wishlist from "./Components/Whislist/Wishlist";
+import ShopBestseller from "./Pages/ShopBestseller/ShopBestseller";
+import ExploreCollections from "./Pages/ExploreCollections/ExploreCollections";
+
 
 function App() {
   return (
@@ -88,6 +91,9 @@ function App() {
   />
 
 </Route>
+{/* 2. ADDED SHOPBESTSELLER ROUTE */}
+          <Route path="/shopbestseller" element={<ShopBestseller />} />
+          <Route path="/explorecollections" element={<ExploreCollections/>}/>
           {/* Layout Setup */}
          
         </Routes>

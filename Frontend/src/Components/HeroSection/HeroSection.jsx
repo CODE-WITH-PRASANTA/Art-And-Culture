@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight, FiArrowRight } from 'react-icons/fi';
 import './HeroSection.css';
 
@@ -20,7 +21,9 @@ const slidesData = [
     description:
       'The brass, silver and meenakari our homes reach for first — handmade, hand-finished, kept for years. No haste. No shortcuts.',
     primaryBtnText: 'SHOP BESTSELLERS',
+    primaryBtnLink: '/shopbestseller',
     secondaryBtnText: 'EXPLORE COLLECTIONS',
+    secondaryBtnLink: '/explorecollections', // Link to your ExploreCollections route
   },
   {
     id: '02',
@@ -32,7 +35,9 @@ const slidesData = [
     description:
       'Diyas, thalis, bells and incense — the quiet essentials of the pooja room, cast and finished by hand. Everything your ritual needs.',
     primaryBtnText: 'SHOP ESSENTIALS',
+    primaryBtnLink: '/shopbestseller',
     secondaryBtnText: null,
+    secondaryBtnLink: null,
   },
   {
     id: '03',
@@ -44,7 +49,9 @@ const slidesData = [
     description:
       'Krishna in brass, silver and gold plate — every murti hand-cast and finished, ready for the mandir or the shelf you love most.',
     primaryBtnText: 'SHOP KRISHNA',
-    secondaryBtnText: 'SHOP THIS',
+    primaryBtnLink: '/shopbestseller',
+    secondaryBtnText: 'EXPLORE COLLECTIONS',
+    secondaryBtnLink: '/explorecollections',
   },
   {
     id: '04',
@@ -56,7 +63,9 @@ const slidesData = [
     description:
       "Jaipur's meenakari enamel, set by hand in brass — elephants, peacocks and camels in living colour, each a small heirloom in the making.",
     primaryBtnText: 'SHOP MEENAKARI',
-    secondaryBtnText: 'SHOP THIS',
+    primaryBtnLink: '/shopbestseller',
+    secondaryBtnText: 'EXPLORE COLLECTIONS',
+    secondaryBtnLink: '/explorecollections',
   },
 ];
 
@@ -121,16 +130,23 @@ const HeroSection = () => {
 
               {/* Action Buttons */}
               <div className="HeroSection-actions">
+                {/* Primary Button */}
                 {slide.primaryBtnText && (
-                  <button className="HeroSection-btnPrimary">
-                    <span>{slide.primaryBtnText}</span>
-                    <FiArrowRight className="HeroSection-btnIcon" />
-                  </button>
+                  <Link to={slide.primaryBtnLink || "/shopbestseller"} className="HeroSection-btnLink">
+                    <button className="HeroSection-btnPrimary">
+                      <span>{slide.primaryBtnText}</span>
+                      <FiArrowRight className="HeroSection-btnIcon" />
+                    </button>
+                  </Link>
                 )}
+
+                {/* Secondary Button wrapped in Link to route to ExploreCollections */}
                 {slide.secondaryBtnText && (
-                  <button className="HeroSection-btnSecondary">
-                    {slide.secondaryBtnText}
-                  </button>
+                  <Link to={slide.secondaryBtnLink || "/explorecollections"} className="HeroSection-btnLink">
+                    <button className="HeroSection-btnSecondary">
+                      {slide.secondaryBtnText}
+                    </button>
+                  </Link>
                 )}
               </div>
             </div>
